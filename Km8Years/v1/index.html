@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title> Km8Years </title>
+	<style type="text/css">
+		.head {
+			width: 90px;
+			height: 100px;
+			display: inline-block;
+			z-index: -1;
+			position: relative;
+			top: 15px;
+			left: 44px;
+		}
+		.bg-head {
+			background-image: url("../img/1.png");
+			background-size: cover;
+		}
+		.ufo {
+			width: 189px;
+			height: 86px;
+			display: inline-block;
+		}
+		.bg-ufo {
+			background-image: url("../img/ufo.png");
+			background-size: cover;
+		}
+		.fly-block {
+			display: inline-block;
+			width: 189px;
+		}
+
+		.shake-head {
+			animation: shake 4s infinite alternate;
+			-webkit-animation: shake 4s infinite alternate; /*Safari and Chrome*/
+		}
+		@keyframes shake {
+			0% {
+				transform: rotate(0deg);
+				transform-origin: 50% 120%;
+			}
+			25% {
+				transform: rotate(30deg);
+				transform-origin: 50% 120%;
+			}
+			50% {
+				transform: rotate(0deg);
+				transform-origin: 50% 120%;
+			}
+			75% {
+				transform: rotate(-30deg);
+				transform-origin: 50% 120%;
+			}
+			100% {
+				transform: rotate(0deg);
+				transform-origin: 50% 120%;
+			}
+		}
+		@-webkit-keyframes shake {
+			0% {
+				-webkit-transform: rotate(0deg);
+				-webkit-transform-origin: 50% 120%;
+			}
+			25% {
+				-webkit-transform: rotate(30deg);
+				-webkit-transform-origin: 50% 120%;
+			}
+			50% {
+				-webkit-transform: rotate(0deg);
+				-webkit-transform-origin: 50% 120%;
+			}
+			75% {
+				-webkit-transform: rotate(-30deg);
+				-webkit-transform-origin: 50% 120%;
+			}
+			100% {
+				-webkit-transform: rotate(0deg);
+				-webkit-transform-origin: 50% 120%;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="fly-block">
+	<div class="bg-head head"></div>
+	<div class="bg-ufo ufo"></div>
+</div>
+<!--<link rel="stylesheet" href="8years.css">-->
+<script type="text/javascript" src="../js/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+	$(function (){
+		var i = 1;
+		$('.ufo').click(function () {
+			$('.head').addClass('shake-head');
+				setInterval(function (){
+					i = i + 1;
+					$('.head').css('background-image',' url("../img/' + i + '.png")');
+					if(i == 15) {
+						i = 0;
+					}
+				},2000)
+		});
+	})
+</script>
+</body>
