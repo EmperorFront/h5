@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<p>要使用的图像：</p>
+<img id="tulip" src="../img/1.png" alt="The Tulip" />
+
+<p>画布：</p>
+<canvas id="myCanvas" width="5000" height="3000" style="border:1px solid #d3d3d3;background:#ffffff;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+
+    var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+    var img=document.getElementById("tulip");
+    ctx.drawImage(img,10,10);
+
+</script>
+
+
+<!--<img src="../img/1.png" id="head-img" />-->
+<!--<canvas id="target"></canvas>-->
+<!--<script type="text/javascript">-->
+    <!--var c=document.getElementById("target");-->
+    <!--var ctx=c.getContext("2d");-->
+    <!--var img=document.getElementById("head-img");-->
+    <!--ctx.drawImage(img,10,10);-->
+
+<!--//    var num=0;-->
+<!--//    var canvas=document.getElementById("target");-->
+<!--//    ctx=canvas.getContext('2d');-->
+<!--//    draw();-->
+<!--//    function draw()-->
+<!--//    {-->
+<!--////        num+=1;-->
+<!--////        if(num==60)-->
+<!--////            num=1;-->
+<!--////        ctx.clearRect(0,0,canvas.width,canvas.height);-->
+<!--////        ctx.save();-->
+<!--//////将坐标原点平移到当前图片所在的位置,width,height分别为图片的坐标,这个可以根据自己的需要进行更改-->
+<!--////        ctx.translate(width,height);-->
+<!--//////将坐标原点平移到要中心点，这里是以图片的底部为中心点进行旋转13,62为图片本身的中心点-->
+<!--////        ctx.translate(13,62);-->
+<!--//////每次旋转6度-->
+<!--////        ctx.rotate(num*(Math.PI/30));-->
+<!--////        ctx.translate(-13,-62);-->
+<!--////因为是以图片的底部作为中心点，所以这时候的图片位置在画布的原点上-->
+<!--//        var img=document.getElementById("head-img");-->
+<!--//        ctx.drawImage(img,0,0,270,135);-->
+<!--////        ctx.restore();-->
+<!--//    }-->
+<!--</script>-->
+</body>
+</html>
