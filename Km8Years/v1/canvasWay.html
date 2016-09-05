@@ -6,54 +6,140 @@
 </head>
 <body>
 <p>要使用的图像：</p>
-<img id="tulip" src="../img/1.png" alt="The Tulip" />
+<img id="tulip" src="../img/1.png" alt="The Tulip" width="100" />
 
 <p>画布：</p>
-<canvas id="myCanvas" width="5000" height="3000" style="border:1px solid #d3d3d3;background:#ffffff;">
+<canvas id="canvas" width="500" height="300" style="border:1px solid #d3d3d3;background:#ffffff;">
     Your browser does not support the HTML5 canvas tag.
 </canvas>
 
+<script src="../js/jquery-3.0.0.js"></script>
 <script>
 
-    var c=document.getElementById("myCanvas");
-    var ctx=c.getContext("2d");
-    var img=document.getElementById("tulip");
-    ctx.drawImage(img,10,10);
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var km8years = {
+        //画面所需要的资源及参量
+        source : {
+            img : [
+                '../img/1.png',
+                '../img/ufo.png'
+            ],
+            shakeHeadAngle : -30,
+        },
+        head: {
+            angle : 0,
+            //头部摆动方向，1时为逆时针，0为顺时针。
+            direction : 1,
+            drawShakeHead : function () {
+                ctx.clearRect(0, 0, 500, 500);
+                ctx.save();
+                ctx.translate(170, 190);//中心坐标
+                var m = 0 - (km8years.head.angle * Math.PI / 180);
+                if(km8years.head.direction) {
+                    km8years.head.angle++;
+                } else {
+                    km8years.head.angle--;
+                }
+                if (Math.abs(km8years.head.angle) == Math.abs(km8years.source.shakeHeadAngle)) {
+                    km8years.head.direction = (km8years.head.direction > 0 ? 0 : 1);
+                }
+                ctx.rotate(m);
+                ctx.drawImage(km8years.source.imgSour[0], -90, -185, 180, 210);
+                ctx.restore();
+                km8years.ufo.draw(km8years.source.imgSour[1]);
+                raf = window.requestAnimationFrame(km8years.head.drawShakeHead);
+            }
+        },
+         ufo : {
+            draw: function(back) {
+                ctx.save();
+                ctx.drawImage(back,70,120,200,200);
+                ctx.restore();
+            }
+         },
+        init : function() {
+            //构建并初始化一些程序参量
+            km8years.head.angle = km8years.source.shakeHeadAngle;
+            //加载所有资源
+            km8years.source.imgSour = [];
+            for(var i = 0; i < km8years.source.img.length; i++) {
+                var img = new Image();
+                img.src = km8years.source.img[i];
+                img.onload = function() {
+                    km8years.source.imgSour.push(this);
+                    if(km8years.source.imgSour.length == km8years.source.img.length) {
+                        window.requestAnimationFrame(km8years.head.drawShakeHead);
+                    }
+                };
+            }
+        }
+    }
+    $(function() {
+        km8years.init();
+    });
+
+
+
+
+
+
+//    function clear() {
+//        ctx.fillStyle = 'rgba(255,255,255,0.3)';
+//        ctx.fillRect(0,0,canvas.width,canvas.height);
+//    }
+//
+//    function draw() {
+//        clear();
+//        head.draw();
+//        head.x += ball.vx;
+//        head.y += ball.vy;
+//
+//        if (head.y + head.vy > canvas.height || ball.y + ball.vy < 0) {
+//            head.vy = -head.vy;
+//        }
+//        if (head.x + head.vx > canvas.width || ball.x + ball.vx < 0) {
+//            head.vx = -head.vx;
+//        }
+//
+//        raf = window.requestAnimationFrame(draw);
+//    }
+//
+//    canvas.addEventListener('mousemove', function(e){
+//        if (!running) {
+//            clear();
+//            head.x = e.clientX;
+//            head.y = e.clientY;
+//            head.draw();
+//        }
+//    });
+//
+//    canvas.addEventListener("click",function(e){
+//        if (!running) {
+//            raf = window.requestAnimationFrame(draw);
+//            running = true;
+//        }
+//    });
+//
+//    canvas.addEventListener("mouseout",function(e){
+//        window.cancelAnimationFrame(raf);
+//        running = false;
+//    });
 
 </script>
-
-
-<!--<img src="../img/1.png" id="head-img" />-->
-<!--<canvas id="target"></canvas>-->
-<!--<script type="text/javascript">-->
-    <!--var c=document.getElementById("target");-->
-    <!--var ctx=c.getContext("2d");-->
-    <!--var img=document.getElementById("head-img");-->
-    <!--ctx.drawImage(img,10,10);-->
-
-<!--//    var num=0;-->
-<!--//    var canvas=document.getElementById("target");-->
-<!--//    ctx=canvas.getContext('2d');-->
-<!--//    draw();-->
-<!--//    function draw()-->
-<!--//    {-->
-<!--////        num+=1;-->
-<!--////        if(num==60)-->
-<!--////            num=1;-->
-<!--////        ctx.clearRect(0,0,canvas.width,canvas.height);-->
-<!--////        ctx.save();-->
-<!--//////将坐标原点平移到当前图片所在的位置,width,height分别为图片的坐标,这个可以根据自己的需要进行更改-->
-<!--////        ctx.translate(width,height);-->
-<!--//////将坐标原点平移到要中心点，这里是以图片的底部为中心点进行旋转13,62为图片本身的中心点-->
-<!--////        ctx.translate(13,62);-->
-<!--//////每次旋转6度-->
-<!--////        ctx.rotate(num*(Math.PI/30));-->
-<!--////        ctx.translate(-13,-62);-->
-<!--////因为是以图片的底部作为中心点，所以这时候的图片位置在画布的原点上-->
-<!--//        var img=document.getElementById("head-img");-->
-<!--//        ctx.drawImage(img,0,0,270,135);-->
-<!--////        ctx.restore();-->
-<!--//    }-->
-<!--</script>-->
+<script type="text/javascript">
+    //tools
+    var getMousePosition = function() {
+        canvas.addEventListener("click", function __handler__(evt) {
+            var x = evt.clientX;
+            var y = evt.clientY;
+            var rect = canvas.getBoundingClientRect();
+            x -= rect.left;
+            y -= rect.top;
+            console.log(x, y); // (x, y) 就是鼠标在 canvas 单击时的坐标
+        });
+    }
+    getMousePosition();
+</script>
 </body>
 </html>
