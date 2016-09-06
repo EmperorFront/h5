@@ -9,7 +9,7 @@
 <img id="tulip" src="../img/1.png" alt="The Tulip" width="100" />
 
 <p>画布：</p>
-<canvas id="canvas" width="500" height="300" style="border:1px solid #d3d3d3;background:#ffffff;">
+<canvas id="canvas" width="1000" height="800" style="border:1px solid #d3d3d3;background:#ffffff;">
     Your browser does not support the HTML5 canvas tag.
 </canvas>
 
@@ -26,41 +26,87 @@
                 '../img/ufo.png'
             ],
             shakeHeadAngle : -30,
+            offset : [0,0],
+            //头部和飞船相对值
+            border : [270, 260]
         },
-        head: {
+        draw : function(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+//            for(var i = 0; i < 2; i++) {
+//                km8years.user.drawUser([]);
+//            }
+            km8years.user.drawUser();
+            raf = window.requestAnimationFrame(km8years.draw);
+        },
+        user : {
             angle : 0,
             //头部摆动方向，1时为逆时针，0为顺时针。
             direction : 1,
-            drawShakeHead : function () {
-                ctx.clearRect(0, 0, 500, 500);
+            drawUser : function() {
                 ctx.save();
-                ctx.translate(170, 190);//中心坐标
-                var m = 0 - (km8years.head.angle * Math.PI / 180);
-                if(km8years.head.direction) {
-                    km8years.head.angle++;
+                ctx.translate(120 + km8years.source.offset[0], 195 + km8years.source.offset[1]);//中心坐标
+                if(km8years.user.direction) {
+                    km8years.user.angle++;
                 } else {
-                    km8years.head.angle--;
+                    km8years.user.angle--;
                 }
-                if (Math.abs(km8years.head.angle) == Math.abs(km8years.source.shakeHeadAngle)) {
-                    km8years.head.direction = (km8years.head.direction > 0 ? 0 : 1);
+                if (Math.abs(km8years.user.angle) == Math.abs(km8years.source.shakeHeadAngle)) {
+                    km8years.user.direction = (km8years.user.direction > 0 ? 0 : 1);
                 }
-                ctx.rotate(m);
-                ctx.drawImage(km8years.source.imgSour[0], -90, -185, 180, 210);
+                ctx.rotate(0 - (km8years.user.angle * Math.PI / 180));
+                ctx.drawImage(km8years.source.imgSour[0], -90, -190, 180, 210);
+                ctx.fillRect(-2,-2,2,2);
                 ctx.restore();
-                km8years.ufo.draw(km8years.source.imgSour[1]);
-                raf = window.requestAnimationFrame(km8years.head.drawShakeHead);
+                km8years.user.ufo.draw(km8years.source.imgSour[1]);
+                km8years.move.borderDetect();
+                km8years.move.way();
+            },
+            ufo : {
+                draw : function(back) {
+                    ctx.save();
+                    ctx.drawImage(back,km8years.source.offset[0] + 20, 120 + km8years.source.offset[1],200,200);
+                    ctx.restore();
+                }
             }
         },
-         ufo : {
-            draw: function(back) {
-                ctx.save();
-                ctx.drawImage(back,70,120,200,200);
-                ctx.restore();
+        move : {
+            //x，y是否正向增加，否则为反向
+            xPluse : 1,
+            yPluse : 1,
+            way : function() {
+                if(km8years.move.xPluse){
+                    km8years.source.offset[0]++;
+                } else {
+                    km8years.source.offset[0]--;
+                }
+                if(km8years.move.yPluse){
+                    km8years.source.offset[1]++;
+                } else {
+                    km8years.source.offset[1]--;
+                }
+            },
+            borderDetect : function() {
+                switch(true)
+                {   //碰触上下边界则y方向翻转
+                    case km8years.source.offset[1] < 0:
+                        km8years.move.yPluse = 1;
+                        break;
+                    case km8years.source.offset[1] > canvas.height - km8years.source.border[1]:
+                        km8years.move.yPluse = 0;
+                        break;
+                    //碰触左右边界则x方向翻转
+                    case km8years.source.offset[0] < 0:
+                        km8years.move.xPluse = 1;
+                        break;
+                    case km8years.source.offset[0] > canvas.width - km8years.source.border[0]:
+                        km8years.move.xPluse = 0;
+                        break;
+                }
             }
-         },
+        },
         init : function() {
             //构建并初始化一些程序参量
-            km8years.head.angle = km8years.source.shakeHeadAngle;
+            km8years.user.angle = km8years.source.shakeHeadAngle;
             //加载所有资源
             km8years.source.imgSour = [];
             for(var i = 0; i < km8years.source.img.length; i++) {
@@ -69,7 +115,7 @@
                 img.onload = function() {
                     km8years.source.imgSour.push(this);
                     if(km8years.source.imgSour.length == km8years.source.img.length) {
-                        window.requestAnimationFrame(km8years.head.drawShakeHead);
+                        window.requestAnimationFrame(km8years.draw);
                     }
                 };
             }
@@ -84,47 +130,47 @@
 
 
 
-//    function clear() {
-//        ctx.fillStyle = 'rgba(255,255,255,0.3)';
-//        ctx.fillRect(0,0,canvas.width,canvas.height);
-//    }
-//
-//    function draw() {
-//        clear();
-//        head.draw();
-//        head.x += ball.vx;
-//        head.y += ball.vy;
-//
-//        if (head.y + head.vy > canvas.height || ball.y + ball.vy < 0) {
-//            head.vy = -head.vy;
-//        }
-//        if (head.x + head.vx > canvas.width || ball.x + ball.vx < 0) {
-//            head.vx = -head.vx;
-//        }
-//
-//        raf = window.requestAnimationFrame(draw);
-//    }
-//
-//    canvas.addEventListener('mousemove', function(e){
-//        if (!running) {
-//            clear();
-//            head.x = e.clientX;
-//            head.y = e.clientY;
-//            head.draw();
-//        }
-//    });
-//
-//    canvas.addEventListener("click",function(e){
-//        if (!running) {
-//            raf = window.requestAnimationFrame(draw);
-//            running = true;
-//        }
-//    });
-//
-//    canvas.addEventListener("mouseout",function(e){
-//        window.cancelAnimationFrame(raf);
-//        running = false;
-//    });
+    //    function clear() {
+    //        ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    //        ctx.fillRect(0,0,canvas.width,canvas.height);
+    //    }
+    //
+    //    function draw() {
+    //        clear();
+    //        head.draw();
+    //        head.x += ball.vx;
+    //        head.y += ball.vy;
+    //
+    //        if (head.y + head.vy > canvas.height || ball.y + ball.vy < 0) {
+    //            head.vy = -head.vy;
+    //        }
+    //        if (head.x + head.vx > canvas.width || ball.x + ball.vx < 0) {
+    //            head.vx = -head.vx;
+    //        }
+    //
+    //        raf = window.requestAnimationFrame(draw);
+    //    }
+    //
+    //    canvas.addEventListener('mousemove', function(e){
+    //        if (!running) {
+    //            clear();
+    //            head.x = e.clientX;
+    //            head.y = e.clientY;
+    //            head.draw();
+    //        }
+    //    });
+    //
+    //    canvas.addEventListener("click",function(e){
+    //        if (!running) {
+    //            raf = window.requestAnimationFrame(draw);
+    //            running = true;
+    //        }
+    //    });
+    //
+    //    canvas.addEventListener("mouseout",function(e){
+    //        window.cancelAnimationFrame(raf);
+    //        running = false;
+    //    });
 
 </script>
 <script type="text/javascript">
