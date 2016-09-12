@@ -144,19 +144,21 @@
             km8years.user.angle = km8years.source.shakeHeadAngle;
             //加载所有资源
             km8years.globalObjects.imgSour = [];
-            for(var i = 0; i < km8years.source.img.length; i++) {
-                var img = new Image();
-                img.src = km8years.source.img[i];
-                img.onload = function() {
-//                    if(this.src.substr(5) == km8years.source.img[km8years.globalObjects.imgSour.length].substr(5)) {
+            var i = 0;
+            lodeImg();
+            function lodeImg() {
+                if( i <= km8years.source.img.length) {
+                    var img = new Image();
+                    img.src = km8years.source.img[i];
+                    img.onload = function() {
                         km8years.globalObjects.imgSour.push(this);
-//                    }else {
-//                        img.onload();
-//                    }
-                    if(km8years.globalObjects.imgSour.length == km8years.source.img.length) {
-                        window.requestAnimationFrame(km8years.draw);
-                    }
-                };
+                        if(km8years.globalObjects.imgSour.length == km8years.source.img.length) {
+                            window.requestAnimationFrame(km8years.draw);
+                        }
+                        lodeImg();
+                    };
+                    i++;
+                }
             }
         }
     }
