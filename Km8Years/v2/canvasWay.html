@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  style="width:100%; height: 100%">
 <head>
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>
-<p>要使用的图像：</p>
-<img id="tulip" src="../img/1.png" alt="The Tulip" width="100" />
-
-<p>画布：</p>
-<canvas id="canvas" width="1000" height="800" style="border:1px solid #d3d3d3;background:#ffffff;">
+<body style="width:100%; height: 100%">
+<canvas id="canvas" width="100%" height="100%" style="border:1px solid #d3d3d3;background:#ffffff;">
     Your browser does not support the HTML5 canvas tag.
 </canvas>
 
@@ -24,20 +20,29 @@
             //所需加载的图像资源
             img : [
                 '../img/1.png',
-                '../img/ufo.png',
-//                '../img/starBg.png'
+                '../img/ufo02.png',
+                '../img/starBg.png'
             ],
             shakeHeadAngle : -30,
             offset : [0,0],
             //头部和飞船相对值
-            border : [270, 260]
+            border : [270, 260],
+            //像素计，每屏幕展示的bg的宽度
+            bgShowPerScreen : 2000
         },
         //程序需要用到的全局变量
         globalObjects : {
             //加载的全部图像资源
             imgSour : [],
             //用户对象
-            user : []
+            user : [],
+            //bg position
+            bgPosition : [0,0],
+            //屏幕尺寸
+            canvasData : {
+                width : $(window).width(),
+                height :  $(window).height()
+            }
         },
         draw : function(){
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -52,6 +57,8 @@
             //头部摆动方向，1时为逆时针，0为顺时针。
             direction : 1,
             drawUser : function() {
+                km8years.bgMove(km8years.globalObjects.imgSour[2]);
+                km8years.user.ufo.draw(km8years.globalObjects.imgSour[1]);
                 ctx.save();
                 ctx.translate(120 + km8years.source.offset[0], 195 + km8years.source.offset[1]);//中心坐标
                 if(km8years.user.direction) {
@@ -63,20 +70,39 @@
                     km8years.user.direction = (km8years.user.direction > 0 ? 0 : 1);
                 }
                 ctx.rotate(0 - (km8years.user.angle * Math.PI / 180));
-                ctx.drawImage(km8years.globalObjects.imgSour[0], -90, -190, 180, 210);
+                ctx.drawImage(km8years.globalObjects.imgSour[0], -45, -95, 90, 105);
                 ctx.fillRect(-2,-2,2,2);
                 ctx.restore();
-                km8years.user.ufo.draw(km8years.globalObjects.imgSour[1]);
                 km8years.move.borderDetect();
                 km8years.move.way();
             },
             ufo : {
                 draw : function(back) {
                     ctx.save();
-                    ctx.drawImage(back,km8years.source.offset[0] + 20, 120 + km8years.source.offset[1],200,200);
+                    ctx.drawImage(back,km8years.source.offset[0] + 20, 115 + km8years.source.offset[1],200,200);
                     ctx.restore();
                 }
             }
+        },
+        bgMove : function(back) {
+            //x轴的移动
+            km8years.globalObjects.bgPosition[0] += 2;
+            if (km8years.globalObjects.bgPosition[0] >= 12000) {
+                km8years.globalObjects.bgPosition[0] = 12000;
+            }
+            //y轴的容错
+            km8years.globalObjects.bgPosition[1] = km8years.source.bgShowPerScreen / 4 - (km8years.globalObjects.canvasData.height * km8years.source.bgShowPerScreen / km8years.globalObjects.canvasData.width - 1000) / 2;
+
+            ctx.drawImage(back,
+                    km8years.globalObjects.bgPosition[0], km8years.globalObjects.bgPosition[1],
+                    km8years.source.bgShowPerScreen, km8years.source.bgShowPerScreen - 2*km8years.globalObjects.bgPosition[1],
+                    0, 0,
+                    km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height
+//                    km8years.globalObjects.bgPosition[0], 790,
+//                    km8years.source.bgShowPerScreen, 1200,
+//                    0, 0,
+//                    km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height
+            );
         },
         move : {
             //x，y是否正向增加，否则为反向
@@ -122,7 +148,11 @@
                 var img = new Image();
                 img.src = km8years.source.img[i];
                 img.onload = function() {
-                    km8years.globalObjects.imgSour.push(this);
+//                    if(this.src.substr(5) == km8years.source.img[km8years.globalObjects.imgSour.length].substr(5)) {
+                        km8years.globalObjects.imgSour.push(this);
+//                    }else {
+//                        img.onload();
+//                    }
                     if(km8years.globalObjects.imgSour.length == km8years.source.img.length) {
                         window.requestAnimationFrame(km8years.draw);
                     }
@@ -131,6 +161,8 @@
         }
     }
     $(function() {
+        $('#canvas').attr("width",km8years.globalObjects.canvasData.width);
+        $('#canvas').attr("height",km8years.globalObjects.canvasData.height);
         km8years.init();
     });
 
