@@ -6,7 +6,7 @@
 </head>
 <body style="width:100%; height: 100%">
 <canvas id="canvas" width="100%" height="100%" style="border:1px solid #d3d3d3;background:#ffffff;">
-    Your browser does not support the HTML5 canvas tag.
+    换个浏览器试试呗~.
 </canvas>
 
 <script src="../js/jquery-3.0.0.js"></script>
@@ -21,14 +21,27 @@
             img : [
                 '../img/1.png',
                 '../img/ufo02.png',
-                '../img/starBg.png'
+//                '../img/starBg.png',
+                '../img/starBg-big.png',
+                '../img/info02.png'
             ],
             shakeHeadAngle : -30,
             offset : [0,0],
             //头部和飞船相对值
             border : [270, 260],
             //像素计，每屏幕展示的bg的宽度
-            bgShowPerScreen : 2000
+            bgShowPerScreen : 2000,
+            //文字对话框的显示位置和背景图中的xy轴值,二维数组，显示位置的坐标
+            infoPosition : [
+                //第一屏相对于核心内容区域的坐标
+                [827,356],
+                [952,238],
+                [790,409],
+                [930,282],
+                [871,441],
+            ],
+            //bg移动速度
+            bgSpeed : 40
         },
         //程序需要用到的全局变量
         globalObjects : {
@@ -42,7 +55,11 @@
             canvasData : {
                 width : $(window).width(),
                 height :  $(window).height()
-            }
+            },
+            //用户数据存入这一数组。
+            infoCopywriter : [],
+            //屏幕暂停符，用于播放文字动画等。
+            stopFlag : 0
         },
         draw : function(){
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -86,11 +103,23 @@
         },
         bgMove : function(back) {
             //x轴的移动
-            km8years.globalObjects.bgPosition[0] += 2;
-            if (km8years.globalObjects.bgPosition[0] >= 12000) {
+            km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
+            //末位终止
+            if(km8years.globalObjects.bgPosition[0] >= 12000) {
                 km8years.globalObjects.bgPosition[0] = 12000;
             }
-            //y轴的容错
+            //每一屏终止一段时间展示文字
+            if(km8years.globalObjects.bgPosition[0] % 2000 == 0 && km8years.globalObjects.bgPosition[0] < 12000) {
+                km8years.globalObjects.bgPosition[0] -= km8years.source.bgSpeed;
+                km8years.globalObjects.stopFlag ++;
+
+            }
+            //屏幕中止20帧
+            if(km8years.globalObjects.stopFlag == 150) {
+                km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
+                km8years.globalObjects.stopFlag = 0;
+            }
+            //y轴的容错,这个值是y轴不显示的上半部分。
             km8years.globalObjects.bgPosition[1] = km8years.source.bgShowPerScreen / 4 - (km8years.globalObjects.canvasData.height * km8years.source.bgShowPerScreen / km8years.globalObjects.canvasData.width - 1000) / 2;
 
             ctx.drawImage(back,
@@ -98,11 +127,27 @@
                     km8years.source.bgShowPerScreen, km8years.source.bgShowPerScreen - 2*km8years.globalObjects.bgPosition[1],
                     0, 0,
                     km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height
-//                    km8years.globalObjects.bgPosition[0], 790,
-//                    km8years.source.bgShowPerScreen, 1200,
-//                    0, 0,
-//                    km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height
             );
+
+            if(km8years.globalObjects.stopFlag) {
+                drawInfo(km8years.source.infoPosition[parseInt((km8years.globalObjects.bgPosition[0] - 2000) / 2000)]);
+            }
+            //接受一个数组作为相对于内容区的定位。
+            function drawInfo (position){
+                //剪辑区域
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(position[0], 500 - km8years.globalObjects.bgPosition[1] + position[1] , 878, km8years.globalObjects.stopFlag == 0 ? 405 : km8years.globalObjects.stopFlag * 4 );
+                ctx.clip();
+                ctx.drawImage(
+                    km8years.globalObjects.imgSour[3],
+                    0,0,
+                    878, km8years.globalObjects.stopFlag * 4,
+                    position[0], 500 - km8years.globalObjects.bgPosition[1] + position[1] ,
+                    878, km8years.globalObjects.stopFlag == 0 ? 405 : km8years.globalObjects.stopFlag * 4
+                );
+                ctx.restore();
+            }
         },
         move : {
             //x，y是否正向增加，否则为反向
