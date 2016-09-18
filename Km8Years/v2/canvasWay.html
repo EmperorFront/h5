@@ -21,9 +21,9 @@
             img : [
                 '../img/1.png',
                 '../img/ufo02.png',
-//                '../img/starBg.png',
-                '../img/starBg-big.png',
-                '../img/info02.png'
+                '../img/starBg.png',
+//                '../img/starBg-big.png',
+                '../img/info.png'
             ],
             shakeHeadAngle : -30,
             offset : [0,0],
@@ -40,8 +40,15 @@
                 [930,282],
                 [871,441],
             ],
+            infotext : [
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅111111111111111111111']],
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅112222222222']],
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅11333333333333']],
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅11154444444444444444441']],
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅155555555555555']],
+            ],
             //bg移动速度
-            bgSpeed : 20
+            bgSpeed : 40
         },
         //程序需要用到的全局变量
         globalObjects : {
@@ -59,7 +66,9 @@
             //用户数据存入这一数组。
             infoCopywriter : [],
             //屏幕暂停符，用于播放文字动画等。
-            stopFlag : 0
+            stopFlag : 0,
+            //屏幕播放到哪一个对话框球体了
+            currentText : 0
         },
         draw : function(){
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -114,10 +123,11 @@
                 km8years.globalObjects.stopFlag ++;
 
             }
-            //屏幕中止20帧
+            //屏幕中止150帧
             if(km8years.globalObjects.stopFlag == 150) {
                 km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
                 km8years.globalObjects.stopFlag = 0;
+                km8years.globalObjects.currentText ++;
             }
             //y轴的容错,这个值是y轴不显示的上半部分。
             km8years.globalObjects.bgPosition[1] = km8years.source.bgShowPerScreen / 4 - (km8years.globalObjects.canvasData.height * km8years.source.bgShowPerScreen / km8years.globalObjects.canvasData.width - 1000) / 2;
@@ -146,6 +156,16 @@
                     position[0], 500 - km8years.globalObjects.bgPosition[1] + position[1] ,
                     878, km8years.globalObjects.stopFlag == 0 ? 405 : km8years.globalObjects.stopFlag * 4
                 );
+
+                //1. 使用`font`设置字体。
+                ctx.font = "26px serif";
+                //2. 使用`fillStyle`设置字体颜色。
+                ctx.fillStyle = "#00AAAA";
+                //3. 使用`fillText()`方法显示字体。
+                for(var i = 0; i < km8years.source.infotext[km8years.globalObjects.currentText].length; i++) {
+                    ctx.fillText(km8years.source.infotext[km8years.globalObjects.currentText][i], position[0] + 75, 500 - km8years.globalObjects.bgPosition[1] + position[1] + ( i + 1 ) * 80 + 80);
+                }
+
                 ctx.restore();
             }
         },
@@ -187,6 +207,8 @@
         init : function() {
             //构建并初始化一些程序参量
             km8years.user.angle = km8years.source.shakeHeadAngle;
+            //初始化弹窗位置数组，改变为相对于屏幕的百分比定位
+
             //加载所有资源
             km8years.globalObjects.imgSour = [];
             var i = 0;
