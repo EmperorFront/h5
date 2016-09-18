@@ -38,7 +38,7 @@
                 [952,238],
                 [790,409],
                 [930,282],
-                [871,441],
+                [871,441]
             ],
             infotext : [
                 [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅111111111111111111111']],
@@ -48,7 +48,7 @@
                 [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅155555555555555']],
             ],
             //bg移动速度
-            bgSpeed : 20
+            bgSpeed : 40
         },
         //程序需要用到的全局变量
         globalObjects : {
@@ -63,8 +63,8 @@
                 width : $(window).width(),
                 height :  $(window).height()
             },
-            //用户数据存入这一数组。
-            infoCopywriter : [],
+            //缩放适配后的位置
+            adaptInfoPosition : [],
             //屏幕暂停符，用于播放文字动画等。
             stopFlag : 0,
             //屏幕播放到哪一个对话框球体了
@@ -129,41 +129,44 @@
                 km8years.globalObjects.stopFlag = 0;
                 km8years.globalObjects.currentText ++;
             }
-            //y轴的容错,这个值是y轴不显示的上半部分。
-            km8years.globalObjects.bgPosition[1] = km8years.source.bgShowPerScreen / 4 - (km8years.globalObjects.canvasData.height * km8years.source.bgShowPerScreen / km8years.globalObjects.canvasData.width - 1000) / 2;
 
+            //画背景图
             ctx.drawImage(back,
                     km8years.globalObjects.bgPosition[0], km8years.globalObjects.bgPosition[1],
                     km8years.source.bgShowPerScreen, km8years.source.bgShowPerScreen - 2*km8years.globalObjects.bgPosition[1],
                     0, 0,
                     km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height
             );
-
+            //画弹窗图
             if(km8years.globalObjects.stopFlag) {
-                drawInfo(km8years.source.infoPosition[parseInt((km8years.globalObjects.bgPosition[0] - 2000) / 2000)]);
+                drawInfo(km8years.globalObjects.adaptInfoPosition[parseInt((km8years.globalObjects.bgPosition[0] - 2000) / 2000)]);
             }
-            //接受一个数组作为相对于内容区的定位。
+            //接受一个数组作为相对于内容区的定位,位置应当是设计稿核心内容区的坐标
             function drawInfo (position){
+
                 //剪辑区域
                 ctx.save();
                 ctx.beginPath();
-                ctx.rect(position[0], 500 - km8years.globalObjects.bgPosition[1] + position[1] , 878, km8years.globalObjects.stopFlag == 0 ? 405 : km8years.globalObjects.stopFlag * 4 );
+                ctx.rect(
+                        position[0], position[1] ,
+                        878, km8years.globalObjects.stopFlag == 0 ? 405 : km8years.globalObjects.stopFlag * 4
+                );
                 ctx.clip();
                 ctx.drawImage(
                     km8years.globalObjects.imgSour[3],
                     0,0,
                     878, km8years.globalObjects.stopFlag * 4,
-                    position[0], 500 - km8years.globalObjects.bgPosition[1] + position[1] ,
+                    position[0], position[1] ,
                     878, km8years.globalObjects.stopFlag == 0 ? 405 : km8years.globalObjects.stopFlag * 4
                 );
-
+                //写出预设字
                 //1. 使用`font`设置字体。
                 ctx.font = "26px serif";
                 //2. 使用`fillStyle`设置字体颜色。
                 ctx.fillStyle = "#00AAAA";
                 //3. 使用`fillText()`方法显示字体。
                 for(var i = 0; i < km8years.source.infotext[km8years.globalObjects.currentText].length; i++) {
-                    ctx.fillText(km8years.source.infotext[km8years.globalObjects.currentText][i], position[0] + 75, 500 - km8years.globalObjects.bgPosition[1] + position[1] + ( i + 1 ) * 80 + 80);
+                    ctx.fillText(km8years.source.infotext[km8years.globalObjects.currentText][i], position[0] + 75, position[1] + ( i + 1 ) * 80 + 80);
                 }
 
                 ctx.restore();
@@ -206,10 +209,20 @@
         },
         init : function() {
             //构建并初始化一些程序参量
+                //角度赋值
             km8years.user.angle = km8years.source.shakeHeadAngle;
-            //初始化弹窗位置数组，改变为相对于屏幕的百分比定位
-
-            //加载所有资源
+                //y轴的容错,这个值是y轴不显示的上半部分。
+            km8years.globalObjects.bgPosition[1] = km8years.source.bgShowPerScreen / 4 - (km8years.globalObjects.canvasData.height * km8years.source.bgShowPerScreen / km8years.globalObjects.canvasData.width - 1000) / 2;
+                //初始化弹窗位置数组，改变为相对于屏幕的百分比定位
+            for(var i = 0; i < km8years.source.infoPosition.length; i++) {
+                km8years.globalObjects.adaptInfoPosition.push(
+                        [
+                            parseInt(km8years.globalObjects.canvasData.width * km8years.source.infoPosition[i][0] / km8years.source.bgShowPerScreen),
+                            parseInt(km8years.globalObjects.canvasData.height * km8years.source.infoPosition[i][1] / 1000)
+                        ]
+                );
+            }
+                //加载所有资源
             km8years.globalObjects.imgSour = [];
             var i = 0;
             lodeImg();
