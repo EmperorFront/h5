@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en"  style="width:100%; height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body style="width:100%; height: 100%; margin: 0">
+<canvas id="canvas" width="100%" height="100%" style="border:none">
+    换个浏览器试试呗~.
+</canvas>
+
+<script src="../js/jquery-3.0.0.js"></script>
+<script>
+
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var km8years = {
+        //画面所需要配置的资源及参量
+        source : {
+            //所需加载的图像资源
+            img : [
+                '../img/1.png',
+                '../img/ufo02.png',
+//                '../img/starBg.png',
+//                '../img/starBg-big.png',
+                '../img/starBgCenter.png',
+                '../img/info.png'
+            ],
+            shakeHeadAngle : -30,
+            offset : [0,0],
+            //头部和飞船相对值
+            border : [270, 260],
+            //像素计，每屏幕展示的bg的宽度
+            bgShowPerScreen : 2000,
+            //文字对话框的显示位置和背景图中的xy轴值,二维数组，显示位置的坐标
+            infoPosition : [
+                //第一屏相对于核心内容区域的坐标
+                [827,356],
+                [952,238],
+                [790,409],
+                [930,282],
+                [871,441]
+            ],
+            infotext : [
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅111111111111111111111']],
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅112222222222']],
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅11333333333333']],
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅11154444444444444444441']],
+                [['皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好帅皇叔好'],['帅皇叔好帅皇叔好帅155555555555555']],
+            ],
+            //bg移动速度
+            bgSpeed : 40
+        },
+        //程序需要用到的全局变量
+        globalObjects : {
+            //加载的全部图像资源
+            imgSour : [],
+            //用户对象
+            user : [],
+            //bg position
+            bgPosition : [0,0],
+            //屏幕尺寸
+            canvasData : {
+                width : $(window).width(),
+                height :  $(window).height()
+            },
+            //缩放适配后的位置
+            adaptInfoPosition : [],
+            //屏幕暂停符，用于播放文字动画等。
+            stopFlag : 0,
+            //屏幕播放到哪一个对话框球体了
+            currentText : 0
+        },
+        draw : function(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+//            for(var i = 0; i < 2; i++) {
+//                km8years.user.drawUser([]);
+//            }
+            km8years.user.drawUser();
+            raf = window.requestAnimationFrame(km8years.draw);
+        },
+        user : {
+            angle : 0,
+            //头部摆动方向，1时为逆时针，0为顺时针。
+            direction : 1,
+            drawUser : function() {
+                km8years.bgMove(km8years.globalObjects.imgSour[2]);
+                km8years.user.ufo.draw(km8years.globalObjects.imgSour[1]);
+                ctx.save();
+                ctx.translate(120 + km8years.source.offset[0], 195 + km8years.source.offset[1]);//中心坐标
+                if(km8years.user.direction) {
+                    km8years.user.angle++;
+                } else {
+                    km8years.user.angle--;
+                }
+                if (Math.abs(km8years.user.angle) == Math.abs(km8years.source.shakeHeadAngle)) {
+                    km8years.user.direction = (km8years.user.direction > 0 ? 0 : 1);
+                }
+                ctx.rotate(0 - (km8years.user.angle * Math.PI / 180));
+                ctx.drawImage(km8years.globalObjects.imgSour[0], -45, -95, 90, 105);
+                ctx.fillRect(-2,-2,2,2);
+                ctx.restore();
+                km8years.move.borderDetect();
+                km8years.move.way();
+            },
+            ufo : {
+                draw : function(back) {
+                    ctx.save();
+                    ctx.drawImage(back,km8years.source.offset[0] + 20, 115 + km8years.source.offset[1],200,200);
+                    ctx.restore();
+                }
+            }
+        },
+        bgMove : function(back) {
+            //x轴的移动
+            km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
+            //末位终止
+            if(km8years.globalObjects.bgPosition[0] >= 12000) {
+                km8years.globalObjects.bgPosition[0] = 12000;
+            }
+            //每一屏终止一段时间展示文字
+            if(km8years.globalObjects.bgPosition[0] % 2000 == 0 && km8years.globalObjects.bgPosition[0] < 12000) {
+                km8years.globalObjects.bgPosition[0] -= km8years.source.bgSpeed;
+                km8years.globalObjects.stopFlag ++;
+
+            }
+            //屏幕中止150帧
+            if(km8years.globalObjects.stopFlag == 150) {
+                km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
+                km8years.globalObjects.stopFlag = 0;
+                km8years.globalObjects.currentText ++;
+            }
+
+            //画背景图
+            ctx.fillStyle = '#060b29'
+            ctx.fillRect(0, 0, km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height);
+            ctx.drawImage(back,
+                    km8years.globalObjects.bgPosition[0], 0,
+                    km8years.source.bgShowPerScreen, 1000,
+                    0, (km8years.globalObjects.canvasData.height - km8years.globalObjects.canvasData.width/2) / 2,
+                    km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.width/2
+            );
+            //画弹窗图
+            if(km8years.globalObjects.stopFlag) {
+                drawInfo(km8years.globalObjects.adaptInfoPosition[parseInt((km8years.globalObjects.bgPosition[0] - 2000) / 2000)]);
+            }
+            //接受一个数组作为相对于内容区的定位,位置应当是设计稿核心内容区的坐标
+            function drawInfo (position){
+
+                //剪辑区域
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(
+                        position[0], position[1] ,
+                        878, km8years.globalObjects.stopFlag == 0 ? 405 : km8years.globalObjects.stopFlag * 4
+                );
+                ctx.clip();
+                ctx.drawImage(
+                    km8years.globalObjects.imgSour[3],
+                    0,0,
+                    878, km8years.globalObjects.stopFlag * 4,
+                    position[0], position[1] ,
+                    878, km8years.globalObjects.stopFlag == 0 ? 405 : km8years.globalObjects.stopFlag * 4
+                );
+                //写出预设字
+                //1. 使用`font`设置字体。
+                ctx.font = "26px serif";
+                //2. 使用`fillStyle`设置字体颜色。
+                ctx.fillStyle = "#00AAAA";
+                //3. 使用`fillText()`方法显示字体。
+                for(var i = 0; i < km8years.source.infotext[km8years.globalObjects.currentText].length; i++) {
+                    ctx.fillText(km8years.source.infotext[km8years.globalObjects.currentText][i], position[0] + 75, position[1] + ( i + 1 ) * 80 + 80);
+                }
+
+                ctx.restore();
+            }
+        },
+        move : {
+            //x，y是否正向增加，否则为反向
+            xPluse : 1,
+            yPluse : 1,
+            way : function() {
+                if(km8years.move.xPluse){
+                    km8years.source.offset[0]++;
+                } else {
+                    km8years.source.offset[0]--;
+                }
+                if(km8years.move.yPluse){
+                    km8years.source.offset[1]++;
+                } else {
+                    km8years.source.offset[1]--;
+                }
+            },
+            borderDetect : function() {
+                switch(true)
+                {   //碰触上下边界则y方向翻转
+                    case km8years.source.offset[1] < 0:
+                        km8years.move.yPluse = 1;
+                        break;
+                    case km8years.source.offset[1] > canvas.height - km8years.source.border[1]:
+                        km8years.move.yPluse = 0;
+                        break;
+                    //碰触左右边界则x方向翻转
+                    case km8years.source.offset[0] < 0:
+                        km8years.move.xPluse = 1;
+                        break;
+                    case km8years.source.offset[0] > canvas.width - km8years.source.border[0]:
+                        km8years.move.xPluse = 0;
+                        break;
+                }
+            }
+        },
+        init : function() {
+            //构建并初始化一些程序参量
+                //角度赋值
+            km8years.user.angle = km8years.source.shakeHeadAngle;
+                //y轴的容错,这个值是y轴不显示的上半部分。
+            km8years.globalObjects.bgPosition[1] = km8years.source.bgShowPerScreen / 4 - (km8years.globalObjects.canvasData.height * km8years.source.bgShowPerScreen / km8years.globalObjects.canvasData.width - 1000) / 2;
+                //初始化弹窗位置数组，改变为相对于屏幕的百分比定位
+            for(var i = 0; i < km8years.source.infoPosition.length; i++) {
+                km8years.globalObjects.adaptInfoPosition.push(
+                        [
+                            parseInt(km8years.globalObjects.canvasData.width * km8years.source.infoPosition[i][0] / km8years.source.bgShowPerScreen),
+                            parseInt(km8years.globalObjects.canvasData.height * km8years.source.infoPosition[i][1] / 1000)
+                        ]
+                );
+            }
+                //加载所有资源
+            km8years.globalObjects.imgSour = [];
+            var i = 0;
+            lodeImg();
+            function lodeImg() {
+                if( i <= km8years.source.img.length) {
+                    var img = new Image();
+                    img.src = km8years.source.img[i];
+                    img.onload = function() {
+                        km8years.globalObjects.imgSour.push(this);
+                        if(km8years.globalObjects.imgSour.length == km8years.source.img.length) {
+                            window.requestAnimationFrame(km8years.draw);
+                        }
+                        lodeImg();
+                    };
+                    i++;
+                }
+            }
+        }
+    }
+    $(function() {
+        $('#canvas').attr("width",km8years.globalObjects.canvasData.width);
+        $('#canvas').attr("height",km8years.globalObjects.canvasData.height);
+        km8years.init();
+    });
+
+
+
+
+
+
+    //    function clear() {
+    //        ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    //        ctx.fillRect(0,0,canvas.width,canvas.height);
+    //    }
+    //
+    //    function draw() {
+    //        clear();
+    //        head.draw();
+    //        head.x += ball.vx;
+    //        head.y += ball.vy;
+    //
+    //        if (head.y + head.vy > canvas.height || ball.y + ball.vy < 0) {
+    //            head.vy = -head.vy;
+    //        }
+    //        if (head.x + head.vx > canvas.width || ball.x + ball.vx < 0) {
+    //            head.vx = -head.vx;
+    //        }
+    //
+    //        raf = window.requestAnimationFrame(draw);
+    //    }
+    //
+    //    canvas.addEventListener('mousemove', function(e){
+    //        if (!running) {
+    //            clear();
+    //            head.x = e.clientX;
+    //            head.y = e.clientY;
+    //            head.draw();
+    //        }
+    //    });
+    //
+    //    canvas.addEventListener("click",function(e){
+    //        if (!running) {
+    //            raf = window.requestAnimationFrame(draw);
+    //            running = true;
+    //        }
+    //    });
+    //
+    //    canvas.addEventListener("mouseout",function(e){
+    //        window.cancelAnimationFrame(raf);
+    //        running = false;
+    //    });
+
+</script>
+<script type="text/javascript">
+    //tools
+    var getMousePosition = function() {
+        canvas.addEventListener("click", function __handler__(evt) {
+            var x = evt.clientX;
+            var y = evt.clientY;
+            var rect = canvas.getBoundingClientRect();
+            x -= rect.left;
+            y -= rect.top;
+            console.log(x, y); // (x, y) 就是鼠标在 canvas 单击时的坐标
+        });
+    }
+    getMousePosition();
+</script>
+</body>
+</html>
