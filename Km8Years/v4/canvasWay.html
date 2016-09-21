@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body style="width:100%; height: 100%; margin: 0">
+<body style="width:100%; height: 100%; margin: 0 ; overflow: hidden">
 <canvas id="canvas" width="100%" height="100%" style="border:none">
     换个浏览器试试呗~.
 </canvas>
@@ -60,7 +60,7 @@
                 suckFps : 100
             },
             //bg移动速度
-            bgSpeed : 10
+            bgSpeed : 40
         },
         //程序需要用到的全局变量
         globalObjects : {
@@ -72,8 +72,8 @@
             bgPosition : [0,0],
             //屏幕尺寸
             canvasData : {
-                width : $(window).width(),
-                height :  $(window).height()
+                width : document.body.clientWidth,
+                height : document.body.clientHeight
             },
             //缩放适配后的位置
             adaptInfoPosition : [],
@@ -351,11 +351,13 @@
             }
         }
     }
-    $(function() {
-        $('#canvas').attr("width",km8years.globalObjects.canvasData.width);
-        $('#canvas').attr("height",km8years.globalObjects.canvasData.height);
-        km8years.init();
-    });
+$(function() {
+debugger;
+    $('#canvas').attr("width",km8years.globalObjects.canvasData.width);
+    $('#canvas').attr("height",km8years.globalObjects.canvasData.height);
+    km8years.init();
+});
+
 
 </script>
 <script type="text/javascript">
