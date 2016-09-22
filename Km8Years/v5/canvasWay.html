@@ -150,8 +150,10 @@
                 ctx.drawImage(km8years.globalObjects.imgSour[0], -45, -95, 90, 105);
                 ctx.fillRect(-2,-2,2,2);
                 ctx.restore();
+                if(!km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
                 km8years.move.borderDetect();
                 km8years.move.way();
+                }
             },
             ufo : {
                 draw : function(back) {
