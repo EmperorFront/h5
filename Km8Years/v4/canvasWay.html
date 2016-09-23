@@ -27,7 +27,8 @@
 //                '../img/starBg-big.png',
                 '../img/starBgCenter.png',
                 '../img/info.png',
-                '../img/astronaut.png'
+                '../img/astronaut.png',
+                '../img/finalScreenMarker.png'
             ],
             shakeHeadAngle : -30,
             //飞船及用户头像偏移量
@@ -59,8 +60,15 @@
                 moveFps : 200,
                 suckFps : 100
             },
+            finalScreenAnimation : {
+               //默认位置为屏幕中间即可
+                moveFps : 200,
+                outFps : 100
+            },
             //bg移动速度
-            bgSpeed : 40
+            bgSpeed : 40,
+            //当前用户
+            currentUser : '皇叔好帅'
         },
         //程序需要用到的全局变量
         globalObjects : {
@@ -90,10 +98,20 @@
                 //是否正在执行第一屏
                 inFirstScreen : 0
             },
+            finalScreenAnimation : {
+                //最后一屏ufo移动终点目标位置
+                finalScreenUfoGoal : [],
+                //运动速度
+                speed : [],
+                //是否正在执行最后一屏
+                inFinalScreen : 0
+            },
             //缩放比例(实际值：设计稿)
             scalingRatio : 0,
             //顶部容错区
-            marginTop : 0
+            marginTop : 0,
+            //是否已扫描
+            isScaned : 0
         },
         draw : function(){
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -105,6 +123,10 @@
                 //开始首屏动画
                 km8years.globalObjects.firstScreenAnimation.inFirstScreen = 1;
                 km8years.firstScreenAnimation.firstScreenAnimationInit();
+            } else if(km8years.globalObjects.bgPosition[0] == 12000) {
+                //开始末屏动画
+                km8years.globalObjects.finalScreenAnimation.inFinalScreen = 1;
+                km8years.finalScreenAnimation.finalScreenAnimationInit();
             } else {
                 km8years.user.ufo.draw(km8years.globalObjects.imgSour[1]);
                 km8years.user.drawUser();
@@ -130,29 +152,50 @@
                 ctx.drawImage(km8years.globalObjects.imgSour[0], -45, -95, 90, 105);
                 ctx.fillRect(-2,-2,2,2);
                 ctx.restore();
+                if(!km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
                 km8years.move.borderDetect();
                 km8years.move.way();
+                }
             },
             ufo : {
                 draw : function(back) {
-//                    ctx.save();
+                    ctx.save();
+                    if(km8years.globalObjects.finalScreenAnimation.inFinalScreen && km8years.globalObjects.stopFlag >= km8years.source.finalScreenAnimation.moveFps) {
+                        ctx.globalAlpha = (3 - km8years.globalObjects.stopFlag / km8years.source.finalScreenAnimation.outFps) > 0 ? (3 - km8years.globalObjects.stopFlag / km8years.source.finalScreenAnimation.outFps) : 0 ;
+                    }
                     ctx.drawImage(back,km8years.source.offset[0] + 20, 115 + km8years.source.offset[1],200,200);
-//                    ctx.restore();
+                    ctx.restore();
                 }
             },
             astronaut : {
-                draw : function(back, opicity){
+                draw : function(back, opicity) {
                     ctx.save();
                     ctx.globalAlpha = opicity;
                     ctx.drawImage(km8years.globalObjects.imgSour[0], km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] + 72, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] + 235, 100, 120);
                     ctx.drawImage(back,parseInt(km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0]) - 60,parseInt(km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1]) + 300);
+                    //箭头
+//                    ctx.drawImage(back,parseInt(km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[0]) - 410,parseInt(km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[1]) + 195);
+                    ctx.font = "16px serif";
+                    //2. 使用`fillStyle`设置字体颜色。
+                    ctx.fillStyle = "#00AAAA";
+                    //3. 使用`fillText()`方法显示字体。
+                    ctx.fillText(km8years.source.currentUser, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] + 162, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] + 225);
+                    ctx.restore();
+                },
+                drawAstronautWithLand : function(back, opicity) {
+                    ctx.save();
+                    ctx.globalAlpha = opicity;
+                    //人头
+                    ctx.drawImage(km8years.globalObjects.imgSour[0], km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[0] + 72, km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[1] + 235, 100, 120);
+                    //身子
+                    ctx.drawImage(back,parseInt(km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[0]) - 410,parseInt(km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[1]) + 195);
                     ctx.restore();
                 }
             }
         },
         bgMove : function(back) {
             //x轴的移动
-            if(km8years.globalObjects.stopFlag == 0) {
+            if(km8years.globalObjects.stopFlag == 0 && !km8years.globalObjects.firstScreenAnimation.inFirstScreen && !km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
                 km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
             }
             //末位终止
@@ -162,10 +205,9 @@
             //每一屏终止一段时间展示文字
             if(km8years.globalObjects.bgPosition[0] % 2000 == 0 && km8years.globalObjects.bgPosition[0] < 12000) {
                 km8years.globalObjects.stopFlag ++;
-
             }
             //屏幕中止150帧
-            if(km8years.globalObjects.stopFlag == 150 && !km8years.globalObjects.firstScreenAnimation.inFirstScreen) {
+            if(km8years.globalObjects.stopFlag == 150 && !km8years.globalObjects.firstScreenAnimation.inFirstScreen && !km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
                 km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
                 km8years.globalObjects.stopFlag = 0;
                 km8years.globalObjects.currentText ++;
@@ -181,7 +223,7 @@
                     km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.width/2
             );
             //画弹窗图
-            if(km8years.globalObjects.stopFlag && !km8years.globalObjects.firstScreenAnimation.inFirstScreen) {
+            if(km8years.globalObjects.stopFlag && !km8years.globalObjects.firstScreenAnimation.inFirstScreen && !km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
                 drawInfo(km8years.globalObjects.adaptInfoPosition[parseInt((km8years.globalObjects.bgPosition[0] - 2000) / 2000)]);
             }
             //接受一个数组作为相对于内容区的定位,位置应当是设计稿核心内容区的坐标
@@ -257,12 +299,12 @@
                     km8years.globalObjects.canvasData.width * km8years.source.firstScreenAnimation.astronautPosition[0] / km8years.source.bgShowPerScreen - 120,
                     km8years.source.firstScreenAnimation.astronautPosition[1] * km8years.globalObjects.scalingRatio + km8years.globalObjects.marginTop - 195
                 ];
-                console.log(km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal);
                 //x轴移动曲线
                 km8years.globalObjects.firstScreenAnimation.speed[0] = (km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] - km8years.source.offset[0]) / km8years.source.firstScreenAnimation.moveFps;
                 //y轴移动曲线
                 km8years.globalObjects.firstScreenAnimation.speed[1] = (km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] - km8years.source.offset[1]) / km8years.source.firstScreenAnimation.moveFps;
                 //飞到宇航员上头
+                km8years.globalObjects.stopFlag = 0;
                 km8years.firstScreenAnimation.ufoGoToAstronaut();
             },
             ufoGoToAstronaut : function() {
@@ -271,27 +313,34 @@
 //            for(var i = 0; i < 2; i++) {
 //                km8years.user.drawUser([]);
 //            }
-                km8years.bgMove(km8years.globalObjects.imgSour[3]);
+                ctx.fillStyle = '#060b29';
+                ctx.fillRect(0, 0, km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height);
+                ctx.drawImage(km8years.globalObjects.imgSour[3],
+                        km8years.globalObjects.bgPosition[0], 0,
+                        km8years.source.bgShowPerScreen, 1000,
+                        0, (km8years.globalObjects.canvasData.height - km8years.globalObjects.canvasData.width/2) / 2,
+                        km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.width/2
+                );
+                if(km8years.globalObjects.isScaned) {
+                    km8years.bgMove(km8years.globalObjects.imgSour[3]);
                 //飞行路径
-                km8years.globalObjects.stopFlag ++;
-                km8years.source.offset[0] += km8years.globalObjects.firstScreenAnimation.speed[0];
-                km8years.source.offset[1] += km8years.globalObjects.firstScreenAnimation.speed[1];
+                    km8years.globalObjects.stopFlag ++;
+                    km8years.source.offset[0] += km8years.globalObjects.firstScreenAnimation.speed[0];
+                    km8years.source.offset[1] += km8years.globalObjects.firstScreenAnimation.speed[1];
+                }
                 km8years.user.ufo.draw(km8years.globalObjects.imgSour[1]);
                 km8years.user.astronaut.draw(km8years.globalObjects.imgSour[5], 1);
                 //吸走宇航员
-                if(km8years.globalObjects.stopFlag <= km8years.source.firstScreenAnimation.moveFps) {
-                    raf = window.requestAnimationFrame(km8years.firstScreenAnimation.ufoGoToAstronaut);
-                } else {
+                if(km8years.globalObjects.stopFlag == km8years.source.firstScreenAnimation.moveFps) {
                     km8years.globalObjects.stopFlag = 0;
                     km8years.firstScreenAnimation.astronautSignInUfo();
+                } else {
+                    raf = window.requestAnimationFrame(km8years.firstScreenAnimation.ufoGoToAstronaut);
                 }
             },
             astronautSignInUfo : function() {
                 //这里后边缓存
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-//            for(var i = 0; i < 2; i++) {
-//                km8years.user.drawUser([]);
-//            }
                 km8years.bgMove(km8years.globalObjects.imgSour[3]);
 
                 km8years.user.ufo.draw(km8years.globalObjects.imgSour[1 + km8years.globalObjects.stopFlag % 2]);
@@ -309,6 +358,66 @@
                     raf = window.requestAnimationFrame(km8years.firstScreenAnimation.astronautSignInUfo);
 
                 }
+            }
+        },
+        finalScreenAnimation : {
+            finalScreenAnimationInit : function() {
+                //这里很多函数可以抽取，后边处理
+                //获得目标点
+                km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal = [
+                    km8years.globalObjects.canvasData.width / 2 - 100,
+                    km8years.globalObjects.canvasData.height / 2 - 330
+                ];
+                //x轴移动曲线
+                km8years.globalObjects.finalScreenAnimation.speed[0] = (km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[0] - km8years.source.offset[0]) / km8years.source.finalScreenAnimation.moveFps;
+                //y轴移动曲线
+                km8years.globalObjects.finalScreenAnimation.speed[1] = (km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[1] - km8years.source.offset[1]) / km8years.source.finalScreenAnimation.moveFps;
+                //飞到宇航员上头
+                km8years.globalObjects.stopFlag = 0;
+                km8years.finalScreenAnimation.ufoGoToAstronaut();
+            },
+            ufoGoToAstronaut : function() {
+                //这里后边缓存
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+//            for(var i = 0; i < 2; i++) {
+//                km8years.user.drawUser([]);
+//            }
+                ctx.fillStyle = '#060b29'
+                ctx.fillRect(0, 0, km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height);
+                ctx.drawImage(km8years.globalObjects.imgSour[3],
+                        km8years.globalObjects.bgPosition[0], 0,
+                        km8years.source.bgShowPerScreen, 1000,
+                        0, (km8years.globalObjects.canvasData.height - km8years.globalObjects.canvasData.width/2) / 2,
+                        km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.width/2
+                );
+                if(km8years.globalObjects.isScaned) {
+                    km8years.bgMove(km8years.globalObjects.imgSour[3]);
+                    //飞行路径
+                    km8years.globalObjects.stopFlag ++;
+                    km8years.source.offset[0] += km8years.globalObjects.finalScreenAnimation.speed[0];
+                    km8years.source.offset[1] += km8years.globalObjects.finalScreenAnimation.speed[1];
+                }
+                km8years.user.ufo.draw(km8years.globalObjects.imgSour[1]);
+                km8years.user.drawUser();
+                //放出宇航员
+                if(km8years.globalObjects.stopFlag == km8years.source.finalScreenAnimation.moveFps) {
+                    km8years.globalObjects.stopFlag = 0;
+                    km8years.finalScreenAnimation.astronautSignOutUfo();
+                } else {
+                    raf = window.requestAnimationFrame(km8years.finalScreenAnimation.ufoGoToAstronaut);
+                }
+            },
+            astronautSignOutUfo : function() {
+                //这里后边缓存
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                km8years.bgMove(km8years.globalObjects.imgSour[3]);
+
+                km8years.user.ufo.draw(km8years.globalObjects.imgSour[1 + km8years.globalObjects.stopFlag % 2]);
+                //正式逻辑
+                km8years.globalObjects.stopFlag ++;
+                km8years.user.astronaut.drawAstronautWithLand(km8years.globalObjects.imgSour[6], km8years.globalObjects.stopFlag / km8years.source.finalScreenAnimation.outFps);
+                //至结束
+                raf = window.requestAnimationFrame(km8years.finalScreenAnimation.astronautSignOutUfo);
             }
         },
         init : function() {
@@ -369,6 +478,7 @@ $(function() {
             x -= rect.left;
             y -= rect.top;
             console.log(x, y); // (x, y) 就是鼠标在 canvas 单击时的坐标
+            km8years.globalObjects.isScaned = 1;
         });
     }
     getMousePosition();
