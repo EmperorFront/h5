@@ -28,9 +28,10 @@
                 '../img/starBgCenter.png',
                 '../img/info.png',
                 '../img/astronaut.png',
-                '../img/finalScreenMarker.png'
+                '../img/finalScreenMarker.png',
+                '../img/arrow.png'
             ],
-            shakeHeadAngle : -30,
+            shakeHeadAngle : -15,
             //飞船及用户头像偏移量
             offset : [100,100],
             //头部和飞船相对值
@@ -57,16 +58,18 @@
             firstScreenAnimation : {
 //                astronautPosition : [988,588],
                 astronautPosition : [1165,428],
-                moveFps : 200,
-                suckFps : 100
+                moveFps : 150,
+                suckFps : 50
             },
             finalScreenAnimation : {
                //默认位置为屏幕中间即可
-                moveFps : 200,
+                moveFps : 100,
                 outFps : 100
             },
             //bg移动速度
-            bgSpeed : 40
+            bgSpeed : 40,
+            //当前用户
+            currentUser : '皇叔好帅'
         },
         //程序需要用到的全局变量
         globalObjects : {
@@ -128,7 +131,7 @@
             } else {
                 km8years.user.ufo.draw(km8years.globalObjects.imgSour[1]);
                 km8years.user.drawUser();
-                raf = window.requestAnimationFrame(km8years.draw);
+                raf = window.requestAnimationFrame(km8years.draw);0
             }
         },
         user : {
@@ -137,17 +140,17 @@
             direction : 1,
             drawUser : function() {
                 ctx.save();
-                ctx.translate(120 + km8years.source.offset[0], 195 + km8years.source.offset[1]);//中心坐标
+                ctx.translate(117 + km8years.source.offset[0], 197 + km8years.source.offset[1]);//中心坐标
                 if(km8years.user.direction) {
-                    km8years.user.angle++;
+                    km8years.user.angle += 0.4;
                 } else {
-                    km8years.user.angle--;
+                    km8years.user.angle -= 0.4;
                 }
-                if (Math.abs(km8years.user.angle) == Math.abs(km8years.source.shakeHeadAngle)) {
+                if (Math.abs(km8years.user.angle) >= Math.abs(km8years.source.shakeHeadAngle)) {
                     km8years.user.direction = (km8years.user.direction > 0 ? 0 : 1);
                 }
                 ctx.rotate(0 - (km8years.user.angle * Math.PI / 180));
-                ctx.drawImage(km8years.globalObjects.imgSour[0], -45, -95, 90, 105);
+                ctx.drawImage(km8years.globalObjects.imgSour[0], -36, -73, 70, 82);
                 ctx.fillRect(-2,-2,2,2);
                 ctx.restore();
                 if(!km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
@@ -157,23 +160,35 @@
             },
             ufo : {
                 draw : function(back) {
-//                    ctx.save();
+                    ctx.save();
+                    if(km8years.globalObjects.finalScreenAnimation.inFinalScreen && km8years.globalObjects.stopFlag >= km8years.source.finalScreenAnimation.moveFps) {
+                        ctx.globalAlpha = (3 - km8years.globalObjects.stopFlag / km8years.source.finalScreenAnimation.outFps) > 0 ? (3 - km8years.globalObjects.stopFlag / km8years.source.finalScreenAnimation.outFps) : 0 ;
+                    }
                     ctx.drawImage(back,km8years.source.offset[0] + 20, 115 + km8years.source.offset[1],200,200);
-//                    ctx.restore();
+                    ctx.restore();
                 }
             },
             astronaut : {
                 draw : function(back, opicity) {
                     ctx.save();
                     ctx.globalAlpha = opicity;
-                    ctx.drawImage(km8years.globalObjects.imgSour[0], km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] + 72, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] + 235, 100, 120);
+                    ctx.drawImage(km8years.globalObjects.imgSour[0], km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] + 67, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] + 235, 100, 120);
                     ctx.drawImage(back,parseInt(km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0]) - 60,parseInt(km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1]) + 300);
+                    //箭头
+                    ctx.drawImage(km8years.globalObjects.imgSour[7], km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] + 142, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] + 220, 30, 30);
+                    ctx.font = "16px serif";
+                    //2. 使用`fillStyle`设置字体颜色。
+                    ctx.fillStyle = "#00AAAA";
+                    //3. 使用`fillText()`方法显示字体。
+                    ctx.fillText(km8years.source.currentUser, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] + 162, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] + 225);
                     ctx.restore();
                 },
                 drawAstronautWithLand : function(back, opicity) {
                     ctx.save();
                     ctx.globalAlpha = opicity;
+                    //人头
                     ctx.drawImage(km8years.globalObjects.imgSour[0], km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[0] + 72, km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[1] + 235, 100, 120);
+                    //身子
                     ctx.drawImage(back,parseInt(km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[0]) - 410,parseInt(km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[1]) + 195);
                     ctx.restore();
                 }
@@ -244,6 +259,7 @@
         },
         move : {
             //x，y是否正向增加，否则为反向
+            //这里失效了
             xPluse : 1,
             yPluse : 1,
             way : function() {
@@ -268,7 +284,7 @@
                         km8years.move.yPluse = 0;
                         break;
                     //碰触左右边界则x方向翻转
-                    case km8years.source.offset[0] < 0:
+                    case km8years.source.offset[0] < km8years.globalObjects.canvasData.width / 2:
                         km8years.move.xPluse = 1;
                         break;
                     case km8years.source.offset[0] > canvas.width - km8years.source.border[0]:
