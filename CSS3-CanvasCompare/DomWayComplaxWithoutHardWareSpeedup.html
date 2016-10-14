@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div {
+            display: inline-block;
+            position: absolute;
+        }
+        body {
+            padding:0;
+            margin:0;
+            overflow: hidden;
+        }
+        #screen {
+            display: block;
+            background-color:rgba(0,0,0,0);
+            margin:auto;
+            border:1px solid;
+        }
+        @keyframes theMove
+        {
+            35%   {left:320px; top:520px;}
+            50%  {left:0px; top:0px;}
+            75%  {left:720px; top:0px;}
+            80% {left:0px; top:520px;}
+        }
+        .ball {
+            /*transform:translateZ(0);*/
+        }
+    </style>
+    <title>缓存测试(无缓存)</title>
+</head>
+<body>
+<div >
+    <div id='screen' width="800" height="600" style="width:800px; height: 600px; margin: 0 ; overflow: hidden">
+    </div>
+    <p style="text-align:center; display: inline-block; top: 650px; position: absolute; width: 600px;">在复杂图形的情况下，css3动画，消耗比较大，100个就有点卡了，稳定在30-35fps</p>
+</div>
+<script src="../js/jquery-3.0.0.js"></script>
+<script>
+    //    var stats = new Stats();
+    //    stats.setMode(0);
+    //    stats.domElement.style.position = 'absolute';
+    //    stats.domElement.style.right = '0px';
+    //    stats.domElement.style.top = '0px';
+    //    document.body.appendChild( stats.domElement );
+    var data = [];
+    var borderWidth = 2;
+    function dataInit(){
+        var ball = function(x , y ,t ){
+            this.marginLeft = x;
+            this.marginTop = y;
+            this.time = t;
+            this.r = getZ(getRandom(40,80));
+            this.color = [];
+            this.num = getZ(this.r/borderWidth/2);
+            for(var j=0; j<this.num+1; j++){
+                this.color.push("rgba("+getZ(getRandom(0,255))+","+getZ(getRandom(0,255))+","+getZ(getRandom(0,255))+",1)");
+            }
+        }
+        for(var i=0;i<100;i++){
+            var b = new ball(getRandom(0,720) , getRandom(0,520) , getRandom(1, 10,1));
+            data.push(b);
+        }
+    }
+    function init(){
+        dataInit();
+        var html = '';
+        for(i = 0; i < data.length; i++) {
+            html += '<div class="ball" style="';
+            html += ' top:'+ getRandom(1,600) + 'px; left:'+ getRandom(1,800) + 'px;';
+            html += ' width:'+ data[i].r + 'px; height:'+ data[i].r + 'px; ';
+            html += 'border: ' + borderWidth + 'px solid ' + data[i].color.pop() + ';';
+            html += 'border-radius: '+ data[i].r + 'px;';
+            html += ' animation: theMove ' + getRandom(1,100) + 's linear 2s infinite alternate;';
+            html += '">'
+//            debugger;
+            //内层：
+            for(j = 1; j < data[i].num; j++) {
+                html += '<div style="';
+                html += ' width:'+ (data[i].r - 2 * j * borderWidth) + 'px; height:'+ (data[i].r - 2 * j * borderWidth) + 'px; ';
+                html += 'border: ' + borderWidth + 'px solid ' + data[i].color.pop() + ';';
+                html += 'border-radius: '+ (data[i].r - 2 * j * borderWidth) + 'px;';
+                html += '">'
+            }
+            for(j = 0; j < data[i].num; j++){
+                html += '</div>';
+            }
+            html += '</div>';
+        }
+        $('#screen').html(html);
+    }
+    function getRandom(a, b, i){
+        if(i){
+            return getZ(Math.random()*(b-a)+a);
+        }else{
+            return Math.random()*(b-a)+a;
+        }
+    }
+    //一种牛逼的取整方式，比parseint代价小，parseint为处理浮点甚至转化了字符串
+    function getZ(num){
+        var rounded;
+        rounded = (0.5 + num) | 0;
+        // A double bitwise not.
+        rounded = ~~ (0.5 + num);
+        // Finally, a left bitwise shift.
+        rounded = (0.5 + num) << 0;
+        return rounded;
+    }
+    window.onload = function(){
+        init();
+    }
+</script>
+</body>
+</html>

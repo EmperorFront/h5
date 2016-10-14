@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body{
+            padding:0;
+            margin:0;
+            overflow: hidden;
+        }
+        #cas{
+            display: block;
+            background-color:rgba(0,0,0,0);
+            margin:auto;
+            border:1px solid;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+<div >
+    <canvas id='cas' width="800" height="600">浏览器不支持canvas</canvas>
+    <div style="text-align:center">canvas简单图形（无缓存压测）</div>
+    <div style="text-align:center">如前文，在无差别情况下，启用缓存反倒有碍性能，1000个内存不过量，还能稳定于60fps，这个是骤变啊</div>
+</div>
+
+<script>
+    var simpleCanvas = function() {
+        var canvas = document.getElementById('cas'),
+                ctx = canvas.getContext('2d'),
+                squares = [];
+                img = '';
+        var square = function(x, y, r, vx, vy, color, useCache) {
+            this.x = x;
+            this.y = y;
+            this.vx = vx;
+            this.vy = vy;
+            this.r = r;
+            this.color = color;
+            this.cacheCanvas = document.createElement("canvas");
+            this.cacheCtx = this.cacheCanvas.getContext("2d");
+            this.cacheCanvas.width = img.width;
+            this.cacheCanvas.height = img.height;
+            this.useCache = useCache;
+            if(useCache){
+                this.cache();
+            }
+        }
+        //一种牛逼的取整方式，比parseint代价小，parseint为处理浮点甚至转化了字符串
+        function getZ(num){
+            var rounded;
+            rounded = (0.5 + num) | 0;
+            // A double bitwise not.
+            rounded = ~~ (0.5 + num);
+            // Finally, a left bitwise shift.
+            rounded = (0.5 + num) << 0;
+            return rounded;
+        }
+        square.prototype = {
+            paint: function(ctx) {
+                if(!this.useCache){
+                    ctx.drawImage(img, this.x, this.y);
+                } else {
+                    ctx.drawImage(this.cacheCanvas, this.x, this.y, this.cacheCanvas.width, this.cacheCanvas.height);
+                }
+            },
+            move: function() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if(this.x>(canvas.width-this.r)||this.x<this.r){
+                    this.x=this.x<this.r?this.r:(canvas.width-this.r);
+                    this.vx = -this.vx;
+                }
+                if(this.y>(canvas.height-this.r)||this.y<this.r){
+                    this.y=this.y<this.r?this.r:(canvas.height-this.r);
+                    this.vy = -this.vy;
+                }
+                this.paint(ctx);
+            },
+            cache: function() {
+                this.cacheCtx.drawImage(img, 0, 0);
+            }
+        }
+        var Game = {
+            init:function(){
+                for(var i=0;i<1000;i++){
+                    var s = new square(getRandom(0,canvas.width) , getRandom(0,canvas.height) ,getRandom(5 , 20) , getRandom(-3 , 3) ,  getRandom(-1 , 1), '#' + getZ(getRandom(99 , 999)) , 1)
+                    squares.push(s);
+                }
+            },
+            update:function(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                for(var i=0;i<squares.length;i++){
+                    squares[i].move();
+                }
+            },
+            loop:function(){
+                var _this = this;
+                this.update();
+//                stats.update();
+                RAF(function(){
+                    _this.loop();
+                })
+            },
+            start:function(){
+                this.init();
+                this.loop();
+            }
+        };
+        window.RAF = (function(){
+            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {window.setTimeout(callback, 1000 / 60); };
+        })();
+        return Game;
+    }();
+    function getRandom(a , b){
+        return Math.random()*(b-a)+a;
+    }
+    window.onload = function(){
+        img = new Image();
+        img.src = '../img/c.png';
+        img.onload = function() {
+            simpleCanvas.start();
+        };
+    }
+</script>
+</body>
+</html>
