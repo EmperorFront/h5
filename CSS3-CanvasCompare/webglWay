@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div {
+            display: inline-block;
+            position: absolute;
+        }
+        body {
+            padding:0;
+            margin:0;
+            overflow: hidden;
+        }
+        #screen {
+            display: block;
+            background-color:rgba(0,0,0,0);
+            margin:auto;
+            border:1px solid;
+        }
+        @keyframes theMove
+        {
+            35%   {left:320px; top:520px;}
+            50%  {left:0px; top:0px;}
+            75%  {left:720px; top:0px;}
+            80% {left:0px; top:520px;}
+        }
+        .ball {
+            /*transform:translateZ(0);*/
+        }
+    </style>
+    <title>缓存测试(无缓存)</title>
+</head>
+<body>
+<div >
+     <canvas id='canvas' width="800" height="600">浏览器不支持canvas</canvas>
+</div>
+<script src="../js/jquery-3.0.0.js"></script>
+var canvas = document.getElementById('canvas');
+var gl = canvas.getContext('experimental-webgl');
+
+var VSHADER_SOURCE = `
+    attribute vec4 a_Position;
+
+    void main() {
+        gl_Position = a_Position;
+    }
+`;
+
+var FSHADER_SOURCE = `
+    precision mediump float;
+
+    void main() {
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    }
+`;
+
+var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+
+gl.shaderSource(vertexShader, VSHADER_SOURCE);
+gl.compileShader(vertexShader);
+
+var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+
+gl.shaderSource(fragmentShader, FSHADER_SOURCE);
+gl.compileShader(fragmentShader);
+
+var program = gl.createProgram();
+
+gl.attachShader(program, vertexShader);
+gl.attachShader(program, fragmentShader);
+
+gl.linkProgram(program);
+gl.useProgram(program);
+
+var vertices = new Float32Array([
+    -0.3,  0.3,  0.0,
+     0.3,  0.3,  0.0,
+    -0.3, -0.3,  0.0,
+     0.3, -0.3,  0.0
+]);
+
+var buffer = gl.createBuffer();
+
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+var a_Position = gl.getAttribLocation(program, 'a_Position');
+
+gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, 0, 0);
+gl.enableVertexAttribArray(a_Position);
+
+gl.clearColor(1.0, 1.0, 1.0, 1.0);
+gl.clear(gl.COLOR_BUFFER_BIT);
+
+gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+</script>
+</body>
+</html>
