@@ -631,6 +631,8 @@
                 var c=document.getElementById("canvas");
                 ctx=c.getContext('2d');
 
+                $('#video1').click();
+                $('#video1').hide();
                 var i=window.setInterval(function() {ctx.drawImage(v,0,0,270,135)},20);
 //                v.addEventListener('pause',function() {window.clearInterval(i);},false);
 //                v.addEventListener('ended',function() {clearInterval(i);},false);
