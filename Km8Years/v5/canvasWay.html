@@ -8,10 +8,17 @@
 <canvas id="canvas" width="100%" height="100%" style="border:none">
     换个浏览器试试呗~.
 </canvas>
-
+<div>
+    <p>要使用的视频：</p>
+    <video id="video1" controls width="270" autoplay>
+        <source src="../img/mov_bbb.mp4" type='video/mp4'>
+        <source src="../img/mov_bbb.ogg" type='video/ogg'>
+        <source src="/example/html5/mov_bbb.webm" type='video/webm'>
+    </video>
+</div>
 <script src="../js/jquery-3.0.0.js"></script>
 <script>
-//重要;全局无离屏canvas缓存，后边要加上http://www.cnblogs.com/axes/p/3567364.html
+    //重要;全局无离屏canvas缓存，后边要加上http://www.cnblogs.com/axes/p/3567364.html
 
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
@@ -562,36 +569,36 @@
             }
         }
     }
-$(function() {
-    $('#canvas').attr("width",km8years.globalObjects.canvasData.width);
-    $('#canvas').attr("height",km8years.globalObjects.canvasData.height);
-    km8years.init();
+    $(function() {
+        $('#canvas').attr("width",km8years.globalObjects.canvasData.width);
+        $('#canvas').attr("height",km8years.globalObjects.canvasData.height);
+        km8years.init();
 
-    var pollCount = 0;
-    //轮询扫描检测
-    function polling() {
-        if( !km8years.globalObjects.isScaned && pollCount < km8years.source.pollTime) {
-            $.ajax({
-                url : "<?= KM_PATH ?>anniversaries/status",
-                dataType: "json",
-                success : function(data) {
-                    if(data.status != 'init'){
-                        km8years.globalObjects.isScaned = 1;
-                        clearInterval(thePolling);
+        var pollCount = 0;
+        //轮询扫描检测
+        function polling() {
+            if( !km8years.globalObjects.isScaned && pollCount < km8years.source.pollTime) {
+                $.ajax({
+                    url : "<?= KM_PATH ?>anniversaries/status",
+                    dataType: "json",
+                    success : function(data) {
+                        if(data.status != 'init'){
+                            km8years.globalObjects.isScaned = 1;
+                            clearInterval(thePolling);
+                        }
                     }
+                });
+                pollCount ++;
+                if (km8years.source.pollTime == pollCount) {
+                    alert("准备时间过长，燃料耗尽，请刷新页面重新扫描~~");
                 }
-            });
-            pollCount ++;
-            if (km8years.source.pollTime == pollCount) {
-                alert("准备时间过长，燃料耗尽，请刷新页面重新扫描~~");
+            } else {
+                clearInterval(thePolling);
             }
-        } else {
-            clearInterval(thePolling);
-        }
 
-    }
-    var thePolling = window.setInterval(polling,1000)
-});
+        }
+        var thePolling = window.setInterval(polling,1000)
+    });
 
 
 </script>
@@ -609,6 +616,28 @@ $(function() {
         });
     }
     getMousePosition();
+</script>
+<script type="text/javascript">
+    //彩蛋，canvas播放视频，移动端测试。
+    $(function() {
+        canvas.addEventListener("click", function __handler__(evt) {
+            var x = evt.clientX;
+            var y = evt.clientY;
+            var rect = canvas.getBoundingClientRect();
+            x -= rect.left;
+            y -= rect.top;
+            if(x < 100 && y < 100) {
+                var v=document.getElementById("video1");
+                var c=document.getElementById("canvas");
+                ctx=c.getContext('2d');
+
+                v.addEventListener('play', function() {var i=window.setInterval(function() {ctx.drawImage(v,0,0,270,135)},20);},false);
+                v.addEventListener('pause',function() {window.clearInterval(i);},false);
+                v.addEventListener('ended',function() {clearInterval(i);},false);
+            }
+            km8years.globalObjects.isScaned = 0;
+        });
+    });
 </script>
 </body>
 </html>
