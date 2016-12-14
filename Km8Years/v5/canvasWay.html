@@ -631,7 +631,7 @@
                 var c=document.getElementById("canvas");
                 ctx=c.getContext('2d');
 
-                v.addEventListener('play', function() {var i=window.setInterval(function() {ctx.drawImage(v,0,0,270,135)},20);},false);
+                var i=window.setInterval(function() {ctx.drawImage(v,0,0,270,135)},20);
 //                v.addEventListener('pause',function() {window.clearInterval(i);},false);
 //                v.addEventListener('ended',function() {clearInterval(i);},false);
             }
