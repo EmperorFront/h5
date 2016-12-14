@@ -493,7 +493,7 @@
                     img.src = km8years.source.img[i];
                     img.onload = function() {
                         km8years.globalObjects.imgSour.push(this);
-                        if(km8years.globalObjects.imgSour.length == km8years.source.img.length) {
+                        if(km8years.globalObjects.imgSour.length == km8years.source.img.length && 0) {
 
                             //获取下巴位置
                             var chinPosition = getChinPosition(km8years.globalObjects.imgSour[0]);
