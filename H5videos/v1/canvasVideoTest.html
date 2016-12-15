@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en"  style="width:100%; height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body style="width:100%; height: 100%; margin: 0 ;">
+<canvas id="canvas" width="100%" height="50%" style="border:none">
+    换个浏览器试试呗~.
+</canvas>
+<div>
+    <p>要使用的视频：</p>
+        <video id="video1" style="position: absolute; top: 0px; left: 0px; touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" playsinline="" x-webkit-airplay="" webkit-playsinline="" preload="auto" width="750" height="1220" src="../img/mov_bbb.mp4" x5nativepanel="freewififorvideo_fromvideoelment">
+
+    <!--<video id="video1" controls width="270" autoplay="autoplay" autoplay preload="auto">-->
+        <source src="../img/mov_bbb.mp4" type='video/mp4'>
+        <source src="../img/mov_bbb.ogg" type='video/ogg'>
+        <source src="../img/mov_bbb.webm" type='video/webm'>
+    </video>
+</div>
+<script src="../js/jquery-3.0.0.js"></script>
+<script>
+    //重要;全局无离屏canvas缓存，后边要加上http://www.cnblogs.com/axes/p/3567364.html
+
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var km8years = {
+        //画面所需要配置的资源及参量
+        source : {
+            //所需加载的图像资源
+            img : [
+                '../img/1.png',
+                '../img/ufo01.png',
+                '../img/light.png',
+                '../img/starBg.png',
+//                '../img/starBg-big.png',
+//                '../img/starBgCenter.png',
+                '../img/info.png',
+                '../img/astronaut.png',
+                '../img/finalScreenMarker.png',
+                '../img/arrow.png'
+            ],
+            shakeHeadAngle : -15,
+            //飞船及用户头像偏移量
+            offset : [100,100],
+            //头部和飞船相对值
+            border : [270, 260],
+            //像素计，每屏幕展示的bg的宽度
+            bgShowPerScreen : 2000,
+            //文字对话框的显示位置和背景图中的xy轴值,二维数组，显示位置的坐标
+            infoPosition : [
+                //第一屏相对于核心内容区域的坐标
+                [995,372],
+                [1038,296],
+                [1015,358],
+                [1013,357],
+                [1042,331]
+            ],
+            infoLine : {
+                marginTop : 90,
+                marginLeft : 70,
+                lineSpacing : 40
+            },
+            infotext : [[{"text":"2008\u5e7410\u6708\uff0cKM\u5e73\u53f0\u6b63\u5f0f\u4e0a\u7ebf\u8fd0\u8425\uff0c","type":22,"wrap":1},{"text":"\u76ee\u524d\u5df2\u67098\u5e74\u3002","type":22,"wrap":1},{"text":"","type":22,"wrap":1},{"text":"\u4f60\u4e8e","type":22,"wrap":0},{"text":"2015\u5e7407\u670814\u65e5","type":26,"wrap":1},{"text":"\u9996\u6b21\u4f7f\u7528KM\uff0c\u8fc4\u4eca\u5df2\u6709","type":22,"wrap":0},{"text":"441\u5929","type":26,"wrap":0}],[{"text":"KM\u5e73\u53f0\u79ef\u7d2f\u4e86\u8d85\u8fc7","type":22,"wrap":0},{"text":"45\u4e07","type":26,"wrap":0},{"text":"\u7bc7\u5206\u4eab\uff0c","type":22,"wrap":1},{"text":"\u662f\u817e\u8baf\u6700\u5927\u7684\u77e5\u8bc6\u5b9d\u5e93\u3002","type":22,"wrap":1},{"text":"","type":22,"wrap":1},{"text":"\u4f60\u5728KM\u4e0a\u53d1\u8868\u4e86","type":22,"wrap":0},{"text":"28\u7bc7","type":26,"wrap":0},{"text":"\u6587\u7ae0\uff0c","type":22,"wrap":1},{"text":"\u8d85\u8fc7\u4e86","type":22,"wrap":0},{"text":"87%","type":26,"wrap":0},{"text":"\u7684\u540c\u4e8b","type":22,"wrap":0}],[{"text":"\u6bcf\u5929\u6709\u8d85\u8fc72\u4e07\u817e\u8baf\u4eba\u8bbf\u95eeKM\uff0c","type":22,"wrap":1},{"text":"\u6bcf\u6708\u4eba\u5747\u8d85\u8fc7300\u6b21\u8bbf\u95ee\u3002","type":22,"wrap":1},{"text":"","type":22,"wrap":1},{"text":"\u672c\u5e74\u5ea6\u4f60\u5728KM\u6d4f\u89c8\u8fbe\u5230","type":22,"wrap":0},{"text":"20727\u6b21","type":26,"wrap":0},{"text":"\uff0c","type":22,"wrap":1},{"text":"\u8d85\u8fc7","type":22,"wrap":0},{"text":"42%","type":26,"wrap":0},{"text":"\u7684\u540c\u4e8b","type":22,"wrap":0}],[{"text":"\u4e50\u95ee\u662fKM\u6700\u7cbe\u5f69\u7684\u5b50\u793e\u533a\uff0c","type":22,"wrap":1},{"text":"\u6bcf\u5929\u6709\u8d85\u8fc770%\u7684\u540c\u4e8b\u8bbf\u95ee\u3002","type":22,"wrap":1},{"text":"","type":22,"wrap":1},{"text":"\u4f60\u5728\u4e50\u95ee\u4e0a\u53c2\u4e0e\u4e92\u52a8","type":22,"wrap":0},{"text":"104\u6b21","type":26,"wrap":0},{"text":"\uff0c","type":22,"wrap":1},{"text":"\u88ab\u540c\u4e8b\u70b9\u8d5e","type":22,"wrap":0},{"text":"66\u6b21","type":26,"wrap":0}],[{"text":"2011\u5e749\u6708\u624b\u673aKM\u53d1\u5e03\uff0c","type":22,"wrap":1},{"text":"\u6bcf\u592960%\u7684KM\u7528\u6237\u6765\u81ea\u79fb\u52a8\u7aef\u3002","type":22,"wrap":1},{"text":"","type":22,"wrap":1},{"text":"\u4f60\u4ece","type":22,"wrap":0},{"text":"2015\u5e7407\u670814\u65e5","type":26,"wrap":0},{"text":"\u5f00\u59cb\u7528\u624b\u673a\u8bbf\u95eeKM\uff0c","type":22,"wrap":1},{"text":"\u65e9\u4e8e","type":22,"wrap":0},{"text":"23%","type":26,"wrap":0},{"text":"\u7684\u540c\u4e8b","type":22,"wrap":0}]]
+            ,
+            //第一屏宇航员在设计稿相对于核心内容区的位置（左上角坐标）
+            firstScreenAnimation : {
+//                astronautPosition : [988,588],
+                astronautPosition : [1165,428],
+                moveFps : 150,
+                suckFps : 50
+            },
+            finalScreenAnimation : {
+                //默认位置为屏幕中间即可
+                moveFps : 100,
+                outFps : 100
+            },
+            //bg移动速度
+            bgSpeed : 40,
+            //当前用户
+            currentUser : 'emperorliu',
+            //文字显示时间
+            textTime : 300,
+            //轮询次数
+            pollTime : 20,
+        },
+        //程序需要用到的全局变量
+        globalObjects : {
+            //加载的全部图像资源
+            imgSour : [],
+            //用户对象
+            user : [],
+            //bg position
+            bgPosition : [0,0],
+            //屏幕尺寸
+            canvasData : {
+                width : document.body.clientWidth,
+                height : document.body.clientHeight
+            },
+            //缩放适配后的位置
+            adaptInfoPosition : [],
+            //屏幕暂停符，用于播放文字动画等。
+            stopFlag : 0,
+            //屏幕播放到哪一个对话框球体了
+            currentText : 0,
+            //第一屏相关逻辑参量
+            firstScreenAnimation : {
+                //第一屏ufo移动终点目标位置
+                firstScreenUfoGoal : [],
+                //运动速度
+                speed : [],
+                //是否正在执行第一屏
+                inFirstScreen : 0
+            },
+            finalScreenAnimation : {
+                //最后一屏ufo移动终点目标位置
+                finalScreenUfoGoal : [],
+                //运动速度
+                speed : [],
+                //是否正在执行最后一屏
+                inFinalScreen : 0
+            },
+            //缩放比例(实际值：设计稿)
+            scalingRatio : 0,
+            //顶部容错区
+            marginTop : 0,
+            //是否已扫描
+            isScaned : 0,
+            //离屏缓存数组
+            cacheCanvas : []
+        },
+        draw : function(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            km8years.bgMove(km8years.globalObjects.imgSour[3]);
+            if(km8years.globalObjects.bgPosition[0] == km8years.source.bgSpeed) {
+                //开始首屏动画
+                km8years.globalObjects.firstScreenAnimation.inFirstScreen = 1;
+                km8years.firstScreenAnimation.firstScreenAnimationInit();
+            } else if(km8years.globalObjects.bgPosition[0] == 12000) {
+                //开始末屏动画
+                km8years.globalObjects.finalScreenAnimation.inFinalScreen = 1;
+                km8years.finalScreenAnimation.finalScreenAnimationInit();
+            } else {
+                km8years.user.drawUser();
+                raf = window.requestAnimationFrame(km8years.draw);
+            }
+        },
+        user : {
+            angle : 0,
+            //头部摆动方向，1时为逆时针，0为顺时针。
+            direction : 1,
+            drawUser : function() {
+//                ctx.save();
+//                ctx.translate(117 + km8years.source.offset[0], 197 + km8years.source.offset[1]);//中心坐标
+                if(km8years.user.direction) {
+                    km8years.user.angle += 0.4;
+                } else {
+                    km8years.user.angle -= 0.4;
+                }
+                if (Math.abs(km8years.user.angle) >= Math.abs(km8years.source.shakeHeadAngle)) {
+                    km8years.user.direction = (km8years.user.direction > 0 ? 0 : 1);
+                    if(km8years.user.direction) {
+                        km8years.user.angle += 0.4;
+                    } else {
+                        km8years.user.angle -= 0.4;
+                    }
+                }
+                //画缓存图内容
+                ctx.drawImage(km8years.globalObjects.cacheCanvas[parseInt(Math.abs(km8years.source.shakeHeadAngle) * 10 + km8years.user.angle * 10)].cacheCanvas,
+                        km8years.source.offset[0] + 20, km8years.source.offset[1] +16);
+
+                //移动相关
+                if(!km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
+                    km8years.move.borderDetect();
+                    km8years.move.way();
+                }
+            },
+            ufo : {
+                draw : function(back) {
+                    ctx.save();
+                    if(km8years.globalObjects.finalScreenAnimation.inFinalScreen && km8years.globalObjects.stopFlag >= km8years.source.finalScreenAnimation.moveFps) {
+                        ctx.globalAlpha = (1.5 - km8years.globalObjects.stopFlag / km8years.source.finalScreenAnimation.outFps) > 0 ? (1.5 - km8years.globalObjects.stopFlag / km8years.source.finalScreenAnimation.outFps) : 0 ;
+                    }
+                    if(back.src.indexOf("light") > 0){
+                        ctx.drawImage(km8years.globalObjects.imgSour[1],km8years.source.offset[0] + 20, 115 + km8years.source.offset[1] - 100,200,200);
+                        ctx.drawImage(km8years.globalObjects.imgSour[2],km8years.source.offset[0] - 10, 115 + km8years.source.offset[1],270,500);
+                    } else {
+                        ctx.drawImage(back,km8years.source.offset[0] + 20, 115 + km8years.source.offset[1] - 100,200,200);
+                    }
+                    ctx.restore();
+                }
+            },
+            astronaut : {
+                draw : function(back, opicity) {
+                    ctx.save();
+                    ctx.globalAlpha = opicity;
+                    ctx.drawImage(km8years.globalObjects.imgSour[0], km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] + 69, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] + 238, 100, 120);
+                    ctx.drawImage(back,parseInt(km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0]) - 60,parseInt(km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1]) + 300);
+                    //箭头
+                    ctx.drawImage(km8years.globalObjects.imgSour[7], km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] + 142, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] + 220, 30, 30);
+                    ctx.font = "16px Microsoft YaHei";
+                    //2. 使用`fillStyle`设置字体颜色。
+                    ctx.fillStyle = "#00AAAA";
+                    //3. 使用`fillText()`方法显示字体。
+                    ctx.fillText(km8years.source.currentUser, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] + 162, km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] + 225);
+                    ctx.restore();
+                },
+                drawAstronautWithLand : function(back, opicity) {
+                    ctx.save();
+                    ctx.globalAlpha = opicity;
+                    //人头
+                    ctx.drawImage(km8years.globalObjects.imgSour[0], km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[0] + 72, km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[1] + 285, 100, 120);
+                    //身子
+                    ctx.drawImage(back,parseInt(km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[0]) - 410,parseInt(km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[1]) + 245);
+                    ctx.restore();
+                }
+            }
+        },
+        bgMove : function(back) {
+            //x轴的移动
+            if(km8years.globalObjects.stopFlag == 0 && !km8years.globalObjects.firstScreenAnimation.inFirstScreen && !km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
+                km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
+            }
+            //末位终止
+            if(km8years.globalObjects.bgPosition[0] >= 12000) {
+                km8years.globalObjects.bgPosition[0] = 12000;
+            }
+            //每一屏终止一段时间展示文字
+            if(km8years.globalObjects.bgPosition[0] % 2000 == 0 && km8years.globalObjects.bgPosition[0] < 12000) {
+                km8years.globalObjects.stopFlag ++;
+            }
+            //屏幕中止一段时间，用于展示文字
+            if(km8years.globalObjects.stopFlag == km8years.source.textTime && !km8years.globalObjects.firstScreenAnimation.inFirstScreen && !km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
+                km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
+                km8years.globalObjects.stopFlag = 0;
+                km8years.globalObjects.currentText ++;
+            }
+
+            //画背景图
+            ctx.fillStyle = '#060b29'
+            ctx.fillRect(0, 0, km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height);
+            ctx.drawImage(back,
+                    km8years.globalObjects.bgPosition[0], 0,
+                    km8years.source.bgShowPerScreen, 1000,
+                    0, (km8years.globalObjects.canvasData.height - km8years.globalObjects.canvasData.width/2) / 2,
+                    km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.width/2
+            );
+            //画弹窗图
+            if(km8years.globalObjects.stopFlag && !km8years.globalObjects.firstScreenAnimation.inFirstScreen && !km8years.globalObjects.finalScreenAnimation.inFinalScreen) {
+                drawInfo(km8years.globalObjects.adaptInfoPosition[parseInt((km8years.globalObjects.bgPosition[0] - 2000) / 2000)]);
+            }
+            //接受一个数组作为相对于内容区的定位,位置应当是设计稿核心内容区的坐标
+            function drawInfo (position){
+                //剪辑区域
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(
+                        position[0], position[1] ,
+                        878, km8years.globalObjects.stopFlag == 0 ? 405 : km8years.globalObjects.stopFlag * 4
+                );
+                ctx.clip();
+                ctx.drawImage(
+                        km8years.globalObjects.imgSour[4],
+                        position[0], position[1]
+                );
+                //写出预设字
+                //1. 使用`font`设置字体。
+                ctx.font = "22px Microsoft YaHei";
+                //2. 使用`fillStyle`设置字体颜色。
+                ctx.fillStyle = "#00AAAA";
+                //3.x轴每一行的缓存值（宽度）
+                var xPosition = km8years.source.infoLine.marginLeft;
+                var yPosition = km8years.source.infoLine.marginTop;
+                var afterBig = 0;
+                var bigBefor = 0;
+                //4. 使用`fillText()`方法显示字体。
+                for(var i = 0; i < km8years.source.infotext[km8years.globalObjects.currentText].length; i++) {
+                    if (km8years.source.infotext[km8years.globalObjects.currentText][i].type > 22){
+                        //放大
+                        ctx.save();
+                        //1. 使用`font`设置字体。
+                        ctx.font = "26px Microsoft YaHei";
+                        //2. 使用`fillStyle`设置字体颜色。
+                        ctx.fillStyle = "#fff";
+                        xPosition += bigBefor;
+                        ctx.fillText(km8years.source.infotext[km8years.globalObjects.currentText][i].text, position[0] + xPosition, position[1] + yPosition);
+                        afterBig = ctx.measureText(km8years.source.infotext[km8years.globalObjects.currentText][i].text).width + 10;
+                        ctx.restore();
+                    } else {
+                        //正常
+                        if (afterBig){
+                            xPosition += afterBig;
+                            afterBig = 0;
+                        }
+                        bigBefor = ctx.measureText(km8years.source.infotext[km8years.globalObjects.currentText][i].text).width + 5;
+                        ctx.fillText(km8years.source.infotext[km8years.globalObjects.currentText][i].text, position[0] + xPosition, position[1] + yPosition);
+                    }
+                    if (km8years.source.infotext[km8years.globalObjects.currentText][i].wrap){
+                        yPosition += km8years.source.infoLine.lineSpacing;
+                        xPosition = km8years.source.infoLine.marginLeft;
+                        afterBig = 0;
+                        bigBefor = 0;
+                    }
+                }
+                ctx.restore();
+            }
+        },
+        move : {
+            //x，y是否正向增加，否则为反向
+            //这里失效了
+            xPluse : 1,
+            yPluse : 1,
+            way : function() {
+                if(km8years.move.xPluse){
+                    km8years.source.offset[0]++;
+                } else {
+                    km8years.source.offset[0]--;
+                }
+                if(km8years.move.yPluse){
+                    km8years.source.offset[1]++;
+                } else {
+                    km8years.source.offset[1]--;
+                }
+            },
+            borderDetect : function() {
+                switch(true)
+                {   //碰触上下边界则y方向翻转
+                    case km8years.source.offset[1] < 0:
+                        km8years.move.yPluse = 1;
+                        break;
+                    case km8years.source.offset[1] > canvas.height - km8years.source.border[1]:
+                        km8years.move.yPluse = 0;
+                        break;
+                    //碰触左右边界则x方向翻转
+                    case km8years.source.offset[0] < km8years.globalObjects.canvasData.width / 2:
+                        km8years.move.xPluse = 1;
+                        break;
+                    case km8years.source.offset[0] > canvas.width - km8years.source.border[0]:
+                        km8years.move.xPluse = 0;
+                        break;
+                }
+            }
+        },
+        //第一屏动画
+        firstScreenAnimation : {
+            firstScreenAnimationInit : function() {
+                //获得目标点
+                km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal = [
+                    km8years.globalObjects.canvasData.width * km8years.source.firstScreenAnimation.astronautPosition[0] / km8years.source.bgShowPerScreen - 120,
+                    km8years.source.firstScreenAnimation.astronautPosition[1] * km8years.globalObjects.scalingRatio + km8years.globalObjects.marginTop - 195
+                ];
+                //x轴移动曲线
+                km8years.globalObjects.firstScreenAnimation.speed[0] = (km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[0] - km8years.source.offset[0]) / km8years.source.firstScreenAnimation.moveFps;
+                //y轴移动曲线
+                km8years.globalObjects.firstScreenAnimation.speed[1] = (km8years.globalObjects.firstScreenAnimation.firstScreenUfoGoal[1] - km8years.source.offset[1]) / km8years.source.firstScreenAnimation.moveFps;
+                //飞到宇航员上头
+                km8years.globalObjects.stopFlag = 0;
+                km8years.firstScreenAnimation.ufoGoToAstronaut();
+            },
+            ufoGoToAstronaut : function() {
+                //这里后边缓存
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#060b29';
+                ctx.fillRect(0, 0, km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height);
+                ctx.drawImage(km8years.globalObjects.imgSour[3],
+                        km8years.globalObjects.bgPosition[0], 0,
+                        km8years.source.bgShowPerScreen, 1000,
+                        0, (km8years.globalObjects.canvasData.height - km8years.globalObjects.canvasData.width/2) / 2,
+                        km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.width/2
+                );
+                if(km8years.globalObjects.isScaned) {
+                    km8years.bgMove(km8years.globalObjects.imgSour[3]);
+                    //飞行路径
+                    km8years.globalObjects.stopFlag ++;
+                    km8years.source.offset[0] += km8years.globalObjects.firstScreenAnimation.speed[0];
+                    km8years.source.offset[1] += km8years.globalObjects.firstScreenAnimation.speed[1];
+                }
+                km8years.user.ufo.draw(km8years.globalObjects.imgSour[1]);
+                km8years.user.astronaut.draw(km8years.globalObjects.imgSour[5], 1);
+                //吸走宇航员
+                if(km8years.globalObjects.stopFlag == km8years.source.firstScreenAnimation.moveFps) {
+                    km8years.globalObjects.stopFlag = 0;
+                    km8years.firstScreenAnimation.astronautSignInUfo();
+                } else {
+                    raf = window.requestAnimationFrame(km8years.firstScreenAnimation.ufoGoToAstronaut);
+                }
+            },
+            astronautSignInUfo : function() {
+                //这里后边缓存
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                km8years.bgMove(km8years.globalObjects.imgSour[3]);
+
+                km8years.user.ufo.draw(km8years.globalObjects.imgSour[1 + km8years.globalObjects.stopFlag % 2]);
+                //正式逻辑
+                km8years.globalObjects.stopFlag ++;
+                km8years.user.astronaut.draw(km8years.globalObjects.imgSour[5], 1- km8years.globalObjects.stopFlag / km8years.source.firstScreenAnimation.suckFps);
+                //至结束
+                if(km8years.globalObjects.stopFlag == km8years.source.firstScreenAnimation.suckFps) {
+                    //第一屏动画结束，背景移动
+                    km8years.globalObjects.bgPosition[0] += km8years.source.bgSpeed;
+                    km8years.globalObjects.stopFlag = 0;
+                    km8years.globalObjects.firstScreenAnimation.inFirstScreen = 0;
+                    km8years.draw();
+                } else {
+                    raf = window.requestAnimationFrame(km8years.firstScreenAnimation.astronautSignInUfo);
+
+                }
+            }
+        },
+        finalScreenAnimation : {
+            finalScreenAnimationInit : function() {
+                //这里很多函数可以抽取，后边处理
+                //获得目标点
+                km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal = [
+                    km8years.globalObjects.canvasData.width / 2 - 100,
+                    km8years.globalObjects.canvasData.height / 2 - 380
+                ];
+                //x轴移动曲线
+                km8years.globalObjects.finalScreenAnimation.speed[0] = (km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[0] - km8years.source.offset[0]) / km8years.source.finalScreenAnimation.moveFps;
+                //y轴移动曲线
+                km8years.globalObjects.finalScreenAnimation.speed[1] = (km8years.globalObjects.finalScreenAnimation.finalScreenUfoGoal[1] - km8years.source.offset[1]) / km8years.source.finalScreenAnimation.moveFps;
+                //飞到宇航员上头
+                km8years.globalObjects.stopFlag = 0;
+                km8years.finalScreenAnimation.ufoGoToAstronaut();
+            },
+            ufoGoToAstronaut : function() {
+                //这里后边缓存
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#060b29'
+                ctx.fillRect(0, 0, km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.height);
+                ctx.drawImage(km8years.globalObjects.imgSour[3],
+                        km8years.globalObjects.bgPosition[0], 0,
+                        km8years.source.bgShowPerScreen, 1000,
+                        0, (km8years.globalObjects.canvasData.height - km8years.globalObjects.canvasData.width/2) / 2,
+                        km8years.globalObjects.canvasData.width, km8years.globalObjects.canvasData.width/2
+                );
+                if(km8years.globalObjects.isScaned) {
+                    km8years.bgMove(km8years.globalObjects.imgSour[3]);
+                    //飞行路径
+                    km8years.globalObjects.stopFlag ++;
+                    km8years.source.offset[0] += km8years.globalObjects.finalScreenAnimation.speed[0];
+                    km8years.source.offset[1] += km8years.globalObjects.finalScreenAnimation.speed[1];
+                }
+//                km8years.user.ufo.draw(km8years.globalObjects.imgSour[1]);
+                km8years.user.drawUser();
+                //放出宇航员
+                if(km8years.globalObjects.stopFlag == km8years.source.finalScreenAnimation.moveFps) {
+                    km8years.globalObjects.stopFlag = 0;
+                    km8years.finalScreenAnimation.astronautSignOutUfo();
+                } else {
+                    raf = window.requestAnimationFrame(km8years.finalScreenAnimation.ufoGoToAstronaut);
+                }
+            },
+            astronautSignOutUfo : function() {
+                //这里后边缓存
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                km8years.bgMove(km8years.globalObjects.imgSour[3]);
+
+                km8years.user.ufo.draw(km8years.globalObjects.imgSour[1 + km8years.globalObjects.stopFlag % 2]);
+                //正式逻辑
+                km8years.globalObjects.stopFlag ++;
+                km8years.user.astronaut.drawAstronautWithLand(km8years.globalObjects.imgSour[6], km8years.globalObjects.stopFlag / km8years.source.finalScreenAnimation.outFps);
+                //至结束
+                raf = window.requestAnimationFrame(km8years.finalScreenAnimation.astronautSignOutUfo);
+            }
+        },
+        init : function() {
+            //构建并初始化一些程序参量
+            //摆头角度赋值
+            km8years.user.angle = km8years.source.shakeHeadAngle;
+            //缩放比
+            km8years.globalObjects.scalingRatio = km8years.globalObjects.canvasData.width / km8years.source.bgShowPerScreen;
+            //y轴的容错,这个值是y轴不显示的上半部分。（此为第一种方案:图片足够高，可以兼容）
+//            km8years.globalObjects.bgPosition[1] = km8years.source.bgShowPerScreen / 4 - (km8years.globalObjects.canvasData.height * km8years.source.bgShowPerScreen / km8years.globalObjects.canvasData.width - 1000) / 2;
+            //y轴的容错,（此为第二种方案:图片比较窄，在画布上倒上颜色，可以兼容）
+            km8years.globalObjects.marginTop = (km8years.globalObjects.canvasData.height - km8years.globalObjects.canvasData.width/2) / 2;
+            //初始化弹窗位置数组，改变为相对于屏幕的百分比定位
+            for(var i = 0; i < km8years.source.infoPosition.length; i++) {
+                km8years.globalObjects.adaptInfoPosition.push(
+                        [
+                            parseInt(km8years.globalObjects.canvasData.width * km8years.source.infoPosition[i][0] / km8years.source.bgShowPerScreen),
+                            parseInt(km8years.globalObjects.canvasData.height * km8years.source.infoPosition[i][1] / 1000)
+                        ]
+                );
+            }
+            //加载所有资源
+            km8years.globalObjects.imgSour = [];
+            var i = 0;
+            lodeImg();
+            function lodeImg() {
+                if( i < km8years.source.img.length) {
+                    var img = new Image();
+                    img.src = km8years.source.img[i];
+                    img.onload = function() {
+                        km8years.globalObjects.imgSour.push(this);
+                        if(km8years.globalObjects.imgSour.length == km8years.source.img.length && 0) {
+
+                            //获取下巴位置
+                            var chinPosition = getChinPosition(km8years.globalObjects.imgSour[0]);
+                            //缓存头像及飞船，未完成
+                            for(var i = 0; i < Math.abs(km8years.source.shakeHeadAngle) * 10 * 2 +10; i++){
+                                var cache = {
+                                    cacheCanvas:document.createElement("canvas")
+                                }
+                                cache.cacheCtx = cache.cacheCanvas.getContext("2d");
+                                cache.cacheCanvas.width = 200;
+                                cache.cacheCanvas.height = 200;
+                                //绘制
+                                cache.cacheCtx.drawImage(km8years.globalObjects.imgSour[1], 0, 0,200,200);
+                                //旋转画布
+                                cache.cacheCtx.translate(100, 108 + 76 - chinPosition);
+//                                cache.cacheCtx.translate(100, 108);
+                                cache.cacheCtx.save();
+                                cache.cacheCtx.rotate((Math.abs(km8years.source.shakeHeadAngle) - i * 0.1) * Math.PI / 180);
+                                cache.cacheCtx.drawImage(km8years.globalObjects.imgSour[0], -36, - 75, 70, 82);
+//                                cache.cacheCtx.drawImage(km8years.globalObjects.imgSour[0], -36, - 76, 70, 82);
+                                cache.cacheCtx.fillRect(-2,-2,2,2);
+                                cache.cacheCtx.restore();
+                                km8years.globalObjects.cacheCanvas.push(cache);
+                            }
+
+                            window.requestAnimationFrame(km8years.draw);
+                        }
+                        lodeImg();
+                    };
+                    i++;
+                }
+            }
+            function getChinPosition(img) {
+                var cache = {
+                    cacheCanvas:document.createElement("canvas")
+                }
+                cache.cacheCtx = cache.cacheCanvas.getContext("2d");
+                cache.cacheCanvas.width = 70;
+                cache.cacheCanvas.height = 82;
+                //绘制在测量canvas中
+                cache.cacheCtx.drawImage(img, 0, 0, 70, 82);
+                km8years.globalObjects.cacheCanvas.push(cache);
+                var imgdata = cache.cacheCtx.getImageData(0,0,cache.cacheCanvas.width, cache.cacheCanvas.height);
+                //图像二值化
+                var c = 0;
+                for(var i=0; i<imgdata.height * imgdata.width -1; i++){
+                    if ( imgdata.data[4*i+1] >= 200 && imgdata.data[4*i+1] < 255 ){
+                        c = 0;
+                    }else{
+                        c = 255;
+                    }
+                    imgdata.data[4*i+0] = c;
+                    imgdata.data[4*i+1] = c;
+                    imgdata.data[4*i+2] = c;
+
+                }
+                //男性 肤色 #ffe2ba 255,226,186 头发 #7b4f4c 123,79,76    差值：132 176 110
+                //女性 肤色 #ffe7cC 255,231,204 头发 #966d6a 150,109,106  差值：105 122 98
+                cache.cacheCtx.putImageData(imgdata,0,0)
+                var x = cache.cacheCanvas.width/2;
+                var y = cache.cacheCanvas.height;
+                for (y = cache.cacheCanvas.height; y > 0; y--){
+                    if(imgdata.data[4*(cache.cacheCanvas.width*y - x)] == 0){
+                        break;
+                    }
+                }
+
+                if( Math.abs(y - 76) < 5 ){
+                    return y;
+                }else{
+                    return 186
+                }
+            }
+        }
+    }
+    $(function() {
+        $('#canvas').attr("width",km8years.globalObjects.canvasData.width);
+        $('#canvas').attr("height",km8years.globalObjects.canvasData.height);
+        km8years.init();
+
+        var pollCount = 0;
+        //轮询扫描检测
+        function polling() {
+            if( !km8years.globalObjects.isScaned && pollCount < km8years.source.pollTime) {
+//                $.ajax({
+//                    url : "<?= KM_PATH ?>anniversaries/status",
+//                    dataType: "json",
+//                    success : function(data) {
+//                        if(data.status != 'init'){
+//                            km8years.globalObjects.isScaned = 1;
+//                            clearInterval(thePolling);
+//                        }
+//                    }
+//                });
+//                pollCount ++;
+                if (km8years.source.pollTime == pollCount) {
+                    alert("准备时间过长，燃料耗尽，请刷新页面重新扫描~~");
+                }
+            } else {
+                clearInterval(thePolling);
+            }
+
+        }
+        var thePolling = window.setInterval(polling,1000)
+    });
+
+
+</script>
+<script type="text/javascript">
+    //tools
+    var getMousePosition = function() {
+        canvas.addEventListener("click", function __handler__(evt) {
+            var x = evt.clientX;
+            var y = evt.clientY;
+            var rect = canvas.getBoundingClientRect();
+            x -= rect.left;
+            y -= rect.top;
+            console.log(x, y); // (x, y) 就是鼠标在 canvas 单击时的坐标
+            km8years.globalObjects.isScaned = 1;
+        });
+    }
+    getMousePosition();
+</script>
+<script type="text/javascript">
+    //彩蛋，canvas播放视频，移动端测试。
+    $(function() {
+        canvas.addEventListener("click", function __handler__(evt) {
+            var x = evt.clientX;
+            var y = evt.clientY;
+            var rect = canvas.getBoundingClientRect();
+            x -= rect.left;
+            y -= rect.top;
+            if(x < 100 && y < 100) {
+                var v=document.getElementById("video1");
+                var c=document.getElementById("canvas");
+                ctx=c.getContext('2d');
+
+                var i=window.setInterval(function() {ctx.drawImage(v,0,0,270,135)},20);
+//                v.addEventListener('pause',function() {window.clearInterval(i);},false);
+//                v.addEventListener('ended',function() {clearInterval(i);},false);
+            }
+            km8years.globalObjects.isScaned = 0;
+        });
+
+        $('#video1').click(function(){
+            var v=document.getElementById("video1");
+            v.play();
+        });
+    });
+</script>
+</body>
+</html>

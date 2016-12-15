@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>THE SAVE - 活口</title>
+	<script type="text/javascript">
+		var phoneWidth = parseInt(window.screen.width);
+		var origWidth = 750;
+		var phoneScale = phoneWidth/origWidth;
+		var ua = navigator.userAgent;
+		if (/Android (\d+\.\d+)/.test(ua)){
+			var version = parseFloat(RegExp.$1);
+			// andriod 2.3
+			if(version>2.3){
+				document.write('<meta name="viewport" content="width='+origWidth+', minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+				// andriod 2.3以上
+			}else{
+				document.write('<meta name="viewport" content="width='+origWidth+', target-densitydpi=device-dpi">');
+			}
+			// 其他系统
+		} else {
+			document.write('<meta name="viewport" content="width='+origWidth+', user-scalable=no, target-densitydpi=device-dpi">');
+		}
+	</script>
+	<script src="js-min/createjs-2015.11.26.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" ></script>
+	<script src="js-min/zepto.min.js"></script>
+	<script src="js-min/idangerous.swiper.min.js"></script>
+	<script src="js-min/hammer.min.js"></script>
+	<script src="js-min/createjs-2015.11.26.min.js"></script>
+	<script src="js-min/zepto.min.js"></script>
+
+	<script src="js-min/game-res-min.js"></script>
+	<script src="js-min/game-logic-min.3.js"></script>
+	<script type="text/javascript" src="http://pingjs.qq.com/h5/stats.js" name="MTAH5" sid="500339828" cid="500339865" ></script>
+
+	<style>
+
+		html{
+			overflow: hidden;
+			margin: 0px;
+			padding: 0px;
+		}
+		body{
+
+			background-color: #171516;
+
+			/**/-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+
+			margin: 0px;
+			padding: 0px;
+
+			overflow: hidden;
+
+
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+
+		}
+		area{
+			outline:none;
+		}
+		.loading{
+			position: absolute;
+			top:0px;
+			left: 0px;
+			width: 750px;
+			height: 1218px;
+			background-color: #000;
+			z-index: 999;
+		}
+		.loadingLogo{
+
+			/*
+			background-image: url("./images/logo@2x.png");
+			background-repeat: no-repeat;*/
+
+			width: 112px;
+			height: 178px;
+			position: absolute;
+			top:262px;
+			left: 320px;
+			display: none;
+
+		}
+		.loadingPercent{
+			width: 102px;
+			height: 74px;
+			position: absolute;
+			top: 368px;
+			left: 320px;
+			color: #D34125;
+			font-size: 48pt;
+			font-family: "Adobe 黑体 Std", "HelveticaNeue-Light", "Hiragino Sans GB", sans-serif;
+			text-align: center;
+			font-weight: bold;
+			background-image: url("./images/loadingnum.png");
+			background-position: 0px 0px;
+			background-repeat: no-repeat;
+
+		}
+		.loadingText{
+			width: 330px;
+			height: 96px;
+			position: absolute;
+			top:846px;
+			left: 220px;
+			font-size: 18pt;
+			font-family: "Adobe 黑体 Std", "HelveticaNeue-Light", "Hiragino Sans GB", sans-serif;
+			color: #FFFFFF;
+			text-align: center;
+		}
+		.loadingImg{
+
+			background-image: url("./images/img@2x.png");
+			background-repeat: no-repeat;
+
+			width: 60px;
+			height: 40px;
+			position: absolute;
+			top:986px;
+			left: 346px;
+		}
+		#gphone
+		{
+			position: absolute;
+			left: 1140px;
+			top: 895px;
+			display: none;
+			pointer-events:none;
+		}
+		#movieSkip
+		{
+			font-size: 22px;
+			font-weight: bold;
+			width: 158px;
+			height: 84px;
+			position: absolute;
+			bottom:0px;
+			left:40px;
+			color: #FFFFFF;
+			display: none;
+			background-image: url("./images/skip.png");
+			background-repeat: no-repeat;
+			background-position: 0px 28px;
+		}
+	</style>
+	<link rel="stylesheet" href="idangerous.swiper.css">
+	<style>
+
+		.swiper-container {
+			width: 750px;
+			height: 1220px;
+			text-align: center;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			z-index: -999;
+
+		}
+		.swiper-slide {
+			width: 3143px;
+			padding: 0px;
+			background: #fff;
+			opacity:0;
+
+		}
+		.senceImg
+		{
+			margin-left: -380px;
+			width: 3903px;
+			height: 1220px;
+		}
+		.swiper-wrapper
+		{
+			transform: translate3d(-997.759px, 0px, 0px);
+		}
+
+	</style>
+	<script>
+
+		var isPurchased=0;
+		//调用微信JS api 支付
+		function jsApiCall()
+		{
+
+
+			WeixinJSBridge.invoke(
+					'getBrandWCPayRequest',
+					{"appId":"wx4eef5f3506871421","nonceStr":"5knocd4dsu9pteutg2er2p542r5dlij4","package":"prepay_id=wx20161214164912c7246599df0979852532","signType":"MD5","timeStamp":"1481705352","paySign":"B6EE9D65BCC3B24F16FE7C2E5B39059A"},
+					function(res){
+						WeixinJSBridge.log(res.err_msg);
+						//alert(res.err_code+' '+res.err_desc+' '+res.err_msg);
+						if(res.err_msg=='get_brand_wcpay_request:ok')
+						{
+							//alert('支付成功');
+							isPurchased = true;
+							createjs.Tween.m.showOpenApp();
+							MtaH5.clickStat('PaySuccess');
+
+						}else if(res.err_msg=='get_brand_wcpay_request:cancel')
+						{
+							//alert('支付取消');
+
+							createjs.Tween.a.showBottonTip(22);
+							MtaH5.clickStat('PayCancel');
+
+						}else{
+
+							alert('支付失败，code:'+res.err_code)
+							MtaH5.clickStat('PayError',{'code':res.err_code});
+						}
+					});
+
+			MtaH5.clickStat('PayRequest');
+		}
+
+	</script>
+
+	<script>
+
+
+		function callpay()
+		{
+			if (typeof WeixinJSBridge == "undefined"){
+				if( document.addEventListener ){
+					document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+				}else if (document.attachEvent){
+					document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+					document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+				}
+			}else{
+				jsApiCall();
+			}
+		}
+
+
+
+	</script>
+</head>
+<body style="margin:0px;">
+
+<div  class="swiper-container">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+			<img id="sence1" class="senceImg" src="images/t.png" usemap="#image1-map">
+
+			<map style="outline:none;" id="s1" name="image1-map">
+				<area target="" alt="tvset" title="tvset" href="javascript:void(0);" coords="709,116,729,525,888,455,878,146" shape="poly">
+				<area target="" alt="icebox" title="icebox" href="javascript:void(0);" coords="908,219,1005,219,1038,416,1061,671,1001,755,975,439,912,439" shape="poly">
+				<area target="" alt="bigbox" title="bigbox" href="javascript:void(0);" coords="981,10,1065,558,1274,568,1241,7" shape="poly">
+				<area target="" alt="fishbox" title="fishbox" href="javascript:void(0);" coords="1357,326,1367,495,1610,475,1606,322,1553,326,1543,209,1390,219,1397,326" shape="poly">
+				<area target="" alt="teatable" title="teatable" href="javascript:void(0);" coords="1610,505,1580,602,1749,791,2059,718,1979,562,1793,479" shape="poly">
+				<area target="" alt="phone" title="phone" href="javascript:void(0);" coords="1470,701,1530,678,1603,725,1537,758" shape="poly">
+				<area target="" alt="fire" title="fire" href="javascript:void(0);" coords="1656,937,1620,977,1713,1027,1746,981" shape="poly">
+				<area target="" alt="glass" title="glass" href="javascript:void(0);" coords="1975,748,1932,801,1989,831,2075,814" shape="poly">
+				<area target="" alt="smokenbox" title="smokenbox" href="javascript:void(0);" coords="2647,794,2594,844,2667,894,2720,831" shape="poly">
+				<area target="" alt="sofa" title="sofa" href="javascript:void(0);" coords="2025,293,1985,419,1872,465,2178,645,2421,519,2454,319" shape="poly">
+				<area target="" alt="telephone" title="telephone" href="javascript:void(0);" coords="1892,306,1839,349,1896,369,1945,342" shape="poly">
+				<area target="" alt="mirror" title="mirror" href="javascript:void(0);" coords="2587,10,2567,246,2534,283,2650,389,2760,293,2730,243,2743,13" shape="poly">
+				<area target="" alt="codedlock" title="codedlock" href="javascript:void(0);" coords="3013,226,3016,319,3109,316,3109,226" shape="poly">
+				<area target="" alt="card" title="card" href="javascript:void(0);" coords="1192,581,1118,634,1275,701,1358,644" shape="poly">
+			</map>
+
+
+			<img style="display: none" id="sence2" class="senceImg" src="images/t.png" usemap="#image2-map">
+			<img src="images/groundPhone.png" id="gphone" width="64" height="64">
+
+			<map id="s2" name="image2-map">
+				<area target="" alt="smokenbox" title="smokenbox" href="javascript:void(0);" coords="2560,1107,2497,1160,2560,1207,2627,1160" shape="poly">
+				<area target="" alt="telephone" title="telephone" href="javascript:void(0);" coords="1916,452,1882,495,1939,515,1982,472" shape="poly">
+				<area target="" alt="teatable" title="teatable" href="javascript:void(0);" coords="1640,711,1600,804,1723,1064,2055,977,1982,851,1819,678" shape="poly">
+				<area target="" alt="tvset" title="tvset" href="javascript:void(0);" coords="765,612,819,924,965,761,958,532" shape="poly">
+				<area target="" alt="icebox" title="icebox" href="javascript:void(0);" coords="981,462,975,525,981,711,1031,715,1058,947,1111,848,1085,475" shape="poly">
+				<area target="" alt="bigbox" title="bigbox" href="javascript:void(0);" coords="1055,166,1088,455,1118,668,1321,685,1301,163" shape="poly">
+				<area target="" alt="fishbox" title="fishbox" href="javascript:void(0);" coords="1434,366,1590,362,1593,462,1643,482,1646,655,1400,668,1404,485,1434,472" shape="poly">
+				<area target="" alt="sofa" title="sofa" href="javascript:void(0);" coords="2055,459,2012,558,1882,625,2201,927,2388,771,2464,585" shape="poly">
+				<area target="" alt="mirror" title="mirror" href="javascript:void(0);" coords="2560,203,2710,213,2710,552,2750,588,2657,655,2507,598,2577,532" shape="poly">
+				<area target="" alt="codedlock" title="codedlock" href="javascript:void(0);" coords="3042,382,3119,382,3122,449,3042,449" shape="poly">
+				<area target="" alt="monitor" title="monitor" href="javascript:void(0);" coords="3372,273,3378,429,3508,442,3501,279" shape="poly">
+				<area target="" alt="card" title="card" href="javascript:void(0);" coords="1257,705,1171,765,1327,888,1404,801" shape="poly">
+				<area target="" alt="light" title="light" href="javascript:void(0);" coords="1713,83,1636,166,1726,273,1803,193" shape="poly">
+				<area target="" alt="phone" title="phone" href="javascript:void(0);" coords="1483,884,1573,874,1603,971,1500,981" shape="poly">
+
+			</map>
+
+		</div>
+	</div>
+</div>
+</div>
+
+
+<canvas id="scene" width="750" height="1218" style="display: block;width: 750px;height: 1218px; background-color:rgba(0, 0, 0, 1.00)"></canvas>
+<div class="phoneBg phoneshell"></div>
+<canvas class="phoneScreen" id="phone" width="556" height="986" style="display: none;background-color:rgba(23, 21, 22, 1.00)"></canvas>
+<div class="phoneGlass phoneshell"></div>
+<div id="phoneHomeKey" class="phoneHomeKey"></div>
+<div class="phoneMax"></div>
+<div class="loading">
+	<div class="loadingLogo"></div>
+	<div class="loadingPercent"></div>
+	<div class="loadingText">请打开声音或戴上耳机<br />获得最佳体验</div>
+	<div class="loadingImg"></div>
+</div>
+
+
+
+<video id="movie1" style="position: absolute;top: 0px;left: 0px;display: none" playsinline x-webkit-airplay webkit-playsinline preload="auto" width="750" height="1220" src=""></video>
+<div id="movieReverse" ></div>
+<div class="cutview" style="pointer-events:none;"></div>
+<div style="display: none" class="gameTip">
+	<div class="gametipText"></div>
+	<div class="gametipTitle"></div>
+	<div class="gametipStart"></div>
+</div>
+<video id="tvset" style="position: absolute;top: 390px;left: 140px;display: none" playsinline x-webkit-airplay webkit-playsinline preload="auto" width="464" height="346" src=""></video>
+<video id="monitor" style="position: absolute;top: 516px;left: 206px;display: none" playsinline x-webkit-airplay webkit-playsinline preload="auto" width="352" height="235" src=""></video>
+
+
+
+<div id="subtitle"></div>
+<div class="back"></div>
+<div id="movieSkip" ></div>
+<audio id="bgm" loop src=""></audio>
+
+<div style="display: none" class="endpagectn">
+	<div class="endpage">
+		<div class="eptitle"></div>
+
+		<div class="eplist">
+
+		</div>
+
+		<div class="eplogo">
+			<img class="epqrcode" src="images/epqrcode.png" width="320" height="320">
+		</div>
+
+
+		<div class="eqclose">
+
+		</div>
+		<div class="eqlink">
+			<a  href="http://dopemineworks.com">dopemineworks.com</a>
+		</div>
+	</div>
+</div>
+
+<div class="qtctn">
+	<div class="qttext">
+
+	</div>
+	<div class="qtok">
+
+	</div>
+</div>
+
+<script>
+	var senceSwiper = new Swiper('.swiper-container',{
+		scrollContainer: true
+	})
+</script>
+
+</body>
+</html>
