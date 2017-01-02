@@ -28,9 +28,14 @@
 			var fract = deltat / duration;
 			var angle = Math.PI * 20 * fract;
 			//group.rotation.y += angle;
-			camera.position.y = y;
-			camera.position.x = x;
-			camera.position.z = z;
+//			camera.position.y = 110;
+//			camera.position.x = x;
+//			camera.position.z = z;
+			var html = "";
+			html += "x:" + camera.position.x;
+			html += "  y:" + camera.position.y;
+			html += "  z:" + camera.position.z;
+			$('#position').html(html);
 		}
 		function run() {
 			requestAnimationFrame(function() { run(); });
@@ -117,19 +122,6 @@
 
 			// Create the sphere geometry
 			geometry = new THREE.SphereGeometry(2, 20, 20);
-
-			// And put the geometry and material together into a mesh
-			sphere = new THREE.Mesh(geometry, materials["phong"]);
-			sphere.visible = false;
-			// Create the sphere geometry
-			geometry = new THREE.SphereGeometry(2, 20, 20);
-			// And put the geometry and material together into a mesh
-			sphereEnvMapped = new THREE.Mesh(geometry, materials["phong-envmapped"]);
-			sphereEnvMapped.visible = true;
-			setMaterial("phong-envmapped");
-			// Add the sphere mesh to our group
-			group.add( sphere );
-			group.add( sphereEnvMapped );
 			// Create the skybox
 			var shader = THREE.ShaderLib[ "cube" ];
 			shader.uniforms[ "tCube" ].value = envMap;
@@ -152,21 +144,20 @@
 
 		$(document).ready(
 				function() {
-					
-			window.addEventListener('deviceorientation', function(event) {
-				html = '';
-				x = event.alpha;
-				y = event.beta;
-				z = event.gamma;
-			}, false)
-					
-					
+
+					window.addEventListener('deviceorientation', function(event) {
+						html = '';
+						x = event.alpha;
+						y = event.beta;
+						z = event.gamma;
+					}, false)
 					var canvas = document.getElementById("webglcanvas");
 					createScene(canvas);
 					initControls();
 
 					run();
 				}
+
 		);
 	</script>
 
@@ -176,7 +167,6 @@
 <div id="container">
 	<canvas id="webglcanvas" width=800 height=600></canvas>
 </div>
-
+<div id="position"></div>
+</body>
 </html>
-Contact GitHub API Training Shop Blog About
-© 2017 GitHub, Inc. Terms Privacy Security Status Help
