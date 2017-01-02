@@ -152,18 +152,21 @@
 
 		$(document).ready(
 				function() {
-					var canvas = document.getElementById("webglcanvas");
-					createScene(canvas);
-					initControls();
-
-					run();
-				}
+					
 			window.addEventListener('deviceorientation', function(event) {
 				html = '';
 				x = event.alpha;
 				y = event.beta;
 				z = event.gamma;
 			}, false)
+					
+					
+					var canvas = document.getElementById("webglcanvas");
+					createScene(canvas);
+					initControls();
+
+					run();
+				}
 		);
 	</script>
 
