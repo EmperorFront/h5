@@ -32,9 +32,9 @@
 			camera.position.x = x;
 			camera.position.z = z;
 			var html = "";
-			html += "x:" + camera.position.x;
-			html += "  y:" + camera.position.y;
-			html += "  z:" + camera.position.z;
+			html += "x:" + parseInt(camera.position.x);
+			html += "  y:" + parseInt(camera.position.y);
+			html += "  z:" + parseInt(camera.position.z);
 			$('#position').html(html);
 		}
 		function run() {
@@ -167,6 +167,6 @@
 <div id="container">
 	<canvas id="webglcanvas" width=800 height=600></canvas>
 </div>
-<div id="position"></div>
+<div id="position" style="font-size: 30px"></div>
 </body>
 </html>
