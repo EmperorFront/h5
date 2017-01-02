@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Programming 3D Applications in HTML5 and WebGL &mdash; The Cube in Three.js</title>
+
+<script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+<script src="../libs/three.js.r58/three.js"></script>
+
+<script src="../libs/requestAnimationFrame/RequestAnimationFrame.js">
+	//RequestAnimationFrame兼容式写法
+</script>
+<script type="text/javascript">
+
+	var renderer = null, 
+	scene = null, 
+	camera = null,
+	cube = null;
+	
+    var duration = 5000; // ms
+    var currentTime = Date.now();
+	function animate() {
+		
+        var now = Date.now();
+        var deltat = now - currentTime;
+        currentTime = now;
+        var fract = deltat / duration;
+        var angle = Math.PI * 20 * fract;
+		//旋转速度，此方案为绕着y旋转
+		cube.rotation.z += angle;
+//		cube.rotation.x += angle;
+//		cube.rotation.z += angle;
+		//cube.position.y -= 3
+		if(cube.position.y > 3){ cube.position.y-- }else{cube.position.y++}
+
+	}
+
+	function run() {
+		//每一帧run一次，run中调用animate
+        requestAnimationFrame(function() { run(); });
+			// 渲染器调用渲染方法，传入现场及相机。
+			renderer.render( scene, camera );
+			//计算旋转角度
+			animate();
+				
+    }
+    
+	$(document).ready(
+			function() {
+
+				var canvas = document.getElementById("webglcanvas");
+			    renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+
+			    // 视窗
+			    renderer.setSize(canvas.width, canvas.height);
+
+			    // 顶级对象
+			    scene = new THREE.Scene();
+
+			    // 相机，后两个参数不懂
+		        camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height, 1, 4000 );
+				scene.add(camera);
+				
+		        // 渲染纹理映射，此为纹理映射，或纹理，是指表面色彩位图
+		        var mapUrl = "../images/webgl-logo-256.jpg";
+		        var map = THREE.ImageUtils.loadTexture(mapUrl);
+		        
+		        // 材质，是指如光照等。
+		        var material = new THREE.MeshBasicMaterial({ map: map });
+
+		        // 正方体创建
+		        var geometry = new THREE.CubeGeometry(2, 2, 2);
+
+		        // 整合纹理与材质
+		        cube = new THREE.Mesh(geometry, material);
+
+		        cube.position.z = -8;
+				cube.position.x = 1;
+		        cube.rotation.x = Math.PI / 5;
+		        cube.rotation.y = Math.PI / 5;
+
+		        // Finally, add the mesh to our scene
+		        scene.add( cube );
+
+		        // Run the run loop
+		        run();
+			}
+	);
+
+</script>
+
+</head>
+<body>
+
+    <canvas id="webglcanvas" style="border: none;background-color:#000000" width="500" height="500"></canvas>
+
+</body>
+
+</html>

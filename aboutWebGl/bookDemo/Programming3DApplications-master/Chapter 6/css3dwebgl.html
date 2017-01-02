@@ -1,0 +1,267 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Programming 3D Applications in HTML5 and WebGL &mdash; CSS 3D + WebGL</title>
+
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/css3dwebgl.css" />
+
+<script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+<script src="../libs/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
+<script src="../libs/three.js.r58/three.js"></script>
+<script src="../libs/three.js.r58/controls/OrbitControls.js"></script>
+<script src="../libs/tween.js/tween.min.js"></script>
+<script src="../libs/keyframe.js/keyframe.js"></script>
+<script src="../libs/requestAnimationFrame/RequestAnimationFrame.js"></script>
+<script type="text/javascript">
+
+	var rotating = false;
+	
+	$(document).ready(
+			function() {
+				var canvas = document.getElementById("webglcanvas");
+
+				// create the scene
+				createScene(canvas);
+
+				// initialize the controls
+				initControls();
+				
+				// create the animations
+				playAnimations();
+				
+		        // Run the run loop
+		        run();
+
+				$('#cardFront1').click(function(){
+					if (!rotating)
+					{
+						$('#cardFront1').addClass('animRotateY');
+					}
+					else
+					{
+						$('#cardFront1').removeClass('animRotateY');
+					}
+
+					rotating = !rotating;
+				}
+				);
+		        
+			}
+
+	);
+
+</script>
+<script type="text/javascript">
+
+	var renderer = null, 
+	scene = null, 
+	camera = null,
+	root = null,
+	group = null,
+	cube = null,
+	sphere = null,
+	cone = null,
+	directionalLight = null;
+	
+	function run() {
+        requestAnimationFrame(function() { run(); });
+        
+			// Render the scene
+			renderer.render( scene, camera );
+
+			// Update the animations
+			KF.update();
+
+			// Update the camera controller
+			orbitControls.update();
+	}
+
+	function createScene(canvas) {
+		
+		// Create the Three.js renderer and attach it to our canvas
+		renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+
+	    // Set the viewport size
+	    renderer.setSize(canvas.width, canvas.height);
+
+	    // Create a new Three.js scene
+	    scene = new THREE.Scene();
+
+	    // Add  a camera so we can view the scene
+        camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height, 1, 4000 );
+        camera.position.set(0, 2, 13);
+		scene.add(camera);
+		
+		// Create a group to hold all the objects
+		root = new THREE.Object3D;
+		
+        // Add a directional light to show off the object
+		directionalLight = new THREE.DirectionalLight( 0xffffff, 1);
+
+		// Create and add all the lights
+		directionalLight.position.set(0, 1, 2);
+		root.add(directionalLight);
+
+		ambientLight = new THREE.AmbientLight ( 0x888888 );
+		root.add(ambientLight);
+		
+		// Create a group to hold the objects
+		group = new THREE.Object3D;
+		root.add(group);
+
+        // Create the cube geometry
+        var geometry = new THREE.CubeGeometry(2, 2, 2);
+        
+        // And put the geometry and material together into a mesh
+        var color = 0xff0000;
+        ambient = 0x888888;
+        cube = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:color, 
+            ambient:ambient}));
+		cube.position.x = -3;
+		
+        // Add the mesh to our group
+        group.add( cube );
+		
+        // Create the sphere geometry
+        geometry = new THREE.SphereGeometry(Math.sqrt(2), 20, 20);
+        
+        // And put the geometry and material together into a mesh
+        var color = 0x00ff00;
+        ambient = 0x888888;
+        sphere = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:color, 
+            ambient:ambient}));
+		
+        // Add the mesh to our group
+        group.add( sphere );
+
+        // Create the cone geometry
+        geometry = new THREE.CylinderGeometry(0, 2, 2, 50, 10);
+        
+        // And put the geometry and material together into a mesh
+        var color = 0x0000ff;
+        ambient = 0x888888;
+		cone = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:color, 
+			ambient:ambient}));
+		cone.position.x = 3;
+		
+		// Add the  mesh to our group
+        group.add( cone );
+
+		// Now tilt the group
+		group.rotation.z = Math.PI / 12;
+		
+        // Now add the group to our scene
+        scene.add( root );
+    }
+
+	function initControls()
+	{
+		orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+	}
+	   	
+	var duration = 10, // sec
+	animator = null,
+	loopAnimation = true;
+
+	function playAnimations()
+	{
+		var halfPI = Math.PI / 2,
+		PI = Math.PI, 
+		threehalfPI = 3 * halfPI,
+		twoPI = Math.PI * 2;
+		
+		// position animation
+		if (animator)
+			animator.stop();
+		
+		animator = new KF.KeyFrameAnimator;
+		animator.init({ 
+			interps:
+				[
+				    { 
+				    	keys:[0, .25, .5, .75, 1], 
+				    	values:[
+				    	        { z: 0 },
+				    	        { z: halfPI },
+				    	        { z: PI },
+				    	        { z: threehalfPI },
+				    	        { z: twoPI },
+				    	        ],
+				    	target:cube.rotation
+				    },
+				    { 
+				    	keys:[0, .25, .5, .75, 1], 
+				    	values:[
+				    	        { x: 0 },
+				    	        { x: halfPI },
+				    	        { x: PI },
+				    	        { x: threehalfPI },
+				    	        { x: twoPI },
+				    	        ],
+				    	target:cone.rotation
+				    },
+				    { 
+				    	keys:[0, .25, .5, .75, 1], 
+				    	values:[
+				    	        { y: 0 },
+				    	        { y: halfPI },
+				    	        { y: PI },
+				    	        { y: threehalfPI },
+				    	        { y: twoPI },
+				    	        ],
+				    	target:root.rotation
+				    },
+				],
+			loop: loopAnimation,
+			duration:duration * 1000
+		});
+		
+		animator.start();
+		
+	}
+	
+</script>
+
+</head>
+<body>
+
+CSS 3D + WebGL
+
+<div id="card1" class="container perspective">
+	<div class="legend">
+	DIV Rotated with CSS Key Frames
+	</div>
+	<p>Canvas Rendered and Animated with WebGL.<br></br>Click to toggle DIV rotation.</p>
+	<div class="cardBorder">
+	<pre>
+{@keyframes kfRotateY {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+   transform: rotateY(360deg);
+  }
+}
+
+.animRotateY
+ {
+  animation-duration: 2s;
+  animation-name: kfRotateY;
+  animation-iteration-count: infinite;
+  animation-timing-function:linear;
+}
+</pre>
+	    <div id="cardFront1" class="card">
+	      <p>Here is an example of WebGL rendered in a transformed CSS element.</p>
+	      <canvas id="webglcanvas" width=320 height=256></canvas>
+	      <p>Watch it spin...</p>
+	    </div>
+	</div>
+</div>
+
+
+
+</body>
+</html>

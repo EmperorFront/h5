@@ -1,0 +1,170 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Programming 3D Applications in HTML5 and WebGL &mdash; Canvas Features</title>
+
+</head>
+
+<style>
+
+	#features {
+		border:1px solid;
+		color:Green;
+	}
+</style>
+<body>
+<h1>Canvas Features</h1>
+<canvas id="features" width=500 height=500></canvas>
+
+</body>
+<script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+<script src="../libs/requestAnimationFrame/RequestAnimationFrame.js"></script>
+<script type="text/javascript">
+
+	var canvas,
+	context,
+	image1,
+	image2,
+	imagepattern,
+	gradient;
+	
+	function draw(canvas, context)
+	{
+		context.clearRect(0, 0, canvas.width, canvas.height);
+
+		context.save();
+		context.translate(50, 0);
+		
+		// Small red filled rectangle
+		context.save();
+		context.fillStyle = '#ff0000';
+		context.fillRect(25, 25, 100, 50);
+		context.restore();
+				
+		// Small dark blue filled rectangle
+		context.save();
+		context.strokeStyle = 'DarkBlue';
+		context.strokeRect(250, 25, 100, 50);
+		context.restore();
+
+		// Filled text
+		context.save();
+		context.lineWidth = 1;
+		context.fillStyle = 'Black';
+		context.font = '30px sans-serif';
+		context.fillText('Fill', 50, 125);
+		context.restore();
+
+		// Stroked text
+		context.save();
+		context.lineWidth = 1;
+		context.strokeStyle = 'Orange';
+		context.font = 'italic 2em Verdana';
+		context.strokeText('Stroke', 250, 125);
+		context.restore();
+
+		// A triangle
+		context.save();
+		context.beginPath();
+		context.fillStyle = 'Yellow';
+		context.moveTo(75, 150);
+		context.lineTo(25, 225);
+		context.lineTo(125, 225);
+		context.lineTo(75, 150);
+		context.closePath();
+		context.fill();
+		context.restore();
+
+		// A filled bezier curve
+		context.save();
+		context.beginPath();
+		context.strokeStyle = 'Green';
+		context.fillStyle = 'LightBlue';
+	    context.moveTo(300,150);
+	    context.bezierCurveTo(225,175,275,225,275,225);
+	    context.bezierCurveTo(350,250,350,225,350,225);
+	    context.bezierCurveTo(350,175,300,175,300,150);
+		context.closePath();
+	    context.stroke();
+	    context.fill();
+		context.restore();
+
+		// A bitmap
+		if (image1.width)
+		{
+			context.save();
+			context.drawImage(image1, 11, 250, 128, 128);
+			context.restore();
+		}
+
+		// A bitmap-filled circle
+		if (image2.width)
+		{
+			context.save();
+			context.strokeStyle = 'DarkGray';
+			context.fillStyle = imagepattern;
+			context.beginPath();
+			context.arc(300, 314, 64, 0, 2 * Math.PI, false);
+		    context.scale(.5, .5);
+			context.closePath();
+		    context.fill();
+		    context.stroke();
+			context.restore();
+		}
+		
+		// A polyline
+		context.save();
+		context.strokeStyle = "rgb(128, 0, 255)";
+		context.beginPath();
+		context.lineWidth = 3;
+		context.moveTo(25, 450);
+		context.lineTo(75, 425);
+		context.lineTo(150, 475);
+		context.stroke();
+		context.restore();
+
+		// A gradient fill
+		context.save();
+		context.fillStyle = gradient;
+		context.fillRect(250, 425, 100, 50);
+		context.restore();
+
+		context.restore();
+	}
+
+	function init()
+	{
+		image1 = new Image;
+		image1.src = '../images/parisi1.jpg';
+
+		image2 = new Image;
+		image2.onload = function()
+		{
+			imagepattern = context.createPattern(image2, "repeat");
+		}
+		
+		image2.src = '../images/ash_uvgrid01.jpg';
+
+		gradient = context.createLinearGradient(250,0,350,0);
+		gradient.addColorStop(0,"green");
+		gradient.addColorStop(1,"blue");
+	}
+	
+	function run()
+	{
+		requestAnimationFrame(run);
+		draw(canvas, context);
+	}
+	
+	$(document).ready(
+			function() {
+
+				canvas = document.getElementById("features");
+				context = canvas.getContext("2d");
+				init();
+				run();
+			}
+	);
+
+</script>
+</html>

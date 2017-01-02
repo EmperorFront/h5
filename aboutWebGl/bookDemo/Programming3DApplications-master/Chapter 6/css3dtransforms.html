@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Programming 3D Applications in HTML5 and WebGL &mdash; CSS 3D Transforms</title>
+
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/css3dtransforms.css" />
+
+<script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+<script src="../libs/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(
+			function() {
+
+			}
+
+	);
+
+</script>
+
+</head>
+<body>
+
+CSS 3D Transforms
+
+<div id="card1" class="container perspective">
+	<div class="legend">
+	Translate
+	</div>
+	<div class="code">{translateX(20px) translateY(20px) translateZ(-100px);}</div>
+	<div class="cardBorder">
+	    <div class="card translate">
+	      <p>This element is translated.</p>
+	      <img width=96 height=96 src="../images/HTML5rawkes.png"></img>
+	      <p>Transformed elements can contain anything: text, images, divs, tables...</p>
+	    </div>
+	</div>
+</div>
+
+<div id="card2" class="container perspective">
+	<div class="legend">
+	Rotate
+	</div>
+	<div class="code">{rotateY(30deg);}</div>
+	<div class="cardBorder">
+	    <div class="card rotate">
+	      <p>This element is rotated.</p>
+	      <img width=96 height=96 src="../images/HTML5rawkes.png"></img>
+	      <p>Transformed elements can contain anything: text, images, divs, tables...</p>
+	    </div>
+	</div>
+</div>
+
+<div id="card3" class="container perspective">
+	<div class="legend">
+	Scale
+	</div>
+	<div class="code">{scaleX(1.25) scaleY(.75);}</div>
+	<div class="cardBorder">
+	    <div class="card scale">
+	      <p>This element is scaled.</p>
+	      <img width=96 height=96 src="../images/HTML5rawkes.png"></img>
+	      <p>Transformed elements can contain anything: text, images, divs, tables...</p>
+	    </div>
+	</div>
+</div>
+
+
+</body>
+</html>
