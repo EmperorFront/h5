@@ -3,16 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Programming 3D Applications in HTML5 and WebGL &mdash; Three.js Textures: Cubic Environment Mapping</title>
 
-<link rel="stylesheet" href="../libs/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css" />
-<link rel="stylesheet" media="screen" type="text/css" href="../libs/colorpicker/css/colorpicker.css" />
-<link rel="stylesheet" href="../css/main.css" />
-<link rel="stylesheet" href="../css/threejsenvmap.css" />
+
 <script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
-<script src="../libs/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
 <script src="../libs/three.js.r58/three.js"></script>
 <script src="../libs/three.js.r58/controls/OrbitControls.js"></script>
 <script src="../libs/requestAnimationFrame/RequestAnimationFrame.js"></script>
-<script src="../libs/colorpicker/js/colorpicker.js"></script>
 <script type="text/javascript">
 
 	var renderer = null, 
@@ -27,24 +22,20 @@
     var duration = 10000; // ms
     var currentTime = Date.now();
 	function animate() {
-
         var now = Date.now();
         var deltat = now - currentTime;
         currentTime = now;
         var fract = deltat / duration;
-        var angle = Math.PI * 2 * fract;
+        var angle = Math.PI * 20 * fract;
 
-		// Rotate the sphere group about its Y axis
-		group.rotation.y += angle;
+		//group.rotation.y += angle;
+		camera.position.y += angle;
 	}
 
 	function run() {
         requestAnimationFrame(function() { run(); });
-        
-			// Render the scene
 			renderer.render( scene, camera );
 
-			// Spin the cube for next frame
 			animate();
 
 			// Update the camera controller
@@ -61,11 +52,11 @@
 	{
 		map = null; // THREE.ImageUtils.loadTexture(mapUrl);
 		
-		var path = "../images/cubemap/skybox/";
+		var path = "img/";
 
-		var urls = [ path + "px.jpg", path + "nx.jpg",
-					 path + "py.jpg", path + "ny.jpg",
-					 path + "pz.jpg", path + "nz.jpg" ];
+		var urls = [ path + "r1.jpg", path + "l1.jpg",
+					 path + "t1.jpg", path + "b1.jpg",
+					 path + "ba1.jpg", path + "f1.jpg" ];
 
 		envMap = THREE.ImageUtils.loadTextureCube( urls );
 		
@@ -103,34 +94,18 @@
 		}
 	}
 
-	function toggleEnvironmentMap()
-	{
-		envMapOn = !envMapOn;
-		var names = materialName.split("-");
-		if (!envMapOn)
-		{
-			setMaterial(names[0]);
-		}
-		else
-		{
-			setMaterial(names[0] + "-envmapped");
-		}
-	}
 
    function createScene(canvas) {
-        
-        // Create the Three.js renderer and attach it to our canvas
-	    renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+	   renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+	   renderer.setSize(canvas.width, canvas.height);
+	   scene = new THREE.Scene();
 
-	    // Set the viewport size
-	    renderer.setSize(canvas.width, canvas.height);
-
-	    // Create a new Three.js scene
-	    scene = new THREE.Scene();
-
-	    // Add  a camera so we can view the scene
-        camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height, 1, 4000 );
+	    //添加相机
+        camera = new THREE.PerspectiveCamera( 4050, canvas.width / canvas.height, 1, 4000 );
         camera.position.z = 10;
+        camera.position.x = 100;
+        camera.position.y = 100;
+
 		scene.add(camera);
 		
 		// Create a group to hold all the objects
@@ -194,38 +169,6 @@
 
    function initControls()
    {
-		$('#diffuseColor').ColorPicker({
-			color: '#ffffff',
-			onShow: function (colpkr) {
-				$(colpkr).fadeIn(500);
-				return false;
-			},
-			onHide: function (colpkr) {
-				$(colpkr).fadeOut(500);
-				return false;
-			},
-			onChange: function (hsb, hex, rgb) {
-				$('#diffuseColor div').css('backgroundColor', '#' + hex);
-				setMaterialColor(rgb.r, rgb.g, rgb.b);
-			},
-			onSubmit: function(hsb, hex, rgb, el) {
-				$(el).val(hex);
-				$('#diffuseColor div').css( "background-color", "#" + hex );
-				setMaterialColor(rgb.r, rgb.g, rgb.b);
-				$(el).ColorPickerHide();
-			},
-		});
-		var diffuseHex = "#ffffff";
-		$('#diffuseColor').ColorPickerSetColor(diffuseHex);
-		$('#diffuseColor div').css( "background-color", diffuseHex );
-		
-        $("#textureUrl").html(envMapUrl);
-        $("#texture").css( "background-image", "url(" + envMapUrl + ")");
-        
-		$("#textureCheckbox").click(
-				function() { toggleEnvironmentMap(); }
-			);
-
 		orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
    }
    
@@ -234,13 +177,10 @@
 
 				var canvas = document.getElementById("webglcanvas");
 
-				// create the scene
 				createScene(canvas);
 
-				// initialize the controls
 				initControls();
 				
-		        // Run the run loop
 		        run();
 			}
 	);
@@ -252,26 +192,6 @@
 
 <div id="container">
     <canvas id="webglcanvas" width=800 height=600></canvas>
-	<div id="title">
-		Three.js Textures: Cubic Environment Mapping
-	</div>
-	<div id="prompt">
-		Drag the mouse to rotate the camera<br>Use the scroll wheel to zoom.
-	</div>
 </div>
-
-<div id="properties">
-Use these controls to change properties
-<div id="texturePicker">
-Environment Map 
-<input type="checkbox" checked id="textureCheckbox"></input> 
-<div id="textureUrl"></div> 
-<div id="texture" class="ui-widget-content ui-corner-all swatch"></div>
-</div> 
-
-<div id="diffuseColor" class="colorSelector">Diffuse color<div style="background-color: #00ff00"></div></div>
-
-</div>
-
 
 </html>
