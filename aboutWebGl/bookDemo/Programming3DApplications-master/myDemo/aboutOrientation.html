@@ -1,16 +1,26 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
 
 
-<script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+	<script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
 
-<script type="text/javascript">
-$(function(){
-
-})
-</script>
+	<script type="text/javascript">
+		$(function(){
+			var x, y, z;
+			var html = '';
+			window.addEventListener('deviceorientation', function(event) {
+				var x = event.alpha;
+				var y = event.beta;
+				var z = event.gamma;
+				html += "x:" + x;
+				html += "        y:" + y;
+				html += "        z:" + z;
+				$('#container').html();
+			}, false);
+		})
+	</script>
 </head>
 <body>
 
