@@ -15,9 +15,9 @@
 				var x = event.alpha;
 				var y = event.beta;
 				var z = event.gamma;
-				html += "x:" + x;
-				html += "        y:" + y;
-				html += "        z:" + z;
+				html += "x:" + parseInt(x);
+				html += "        y:" + parseInt(y);
+				html += "        z:" +  parseInt(z);
 				$('#container').html(html);
 			}, false);
 		})
@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<div id="container">
+<div id="container" style="font-size: 30px">
 </div>
 </body>
 </html>
