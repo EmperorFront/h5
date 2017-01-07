@@ -33,9 +33,9 @@
 			camera.position.x = cameraPosition[0];
 			camera.position.z = cameraPosition[2];
 			var html = "";
-			html += "x:" + parseInt(x) + "CAMERA" + parseInt(camera.position.x);
-			html += "  y:" + parseInt(y) + "CAMERA" + cameraPosition[1];
-			html += "  z:" + parseInt(z) + "CAMERA" + parseInt(camera.position.z);
+			html += "x:" + parseInt(x) + "CAMERA" + parseInt(cameraPosition[0]);
+			html += "  y:" + parseInt(y) + "CAMERA" + parseInt(cameraPosition[1]);
+			html += "  z:" + parseInt(z) + "CAMERA" + parseInt(cameraPosition[2]);
 			$('#position').html(html);
 		}
 		function run() {
