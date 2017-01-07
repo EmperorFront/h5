@@ -31,11 +31,11 @@
 			var cameraPosition = calcuateCameraPosition(x,y,z);
 			camera.position.y = cameraPosition[1];
 			camera.position.x = cameraPosition[0];
-			camera.position.z = cameraPosition[2];
+			camera.position.z = 1;
 			var html = "";
-			html += "x:" + parseInt(x) + "CAMERA" + parseInt(cameraPosition[0]*100);
-			html += "  y:" + parseInt(y) + "CAMERA" + parseInt(cameraPosition[1]*100);
-			html += "  z:" + parseInt(z) + "CAMERA" + parseInt(cameraPosition[2]*100);
+			html += "x:" + parseInt(x) + "CAMERA" + parseInt(cameraPosition[0]);
+			html += "  y:" + parseInt(y) + "CAMERA" + parseInt(cameraPosition[1]);
+			html += "  z:" + parseInt(z) + "CAMERA" + parseInt(cameraPosition[2]);
 			$('#position').html(html);
 		}
 		function run() {
