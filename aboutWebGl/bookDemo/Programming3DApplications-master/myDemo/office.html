@@ -147,8 +147,8 @@
 		function calcuateCameraPosition (x,y,z) {
 			var cx, cy, cz;
 			cx = Math.cos(angle2radians(x));
-			cy = Math.cos(angle2radians(180 + y));
-			cz = Math.cos(angle2radians(2 * z + 180));
+			cy = Math.cos(angle2radians(y));
+			cz = Math.cos(angle2radians(z));
 			return [cx,cy,cz];
 		}
 
