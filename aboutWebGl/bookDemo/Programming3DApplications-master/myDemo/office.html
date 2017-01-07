@@ -28,11 +28,12 @@
 			var fract = deltat / duration;
 			var angle = Math.PI * 20 * fract;
 			//group.rotation.y += angle;
-			camera.position.y = y;
-			camera.position.x = x;
-			camera.position.z = z;
+			var cameraPosition = calcuateCameraPosition(x,y,z);
+			camera.position.y = cameraPosition[1];
+			camera.position.x = cameraPosition[0];
+			camera.position.z = cameraPosition[2];
 			var html = "";
-			html += "x:" + parseInt(camera.position.x);
+			html += "x:" + parseInt(camera.position.x);W
 			html += "  y:" + parseInt(camera.position.y);
 			html += "  z:" + parseInt(camera.position.z);
 			$('#position').html(html);
@@ -98,8 +99,8 @@
 			//添加相机
 			camera = new THREE.PerspectiveCamera( 4050, canvas.width / canvas.height, 1, 4000 );
 			camera.position.z = 10;
-			camera.position.x = 100;
-			camera.position.y = 100;
+			camera.position.x = 0;
+			camera.position.y = 0;
 			scene.add(camera);
 
 			// Create a group to hold all the objects
@@ -140,6 +141,20 @@
 		function initControls()
 		{
 			orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+		}
+
+		//传入手机陀螺仪位置，算出摄像机正确位置,传入角度 ， 无需弧度。即可。
+		function calcuateCameraPosition (x,y,z) {
+			var cx, cy, cz;
+			cx = Math.cos(angle2radians(x));
+			cy = Math.cos(angle2radians(180 + y));
+			cz = Math.cos(angle2radians(2 * z + 180));
+			return [cx,cy,cz];
+		}
+
+		//角度转弧度
+		function angle2radians (angle){
+			return Math.sin( angle * Math.PI/180);
 		}
 
 		$(document).ready(
