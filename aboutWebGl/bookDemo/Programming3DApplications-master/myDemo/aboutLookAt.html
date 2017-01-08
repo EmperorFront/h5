@@ -155,9 +155,9 @@ if(temp != x ){
 		//传入手机陀螺仪位置，算出摄像机正确位置,传入角度 ， 无需弧度。即可。
 		function calcuateCameraPosition (x,y,z) {
 			var cx, cy, cz;
-			cx = Math.sin(angle2radians(x));
-			cy = Math.sin(angle2radians(y));
-			cz = Math.sin(angle2radians(z));
+			cx = Math.cos(angle2radians(x));
+			cy = Math.cos(angle2radians(y));
+			cz = Math.cos(angle2radians(z));
 			return [cx,cy,cz];
 		}
 
