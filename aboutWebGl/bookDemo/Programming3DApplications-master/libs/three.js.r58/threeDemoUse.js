@@ -118,7 +118,7 @@
 
 		},
 
-		hasEventListener: function ( type, listener ) {
+		hasEventListener: function ( type, listener ) { 
 
 			if ( this._listeners === undefined ) return false;
 
