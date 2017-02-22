@@ -155,8 +155,8 @@
             document.addEventListener( 'mousemove', onDocumentMouseMove, false );
         }
         function onDocumentMouseMove( event ) {
-            mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-            mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+            mouse.x = ( event.clientX / canvas.width ) * 2 - 1;
+            mouse.y = - ( event.clientY / canvas.height ) * 2 + 1;
         }
 
         function run() {
