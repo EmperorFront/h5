@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>three.js webgl - interactive cubes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            font-family: Monospace;
+            background-color: #f0f0f0;
+            margin: 0px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+<script src="../libs/three.js.r58/threeDemoUse.js"></script>
+<script src="../libs/three.js.r58/controls/OrbitControls.js"></script>
+<script src="../libs/three.js.r58/controls/DeviceOrientationControls.js"></script>
+<script src="../libs/requestAnimationFrame/RequestAnimationFrame.js"></script>
+
+<script>
+    var container, stats;
+    var camera, scene, raycaster, renderer;
+    //用来创建一个二维向量的对象.
+    // var p2d = new Vector2(5,3)
+    // 数(x,y)坐标为可选参数,如果不指定参数(x,y),将创建一个坐标为(0,0)的向量.
+    //INTERSECTED为一个普通的“相交”js常量
+    var mouse = new THREE.Vector2(), INTERSECTED;
+    var radius = 100, theta = 0;
+    init();
+    animate();
+    function init() {
+        //全局容器
+        container = document.createElement( 'div' );
+        document.body.appendChild( container );
+
+        //视角，透视相机
+        camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
+//        场景
+        scene = new THREE.Scene();
+//        光照，直射
+        var light = new THREE.DirectionalLight( 0xffffff, 1 );
+        light.position.set( 1, 1, 1 ).normalize();
+        scene.add( light );
+//        创建一个box几何缓冲
+        var geometry = new THREE.BoxGeometry( 20, 20, 20 );
+
+        //位置可以有小数的，创建2000个立方体
+        for ( var i = 0; i < 10; i ++ ) {
+            var object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
+            object.position.x = Math.random() * 800 - 400;
+            object.position.y = Math.random() * 800 - 400;
+            object.position.z = Math.random() * 800 - 400;
+            object.rotation.x = Math.random() * 2 * Math.PI;
+            object.rotation.y = Math.random() * 2 * Math.PI;
+            object.rotation.z = Math.random() * 2 * Math.PI;
+            object.scale.x = Math.random() + 0.5;
+            object.scale.y = Math.random() + 0.5;
+            object.scale.z = Math.random() + 0.5;
+            scene.add( object );
+        }
+
+        //定义一个射线（光线投射）
+        //Raycaster( origin, direction, near, far ) {
+        //  origin — 射线的起点向量。
+        //  direction — 射线的方向向量，应该归一化。
+        //  near — 所有返回的结果应该比 near 远。Near不能为负，默认值为0。
+        //  far — 所有返回的结果应该比 far 近。Far 不能小于 near，默认值为无穷大。
+        raycaster = new THREE.Raycaster();
+
+//        标准需求，webgl渲染器
+        renderer = new THREE.WebGLRenderer();
+//        renderer.setClearColor( 0xf0f0f0 );
+//        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+//        renderer.sortObjects = false;
+        container.appendChild(renderer.domElement);
+//        stats = new Stats();
+//        container.appendChild( stats.dom );
+        //鼠标监听只做一件事：拿到鼠标位置。
+        document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    }
+    function onDocumentMouseMove( event ) {
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    }
+    //
+    function animate() {
+        requestAnimationFrame( animate );
+        render();
+//        stats.update();
+    }
+    function render() {
+        theta += 0.1;
+        //相机自带角度转弧度方法
+        camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
+        camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
+        camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
+        camera.lookAt( scene.position );
+        camera.updateMatrixWorld();
+        // 找到焦点
+//            设定射线，传入鼠标，相机。
+        raycaster.setFromCamera( mouse, camera );
+        //intersectObjects传入一个范围，返回触发对象intersects
+        var intersects = raycaster.intersectObjects( scene.children );
+
+
+        if ( intersects.length > 0 ) {
+            if ( INTERSECTED != intersects[ 0 ].object ) {
+                if ( INTERSECTED ) {
+                    INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                }
+                //字面上看，应该是第一个被触达的对象。
+                INTERSECTED = intersects[ 0 ].object;
+                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                INTERSECTED.material.emissive.setHex( 0xffffff );
+            }
+        } else {
+            if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+            INTERSECTED = null;
+        }
+        renderer.render( scene, camera );
+    }
+</script>
+
+</body>
+</html>

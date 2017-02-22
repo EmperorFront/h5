@@ -1,0 +1,31 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+
+
+	<script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+
+	<script type="text/javascript">
+		$(function(){
+			var x, y, z;
+			var html = '';
+			window.addEventListener('deviceorientation', function(event) {
+				html = '';
+				var x = event.alpha;
+				var y = event.beta;
+				var z = event.gamma;
+				html += "x:" + parseInt(x);
+				html += "        y:" + parseInt(y);
+				html += "        z:" +  parseInt(z);
+				$('#container').html(html);
+			}, false);
+		})
+	</script>
+</head>
+<body>
+
+<div id="container" style="font-size: 30px">
+</div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Programming 3D Applications in HTML5 and WebGL &mdash; Three.js Textures: Cubic Environment Mapping</title>
+
+
+	<script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+	<script src="../libs/three.js.r58/threeDemoUse.js"></script>
+	<script src="../libs/three.js.r58/controls/OrbitControls.js"></script>
+	<script src="../libs/three.js.r58/controls/DeviceOrientationControls.js"></script>
+	<script src="../libs/requestAnimationFrame/RequestAnimationFrame.js"></script>
+	<script type="text/javascript">
+		var renderer = null,
+				scene = null,
+				camera = null,
+				root = null,
+				group = null,
+				sphere = null,
+				sphereEnvMapped = null,
+				orbitControls = null;
+				DeviceOrientationControls = null;
+		var alpha=1, beta=1,gamma=1;
+		var temp = 1;
+
+		function animate() {
+
+			//var cameraPosition = calcuateCameraPosition(alpha,beta,gamma);
+
+			camera.position.set(0, 0, 0);
+if(temp != alpha ){
+	temp = alpha;
+	//debugger;
+}
+			//camera.lookAt(new THREE.Vector3(parseInt(cameraPosition[0] * 100), parseInt(cameraPosition[1] * 100), parseInt(cameraPosition[2] * 100)));
+		}
+		function run() {
+			requestAnimationFrame(function() { run(); });
+			renderer.render( scene, camera );
+			animate();
+			// Update the camera controller
+//			orbitControls.update();
+			DeviceOrientationControls.update();
+		}
+		var materials = {};
+		var mapUrl = "";
+		var map = null;
+//		var envMapUrl = "../images/cubemap/skybox/nx.jpg";
+		var envMap = null;
+
+		function createMaterials()
+		{
+			map = null; // THREE.ImageUtils.loadTexture(mapUrl);
+
+			var path = "img/";
+			var urls = [ path + "r1.jpg", path + "l1.jpg",
+				path + "t1.jpg", path + "b1.jpg",
+				path + "ba1.jpg", path + "f1.jpg" ];
+			envMap = THREE.ImageUtils.loadTextureCube( urls );
+
+			materials["phong"] = new THREE.MeshBasicMaterial( { color: 0xffffff, map: map } );
+			materials["phong-envmapped"] = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap : envMap,
+				map: map, reflectivity:1.3} );
+		}
+		var materialName = "phong-envmapped";
+		var envMapOn = true;
+		function setMaterial(name)
+		{
+			materialName = name;
+			if (envMapOn)
+			{
+				sphere.visible = false;
+				sphereEnvMapped.visible = true;
+				sphereEnvMapped.material = materials[name];
+			}
+			else
+			{
+				sphere.visible = true;
+				sphereEnvMapped.visible = false;
+				sphere.material = materials[name];
+			}
+		}
+		function createScene(canvas) {
+			renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+			renderer.setSize(canvas.width, canvas.height);
+			scene = new THREE.Scene();
+			//添加相机
+			camera = new THREE.PerspectiveCamera( 75, canvas.width / canvas.height, 1, 1000 );
+			camera.position.z = 0;
+			camera.position.x = 0;
+			camera.position.y = 0;
+			var helper = new THREE.CameraHelper( camera );
+			scene.add( helper );
+			scene.add(camera);
+
+			// Create a group to hold all the objects
+			root = new THREE.Object3D;
+
+			// Add a directional light to show off the object
+			var light = new THREE.DirectionalLight( 0xffffff, 2);
+			// Position the light out from the scene, pointing at the origin
+			light.position.set(.5, 0, 1);
+			root.add( light );
+			light = new THREE.AmbientLight ( 0 );
+			root.add(light);
+
+			// Create a group to hold the spheres
+			group = new THREE.Object3D;
+			root.add(group);
+
+			// Create all the materials
+			createMaterials();
+
+			// Create the sphere geometry
+			geometry = new THREE.SphereGeometry(2, 20, 20);
+			// Create the skybox
+			var shader = THREE.ShaderLib[ "cube" ];
+			shader.uniforms[ "tCube" ].value = envMap;
+			var material = new THREE.ShaderMaterial( {
+						fragmentShader: shader.fragmentShader,
+						vertexShader: shader.vertexShader,
+						uniforms: shader.uniforms,
+						side: THREE.BackSide
+					} ),
+					mesh = new THREE.Mesh( new THREE.CubeGeometry( 500, 500, 500 ), material );
+			scene.add( mesh );
+
+			// Now add the group to our scene
+			scene.add( root );
+		}
+		function initControls()
+		{
+			orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+			DeviceOrientationControls = controls = new THREE.DeviceOrientationControls( camera );
+		}
+
+		//传入手机陀螺仪位置，算出摄像机正确位置,传入角度 ， 无需弧度。即可。
+		function calcuateCameraPosition (x,y,z) {
+			var cx, cy, cz;
+			cx = Math.cos(angle2radians(x));
+			cy = Math.cos(angle2radians(y));
+			cz = Math.cos(angle2radians(z));
+			return [cx,cy,cz];
+		}
+
+		//角度转弧度
+		function angle2radians (angle){
+			if(angle < 0){
+				angle = 360 + angle;
+			}
+			return  angle * Math.PI/180;
+		}
+
+		$(document).ready(
+				function() {
+
+					window.addEventListener('deviceorientation', function(event) {
+						html = '';
+						alpha = event.alpha;
+						beta = event.beta;
+						gamma = event.gamma;
+					}, false)
+					var canvas = document.getElementById("webglcanvas");
+					createScene(canvas);
+					initControls();
+
+					run();
+				}
+
+		);
+	</script>
+
+</head>
+<body>
+
+<div id="container">
+	<canvas id="webglcanvas" width=800 height=600></canvas>
+</div>
+<div id="position" style="font-size: 30px"></div>
+</body>
+</html>
