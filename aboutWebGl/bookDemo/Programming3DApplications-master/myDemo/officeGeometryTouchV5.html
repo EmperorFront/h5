@@ -1,0 +1,709 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>黄叔叔的天空盒</title>
+
+    <style>
+        .sight {
+            margin: auto;
+            position: absolute;
+            top: 18px;
+            left: 13px;
+            bottom: 0;
+            right: 0;
+        }
+        .tip {
+            margin: auto;
+            position: absolute;
+            top: 316px;
+            left: 17px;
+            bottom: 0;
+            right: 0;
+            width: 500px;
+            height: 68px;
+            text-align: center;
+        }
+    </style>
+    <script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+    <script src="../libs/three.js.r58/threeDemoUse.js"></script>
+    <script src="../libs/three.js.r58/controls/OrbitControls.js"></script>
+    <script src="../libs/three.js.r58/controls/DeviceOrientationControls.js"></script>
+    <script src="../libs/requestAnimationFrame/RequestAnimationFrame.js"></script>
+    <script type="text/javascript">
+
+        var canvas;
+
+        //视角场景
+        var renderer = null,
+                scene = null,
+                camera = null,
+                root = null,
+                group = null,
+                sphere = null,
+                sphereEnvMapped = null,
+                orbitControls = null;
+                DeviceOrientationControls = null;
+
+            //点击体方块合集，点击逻辑要用
+        var clickGeomoryCube = null;
+            //点击体飞机合集，点击逻辑用
+        var clickGeomoryAirplane = null;
+
+        var mouse = new THREE.Vector2(), INTERSECTED;
+
+        //物体集合
+        var cubes = [];
+        var airplanes = [];
+
+        //材质
+        var materials = {};
+        var mapUrl = "";
+        var map = null;
+        var envMap = null;
+
+        //警告框
+        var _tip = null;
+
+        //调色板
+        var Colors = {
+            red:0xf25346,
+            white:0xd8d0d1,
+            brown:0x59332e,
+            pink:0xF5986E,
+            brownDark:0x23190f,
+            blue:0x68c3c0,
+            yellow:0xFFD700,
+        };
+
+        //创建映射材质
+        function createMaterials() {
+            map = null;
+            var path = "img/";
+            var urls = [ path + "riverside_w.png", path + "riverside_e.png",
+                path + "riverside_up.png", path + "riverside_down.png",
+                path + "riverside_s.png", path + "riverside_n.png" ];
+            envMap = THREE.ImageUtils.loadTextureCube( urls );
+            materials["phong"] = new THREE.MeshBasicMaterial( { color: 0xffffff, map: map } );
+            materials["phong-envmapped"] = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap : envMap,
+                map: map, reflectivity:1.3} );
+        }
+
+        //创建小点击几何体
+        function createCubes() {
+
+            clickGeomoryCube = new THREE.Object3D;
+
+            function addCubes(times){
+                for(var i = 0; i < times; i++ ){
+                    var cubeGeometry = new THREE.BoxGeometry(10,10,10);
+                    var cubeMaterial = new THREE.MeshLambertMaterial({color:0xff0000});
+                    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+                    cubes.push(cube);
+                    cube.position.set(getRandom(800), getRandom(800), getRandom(800));
+
+                    clickGeomoryCube.add(cube);
+                }
+                scene.add(clickGeomoryCube);
+            }
+            addCubes(10);
+        }
+
+        function getRandom (absolute){
+            return parseInt(Math.random() * absolute * 2 - absolute);
+        }
+
+        //创建一个tank飞机(血量高，飞行慢)
+        var AirPlane_tank = function(config) {
+            this.speed = config.speed ? config.speed : 0.4;
+            this.blood = config.blood ? config.blood : 90;
+
+            this.mesh = new THREE.Object3D();
+
+            // 创建机舱
+            var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
+            var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
+            cockpit.castShadow = true;
+            cockpit.receiveShadow = true;
+            cockpit.broken = {
+                rotation : getRandom(8)/100,
+                position : [getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(cockpit);
+
+            // 创建发动机
+            var geomEngine = new THREE.BoxGeometry(20,50,50,1,1,1);
+            var matEngine = new THREE.MeshPhongMaterial({color:Colors.white, shading:THREE.FlatShading});
+            var engine = new THREE.Mesh(geomEngine, matEngine);
+            engine.position.x = 40;
+            engine.castShadow = true;
+            engine.receiveShadow = true;
+            engine.broken = {
+                rotation : getRandom(8)/100,
+                position : [40 + getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(engine);
+
+            // 创建机尾
+            var geomTailPlane = new THREE.BoxGeometry(15,20,5,1,1,1);
+            var matTailPlane = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
+            tailPlane.position.set(-35,25,0);
+            tailPlane.castShadow = true;
+            tailPlane.receiveShadow = true;
+            tailPlane.broken = {
+                rotation : getRandom(8)/100,
+                position : [-35 + getRandom(50), 25 + getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(tailPlane);
+
+            // 创建机翼
+            var geomSideWing = new THREE.BoxGeometry(40,8,150,1,1,1);
+            var matSideWing = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
+            sideWing.castShadow = true;
+            sideWing.receiveShadow = true;
+            sideWing.broken = {
+                rotation : getRandom(8)/100,
+                position : [getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(sideWing);
+
+            // 创建螺旋桨
+            var geomPropeller = new THREE.BoxGeometry(20,10,10,1,1,1);
+            var matPropeller = new THREE.MeshPhongMaterial({color:Colors.brown, shading:THREE.FlatShading});
+            var propeller = new THREE.Mesh(geomPropeller, matPropeller);
+            propeller.position.set(50,0,0);
+            propeller.castShadow = true;
+            propeller.receiveShadow = true;
+            propeller.broken = {
+                rotation : getRandom(8)/100,
+                position : [50 + getRandom(50), getRandom(50), getRandom(50)]
+            }
+
+            // 螺旋桨与轴体的组合
+            var geomBlade = new THREE.BoxGeometry(1,100,20,1,1,1);
+            var matBlade = new THREE.MeshPhongMaterial({color:Colors.brownDark, shading:THREE.FlatShading});
+
+            var blade = new THREE.Mesh(geomBlade, matBlade);
+            blade.position.set(8,0,0);
+            blade.broken = {
+                rotation : getRandom(8)/100,
+                position : [8 + getRandom(5), getRandom(5), getRandom(5)]
+            }
+            blade.castShadow = true;
+            blade.receiveShadow = true;
+            propeller.add(blade);
+
+            this.mesh.add(propeller);
+
+            this.shootingTimes = 0;
+        };
+
+        //创建一个sailer飞机(血量低，飞行快)
+        var AirPlane_sailer = function(config) {
+            this.speed = config.speed ? config.speed : 0.8;
+            this.blood = config.blood ? config.blood : 30;
+            this.mesh = new THREE.Object3D();
+
+            // 创建机舱
+            var geomCockpit = new THREE.BoxGeometry(80,50,50,1,1,1);
+            var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            //收紧尾部屁股顶点
+            geomCockpit.vertices[4].y-=10;
+            geomCockpit.vertices[4].z+=20;
+            geomCockpit.vertices[5].y-=10;
+            geomCockpit.vertices[5].z-=20;
+            geomCockpit.vertices[6].y+=30;
+            geomCockpit.vertices[6].z+=20;
+            geomCockpit.vertices[7].y+=30;
+            geomCockpit.vertices[7].z-=20;
+
+            var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
+            cockpit.castShadow = true;
+            cockpit.receiveShadow = true;
+            cockpit.broken = {
+                rotation : getRandom(8)/100,
+                position : [getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(cockpit);
+
+            // 创建发动机
+            var geomEngine = new THREE.BoxGeometry(20,50,50,1,1,1);
+            var matEngine = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
+            var engine = new THREE.Mesh(geomEngine, matEngine);
+            engine.position.x = 40;
+            engine.castShadow = true;
+            engine.receiveShadow = true;
+            engine.broken = {
+                rotation : getRandom(8)/100,
+                position : [40 + getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(engine);
+
+            // 创建机尾
+            var geomTailPlane = new THREE.BoxGeometry(15,20,5,1,1,1);
+            var matTailPlane = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
+            tailPlane.position.set(-45,25,0);
+            tailPlane.castShadow = true;
+            tailPlane.receiveShadow = true;
+            tailPlane.broken = {
+                rotation : getRandom(8)/100,
+                position : [-35 + getRandom(50), 25 + getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(tailPlane);
+
+            // 创建机翼
+            var geomSideWing = new THREE.BoxGeometry(40,8,150,1,1,1);
+            var matSideWing = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
+            sideWing.castShadow = true;
+            sideWing.receiveShadow = true;
+            sideWing.broken = {
+                rotation : getRandom(8)/100,
+                position : [getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(sideWing);
+
+            // 创建螺旋桨
+            var geomPropeller = new THREE.BoxGeometry(20,10,10,1,1,1);
+            var matPropeller = new THREE.MeshPhongMaterial({color:Colors.blue, shading:THREE.FlatShading});
+            var propeller = new THREE.Mesh(geomPropeller, matPropeller);
+            propeller.position.set(50,0,0);
+            propeller.castShadow = true;
+            propeller.receiveShadow = true;
+            propeller.broken = {
+                rotation : getRandom(8)/100,
+                position : [50 + getRandom(50), getRandom(50), getRandom(50)]
+            }
+
+            // 螺旋桨叶片及轴体
+            var geomBlade = new THREE.BoxGeometry(1,100,20,1,1,1);
+            var matBlade = new THREE.MeshPhongMaterial({color:Colors.brownDark, shading:THREE.FlatShading});
+
+            var blade = new THREE.Mesh(geomBlade, matBlade);
+            blade.position.set(8,0,0);
+            blade.broken = {
+                rotation : getRandom(8)/100,
+                position : [8 + getRandom(5), getRandom(5), getRandom(5)]
+            }
+            blade.castShadow = true;
+            blade.receiveShadow = true;
+            propeller.add(blade);
+
+            this.mesh.add(propeller);
+
+            //创建飞行员
+            var thePilot = pilot(new THREE.Object3D());
+            thePilot.position.set(-10,27,0);
+            thePilot.broken = {
+                rotation : getRandom(8)/100,
+                position : [8 + getRandom(5), getRandom(5), getRandom(5)]
+            }
+            this.mesh.castShadow = true;
+            this.mesh.receiveShadow = true;
+            this.mesh.add(thePilot);
+
+            function pilot(thePilot){
+                thePilot = new THREE.Object3D();
+                thePilot.name = "pilot";
+
+                // 用于实现随风飞舞的头发
+                thePilot.angleHairs=0;
+
+                // 飞行员身体
+                var bodyGeom = new THREE.BoxGeometry(15,15,15);
+                var bodyMat = new THREE.MeshPhongMaterial({color:Colors.brown, shading:THREE.FlatShading});
+                var body = new THREE.Mesh(bodyGeom, bodyMat);
+                body.position.set(2,-12,0);
+                thePilot.add(body);
+
+                // 飞行员脸部
+                var faceGeom = new THREE.BoxGeometry(10,10,10);
+                var faceMat = new THREE.MeshLambertMaterial({color:Colors.pink});
+                var face = new THREE.Mesh(faceGeom, faceMat);
+                thePilot.add(face);
+
+                // 飞行员头发
+                var hairGeom = new THREE.BoxGeometry(4,4,4);
+                var hairMat = new THREE.MeshLambertMaterial({color:Colors.brown});
+                var hair = new THREE.Mesh(hairGeom, hairMat);
+                // Align the shape of the hair to its bottom boundary, that will make it easier to scale.
+                hair.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0,2,0));
+
+                // 头发的容器
+                var hairs = new THREE.Object3D();
+
+                // 头发顶部的容器
+                // 用于动画
+                thePilot.hairsTop = new THREE.Object3D();
+
+                // 创建头发
+                // 3*4的网格中定位
+                for (var i=0; i<12; i++){
+                    var h = hair.clone();
+                    var col = i%3;
+                    var row = Math.floor(i/3);
+                    var startPosZ = -4;
+                    var startPosX = -4;
+                    h.position.set(startPosX + row*4, 0, startPosZ + col*4);
+                    thePilot.hairsTop.add(h);
+                }
+                hairs.add(thePilot.hairsTop);
+
+                // 随风飞舞的头发动画
+                var hairSideGeom = new THREE.BoxGeometry(12,4,2);
+                hairSideGeom.applyMatrix(new THREE.Matrix4().makeTranslation(-6,0,0));
+                var hairSideR = new THREE.Mesh(hairSideGeom, hairMat);
+                var hairSideL = hairSideR.clone();
+                hairSideR.position.set(8,-2,6);
+                hairSideL.position.set(8,-2,-6);
+                hairs.add(hairSideR);
+                hairs.add(hairSideL);
+
+                // 头后边的头发
+                var hairBackGeom = new THREE.BoxGeometry(2,8,10);
+                var hairBack = new THREE.Mesh(hairBackGeom, hairMat);
+                hairBack.position.set(-1,-4,0)
+                hairs.add(hairBack);
+                hairs.position.set(-5,5,0);
+
+                thePilot.add(hairs);
+
+                var glassGeom = new THREE.BoxGeometry(5,5,5);
+                var glassMat = new THREE.MeshLambertMaterial({color:Colors.brown});
+                var glassR = new THREE.Mesh(glassGeom,glassMat);
+                glassR.position.set(6,0,3);
+                var glassL = glassR.clone();
+                glassL.position.z = -glassR.position.z
+
+                var glassAGeom = new THREE.BoxGeometry(11,1,11);
+                var glassA = new THREE.Mesh(glassAGeom, glassMat);
+                thePilot.add(glassR);
+                thePilot.add(glassL);
+                thePilot.add(glassA);
+
+                var earGeom = new THREE.BoxGeometry(2,3,2);
+                var earL = new THREE.Mesh(earGeom,faceMat);
+                earL.position.set(0,0,-6);
+                var earR = earL.clone();
+                earR.position.set(0,0,6);
+                thePilot.add(earL);
+                thePilot.add(earR);
+
+                return thePilot;
+            }
+
+            this.shootingTimes = 0;
+        };
+
+
+        //将飞机追加到场景中去。
+        function createPlane(){
+
+            clickGeomoryAirplane = new THREE.Object3D;
+
+
+            function addPlanes(times){
+                for(var i = 0; i < times; i++ ){
+                    var airplane_sailer, airplane_tank;
+                    airplane_sailer = new AirPlane_sailer({});
+                    airplane_sailer.mesh.scale.set(.25,.25,.25);
+                    airplane_sailer.mesh.position.y = getRandom(150);
+                    airplane_sailer.mesh.position.x = getRandom(150);
+                    airplane_sailer.mesh.position.z = getRandom(600)-1200;
+
+                    airplane_sailer.mesh.rotation.y = -1.57;
+
+                    airplane_tank = new AirPlane_tank({});
+                    airplane_tank.mesh.scale.set(.25,.25,.25);
+                    airplane_tank.mesh.position.y = getRandom(300);
+                    airplane_tank.mesh.position.x = getRandom(300);
+                    airplane_tank.mesh.position.z = getRandom(600)-700;
+
+                    airplane_tank.mesh.rotation.y = -1.57;
+
+                    airplanes.push(airplane_sailer);
+                    airplanes.push(airplane_tank);
+
+                    clickGeomoryAirplane.add(airplane_sailer.mesh);
+                    clickGeomoryAirplane.add(airplane_tank.mesh);
+                }
+                scene.add(clickGeomoryAirplane);
+            }
+            addPlanes(10);
+        }
+
+
+
+        var materialName = "phong-envmapped";
+        var envMapOn = true;
+        function setMaterial(name) {
+            materialName = name;
+            if (envMapOn)
+            {
+                sphere.visible = false;
+                sphereEnvMapped.visible = true;
+                sphereEnvMapped.material = materials[name];
+            }
+            else
+            {
+                sphere.visible = true;
+                sphereEnvMapped.visible = false;
+                sphere.material = materials[name];
+            }
+        }
+        function createScene(canvas) {
+            renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+            renderer.setSize(canvas.width, canvas.height);
+            scene = new THREE.Scene();
+            //添加透视相机
+            camera = new THREE.PerspectiveCamera( 75, canvas.width / canvas.height, 1, 1000 );
+            camera.position.z = 0;
+            camera.position.x = 0;
+            camera.position.y = 0;
+            var helper = new THREE.CameraHelper( camera );
+            scene.add( helper );
+            scene.add(camera);
+
+            // 创建一个用于承载所有对象的根目录
+            root = new THREE.Object3D;
+            // Add a directional light to show off the object
+            var spotLight = new THREE.PointLight( 0xffffff, 1 );
+            spotLight.position.set(-40, 60, -10);
+            root.add( spotLight );
+            scene.add( spotLight );
+            // Create a group to hold the spheres
+            group = new THREE.Object3D;
+            root.add(group);
+
+            //创建映射材质
+            createMaterials();
+
+            geometry = new THREE.SphereGeometry(2, 20, 20);
+            // 创建天空盒
+            var shader = THREE.ShaderLib[ "cube" ];
+            shader.uniforms[ "tCube" ].value = envMap;
+            var material = new THREE.ShaderMaterial( {
+                        fragmentShader: shader.fragmentShader,
+                        vertexShader: shader.vertexShader,
+                        uniforms: shader.uniforms,
+                        side: THREE.BackSide
+                    } ),
+                    mesh = new THREE.Mesh( new THREE.CubeGeometry( 1000, 1000, 1000 ), material );
+            scene.add( mesh );
+            // Now add the group to our scene
+            //scene.add( root );
+
+            //添加点击几何体
+            createCubes();
+            createPlane();
+        }
+        function initControls()
+        {
+            orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+            DeviceOrientationControls = controls = new THREE.DeviceOrientationControls( camera );
+
+
+            //这几行含义未知
+            raycaster = new THREE.Raycaster();
+
+            //下边是渲染器
+            //renderer = new THREE.WebGLRenderer();
+            //renderer.setClearColor( 0xf0f0f0 );
+            //renderer.setPixelRatio( window.devicePixelRatio );
+            //renderer.setSize( window.innerWidth, window.innerHeight );
+//        renderer.sortObjects = false;
+            container.appendChild(renderer.domElement);
+
+
+           //启动对鼠标的监听
+            document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+        }
+        function onDocumentMouseMove( event ) {
+            mouse.x =0;// ( event.clientX / canvas.width ) * 2 - 1;
+            mouse.y =0;// - ( event.clientY / canvas.height ) * 2 + 1;
+        }
+
+        function run() {
+            requestAnimationFrame(function() { run(); });
+            //分别处理每一种类型下的每一个物品
+            for(var i = 0; i < airplanes.length; i++){
+                //弹药匣旋转
+                caissons();
+                //处理正在飞行的飞机
+                flyingAirplanes();
+                //处理正在被攻击的飞机
+                beShooting();
+                //处理被击飞的飞机
+                beShooted();
+            }
+            //弹药匣
+            function caissons() {
+                if(cubes[i]){
+                    cubes[i].rotation.x += 0.02;
+                    cubes[i].rotation.y += 0.02;
+                    cubes[i].rotation.z += 0.02;
+                }
+            }
+            //飞机飞行
+            function flyingAirplanes() {
+                //4螺旋桨 5机翼
+                airplanes[i].mesh.children[4].rotation.x += 0.35;
+                airplanes[i].mesh.position.z += airplanes[i].speed;
+            }
+            //被打击动画
+            function beShooting() {
+                if(airplanes[i].shooting > 0){
+                    //shooting属性 》0 位被打击状态
+                    if(airplanes[i].shootingTimes % 10 < 5){
+                        airplanes[i].mesh.rotation.y += 0.1;
+                    } else {
+                        airplanes[i].mesh.rotation.y -= 0.1;
+                    }
+                    airplanes[i].shooting = 0;
+                }
+            }
+            //被击飞动画
+            function beShooted() {
+                //翻滚回去
+//                if(airplanes[i].shooted == 1){
+//                    airplanes[i].mesh.position.z -= 0.6;
+//                    airplanes[i].mesh.rotation.x += 0.3;
+//                }
+                airplanes[i].shooting = 0;
+                //解体并旋转坠落
+                if(airplanes[i].shooted == 1){
+                    for(var j = 0; j < airplanes[i].mesh.children.length; j++){
+                       //解体，每个部件重新放位子
+                        airplanes[i].mesh.children[j].position.set(
+                               airplanes[i].mesh.children[j].broken.position[0],
+                               airplanes[i].mesh.children[j].broken.position[1],
+                               airplanes[i].mesh.children[j].broken.position[2]);
+
+                        //坠落，每个部件自行旋转
+                        airplanes[i].mesh.children[j].rotation.x += airplanes[i].mesh.children[j].broken.rotation;
+                        airplanes[i].mesh.position.y -= 0.5;
+                        //airplanes[i].mesh.position.y += 2;
+                    }
+                }
+            }
+//            设定射线，传入鼠标，相机。
+            raycaster.setFromCamera( mouse, camera );
+            //交叉的正方体
+            var intersectsCube = raycaster.intersectObjects( clickGeomoryCube.children );
+            //交叉的飞机
+            var intersectsAirplaneBlock = [];
+            for(var i = 0; i < clickGeomoryAirplane.children.length; i++ ){
+                var temp_intersectsAirplane = raycaster.intersectObjects( clickGeomoryAirplane.children[i].children );
+                if(temp_intersectsAirplane.length){
+                    intersectsAirplaneBlock = temp_intersectsAirplane;
+
+                    //是否是可射击的
+                    if(!airplanes[i].shooted){
+                        airplanes[i].shooting = 1;
+                        airplanes[i].shootingTimes += 1;
+                    }
+
+                    //飞机血量
+                    if(airplanes[i].shootingTimes > airplanes[i].blood){
+                        airplanes[i].shooted = 1;
+                    }
+
+                }
+            }
+            //正方体
+            if ( intersectsCube.length > 0 ) {
+                if ( INTERSECTED != intersectsCube[ 0 ].object ) {
+                    if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                    INTERSECTED = intersectsCube[ 0 ].object;
+                    //debugger;
+                    //console.log(intersectsCube);
+                    INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                    //debugger;
+                    INTERSECTED.material.emissive.setHex( 0xffffff );
+                    //debugger;
+                    //INTERSECTED.material.emissive.delate();
+
+
+                }
+            } else {
+                // console.log(intersectsCube);
+                //if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                //INTERSECTED = null;
+            }
+            //飞机
+            if ( intersectsAirplaneBlock.length > 0 ) {
+                if ( INTERSECTED != intersectsAirplaneBlock[ 0 ].object ) {
+                    if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                    INTERSECTED = intersectsAirplaneBlock[ 0 ].object;
+                    //debugger;
+                    //console.log(intersectsCube);
+                    INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                    //debugger;
+                    INTERSECTED.material.emissive.setHex( 0xffffff );
+                    //debugger;
+                    //INTERSECTED.material.emissive.delate();
+
+
+                }
+            } else {
+                // console.log(intersectsCube);
+                //if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                //INTERSECTED = null;
+            }
+
+
+            renderer.render( scene, camera );
+            DeviceOrientationControls.update();
+        }
+
+        $(document).ready(
+                function() {
+                    //加载完，把选择框jq对象放入内存。
+                    _tip = $(".tip");
+
+                    //游戏加载提醒，横屏体验最佳，飞机有可能在任意方向出现
+                    setTimeout(function(){showTip("<h2 style='color: red'>！！！敌机来袭！！！</h2>", 2000)}, 2500);
+
+                    var _canvas = $("#webglcanvas");
+                    _canvas.attr("width",document.body.clientWidth);
+                    _canvas.attr("height",document.body.clientHeight);
+
+
+                    window.addEventListener('deviceorientation', function(event) {
+                        html = '';
+                        alpha = event.alpha;
+                        beta = event.beta;
+                        gamma = event.gamma;
+                    }, false)
+                    canvas = document.getElementById("webglcanvas");
+
+                    _canvas.click(function (event) {
+                        event.preventDefault();
+                    });
+
+                    createScene(canvas);
+                    initControls();
+                    run();
+                }
+        );
+        function showTip(html,time) {
+            _tip.html(html);
+            setTimeout(function(){
+                _tip.html("");
+            },time);
+        };
+    </script>
+
+</head>
+<body>
+
+<div id="container">
+    <canvas id="webglcanvas" width=800 height=600></canvas>
+    <img class="sight" src="img/sight.png"/>
+    <div class="tip"></div>
+</div>
+</body>
+</html>
