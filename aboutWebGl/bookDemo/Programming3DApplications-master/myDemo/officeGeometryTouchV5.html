@@ -1,7 +1,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>黄叔叔的天空盒</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <title>打飞机，你能坚持多久？</title>
 
     <style>
         .sight {
@@ -661,34 +662,45 @@
 
         $(document).ready(
                 function() {
-                    //加载完，把选择框jq对象放入内存。
-                    _tip = $(".tip");
-
-                    //游戏加载提醒，横屏体验最佳，飞机有可能在任意方向出现
-                    setTimeout(function(){showTip("<h2 style='color: red'>！！！敌机来袭！！！</h2>", 2000)}, 2500);
-
-                    var _canvas = $("#webglcanvas");
-                    _canvas.attr("width",document.body.clientWidth);
-                    _canvas.attr("height",document.body.clientHeight);
-
-
-                    window.addEventListener('deviceorientation', function(event) {
-                        html = '';
-                        alpha = event.alpha;
-                        beta = event.beta;
-                        gamma = event.gamma;
-                    }, false)
-                    canvas = document.getElementById("webglcanvas");
-
-                    _canvas.click(function (event) {
-                        event.preventDefault();
-                    });
-
-                    createScene(canvas);
-                    initControls();
-                    run();
+                    start();
+                    window.addEventListener('resize', handleWindowResize, false);
                 }
         );
+        function handleWindowResize (){
+            HEIGHT = window.innerHeight;
+            WIDTH = window.innerWidth;
+            renderer.setSize(WIDTH, HEIGHT);
+            camera.aspect = WIDTH / HEIGHT;
+            camera.updateProjectionMatrix();
+        }
+        function start (){
+            //加载完，把选择框jq对象放入内存。
+            _tip = $(".tip");
+
+            //游戏加载提醒，横屏体验最佳，飞机有可能在任意方向出现
+            setTimeout(function(){showTip("<h2 style='color: red'>！！！敌机来袭！！！</h2>", 2000)}, 2500);
+
+            var _canvas = $("#webglcanvas");
+            _canvas.attr("width",document.body.clientWidth);
+            _canvas.attr("height",document.body.clientHeight);
+
+
+            window.addEventListener('deviceorientation', function(event) {
+                html = '';
+                alpha = event.alpha;
+                beta = event.beta;
+                gamma = event.gamma;
+            }, false)
+            canvas = document.getElementById("webglcanvas");
+
+            _canvas.click(function (event) {
+                event.preventDefault();
+            });
+
+            createScene(canvas);
+            initControls();
+            run();
+        }
         function showTip(html,time) {
             _tip.html(html);
             setTimeout(function(){
@@ -701,7 +713,7 @@
 <body>
 
 <div id="container">
-    <canvas id="webglcanvas" width=800 height=600></canvas>
+    <canvas id="webglcanvas"></canvas>
     <img class="sight" src="img/sight.png"/>
     <div class="tip"></div>
 </div>
