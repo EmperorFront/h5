@@ -663,16 +663,8 @@
         $(document).ready(
                 function() {
                     start();
-                    //window.addEventListener('resize', handleWindowResize, false);
                 }
         );
-        function handleWindowResize (){
-            HEIGHT = window.innerHeight;
-            WIDTH = window.innerWidth;
-            renderer.setSize(WIDTH, HEIGHT);
-            camera.aspect = WIDTH / HEIGHT;
-            camera.updateProjectionMatrix();
-        }
         function start (){
             //加载完，把选择框jq对象放入内存。
             _tip = $(".tip");
@@ -713,7 +705,7 @@
 <body>
 
 <div id="container">
-    <canvas id="webglcanvas"></canvas>
+    <canvas id="webglcanvas" width=800 height=600></canvas>
     <img class="sight" src="img/sight.png"/>
     <div class="tip"></div>
 </div>
