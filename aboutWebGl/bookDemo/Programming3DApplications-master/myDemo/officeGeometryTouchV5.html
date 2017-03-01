@@ -662,37 +662,34 @@
 
         $(document).ready(
                 function() {
-                    start();
+                    //加载完，把选择框jq对象放入内存。
+                    _tip = $(".tip");
+
+                    //游戏加载提醒，横屏体验最佳，飞机有可能在任意方向出现
+                    setTimeout(function(){showTip("<h2 style='color: red'>！！！敌机来袭！！！</h2>", 2000)}, 2500);
+
+                    var _canvas = $("#webglcanvas");
+                    _canvas.attr("width",document.body.clientWidth);
+                    _canvas.attr("height",document.body.clientHeight);
+
+
+                    window.addEventListener('deviceorientation', function(event) {
+                        html = '';
+                        alpha = event.alpha;
+                        beta = event.beta;
+                        gamma = event.gamma;
+                    }, false)
+                    canvas = document.getElementById("webglcanvas");
+
+                    _canvas.click(function (event) {
+                        event.preventDefault();
+                    });
+
+                    createScene(canvas);
+                    initControls();
+                    run();
                 }
         );
-        function start (){
-            //加载完，把选择框jq对象放入内存。
-            _tip = $(".tip");
-
-            //游戏加载提醒，横屏体验最佳，飞机有可能在任意方向出现
-            setTimeout(function(){showTip("<h2 style='color: red'>！！！敌机来袭！！！</h2>", 2000)}, 2500);
-
-            var _canvas = $("#webglcanvas");
-            _canvas.attr("width",document.body.clientWidth);
-            _canvas.attr("height",document.body.clientHeight);
-
-
-            window.addEventListener('deviceorientation', function(event) {
-                html = '';
-                alpha = event.alpha;
-                beta = event.beta;
-                gamma = event.gamma;
-            }, false)
-            canvas = document.getElementById("webglcanvas");
-
-            _canvas.click(function (event) {
-                event.preventDefault();
-            });
-
-            createScene(canvas);
-            initControls();
-            run();
-        }
         function showTip(html,time) {
             _tip.html(html);
             setTimeout(function(){
