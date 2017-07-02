@@ -1,0 +1,1298 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>打飞机，你能坚持多久？</title>
+
+    <style>
+        .sight {
+            margin: auto;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 0;
+            right: 0;
+        }
+        .tip {
+            margin: auto;
+            position: absolute;
+            top: 316px;
+            left: 17px;
+            bottom: 0;
+            right: 0;
+            width: 500px;
+            height: 68px;
+            text-align: center;
+        }
+    </style>
+    <script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
+    <script src="../libs/three.js.r58/threeDemoUse.js"></script>
+    <script src="../libs/three.js.r58/controls/DeviceOrientationControls.js"></script>
+    <script src="../libs/requestAnimationFrame/RequestAnimationFrame.js"></script>
+    <script src="myExamnation/threejsloader/OBJLoader.js"></script>
+
+    <script type="text/javascript">
+//v7版本增加了弹道2.0版本，较为粗糙，弹道衔接不自然，后续改用弧形弹道，甚至干掉精细子弹（若有压力），增加了积分系统。
+// 需要手动控制是否开始打击，操作参考王者荣耀，子弹图形，不要剑形
+// 背面射击飞机需要沿着Y轴旋转180度
+// 半空中射击感觉怪怪的，飞机不可过低
+// 最终 ，需要整改全部代码！run写的不够清晰
+// 最终，代码要进行保密混淆，压缩发布\\
+
+// 分享页面
+// 成绩页面
+
+        var canvas;
+
+        //视角场景
+        var renderer = null;
+        var environmentScene = {
+                    scene : null,
+                    camera : null,
+                    //重感控制器
+                    DeviceOrientationControls : null,
+                    //点击体方块合集，点击逻辑要用
+                    clickGeomoryCube : null,
+                    //点击体threeobject飞机合集，点击逻辑用
+                    clickGeomoryAirplane : null,
+                    //物体属性集合
+                    cubes : [],
+                    //飞机属性集合
+                    airplanes : [],
+                    //var recycles = [];//每一帧中被回收掉的飞机。
+
+                    //一次性初始化10发子弹，用于表现射击
+                    bullets : [],
+                    //加分板
+                    scores : {}
+                },
+                playerScene = {
+                    scene : null,
+                    camera : null,
+                    gun : null,
+                    //一枚精细子弹
+                    THEBullet : null
+                };
+
+        var mouse = new THREE.Vector2(), INTERSECTED;
+
+        //资源加载完成成功标识符，用于启动载入页的是否结束的判断依据
+        //每个资源的加载成功回调续上sourcesLoad检测算法，若final为1，则可以执行
+        var sourcesLoad = {
+            final : 0,
+            sources : {
+                objGun : 0,
+                bullet : 0
+            }
+        }
+        function sourcesLoadCheck() {
+            for (var key in sourcesLoad.sources) {
+                if( sourcesLoad.sources[key] == 1){
+                    //当前值为1，则final暂定为1
+                    sourcesLoad.final = 1;
+                } else {
+                    sourcesLoad.final = 0;
+                    break;
+                }
+            }
+        }
+
+
+        //警告框
+        var _tip = null;
+
+        //调色板
+        var Colors = {
+            red:0xf25346,
+            white:0xd8d0d1,
+            brown:0x59332e,
+            pink:0xF5986E,
+            brownDark:0x23190f,
+            blue:0x68c3c0,
+            yellow:0xFFD700,
+        };
+
+        //创建小点击几何体
+        function createCubes() {
+
+            environmentScene.clickGeomoryCube = new THREE.Object3D;
+
+            function addCubes(times){
+                for(var i = 0; i < times; i++ ){
+                    var cubeGeometry = new THREE.BoxGeometry(10,10,10);
+                    var cubeMaterial = new THREE.MeshLambertMaterial({color:0xff0000});
+                    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+                    environmentScene.cubes.push(cube);
+                    cube.position.set(getRandom(800), getRandom(800), getRandom(800));
+
+                    environmentScene.clickGeomoryCube.add(cube);
+                }
+                environmentScene.scene.add(environmentScene.clickGeomoryCube);
+            }
+            addCubes(10);
+        }
+        //传入一个数字，返回其绝对值范围内的随机整数。
+        function getRandom (absolute) {
+            return parseInt(Math.random() * absolute * 2 - absolute);
+        }
+        //传入一个正整数，返回其绝对值范围内的随机负整数
+        function getRandomMinus (absolute){
+            return -Math.abs(parseInt(Math.random() * absolute));
+        }
+
+        //创建一个tank飞机(血量高，飞行慢)
+        var AirPlane_tank = function(config) {
+            this.speed = config.speed ? config.speed : 0.4;
+            this.blood = config.blood ? config.blood : 90;
+
+            //init飞机的方法没必要每个飞机都绑定一个自己的，可以抽取成公共函数。。。后续改造
+            this.initAirplane = function() {
+                //处理关于打击的参量
+                this.initShoot();
+                //处理关于旋转组件重组的参量
+                this.initComponent();
+            }
+            this.initShoot = function() {
+                this.shootingTimes = 0;
+                this.shooted = 0;
+            }
+            this.initComponent = function() {
+                for(var j = 0; j < this.mesh.children.length; j++){
+                    this.mesh.children[j].position.set(
+                            this.mesh.children[j].initPosition[0],
+                            this.mesh.children[j].initPosition[1],
+                            this.mesh.children[j].initPosition[2]
+                    );
+                    this.mesh.children[j].rotation.x = 0;
+                }
+            }
+
+            this.mesh = new THREE.Object3D();
+
+            // 创建机舱
+            var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
+            var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
+            cockpit.initPosition = [0,0,0];
+            cockpit.position.set(0,0,0);
+            cockpit.castShadow = true;
+            cockpit.receiveShadow = true;
+            cockpit.broken = {
+                rotation : getRandom(8)/100,
+                position : [getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(cockpit);
+
+            // 创建发动机
+            var geomEngine = new THREE.BoxGeometry(20,50,50,1,1,1);
+            var matEngine = new THREE.MeshPhongMaterial({color:Colors.white, shading:THREE.FlatShading});
+            var engine = new THREE.Mesh(geomEngine, matEngine);
+            engine.initPosition = [40,0,0];
+            engine.position.x = 40;
+            engine.castShadow = true;
+            engine.receiveShadow = true;
+            engine.broken = {
+                rotation : getRandom(8)/100,
+                position : [40 + getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(engine);
+
+            // 创建机尾
+            var geomTailPlane = new THREE.BoxGeometry(15,20,5,1,1,1);
+            var matTailPlane = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
+            tailPlane.initPosition = [-35,25,0];
+            tailPlane.position.set(-35,25,0);
+            tailPlane.castShadow = true;
+            tailPlane.receiveShadow = true;
+            tailPlane.broken = {
+                rotation : getRandom(8)/100,
+                position : [-35 + getRandom(50), 25 + getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(tailPlane);
+
+            // 创建机翼
+            var geomSideWing = new THREE.BoxGeometry(40,8,150,1,1,1);
+            var matSideWing = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
+            sideWing.initPosition = [0,0,0];
+            sideWing.castShadow = true;
+            sideWing.receiveShadow = true;
+            sideWing.broken = {
+                rotation : getRandom(8)/100,
+                position : [getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(sideWing);
+
+            // 创建螺旋桨
+            var geomPropeller = new THREE.BoxGeometry(20,10,10,1,1,1);
+            var matPropeller = new THREE.MeshPhongMaterial({color:Colors.brown, shading:THREE.FlatShading});
+            var propeller = new THREE.Mesh(geomPropeller, matPropeller);
+            propeller.initPosition = [50,0,0];
+            propeller.position.set(50,0,0);
+            propeller.castShadow = true;
+            propeller.receiveShadow = true;
+            propeller.broken = {
+                rotation : getRandom(8)/100,
+                position : [50 + getRandom(50), getRandom(50), getRandom(50)]
+            }
+
+            // 螺旋桨与轴体的组合
+            var geomBlade = new THREE.BoxGeometry(1,100,20,1,1,1);
+            var matBlade = new THREE.MeshPhongMaterial({color:Colors.brownDark, shading:THREE.FlatShading});
+
+            var blade = new THREE.Mesh(geomBlade, matBlade);
+            blade.initPosition = [8,0,0];
+            blade.position.set(8,0,0);
+            blade.broken = {
+                rotation : getRandom(8)/100,
+                position : [8 + getRandom(5), getRandom(5), getRandom(5)]
+            }
+            blade.castShadow = true;
+            blade.receiveShadow = true;
+            propeller.add(blade);
+
+            this.mesh.add(propeller);
+
+            //打击次数参量
+            this.shootingTimes = 0;
+            //打击标志位参量
+            this.shooted = 0;
+            //记分牌参量
+            this.scoreMarker = 'two';
+        };
+
+        //创建一个sailer飞机(血量低，飞行快)
+        var AirPlane_sailer = function(config) {
+            this.speed = config.speed ? config.speed : 0.8;
+            this.blood = config.blood ? config.blood : 30;
+
+            this.initAirplane = function(){
+                //处理关于打击的参量
+                this.initShoot();
+                //处理关于旋转组件重组的参量
+                this.initComponent();
+            }
+            this.initShoot = function() {
+                this.shootingTimes = 0;
+                this.shooted = 0;
+            }
+            this.initComponent = function() {
+                for(var j = 0; j < this.mesh.children.length; j++){
+                    this.mesh.children[j].position.set(
+                            this.mesh.children[j].initPosition[0],
+                            this.mesh.children[j].initPosition[1],
+                            this.mesh.children[j].initPosition[2]
+                    );
+                    this.mesh.children[j].rotation.x = 0;
+                }
+            }
+
+            this.mesh = new THREE.Object3D();
+
+            // 创建机舱
+            var geomCockpit = new THREE.BoxGeometry(80,50,50,1,1,1);
+            var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            //收紧尾部屁股顶点
+            geomCockpit.vertices[4].y-=10;
+            geomCockpit.vertices[4].z+=20;
+            geomCockpit.vertices[5].y-=10;
+            geomCockpit.vertices[5].z-=20;
+            geomCockpit.vertices[6].y+=30;
+            geomCockpit.vertices[6].z+=20;
+            geomCockpit.vertices[7].y+=30;
+            geomCockpit.vertices[7].z-=20;
+
+            var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
+            cockpit.castShadow = true;
+            cockpit.receiveShadow = true;
+            cockpit.initPosition = [0,0,0];
+            cockpit.broken = {
+                rotation : getRandom(8)/100,
+                position : [getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(cockpit);
+
+            // 创建发动机
+            var geomEngine = new THREE.BoxGeometry(20,50,50,1,1,1);
+            var matEngine = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
+            var engine = new THREE.Mesh(geomEngine, matEngine);
+            engine.initPosition = [40,0,0];
+            engine.position.x = 40;
+            engine.castShadow = true;
+            engine.receiveShadow = true;
+            engine.broken = {
+                rotation : getRandom(8)/100,
+                position : [40 + getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(engine);
+
+            // 创建机尾
+            var geomTailPlane = new THREE.BoxGeometry(15,20,5,1,1,1);
+            var matTailPlane = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
+            tailPlane.initPosition = [-45,25,0];
+            tailPlane.position.set(-45,25,0);
+            tailPlane.castShadow = true;
+            tailPlane.receiveShadow = true;
+            tailPlane.broken = {
+                rotation : getRandom(8)/100,
+                position : [-35 + getRandom(50), 25 + getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(tailPlane);
+
+            // 创建机翼
+            var geomSideWing = new THREE.BoxGeometry(40,8,150,1,1,1);
+            var matSideWing = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+            var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
+            sideWing.castShadow = true;
+            sideWing.receiveShadow = true;
+            sideWing.initPosition = [0,0,0];
+            sideWing.broken = {
+                rotation : getRandom(8)/100,
+                position : [getRandom(50), getRandom(50), getRandom(50)]
+            }
+            this.mesh.add(sideWing);
+
+            // 创建螺旋桨
+            var geomPropeller = new THREE.BoxGeometry(20,10,10,1,1,1);
+            var matPropeller = new THREE.MeshPhongMaterial({color:Colors.blue, shading:THREE.FlatShading});
+            var propeller = new THREE.Mesh(geomPropeller, matPropeller);
+            propeller.initPosition = [50,0,0];
+            propeller.position.set(50,0,0);
+            propeller.castShadow = true;
+            propeller.receiveShadow = true;
+            propeller.broken = {
+                rotation : getRandom(8)/100,
+                position : [50 + getRandom(50), getRandom(50), getRandom(50)]
+            }
+
+            // 螺旋桨叶片及轴体
+            var geomBlade = new THREE.BoxGeometry(1,100,20,1,1,1);
+            var matBlade = new THREE.MeshPhongMaterial({color:Colors.brownDark, shading:THREE.FlatShading});
+
+            var blade = new THREE.Mesh(geomBlade, matBlade);
+            blade.initPosition = [8,0,0];
+            blade.position.set(8,0,0);
+            blade.broken = {
+                rotation : getRandom(8)/100,
+                position : [8 + getRandom(5), getRandom(5), getRandom(5)]
+            }
+            blade.castShadow = true;
+            blade.receiveShadow = true;
+            propeller.add(blade);
+
+            this.mesh.add(propeller);
+
+            //创建飞行员
+            var thePilot = pilot(new THREE.Object3D());
+            thePilot.initPosition = [-10,27,0];
+            thePilot.position.set(-10,27,0);
+            thePilot.broken = {
+                rotation : getRandom(8)/100,
+                position : [8 + getRandom(5), getRandom(5), getRandom(5)]
+            }
+            this.mesh.castShadow = true;
+            this.mesh.receiveShadow = true;
+            this.mesh.add(thePilot);
+
+            function pilot(thePilot){
+                thePilot = new THREE.Object3D();
+                thePilot.name = "pilot";
+
+                // 用于实现随风飞舞的头发
+                thePilot.angleHairs=0;
+
+                // 飞行员身体
+                var bodyGeom = new THREE.BoxGeometry(15,15,15);
+                var bodyMat = new THREE.MeshPhongMaterial({color:Colors.brown, shading:THREE.FlatShading});
+                var body = new THREE.Mesh(bodyGeom, bodyMat);
+                body.position.set(2,-12,0);
+                thePilot.add(body);
+
+                // 飞行员脸部
+                var faceGeom = new THREE.BoxGeometry(10,10,10);
+                var faceMat = new THREE.MeshLambertMaterial({color:Colors.pink});
+                var face = new THREE.Mesh(faceGeom, faceMat);
+                thePilot.add(face);
+
+                // 飞行员头发
+                var hairGeom = new THREE.BoxGeometry(4,4,4);
+                var hairMat = new THREE.MeshLambertMaterial({color:Colors.brown});
+                var hair = new THREE.Mesh(hairGeom, hairMat);
+                // Align the shape of the hair to its bottom boundary, that will make it easier to scale.
+                hair.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0,2,0));
+
+                // 头发的容器
+                var hairs = new THREE.Object3D();
+
+                // 头发顶部的容器
+                // 用于动画
+                thePilot.hairsTop = new THREE.Object3D();
+
+                // 创建头发
+                // 3*4的网格中定位
+                for (var i=0; i<12; i++){
+                    var h = hair.clone();
+                    var col = i%3;
+                    var row = Math.floor(i/3);
+                    var startPosZ = -4;
+                    var startPosX = -4;
+                    h.position.set(startPosX + row*4, 0, startPosZ + col*4);
+                    thePilot.hairsTop.add(h);
+                }
+                hairs.add(thePilot.hairsTop);
+
+                // 随风飞舞的头发动画
+                var hairSideGeom = new THREE.BoxGeometry(12,4,2);
+                hairSideGeom.applyMatrix(new THREE.Matrix4().makeTranslation(-6,0,0));
+                var hairSideR = new THREE.Mesh(hairSideGeom, hairMat);
+                var hairSideL = hairSideR.clone();
+                hairSideR.position.set(8,-2,6);
+                hairSideL.position.set(8,-2,-6);
+                hairs.add(hairSideR);
+                hairs.add(hairSideL);
+
+                // 头后边的头发
+                var hairBackGeom = new THREE.BoxGeometry(2,8,10);
+                var hairBack = new THREE.Mesh(hairBackGeom, hairMat);
+                hairBack.position.set(-1,-4,0)
+                hairs.add(hairBack);
+                hairs.position.set(-5,5,0);
+
+                thePilot.add(hairs);
+
+                var glassGeom = new THREE.BoxGeometry(5,5,5);
+                var glassMat = new THREE.MeshLambertMaterial({color:Colors.brown});
+                var glassR = new THREE.Mesh(glassGeom,glassMat);
+                glassR.position.set(6,0,3);
+                var glassL = glassR.clone();
+                glassL.position.z = -glassR.position.z
+
+                var glassAGeom = new THREE.BoxGeometry(11,1,11);
+                var glassA = new THREE.Mesh(glassAGeom, glassMat);
+                thePilot.add(glassR);
+                thePilot.add(glassL);
+                thePilot.add(glassA);
+
+                var earGeom = new THREE.BoxGeometry(2,3,2);
+                var earL = new THREE.Mesh(earGeom,faceMat);
+                earL.position.set(0,0,-6);
+                var earR = earL.clone();
+                earR.position.set(0,0,6);
+                thePilot.add(earL);
+                thePilot.add(earR);
+
+                return thePilot;
+            }
+
+            //打击次数参量
+            this.shootingTimes = 0;
+            //是否可打击标志位参量
+            this.shooted = 0;
+            //记分牌
+            this.scoreMarker = 'four';
+        };
+
+        //将飞机追加到场景中去。
+        function createPlane(){
+
+            environmentScene.clickGeomoryAirplane = new THREE.Object3D;
+
+            function addPlanes(times){
+                for(var i = 0; i < times.maxtimes; i++ ){
+                    var airplane_sailer, airplane_tank;
+
+                    if(i < times.airplane_sailer){
+                        airplane_sailer = new AirPlane_sailer({});
+                        airplane_sailer.mesh.scale.set(.25,.25,.25);
+                        airplane_sailer.mesh.position.y = getRandom(150);
+                        airplane_sailer.mesh.position.x = getRandom(150);
+                        airplane_sailer.mesh.position.z = getRandomMinus(700) - 700;
+
+                        airplane_sailer.mesh.rotation.y = -1.57;
+                        environmentScene.airplanes.push(airplane_sailer);
+                        environmentScene.clickGeomoryAirplane.add(airplane_sailer.mesh);
+                    }
+                    if(i < times.airplane_sailer){
+                        airplane_tank = new AirPlane_tank({});
+                        airplane_tank.mesh.scale.set(.25,.25,.25);
+                        airplane_tank.mesh.position.y = getRandom(300);
+                        airplane_tank.mesh.position.x = getRandom(300);
+                        airplane_tank.mesh.position.z = getRandomMinus(500) - 500;
+
+                        airplane_tank.mesh.rotation.y = -1.57;
+                        environmentScene.airplanes.push(airplane_tank);
+                        environmentScene.clickGeomoryAirplane.add(airplane_tank.mesh);
+                    }
+                }
+                environmentScene.scene.add(environmentScene.clickGeomoryAirplane);
+                console.log(environmentScene.airplanes);
+            }
+            //机群可以随时以此方式增加
+            addPlanes({maxtimes:20, airplane_sailer:20, airplane_tank:10});
+        }
+
+
+
+
+
+        //创建用户场景
+        playerScene.scene = new THREE.Scene();
+        function initPlayerScene( canvas ) {
+            //添加光照相机等
+            var spotLight = new THREE.PointLight(0xffffff);
+            spotLight.position.set(-30, 40, 50);
+            spotLight.intensity = 1;
+            playerScene.scene.add(spotLight);
+
+            playerScene.camera = new THREE.PerspectiveCamera( 75, canvas.width / canvas.height, 0.1, 500 );
+            playerScene.camera.position.set(0,0,0);
+            playerScene.camera.lookAt(0,0,-1);
+
+            playerScene.gun = new gunThump({});
+            initGun(playerScene.gun);
+
+
+            //子弹改用小圆柱代替，无法深复制一个大数组。。另，尽快开始记分牌的制作。
+            //创建环境场景中的10枚圆球子弹
+            for(var i = 0; i < 10; i++) {
+                var thebullet = new bullet({});
+                initBullet(thebullet);
+            }
+            //创建个人场景中的一枚精细效果子弹
+            createObjBullets();
+            //playerScene.bullets[2].position.set(0, 0 , -0.1);
+            //playerScene.scene.add(playerScene.bullets[2]);
+        }
+
+
+
+        var rotationBox = new THREE.Object3D();
+        rotationBox.position.set(0.6,-1.5,-1.0);
+        rotationBox.rotation.z = 0;
+
+
+        //创建一个重击炮
+        var gunThump = function(config) {
+            //一些属性
+            //前后抖动一次，旋转一下
+            this.animationData = {
+                //回缩时长
+                shake: config.shake ? config.shake : 3,
+                //旋转时长，暂定一旦按住永远旋转
+                rotate : config.rotate ? config.rotate : 30,
+                //是否正在回缩
+                shakeing : 'back',
+                //是否正在旋转
+                rotateing : 1,
+                //已回缩时长
+                shakeTimes : 0,
+                //已旋转时长
+                rotateTimes : 0,
+                //每两次回缩发射一枚子弹
+                shoot : 0,
+
+                //存储为了旋转而构建的3D单元
+                //rotationBox :
+            }
+
+            //炮的皮肤
+            this.skin = new THREE.Texture();
+            //模型
+            this.model = null;
+            //重击炮动画
+            this.fireAnimation = function(_this) {
+
+                //回缩动画
+                if(_this.animationData.shakeing == 'back') {
+                    if(_this.animationData.shake > _this.animationData.shakeTimes) {
+                        _this.model.position.z += 0.009;
+                        _this.animationData.shakeTimes ++;
+                    } else {
+                        //后移完成,初始化
+                        _this.animationData.shakeing = 'front'
+                        _this.animationData.shakeTimes = 0;
+                    }
+                }
+
+                //前伸动画,半速前伸
+                if(_this.animationData.shakeing == 'front') {
+                    if(_this.animationData.shake * 3 > _this.animationData.shakeTimes) {
+                        _this.model.position.z -= 0.003;
+                        _this.animationData.shakeTimes ++;
+                    } else {
+                        //前伸完成,初始化
+                        _this.animationData.shakeing = 'back'
+                        _this.animationData.shakeTimes = 0;
+
+                        //发射子弹倒计时，倒计时重铸在子弹发射逻辑中。
+                        _this.animationData.shoot --;
+                    }
+                }
+                rotationBox.add(_this.model);
+                //旋转动画(收起枪？？)
+                if(_this.animationData.rotateing) {
+
+
+                    //mm = changePivot(0.6,-1.5,-1.4,_this);
+                    //rotationBox.rotation.x += 0.03;
+
+
+                    //外部抄的旋转函数通过x,y,z指定旋转中心，obj是要旋转的对象,没用了
+//                    function changePivot(x,y,z,obj){
+//                        var wrapper = new THREE.Object3D();
+//                        wrapper.position.set(x,y,z);
+//                        wrapper.add(obj);
+//                        obj.position.set(-x,-y,-z);
+//                        return wrapper;
+//                    }
+
+
+                }
+            }
+        }
+
+        //炮的init方法
+        function initGun(_this){
+            var _this = _this;
+            //纹理
+            var gunSkinImageLoader = new THREE.ImageLoader();
+            gunSkinImageLoader.load( 'myExamnation/3Dmodel/metal3.jpg', function ( image ) {
+                _this.skin.image = image;
+                _this.skin.needsUpdate = true;
+            } );
+
+            //模型
+            var gunOBJLoader = new THREE.OBJLoader();
+            gunOBJLoader.load('myExamnation/3Dmodel/gun.obj', function (geometry) {
+                var material = new THREE.MeshLambertMaterial();
+                _this.model = geometry;
+
+                //加载模型指定Texture
+                _this.model.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        child.material.map = _this.skin;
+                    }
+                } );
+                _this.model.position.set(0.257,-0.7,-1.4);
+
+                _this.model.scale.set(0.03, 0.03, 0.03);
+                _this.model.rotation.y = Math.PI/2;
+
+                //这里一定要放这里激活。。竟然是异步的。。。
+                //playerScene.scene.add(_this.model);
+                playerScene.scene.add(rotationBox);
+
+                //gunObj模型加载完毕
+                sourcesLoad.sources.objGun = 1;
+                sourcesLoadCheck();
+            });
+        }
+
+
+
+
+        var bullet = function (config){
+            //子弹速度
+           this.speed = config.speed ? config.speed : 15;
+//            this.speed = config.speed ? config.speed : 1;
+            //子弹的皮肤
+            this.skin = null;
+            //模型
+            this.model = null;
+
+            //小圆锥
+            var geometry = new THREE.SphereGeometry( 0.37, 32, 5 );
+            //小圆锥皮肤
+            var material = new THREE.MeshLambertMaterial( {color: 0xffff00} );
+            cylinder = new THREE.Mesh( geometry, material );
+
+            cylinder.position.set(9,-23,-50);
+
+            this.model = cylinder;
+
+            //子弹状态,0为回收池中待发射，1为发射中
+            this.state = 0;
+            //子弹起点
+            this.origin = [0,0,0];
+            //子弹方向
+            this.direction = {};
+        }
+        //子弹的init方法，这里错了，虽然是粗糙子弹，但是放在了initplayscreen里边。
+        function initBullet(theBullet) {
+            //完成初始化子弹则将子弹放入池子。
+            environmentScene.bullets.push(theBullet);
+        }
+
+        function bulletAnnimation() {
+            var theBullet;
+            //各种子弹状态。
+            for(var i = 0; i < environmentScene.bullets.length; i++){
+                theBullet = environmentScene.bullets[i];
+                //处理发射中的子弹
+                if(environmentScene.bullets[i].state == 1) {
+                    //计算子弹轨迹
+                    bulletTrack(theBullet);
+                }
+
+                //发射子弹,当炮倒计时为0发射
+                if(playerScene.gun.animationData.shoot <= 0) {
+                    bulletShoot(theBullet);
+                }
+            }
+            //发射中的 精细子弹处理。
+            if(playerScene.THEBullet.state == 1){
+                //计算子弹轨迹
+                realBulletTrack(playerScene.THEBullet);
+            }
+
+            //子弹轨迹
+            function bulletTrack(theBullet) {
+                theBullet.model.position.z += theBullet.speed * 0.5 * theBullet.direction.z;
+                theBullet.model.position.x += theBullet.speed * 0.5 * theBullet.direction.x;
+                theBullet.model.position.y += theBullet.speed * 0.5 * theBullet.direction.y;
+
+                //回收,超过视觉边界回收掉。
+                if( Math.abs(theBullet.model.position.z) > 220
+                    ||  Math.abs(theBullet.model.position.x) > 220
+                    ||  Math.abs(theBullet.model.position.y) > 220) {
+                        theBullet.state = 0;
+                }
+            }
+            //精细子弹轨迹
+            function realBulletTrack(theBullet) {
+                theBullet.model.position.z -= theBullet.speed;
+                //横轴偏量
+                theBullet.model.position.x -= theBullet.speed * 0.09;
+                //纵轴偏量
+                theBullet.model.position.y += theBullet.speed * 0.23;
+                theBullet.state = 1;
+                //回收,超过视觉边界回收掉。
+                if(theBullet.model.position.z < -130 ) {
+                    theBullet.state = 0;
+                    theBullet.model.position.z = 10;
+                    theBullet.changeBall = 1;
+                }
+            }
+            function bulletShoot(theBullet) {
+                //取出一枚缓存子弹
+                if(playerScene.THEBullet.changeBall && theBullet.state == 0) {
+                    //确定方向
+                    theBullet.direction = environmentScene.camera.getWorldDirection();
+                    //确定起始点
+                    theBullet.origin[0] = 60 * theBullet.direction.x;
+                    theBullet.origin[1] = 60 * theBullet.direction.y
+                    theBullet.origin[2] = 60 * theBullet.direction.z;
+
+                    //放入场景，开始弹道计算
+                    theBullet.model.position.set(theBullet.origin[0],theBullet.origin[1],theBullet.origin[2]);
+                    theBullet.state = 1;
+                    //考虑初始化时全部丢在000点，就不用每次添加了
+                    environmentScene.scene.add(theBullet.model);
+                    //重铸
+                    playerScene.THEBullet.changeBall = 0;
+                }
+
+                //取出真实子弹
+                var realBullet = playerScene.THEBullet;
+                if(realBullet.state == 0) {
+                    //放入场景，开始弹道计算
+                    realBullet.model.position.set(9,-23,-50);
+                    realBullet.state = 1;
+                    //重铸倒计时
+                    playerScene.gun.animationData.shoot = 1;
+                }
+            }
+
+        }
+
+        function createObjBullets(times) {
+            //子弹皮肤
+            var bulletTexture = new THREE.Texture();
+            var bulletLoader = new THREE.ImageLoader();
+            bulletLoader.load( 'myExamnation/3Dmodel/bulletSkinBlack.jpg', function ( image ) {
+                bulletTexture.image = image;
+                bulletTexture.needsUpdate = true;
+            } );
+            var bulletLoader = new THREE.OBJLoader();
+            bulletLoader.load('myExamnation/3Dmodel/bullet.obj', function (theBullet) {
+                onLoad(theBullet);
+            });
+
+            function onLoad(theBullet) {
+                onLoadJob(theBullet);
+                playerScene.THEBullet.model.position.set(0, 0 , -10);
+                playerScene.scene.add(playerScene.THEBullet.model);
+            }
+
+            function onLoadJob(theBullet) {
+                //加载模型如何指定Texture呢？
+                theBullet.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        child.material.map =  bulletTexture;
+                    }
+                } );
+                //加载完了。
+                sourcesLoad.sources.bullet = 1;
+                sourcesLoadCheck();
+
+                theBullet.scale.set(0.024, 0.024, 0.024);
+                //转向
+                theBullet.rotation.z = Math.PI/29;
+                theBullet.rotation.x = -Math.PI/2.3;
+
+                theBullet.position.set(0, 0 , -10);
+
+                var cloneObj = theBullet;
+
+                playerScene.THEBullet = new bullet({});
+                playerScene.THEBullet.model = theBullet;
+            }
+        }
+
+
+        //创建计分板
+        /*
+         * config = {
+         *  text: <str>, // font
+         *  font: <THREE.Font>, // font
+         *  size: <float>, // size of the text
+         *
+         *  bevelEnabled: <bool>, // turn on bevel
+         *  bevelThickness: <float>, // how deep into text bevel goes
+         *  bevelSize: <float> // how far from text outline is bevel
+         * }
+         */
+        var scoreReminder = function(config){
+            this.parameters = {};
+            this.text = config.text ? config.text : "+4";
+            this.parameters.size = config.size ? config.size : 20;
+            this.parameters.height = config.height ? config.height : 1;
+            this.parameters.bevelThickness = config.bevelThickness ? config.bevelThickness : 10;
+            this.parameters.bevelSize = config.bevelSize ? config.bevelSize : 1;
+            this.parameters.bevelEnabled = config.bevelEnabled ? config.bevelEnabled : true;
+            this.parameters.font = config.font ? config.font : null;
+            //模型
+            this.model = null;
+            //名字,用于全局变量键值对键名
+            this.name = config.name ? config.name : "four";
+
+            //状态参量 hide ：不可见； rise ：上升中； rotate ：旋转消失
+            this.station = 'hide';
+            //上升计时器
+            this.riseTime = 100;
+            //旋转计时器
+            this.rotateTime = 100;
+            //缩放参量，后续开发发现，距离远的话过小，因此设计为随距离改变缩放。
+            this.scale = 0.2;
+        }
+        function initScoreReminder(scoreReminders) {
+            var _font = null;
+            var textMaterial = new THREE.MeshPhongMaterial(
+                    { color: 0xff0000, specular: 0xffffff }
+            );
+            //字体加载
+            var loader = new THREE.FontLoader();
+            loader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+                _font = font;
+
+                //创建实例
+                for(var i = 0; i < scoreReminders.length; i++){
+                    scoreReminders[i].parameters.font = scoreReminders[i].parameters.font ? scoreReminders[i].parameters.font : font;
+                    var textGeometry = new THREE.TextGeometry( scoreReminders[i].text, scoreReminders[i].parameters);
+
+                    var mesh = new THREE.Mesh( textGeometry, textMaterial );
+                    mesh.position.set(10,15,-100);
+                    mesh.scale.set(scoreReminders[i].scale, scoreReminders[i].scale, scoreReminders[i].scale);
+                    scoreReminders[i].model = mesh;
+                    //four = +4模型类似这样
+                    environmentScene.scores[scoreReminders[i].name] = scoreReminders[i];
+                    environmentScene.scene.add( mesh );
+                }
+            });
+        }
+        function createScore() {
+            var two = new scoreReminder({text: "+2", name:'two'});
+            var four = new scoreReminder({});
+            initScoreReminder([two, four]);
+        }
+        function scoreReminderAnnimation() {
+            for(var key in environmentScene.scores) {
+                //上浮
+                if(environmentScene.scores[key].station == 'rise') {
+                    environmentScene.scores[key].model.position.y += 0.2;
+                    environmentScene.scores[key].riseTime -= 1;
+                    if(environmentScene.scores[key].riseTime <= 0) {
+                        environmentScene.scores[key].station = 'rotate';
+                    }
+                }
+                //旋转
+                if(environmentScene.scores[key].station == 'rotate'){
+                    //逐渐加速的旋转
+                    environmentScene.scores[key].model.rotation.y += (100 - environmentScene.scores[key].rotateTime) * 0.0005;
+                    //逐渐缩小
+                    var _scale = 0.99 * environmentScene.scores[key].model.scale.x;
+                    environmentScene.scores[key].model.scale.set(_scale, _scale, _scale);
+                    environmentScene.scores[key].rotateTime -= 1;
+                    //旋转动画完成，重置
+                    if(environmentScene.scores[key].rotateTime <= 0) {
+                        //reinitScoreReminder(environmentScene.scores[key]);
+                        environmentScene.scores[key].station = 'hide';
+                        environmentScene.scores[key].model.position.y = -1000;
+                    }
+                }
+            }
+        }
+        function reinitScoreReminder(scoreReminder) {
+            scoreReminder.station = 'hide';
+            scoreReminder.riseTime = 100;
+            scoreReminder.rotateTime = 100;
+            scoreReminder.model.rotation.y = 0;
+        }
+
+
+
+
+
+
+        function createEnvironmentScene(canvas) {
+            renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+            renderer.setSize(canvas.width, canvas.height);
+            environmentScene.scene = new THREE.Scene();
+            //添加透视相机
+            environmentScene.camera = new THREE.PerspectiveCamera( 75, canvas.width / canvas.height, 0.1, 1000 );
+            environmentScene.camera.position.set(0,0,0);
+            //var helper = new THREE.CameraHelper( environmentScene.camera );
+            //environmentScene.scene.add( helper );
+            environmentScene.scene.add(environmentScene.camera);
+
+            // Add a directional light to show off the object
+            var pointLight = new THREE.PointLight( 0xffffff, 1 );
+            pointLight.position.set(0, 100, 0);
+            environmentScene.scene.add( pointLight );
+
+            //创建天空盒映射材质
+            var envMap = null;
+            function createMaterials() {
+                var path = "img/";
+                var urls = [ path + "riverside_w.png", path + "riverside_e.png",
+                    path + "riverside_up.png", path + "riverside_down.png",
+                    path + "riverside_s.png", path + "riverside_n.png" ];
+                envMap = THREE.ImageUtils.loadTextureCube( urls );
+            }
+            createMaterials();
+
+            // 创建天空盒
+            var shader = THREE.ShaderLib[ "cube" ];
+            shader.uniforms[ "tCube" ].value = envMap;
+            var material = new THREE.ShaderMaterial( {
+                        fragmentShader: shader.fragmentShader,
+                        vertexShader: shader.vertexShader,
+                        uniforms: shader.uniforms,
+                        side: THREE.BackSide
+                    } ),
+                    mesh = new THREE.Mesh( new THREE.CubeGeometry( 1000, 1000, 1000 ), material );
+            environmentScene.scene.add( mesh );
+
+            //添加点击几何体
+            createCubes();
+            //飞机
+            createPlane();
+            //记分牌
+            createScore();
+        }
+        function initControls()
+        {
+            environmentScene.DeviceOrientationControls = new THREE.DeviceOrientationControls( environmentScene.camera );
+
+
+            //这几行含义未知
+            raycaster = new THREE.Raycaster();
+
+            //下边是渲染器
+            //renderer = new THREE.WebGLRenderer();
+            //renderer.setClearColor( 0xf0f0f0 );
+            //renderer.setPixelRatio( window.devicePixelRatio );
+            //renderer.setSize( window.innerWidth, window.innerHeight );
+//        renderer.sortObjects = false;
+            container.appendChild(renderer.domElement);
+
+
+            //启动对鼠标的监听
+            document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+        }
+        function onDocumentMouseMove( event ) {
+            mouse.x =0;// ( event.clientX / canvas.width ) * 2 - 1;
+            mouse.y =0;// - ( event.clientY / canvas.height ) * 2 + 1;
+        }
+
+        function run() {
+            //每一帧递归调用
+            requestAnimationFrame(function() { run(); });
+            //分别处理每一种类型下的每一个物品
+            var theAirplane
+            for(var i = 0; i < environmentScene.airplanes.length; i++) {
+                //查找过多，增加一个局域变量
+                theAirplane = environmentScene.airplanes[i];
+                //弹药匣旋转
+                caissons();
+                //处理正在飞行的飞机
+                flyingAirplanes(theAirplane);
+                //处理正在被攻击的飞机
+                beShooting(theAirplane);
+                //处理被击飞的飞机
+                beShooted(theAirplane);
+                //超出屏幕的飞机回收
+                recycling(theAirplane);
+
+            }
+
+            //资源依赖类需检测资源是否已完备
+            if( sourcesLoad.final ) {
+                //火炮动画
+                playerScene.gun.fireAnimation(playerScene.gun);
+                //子弹动画
+                bulletAnnimation();
+                //加分提示牌动画
+                scoreReminderAnnimation();
+            }
+
+
+            //弹药匣
+            function caissons() {
+                if(environmentScene.cubes[i]){
+                    environmentScene.cubes[i].rotation.x += 0.02;
+                    environmentScene.cubes[i].rotation.y += 0.02;
+                    environmentScene.cubes[i].rotation.z += 0.02;
+                }
+            }
+
+            //飞机飞行
+            function flyingAirplanes(theAirplane) {
+                //4螺旋桨 5机翼
+                theAirplane.mesh.children[4].rotation.x += 0.35;
+                theAirplane.mesh.position.z += theAirplane.speed;
+            }
+            //被打击动画
+            function beShooting(theAirplane) {
+                if(theAirplane.shooting > 0){
+                    //shooting属性 》0 为被打击状态
+                    if(theAirplane.shootingTimes % 10 < 5){
+                        theAirplane.mesh.rotation.y += 0.1;
+                    } else {
+                        theAirplane.mesh.rotation.y -= 0.1;
+                    }
+                    theAirplane.shooting = 0;
+                }
+            }
+            //被击飞动画
+            function beShooted(theAirplane) {
+                //不能打击了
+                theAirplane.shooting = 0;
+                //解体并旋转坠落
+                if(theAirplane.shooted == 1){
+
+                    for(var j = 0; j < theAirplane.mesh.children.length; j++){
+                        //解体，每个部件重新放位子
+                        theAirplane.mesh.children[j].position.set(
+                                theAirplane.mesh.children[j].broken.position[0],
+                                theAirplane.mesh.children[j].broken.position[1],
+                                theAirplane.mesh.children[j].broken.position[2]);
+
+                        //坠落，每个部件自行旋转
+                        theAirplane.mesh.children[j].rotation.x += theAirplane.mesh.children[j].broken.rotation;
+                        theAirplane.mesh.position.y -= 0.5;
+                        //theAirplane.mesh.position.y += 2;
+                    }
+                }
+            }
+
+            //回收机制，当某一轴位置超过某值则回收掉
+            function recycling(theAirplane) {
+                //过界回收，Z低于盒子下边界或X，Y超过创立边界即重赋值初始化该飞机
+                if(theAirplane.mesh.position.y < -500 || Math.abs(theAirplane.mesh.position.x) > 1500 || Math.abs(theAirplane.mesh.position.z) > 1500) {
+                    reinitAirplane(theAirplane);
+                }
+            }
+            //当回收掉飞机后需要重新初始化部分相应值
+            function reinitAirplane(airplane) {
+                airplane.mesh.position.set(getRandom(150),getRandom(150),getRandomMinus(700) - 700);
+                airplane.mesh.rotation.y = -1.57;
+                airplane.initAirplane();
+            }
+
+
+//            设定射线，传入鼠标，相机。
+            raycaster.setFromCamera( mouse, environmentScene.camera );
+            //交叉的正方体
+            var intersectsCube = raycaster.intersectObjects( environmentScene.clickGeomoryCube.children );
+            //交叉的飞机
+            var intersectsAirplaneBlock = [];
+            for(var i = 0; i < environmentScene.clickGeomoryAirplane.children.length; i++ ){
+                //查找过多，增加一个局域变量
+                theAirplane = environmentScene.airplanes[i];
+
+                var temp_intersectsAirplane = raycaster.intersectObjects( environmentScene.clickGeomoryAirplane.children[i].children );
+                if(temp_intersectsAirplane.length){
+                    intersectsAirplaneBlock = temp_intersectsAirplane;
+
+                    //是否是可射击的
+                    if(!theAirplane.shooted){
+                        theAirplane.shooting = 1;
+                        theAirplane.shootingTimes += 1;
+                    }
+
+                    //飞机血量
+                    if(theAirplane.shootingTimes > theAirplane.blood){
+                        if (theAirplane.shooted == 0) {
+                            //记分牌上浮
+                            var theScoreMarker = environmentScene.scores[theAirplane.scoreMarker];
+                            //添加theScoremarker选择逻辑。
+                            theScoreMarker.model.position.set(theAirplane.mesh.position.x,theAirplane.mesh.position.y,theAirplane.mesh.position.z);
+                            //实测距离过远的确有大小问题，引入距离-缩放参量 |距离|/100 * 100正确的缩放比
+                            var _scale = Math.abs( theAirplane.mesh.position.z ) * theScoreMarker.scale / 200 + theScoreMarker.scale/2 ;
+                            theScoreMarker.model.scale.set( _scale, _scale, _scale );
+                            //开始上升旋转
+                            reinitScoreReminder(theScoreMarker);
+                            theScoreMarker.station = 'rise';
+                        }
+
+                        //已经被打爆
+                        theAirplane.shooted = 1;
+                    }
+
+                }
+            }
+            //正方体
+            if ( intersectsCube.length > 0 ) {
+                if ( INTERSECTED != intersectsCube[ 0 ].object ) {
+                    if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                    INTERSECTED = intersectsCube[ 0 ].object;
+                    //debugger;
+                    //console.log(intersectsCube);
+                    INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                    //debugger;
+                    INTERSECTED.material.emissive.setHex( 0xffffff );
+                    //debugger;
+                    //INTERSECTED.material.emissive.delate();
+
+
+                }
+            } else {
+                // console.log(intersectsCube);
+                //if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                //INTERSECTED = null;
+            }
+            //飞机
+            if ( intersectsAirplaneBlock.length > 0 ) {
+                if ( INTERSECTED != intersectsAirplaneBlock[ 0 ].object ) {
+                    if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                    INTERSECTED = intersectsAirplaneBlock[ 0 ].object;
+                    //debugger;
+                    //console.log(intersectsCube);
+                    INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                    //debugger;
+                    INTERSECTED.material.emissive.setHex( 0xffffff );
+                    //debugger;
+                    //INTERSECTED.material.emissive.delate();
+
+
+                }
+            } else {
+                // console.log(intersectsCube);
+                //if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                //INTERSECTED = null;
+            }
+
+            renderer.autoClear = false;
+            renderer.render( environmentScene.scene, environmentScene.camera );
+            //相机可能要换
+            renderer.render( playerScene.scene, playerScene.camera );
+
+            environmentScene.DeviceOrientationControls.update();
+        }
+
+        $(document).ready(
+                function() {
+                    window.addEventListener('resize', handleWindowResize, false);
+
+                    //加载完，把选择框jq对象放入内存。
+                    _tip = $(".tip");
+
+                    //游戏加载提醒，横屏体验最佳，飞机有可能在任意方向出现
+                    setTimeout(function(){showTip("<h2 style='color: red'>！！！敌机来袭！！！</h2>", 2000)}, 2500);
+
+                    var _canvas = $("#webglcanvas");
+                    _canvas.attr("width",document.body.clientWidth);
+                    _canvas.attr("height",document.body.clientHeight);
+
+                    window.addEventListener('deviceorientation', function(event) {
+                        html = '';
+                        alpha = event.alpha;
+                        beta = event.beta;
+                        gamma = event.gamma;
+                    }, false)
+                    canvas = document.getElementById("webglcanvas");
+
+                    _canvas.click(function (event) {
+                        event.preventDefault();
+                    });
+
+                    createEnvironmentScene(canvas);
+                    initPlayerScene(canvas);
+                    initControls();
+                    run();
+                }
+        );
+
+        function handleWindowResize() {
+            HEIGHT = window.innerHeight;
+            WIDTH = window.innerWidth;
+            renderer.setSize(WIDTH, HEIGHT);
+            environmentScene.camera.aspect = WIDTH / HEIGHT;
+            environmentScene.camera.updateProjectionMatrix();
+        }
+        //展示提示 展示内容，时间（毫秒）
+        function showTip(html,time) {
+            _tip.html(html);
+            setTimeout(function(){
+                _tip.html("");
+            },time);
+        };
+
+
+        //tool
+        //需要深复制函数
+        function deepCopy(o,c){
+            var c = c || {}
+            for(var i in o){
+                if(typeof o[i] === 'object'){
+                    //要考虑深复制问题了
+                    if (o[i] == null){
+                        c[i] = null;
+                    }else if(o[i].constructor === Array){
+                        //这是数组
+                        c[i] =[]
+                    }else{
+                        //这是对象
+                        c[i] = {}
+                    }
+                    deepCopy(o[i],c[i])
+                }else{
+                    c[i] = o[i]
+                }
+            }
+            return c
+        }
+    </script>
+
+</head>
+<body style="margin: 0; overflow: hidden">
+
+<div id="container">
+    <canvas id="webglcanvas" width=800 height=600></canvas>
+    <img class="sight" src="img/sight.png"/>
+    <div class="tip"></div>
+</div>
+</body>
+</html>
