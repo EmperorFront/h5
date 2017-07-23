@@ -24,11 +24,11 @@
             text-align: center;
         }
     </style>
-    <script src="../libs/jquery-1.9.1/jquery-1.9.1.js"></script>
-    <script src="../libs/three.js.r58/threeDemoUse.js"></script>
-    <script src="../libs/three.js.r58/controls/DeviceOrientationControls.js"></script>
-    <script src="../libs/requestAnimationFrame/RequestAnimationFrame.js"></script>
-    <script src="myExamnation/threejsloader/OBJLoader.js"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/threeDemoUse.js"></script>
+    <script src="js/DeviceOrientationControls.js"></script>
+    <script src="js/RequestAnimationFrame.js"></script>
+    <script src="js/OBJLoader.js"></script>
 
     <script type="text/javascript">
 //v7版本增加了弹道2.0版本，较为粗糙，弹道衔接不自然，后续改用弧形弹道，甚至干掉精细子弹（若有压力），增加了积分系统。
@@ -657,14 +657,14 @@
             var _this = _this;
             //纹理
             var gunSkinImageLoader = new THREE.ImageLoader();
-            gunSkinImageLoader.load( 'myExamnation/3Dmodel/metal3.jpg', function ( image ) {
+            gunSkinImageLoader.load( 'img/metal3.jpg', function ( image ) {
                 _this.skin.image = image;
                 _this.skin.needsUpdate = true;
             } );
 
             //模型
             var gunOBJLoader = new THREE.OBJLoader();
-            gunOBJLoader.load('myExamnation/3Dmodel/gun.obj', function (geometry) {
+            gunOBJLoader.load('3Dmodel/gun.obj', function (geometry) {
                 var material = new THREE.MeshLambertMaterial();
                 _this.model = geometry;
 
@@ -810,12 +810,12 @@
             //子弹皮肤
             var bulletTexture = new THREE.Texture();
             var bulletLoader = new THREE.ImageLoader();
-            bulletLoader.load( 'myExamnation/3Dmodel/bulletSkinBlack.jpg', function ( image ) {
+            bulletLoader.load( 'img/bulletSkinBlack.jpg', function ( image ) {
                 bulletTexture.image = image;
                 bulletTexture.needsUpdate = true;
             } );
             var bulletLoader = new THREE.OBJLoader();
-            bulletLoader.load('myExamnation/3Dmodel/bullet.obj', function (theBullet) {
+            bulletLoader.load('3Dmodel/bullet.obj', function (theBullet) {
                 onLoad(theBullet);
             });
 
