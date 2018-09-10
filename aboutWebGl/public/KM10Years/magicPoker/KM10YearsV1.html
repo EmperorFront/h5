@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui,  viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="csrf-token">
+    <title> 乐问两周年 </title>
+
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/threeDemoUse.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/DeviceOrientationControls.js"></script>
+    <script src="js/RequestAnimationFrame.js"></script>
+
+    <script src="js/three.min.js"></script>
+    <script src="js/Detector.js"></script>
+</head>
+<body>
+
+<div class="body-container">
+
+    <link rel="stylesheet" href="css/KM10YearsV1.css">
+
+    <!-- lewen三周年数据 -->
+    <span   id="js-KM10-data" class="js-KM10-data js-share-to-wechat-data js-share-to-ikm-data hide"
+            data-title="KM10周年"
+            data-pkmpath="{{{ Config::get('app.pkm_path') }}}"
+            data-sharelink="{{{ Config::get('app.pkm_path') . '/episodes/lewen-game-share?share_begin=1' }}}"
+            data-sharelinkkm="{{{ Config::get('app.pkm_path') . '/episodes/lewen-game-share?share_begin=1' }}}"
+            data-shareicon="http://km-10029162.cos.myqcloud.com/assets/img/share-icon-100.png">我正在参加KM10周年，拿好礼就看今天！ </span>
+
+    <!-- 首頁加載 -->
+    <div class="absolute screen relative loading-page hide">
+        <div class="loading-page-area relative">
+            <div id="loading-left" class="active absolute icon-loading-left bg-sprite-loading"><img width="50" height="100" src="https://km-10029162.file.myqcloud.com/ImageHosting/20180907/0d2d55d1258001b238dfb18d53806285.png" /></div>
+            <div id="loading-right" class="hide absolute icon-loading-right bg-sprite-loading"></div>
+
+            <div class="absolute loading-progress-bar">
+                <div class="loading-progress-bar-inner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 活动首页 -->
+    <div class="screen active anniversary-home-bg relative KM10-home-page hide" id="emperScreen-one">
+        <div class="absolute bg-sprite first-page-title"></div>
+        <div class="absolute bg-sprite first-page-logo"></div>
+        <div class="absolute bg-sprite first-page-book"></div>
+    </div>
+
+    <!-- 第一窗 -->
+    <div class="screen absolute KM10-version-promote-page hide">
+        <div class="absolute icon-header-logo home-page-header-logo bg-sprite"></div>
+        <div class="absolute icon-header-2 home-page-header-2 bg-sprite"></div>
+        <div class="absolute icon-header-1 home-page-header-1 bg-sprite"></div>
+
+        <div class="absolute bg-sprite icon-enter home-page-enter"></div>
+    </div>
+
+    <!-- 版本不符合要求弹窗 -->
+    <div class="screen absolute KM10-version-promote-page hide">
+        <div class="absolute bg-sprite-2 KM10-version-promote icon-KM10-version-promote"></div>
+        <a href="http://km.tencent.com/openkm/pages/download">
+            <div class="absolute bg-sprite-2 KM10-version-confirm icon-KM10-version-confirm"></div>
+        </a>
+    </div>
+
+    <!-- 游戏界面 -->
+    <div class="absolute screen KM10-game-page hide">
+        <!-- 游戏模块 -->
+        <div class="absolute bg-sprite icon-enter home-page-enter"></div>
+    </div>
+
+    <!-- 游戏后页面 -->
+    <div class="absolute screen KM10-game-page-cover hide">
+        <!-- 游戏规则 -->
+        <div class="absolute KM10-game-page-enter-confirm icon-enter-confirm bg-sprite-2 hide">
+            <div class="absolute bg-sprite-2 KM10-game-start icon-KM10-game-start"></div>
+        </div>
+
+        <!-- 游戏结束弹窗 -->
+        <div class="absolute bg-sprite-2 KM10-game-end-promote icon-KM10-game-end-promote hide"></div>
+
+        <!-- 挑战失败 -->
+        <div class="absolute screen KM10-game-fail-page hide">
+            <div class="absolute bg-sprite icon-fail-light fail-light"></div>
+            <div class="absolute bg-sprite-2 icon-fail-ding fail-ding"></div>
+            <div class="absolute bg-sprite icon-result-count result-count">
+                    <span class="result-count-area">
+                        <span class="fail-result-page-count result-page-count">100</span>
+                        <span class="absolute bg-sprite icon-result-count-zan result-count-zan"></span>
+                    </span>
+            </div>
+            <div class="absolute fail-words">还差<span class="fail-words-count-left">20赞</span>就能成为百赞达人!</div>
+            <div class="absolute bg-sprite-2 icon-fail-play-again fail-play-again"></div>
+            <div class="absolute bg-sprite-2 icon-fail-share fail-share"></div>
+        </div>
+
+        <!-- 未拆宝箱页面 -->
+        <div class="screen KM10-result-page-unchecked hide">
+            <div class="absolute bg-sprite icon-result-count result-count">
+                    <span class="result-count-area">
+                        <span class="result-page-count"></span>
+                        <span class="absolute bg-sprite icon-result-count-zan result-count-zan"></span>
+                    </span>
+            </div>
+            <div class="absolute bg-sprite icon-result-light result-light"></div>
+            <div class="absolute bg-sprite icon-result-gift result-gift"></div>
+            <div class="absolute bg-sprite result-tip icon-result-tip"></div>
+
+            <div class="absolute bg-sprite icon-result-ribbon-1 result-ribbon-1"></div>
+            <div class="absolute bg-sprite icon-result-ribbon-2 result-ribbon-2"></div>
+            <div class="absolute bg-sprite icon-result-ribbon-3 result-ribbon-3"></div>
+            <div class="absolute bg-sprite icon-result-ribbon-4 result-ribbon-4"></div>
+        </div>
+
+        <!-- 拆开后页面 -->
+        <div class="absolute screen KM10-result-gift-page cover-page-bg hide">
+            <div class="absolute bg-sprite icon-result-light gift-page-light"></div>
+            <div class="absolute gifts-sprite game-prize-div"></div>
+            <div class="absolute bg-sprite icon-result-congratulation result-congratulation"></div>
+            <div class="absolute result-words">获得<span class="result-prize-name"></span></div>
+            <div class="absolute bg-sprite result-share-btn icon-result-share-btn"></div>
+            <div class="absolute result-prize-tip">感谢本次活动合作伙伴</div>
+            <div class="absolute bg-sprite result-responsor icon-result-responsor"></div>
+            <div class="absolute result-creator begin-result-creator">奖品领取请关注KM平台通知</div>
+        </div>
+
+        <!-- 礼物为空页面 -->
+        <div class="absolute screen empty-gifts-page hide">
+            <div class="absolute bg-sprite icon-fail-light fail-light"></div>
+            <div class="absolute bg-sprite-2 icon-fail-ding fail-ding"></div>
+            <div class="absolute bg-sprite icon-fail-no-prize fail-no-prize"></div>
+            <div class="absolute fail-no-prize-words">哎呀，手气有点差！</div>
+            <div class="absolute bg-sprite result-responsor icon-result-responsor"></div>
+            <div class="absolute result-creator">KM平台出品</div>
+        </div>
+    </div>
+
+    <!-- 玩完游戏再进入 展示结果 -->
+    <div class="absolute screen KM10-result-gift-page KM10-end-page KM10-end-page-bg hide">
+        <div class="absolute screen cover-page-bg">
+            <div class="absolute bg-sprite icon-result-light gift-page-light"></div>
+            <div class="absolute gifts-sprite end-page-result-gift"></div>
+            <div class="absolute bg-sprite icon-result-congratulation result-congratulation"></div>
+            <div class="absolute result-words">获得<span class="end-page-prize-name result-prize-name"></span></div>
+            <div class="absolute bg-sprite result-share-btn icon-result-share-btn"></div>
+            <div class="absolute result-prize-tip">感谢本次活动合作伙伴</div>
+            <div class="absolute bg-sprite result-responsor icon-result-responsor"></div>
+            <div class="absolute result-creator end-page-creator">奖品领取请关注KM平台通知</div>
+        </div>
+    </div>
+
+    <!-- 游戏时间过期 -->
+    <div class="screen absolute expired-page hide"></div>
+
+    <!-- 箭头分享页面 -->
+    <div class="absolute screen arrow-share-page arrow-share-page-bg hide">
+        <div class="absolute icon-share-arrow share-arrow bg-sprite-2"></div>
+    </div>
+
+    <script type="text/javascript">
+        // 版本是否符合
+        var is_version_ok = true;
+        // 判断终端版本
+        var is_ios = true;
+
+        // 检查手机KM版本
+        // if iOS 低于5.8.0, 提示升级
+        // if Android 低于5.8.3, 提示升级.
+        // 刚好等于或大于该版本的不提示.
+
+//        connectWebViewJavascriptBridge(function (bridge) {
+//
+//            bridge.invoke('getClientVersion', {}, function (response) {
+//                if (response && response.OS && response.KM) {
+//                    var os = response.OS.split(' ');
+//
+//                    if (os[0] == 'iOS' && os[1] && response.KM < '5.8.0') {
+//                        is_version_ok = false;
+//                    } else if (os[0] == 'Android' && os[1] && response.KM < '5.8.3') {
+//                        is_version_ok = false;
+//                    } else {
+//                        is_version_ok = true;
+//                    }
+//
+//                    if (os[0] == 'Android') {
+//                        is_ios = false;
+//                        $('#js-KM10-data').data('shareicon', 'http://km.oa.com/files/photos/pictures/201608/1470978663_67_w100_h100.png');
+//                    } else if (os[0] == 'iOS') {
+//                        is_ios = true;
+//                        $('#js-KM10-data').data('shareicon', 'https://km-10029162.file.myqcloud.com/assets/img/share-icon-100.png');
+//                    };
+//                }
+//            });
+//        });
+
+        // 资源预加载
+        var images = new Array();
+        function preload(imgs) {
+
+            for (var i = 0; i < imgs.length; i++) {
+                images[i] = new Image();
+                images[i].src = imgs[i];
+            };
+        }
+
+        // 游戏页面所需资源
+        var begin_gifts = new Array(
+                "https://km-10029162.file.myqcloud.com/ImageHosting/20180907/8b0ce29b1c5f78a4ff84887b1f647c16.png",
+                "https://km-10029162.file.myqcloud.com/assets/img/loading-bg.png",
+                "https://km-10029162.file.myqcloud.com/assets/img/sprites1.png",
+                "https://km-10029162.file.myqcloud.com/assets/img/sprites2.png",
+                "https://km-10029162.file.myqcloud.com/assets/img/home-bg.png",
+                "https://km-10029162.file.myqcloud.com/assets/img/gifts-sprite.png",
+                "https://km-10029162.file.myqcloud.com/assets/img/thumbs.png"
+        );
+
+        var end_gifts = new Array(
+                "https://km-10029162.file.myqcloud.com/assets/img/loading-bg.png",
+                "https://km-10029162.file.myqcloud.com/assets/img/sprites1.png",
+                "https://km-10029162.file.myqcloud.com/assets/img/sprites2.png",
+                "https://km-10029162.file.myqcloud.com/assets/img/gifts-sprite.png"
+        );
+
+        var expired_gifts = new Array(
+                "https://km-10029162.file.myqcloud.com/assets/img/expired.png"
+        );
+
+        // KM10周年
+        var KM10_app = {
+
+            // page变量
+            //   _page: "<?php echo $page; ?>",
+            _page: "begin",
+            // 当前页面
+            _current_screen: 1,
+            // 当前得分
+            _score: 0,
+            // 获得礼物（若有）
+            _award: "<?php echo isset($award) ? $award : ''; ?>",
+            // 获得礼物的中文名字（若有）
+            _award_alias: "<?php echo isset($award_alias) ? $award_alias : ''; ?>",
+            // 加密过的用户名
+            _share_nick: "<?php echo isset($share_nick) ? $share_nick : ''; ?>",
+            // 初始化
+            init: function() {
+
+                // 初始化loading 游戏页才有loading
+                if (KM10_app._page == 'begin') {
+                    $('.loading-page').removeClass('hide');
+                    KM10_app.init_loading();
+                };
+                // 初始化屏幕高宽
+                KM10_app.init_screen_size();
+                // 初始化下载
+                KM10_app.init_download();
+                // 初始化事件
+                KM10_app.init_events();
+                // 初始化分享（禁掉手K内QQ分享）
+                KM10_app.init_share();
+            },
+            // 初始化分享内容
+            init_share: function() {
+
+//                // 更新手K分享内容(禁掉手Q分享)
+//                connectWebViewJavascriptBridge(function(bridge) {
+//                    // 唤起手机km的分享
+//                    var $share_to_wechat = $('.js-share-to-ikm-data');
+//                    if ($share_to_wechat.length) {
+//                        var title = $share_to_wechat.data('title');
+//                        var desc = $share_to_wechat.text();
+//                        var link = $share_to_wechat.data('sharelink');
+//                        var link_km = $share_to_wechat.data('sharelinkkm');
+//                        var img_url = $share_to_wechat.data('shareicon');
+//                        bridge.invoke('setShareButton', {
+//                                    'shareWx': 1,
+//                                    'shareWxTimeline': 1,
+//                                    'shareTitle': title,
+//                                    'shareDescription': desc,
+//                                    'shareThumbUrl': img_url,
+//                                    'shareUrl': 'http://km.tencent.com/openkm/url?link=' + encodeURIComponent(link_km),
+//                                    'shareWxUrl': link,
+//                                    'shareWXUrl': link},
+//                                function(response) {});
+//                        bridge.registerHandler('clickShareButton', function() {});
+//                    }
+//                });
+            },
+            // 初始化下载
+            init_download: function() {
+
+                if (KM10_app._page == 'begin') {
+                    preload(begin_gifts);
+                } else if (KM10_app._page == 'end') {
+                    preload(end_gifts);
+                } else if (KM10_app._page == 'expired') {
+                    preload(expired_gifts);
+                } else {
+
+                }
+            },
+            // 初始化loading
+            init_loading: function() {
+                $('.loading-progress-bar-inner').animate({width: '65%'}, 50);
+            },
+            // 结束loading 显示活动页面
+            finish_loading: function() {
+                $('.loading-progress-bar-inner').animate({width: '100%'}, 70, function() {
+
+                    // 显示游戏首页
+                    if (KM10_app._page == 'begin') {
+
+                        // 显示首页
+                        $('.KM10-home-page').removeClass('hide');
+                        $('.loading-page').addClass('hide');
+                        $('.KM10-home-page').addClass('active');
+
+                        // 兼容檢測
+                        if (!is_version_ok) {
+                            $('.KM10-version-promote-page').removeClass('hide');
+                        };
+
+                        //第一屏始终旋转动画
+                        drawWebGL1();
+                    }
+                });
+            },
+            // 结束下载资源 根据不同条件显示不同页面
+            finish_download: function() {
+                if (KM10_app._page == 'end') {
+
+                    // 更新个人结果页面数据
+                    if (KM10_app._award != '') {
+
+                        $('.end-page-prize-name').text(KM10_app._award_alias);
+                        $('.end-page-result-gift').addClass(KM10_app._award);
+                        $('.end-page-result-gift').addClass("icon-" + KM10_app._award);
+
+                        // 显示个人结果页
+                        $('.KM10-end-page').removeClass('hide');
+                        $('.loading-page').addClass('hide');
+                        $('.KM10-end-page').addClass('active');
+
+                        // 更新分享内容
+                        KM10_app.change_share_content(1);
+                    };
+
+                } else if (KM10_app._page == 'expired') {
+
+                    // 过期页面
+                    $('.expired-page').removeClass('hide');
+                } else {
+
+                }
+            },
+            // 初始化屏幕宽高
+            init_screen_size: function() {
+                var screen_height = $('body').height();
+                var screen_width = $('body').width();
+                $('.screen').height(screen_height);
+                $('.screen').width(screen_width);
+            },
+            // 打开拆宝箱页面
+            show_open_prize_page: function(score) {
+
+                // 改变结果页面获得赞的数量
+                $('.result-page-count').text(score);
+
+                $('.KM10-result-page-unchecked').removeClass('hide');
+                $('.KM10-result-page-unchecked').addClass('active');
+            },
+            // 展示游戏失败页面
+            show_failure: function(score) {
+
+                // 更新失败页面数据
+                $('.fail-result-page-count').text(score);
+                var remaining_count_left = 100 - score;
+                $('.fail-words-count-left').text(remaining_count_left + '赞');
+
+                $('.KM10-game-page-cover').removeClass('hide');
+                $('.KM10-game-fail-page').removeClass('hide');
+            },
+            // 根据类型修改分享的内容
+            change_share_content: function(type) {
+
+                // 分享自己的奖品
+                if (KM10_app._award != '') {
+                    if (KM10_app._award != 'redenvelope1' && KM10_app._award != 'redenvelope2' && KM10_app._award != 'redenvelope3'
+                            && KM10_app._award != 'redenvelope4' && KM10_app._award != 'redenvelope5') {
+
+                        var share_words = '我在KM10周年挑赞成功，获得' + KM10_app._award_alias;
+                        var share_desc = '秒破百赞就看今天，一起开始挑赞达人吧！100%有奖这种事我怎么会乱说！';
+
+                        $('#js-KM10-data').data('title', share_words);
+                        $('#js-KM10-data').text(share_desc);
+                    } else {
+                        var share_words = '我在KM10周年挑赞成功，获得现金红包';
+                        var share_desc = '秒破百赞就看今天，一起开始挑赞达人吧！100%有奖这种事我怎么会乱说！';
+
+                        $('#js-KM10-data').data('title', share_words);
+                        $('#js-KM10-data').text(share_desc);
+
+                        // 红包类型的奖品下方提示方式变更
+                        if (KM10_app._page == 'end') {
+                            $('.end-page-creator').text('现金红包将于两小时内转入你的微信零钱中');
+                        } else if (KM10_app._page == 'begin') {
+                            $('.begin-result-creator').text('现金红包将于两小时内转入你的微信零钱中');
+                        };
+                    }
+
+                    if (type == 1) {
+                        var pkm_path = $('#js-KM10-data').data('pkmpath');
+
+                        var new_share_url = pkm_path + '/episodes/lewen-game-share?share=' + KM10_app._share_nick;
+                        $('#js-KM10-data').data('sharelink', new_share_url);
+                        $('#js-KM10-data').data('sharelinkkm', new_share_url);
+                    } else if (type == 2) {
+                        var new_share_url = window.location.href;
+                        $('#js-KM10-data').data('sharelink', new_share_url);
+                        $('#js-KM10-data').data('sharelinkkm', new_share_url);
+                    }
+
+                    // 更新微信和手K分享内容
+//                    share_to_wechat();
+//                    connectWebViewJavascriptBridge(function(bridge) {
+//                        // 唤起手机km的分享
+//                        var $share_to_wechat = $('.js-share-to-ikm-data');
+//                        if ($share_to_wechat.length) {
+//                            var title = $share_to_wechat.data('title');
+//                            var desc = $share_to_wechat.text();
+//                            var link = $share_to_wechat.data('sharelink');
+//                            var link_km = $share_to_wechat.data('sharelinkkm');
+//                            var img_url = $share_to_wechat.data('shareicon');
+//                            bridge.invoke('setShareButton', {
+//                                        'shareWx': 1,
+//                                        'shareWxTimeline': 1,
+//                                        'shareTitle': title,
+//                                        'shareDescription': desc,
+//                                        'shareThumbUrl': img_url,
+//                                        'shareUrl': 'http://km.tencent.com/openkm/url?link=' + encodeURIComponent(link_km),
+//                                        'shareWxUrl': link,
+//                                        'shareWXUrl': link},
+//                                    function(response) {});
+//                            bridge.registerHandler('clickShareButton', function() {});
+//                        }
+//                    });
+                }
+            },
+            // ajax获取奖品
+            // get_prize: function() {
+            //     $.ajax({
+            //         url: pkm_api_path + '/episodes/lewen-game-gift',
+            //         type: 'POST',
+            //         dataType: 'json',
+            //         timeout: 10000,
+            //         success: function(data) {
+            //             if (data.result == 'success') {
+            //                 var gift_name = data.gift;
+            //                 // 中文名字
+            //                 var gift_alias = data.gift_alias;
+
+            //                 if (gift_name != '') {
+            //                     // 更新数据
+            //                     KM10_app._award = gift_name;
+            //                     KM10_app._award_alias = gift_alias;
+            //                     setTimeout("KM10_app.show_prize()", 600);
+
+            //                     KM10_app.change_share_content(1);
+            //                 } else {
+            //                     alert('服务器很忙，请稍后再试~');
+            //                     // redis连接失败等 刷新页面
+            //                     KM10_app.game_page_reload();
+            //                 }
+            //             } else if (data.result == 'empty') {
+            //                 // 礼物为空
+            //                 setTimeout("KM10_app.show_empty_page()", 900);
+
+            //             } else if (data.result == 'fail') {
+            //                 alert('服务器很忙，请稍后再试~');
+            //                 // redis连接失败等 刷新页面
+            //                 KM10_app.game_page_reload();
+            //             };
+            //         },
+            //         error: function() {
+            //             alert('服务器很忙，请稍后再试~');
+            //             KM10_app.game_page_reload();
+            //         }
+            //     });
+            // },
+            get_prize: function() {
+                var gift_name = 'redenvelope1';
+                // 中文名字
+                var gift_alias = 'KM红包';
+
+                if (gift_name != '') {
+                    // 更新数据
+                    KM10_app._award = gift_name;
+                    KM10_app._award_alias = gift_alias;
+                    setTimeout("KM10_app.show_prize()", 600);
+
+                    KM10_app.change_share_content(1);
+                } else {
+                    alert('服务器很忙，请稍后再试~');
+                    // redis连接失败等 刷新页面
+                    KM10_app.game_page_reload();
+                }
+            },
+            // 游戏页面刷新
+            game_page_reload: function() {
+                // android ios分别刷新实现
+                if (is_ios) {
+                    location.reload(true);
+                } else {
+                    reload();
+                }
+            },
+            // 游戏结束 TODO
+            game_finish: function(score) {
+                $('.KM10-game-page-cover').removeClass('hide');
+                $('.KM10-game-end-promote').removeClass('hide');
+                $('.KM10-game-end-promote').addClass('active');
+
+                KM10_app._score = score;
+            },
+            // 展示最后奖品
+            show_prize: function() {
+                var gift_name = KM10_app._award;
+                var gift_alias = KM10_app._award_alias;
+
+                // 更新奖品页面
+                $('.result-prize-name').text(gift_alias);
+                $('.game-prize-div').addClass(gift_name);
+                $('.game-prize-div').addClass('icon-' + gift_name);
+
+                // 执行拆宝箱动画
+                $('.KM10-result-page-unchecked').removeClass('active');
+                $('.KM10-result-page-unchecked').addClass('anim');
+
+                // 显示结果页面
+                $('.KM10-result-gift-page').removeClass('hide');
+                $('.KM10-result-gift-page').addClass('active');
+            },
+            // 展示礼物为空页面
+            show_empty_page: function() {
+                $('.KM10-result-page-unchecked').addClass('hide');
+                $('.empty-gifts-page').removeClass('hide');
+            },
+            // 初始化事件
+            init_events: function() {
+
+                // loading 左侧动画
+                $('#loading-left')[0].addEventListener('webkitAnimationEnd', function() {
+                    $('#loading-left').removeClass('active');
+                    $('#loading-left').addClass('hide');
+                    $('#loading-right').removeClass('hide');
+                    $('#loading-right').addClass('active');
+                });
+                // loading 右侧动画
+                $('#loading-right')[0].addEventListener('webkitAnimationEnd', function() {
+                    $('#loading-right').removeClass('active');
+                    $('#loading-right').addClass('hide');
+                    $('#loading-left').addClass('active');
+                    $('#loading-left').removeClass('hide');
+                });
+
+                // 点击拆礼盒
+                $('.result-gift').one('click', function() {
+                    $('.result-gift').addClass('anim');
+
+                    // 发请求拆礼盒
+                    KM10_app.get_prize();
+                });
+
+                // 点击进入游戏界面
+                $('.home-page-enter').one('click', function() {
+                    $('.KM10-game-page').removeClass('hide');
+                    $('.KM10-game-page-cover').removeClass('hide');
+                    $('.KM10-home-page').addClass('hide');
+
+                    $('.KM10-game-page-enter-confirm').removeClass('hide');
+                    $('.KM10-game-page-enter-confirm').addClass('active');
+                });
+
+                // 点击开始游戏
+                $('.KM10-game-start').one('click', function() {
+                    // 开始游戏
+                    setTimeout(gameStart, 1000);
+
+                    $('.KM10-game-page-cover').addClass('hide');
+                    $('.KM10-game-page-enter-confirm').addClass('hide');
+                });
+
+                // 游戏失败页面 重新玩游戏
+                $('.fail-play-again').on('click', function() {
+                    $('.KM10-game-fail-page').addClass('hide');
+                    $('.KM10-game-page-cover').addClass('hide');
+
+                    // 重启游戏
+                    setTimeout(gameStart, 1000);
+                });
+
+                // 绑定游戏结束弹窗动画
+                if ($('.KM10-game-end-promote').length > 0) {
+                    $('.KM10-game-end-promote')[0].addEventListener('webkitAnimationEnd', function() {
+
+                        $('.KM10-game-end-promote').addClass('hide');
+
+                        if (KM10_app._score >= 100) {
+                            KM10_app.show_open_prize_page(KM10_app._score);
+                        } else {
+                            KM10_app.show_failure(KM10_app._score);
+                        }
+                    });
+                }
+
+                // 点击唤起分享
+                $('.result-share-btn').on('click', function() {
+                    $('.arrow-share-page').show();
+                });
+                $('.KM10-game-fail-page').delegate('.fail-share', 'click', function() {
+                    $('.arrow-share-page').show();
+                });
+                $('.arrow-share-page').on('click', function() {
+                    $('.arrow-share-page').hide();
+                });
+            }
+        };
+
+        $(function() {
+            // app初始化
+            KM10_app.init();
+            // KM10_app.init_events();
+
+            // 初始化微信分享
+//            share_to_wechat();
+        });
+
+        // 资源加载完毕 隐藏loading页面 显示活动页面
+        $(window).load(function () {
+            // 只有游戏页面显示loading
+            if (KM10_app._page == 'begin') {
+                KM10_app.finish_loading();
+            } else {
+                KM10_app.finish_download();
+            }
+        });
+
+
+
+
+        // webGL部分代码
+        var renderer, camera, scene, light, stats, geometry;
+
+        function initRender() {
+            renderer = new THREE.WebGLRenderer({alpha:true, antialias: true});
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0xFFFFFF, 0.0);
+            renderer.shadowMap.enabled = true;
+            document.getElementById('emperScreen-one').appendChild(renderer.domElement);
+        }
+
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 15 );
+            cubeCamera = new THREE.CubeCamera(0.1, 1000, 256);
+            scene.add(cubeCamera);
+        }
+
+        function initScene() {
+            scene = new THREE.Scene();
+        }
+
+        function initLight() {
+            scene.add(new THREE.AmbientLight(0x444444));
+
+            light = new THREE.DirectionalLight(0xffffff);
+            light.position.set(0, 20, 20 );
+
+            light.castShadow = true;
+            light.shadow.camera.top = 10;
+            light.shadow.camera.bottom = -10;
+            light.shadow.camera.left = -10;
+            light.shadow.camera.right = 10;
+
+            light.castShadow = true;
+
+            scene.add(light);
+        }
+
+        function initModel() {
+
+            geometry = new THREE.BoxGeometry( 2, 3.6, 0.05 );
+            var loader = new THREE.TextureLoader();
+            geometry.name = "poker";
+            var materials = [
+                new THREE.MeshBasicMaterial( { color:0xFF00FF} ), // right
+                new THREE.MeshBasicMaterial( { color:0xFF00FF} ), // left
+                new THREE.MeshBasicMaterial( { color:0xFF00FF} ), // top
+                new THREE.MeshBasicMaterial( { color:0xFF00FF} ), // bottom
+                new THREE.MeshBasicMaterial( { map:new THREE.TextureLoader().load("img/pokerBack.png") } ), // front
+                new THREE.MeshBasicMaterial( { map:new THREE.TextureLoader().load("img/pokerB.png") } ), // back
+            ];
+
+            geometry = new THREE.Mesh(geometry, materials);
+            scene.add(geometry);
+        }
+
+        function initStats() {
+
+        }
+
+        function render() {
+            geometry.rotation.x += 0.004;
+            geometry.rotation.y += 0.02;
+
+        }
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+        }
+
+        function animate() {
+            render();
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        function drawWebGL1() {
+            if (!Detector.webgl) Detector.addGetWebGLMessage();
+
+            initRender();
+            initScene();
+            initCamera();
+            initLight();
+            initModel();
+
+            initStats();
+
+            animate();
+            window.onresize = onWindowResize;
+        }
+    </script>
+
+</div>
+</body>
+</html>
