@@ -251,11 +251,7 @@ li {
     margin-top: 16rem;
 }
 /* loading page bg*/
-.loading-page {
-    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180907/8b0ce29b1c5f78a4ff84887b1f647c16.png);
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
+
 .loading-page .loading-progress-bar {
     width: 19.6rem;
     height: 0.9rem;
@@ -1760,10 +1756,49 @@ li {
 
 
 
-
+.loading-page {
+    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180907/8b0ce29b1c5f78a4ff84887b1f647c16.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-position: center;
+}
 /* home page */
 .anniversary-home-bg {
     background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180907/8b0ce29b1c5f78a4ff84887b1f647c16.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-position: center;
+}
+.KM10-show-data-guide {
+    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180914/472daf493177506f79fecda4c7d86e3b.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-position: center;
+}
+.KM10-show-data-page {
+    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180914/472daf493177506f79fecda4c7d86e3b.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-position: center;
+}
+
+.bg-sprite {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180910/4b40e7d85ee92064bec4d19e42ea8fb1.png);
+    background-repeat: no-repeat;
+    background-size: 37.5rem;
+}
+.bg-sprite-data {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180913/28935914d36dcfc1e1db43138f336edd.png);
+    background-repeat: no-repeat;
+    background-size: 11rem;
+}
+.poker-back {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180917/9cad0a42aab0c8baab1f7acad65924f8.png);
+    background-repeat: no-repeat;
+    background-size: 8rem;
+}
+.KM10-game-Reshuffle {
+    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180914/472daf493177506f79fecda4c7d86e3b.png);
     background-repeat: no-repeat;
     background-size: 110%;
     background-position: center;
@@ -1818,3 +1853,95 @@ li {
     margin-left: -17.1rem;
     bottom: -2rem;
 }
+.data-text-area-mgtop {
+    font-size: 1.8rem;
+    color: white;
+    width: 23rem;
+    line-height: 4rem;
+    text-align: center;
+    margin: 20rem auto 0rem;
+}
+.data-text-area {
+    font-size: 1.8rem;
+    color: white;
+    width: 23rem;
+    line-height: 4rem;
+    text-align: center;
+    margin: auto;
+}
+.data-figure-top {
+    width: 9.4rem;
+    height: 1.9rem;
+    background-position: 0rem -38.7rem;
+    left: 50%;
+    margin-left: -4.7rem;
+    top: 16rem;
+}
+.data-figure-bottom {
+    width: 9.4rem;
+    height: 1.9rem;
+    background-position: 0rem -40.6rem;
+    left: 50%;
+    margin-left: -4.7rem;
+    bottom: 19rem;
+}
+.data-figure-right {
+    width: 3.4rem;
+    height: 36.9rem;
+    background-position: -0.3rem -1.6rem;
+    bottom: 0rem;
+    right: 0;
+}
+.data-figure-left {
+    width: 3.4rem;
+    height: 36.9rem;
+    background-position: -3.3rem -1.6rem;
+    bottom: 0rem;
+}
+.data-figure-click {
+    width: 10.6rem;
+    height: 4.5rem;
+    background-position: 0rem -52.6rem;
+    left: 50%;
+    margin-left: -5.6rem;
+    bottom: 10rem;
+}
+.poker-back {
+    width: 8rem;
+    height: 14.4rem;
+}
+.poker11 {
+    top: 20.6rem;
+    left: 2rem;
+}
+.poker12 {
+    top: 20.6rem;
+    left: 50%;
+    margin-left: -4rem;
+}
+.poker13 {
+    top: 20.6rem;
+    right: 2rem;
+}
+.poker21 {
+    top: 12rem;
+    left: 50%;
+    margin-left: -9rem;
+}
+.poker22 {
+    top: 12rem;
+    left: 50%;
+    margin-left: 1rem;
+}
+.poker-front-txt {
+    font-size: 1.8rem;
+    color: white;
+    width: 23rem;
+    line-height: 4rem;
+    text-align: center;
+    margin: 20rem auto 0rem;
+    left: 50%;
+    margin-left: -11.5rem;
+}
+
+
