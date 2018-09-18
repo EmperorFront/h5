@@ -53,24 +53,75 @@
         <div class="absolute bg-sprite first-page-book"></div>
     </div>
 
-    <!-- 第一窗 -->
-    <div class="screen absolute KM10-version-promote-page hide">
-        <div class="absolute icon-header-logo home-page-header-logo bg-sprite"></div>
-        <div class="absolute icon-header-2 home-page-header-2 bg-sprite"></div>
-        <div class="absolute icon-header-1 home-page-header-1 bg-sprite"></div>
-
-        <div class="absolute bg-sprite icon-enter home-page-enter"></div>
+    <!--数据展示页面-->
+    <div class="screen absolute KM10-show-data-guide hide">
+        <div class="data-text-area-mgtop">欢迎来到KM的世界</div>
+        <div class="data-text-area">欢迎来到KM的世的世的世界</div>
+        <div class="data-text-area">欢迎来到KM世界</div>
+        <div class="absolute data-figure-top bg-sprite-data"></div>
+        <div class="absolute data-figure-bottom bg-sprite-data"></div>
+        <div class="absolute data-figure-left  bg-sprite-data"></div>
+        <div class="absolute data-figure-right bg-sprite-data"></div>
+        <div class="absolute data-figure-click bg-sprite-data"></div>
     </div>
 
-    <!-- 版本不符合要求弹窗 -->
-    <div class="screen absolute KM10-version-promote-page hide">
-        <div class="absolute bg-sprite-2 KM10-version-promote icon-KM10-version-promote"></div>
-        <a href="http://km.tencent.com/openkm/pages/download">
-            <div class="absolute bg-sprite-2 KM10-version-confirm icon-KM10-version-confirm"></div>
-        </a>
+    <!--数据引导页面-->
+    <div class="screen absolute KM10-show-data-guide hide">
+        <div class="data-text-area-mgtop">欢迎来到KM的世界</div>
+        <div class="data-text-area">欢迎来到KM的世的世的世界</div>
+        <div class="data-text-area">欢迎来到KM世界</div>
+        <div class="absolute data-figure-top bg-sprite-data"></div>
+        <div class="absolute data-figure-bottom bg-sprite-data"></div>
+        <div class="absolute data-figure-left  bg-sprite-data"></div>
+        <div class="absolute data-figure-right bg-sprite-data"></div>
+        <div class="absolute data-figure-click bg-sprite-data"></div>
+    </div>
+    <!--数据展示页面-->
+    <div class="screen absolute KM10-show-data-page hide">
+        <div class="data-text-area-mgtop">Catty越来越美，Catty越来越美，Catty越来越美，Catty越来越美，美爆了</div>
+        <div class="absolute data-figure-top bg-sprite-data"></div>
+        <div class="absolute data-figure-bottom bg-sprite-data"></div>
+        <div class="absolute data-figure-left  bg-sprite-data"></div>
+        <div class="absolute data-figure-right bg-sprite-data"></div>
+    </div>
+    <!--洗牌页面-->
+    <div class="screen absolute KM10-game-Reshuffle hide" id="emperScreen-two">
+        <div class="absolute poker21 poker-back"></div>
+        <div class="absolute poker22 poker-back"></div>
+
+        <div class="absolute poker11 poker-back"></div>
+        <div class="absolute poker12 poker-back"></div>
+        <div class="absolute poker13 poker-back"></div>
+
+        <div class="absolute poker-front-txt hide">Catty越来越美，Catty越来越美，Catty越来越美，Catty越来越美，美爆了</div>
     </div>
 
-    <!-- 游戏界面 -->
+
+    <!-- 洗牌界面 -->
+    <!--<div class="absolute screen KM10-game-Reshuffle hide">-->
+        <!--&lt;!&ndash; 游戏模块 &ndash;&gt;-->
+        <!--<div class="absolute bg-sprite icon-enter home-page-enter"></div>-->
+    <!--</div>-->
+
+
+    <!--&lt;!&ndash; 第一窗 &ndash;&gt;-->
+    <!--<div class="screen absolute KM10-version-promote-page hide">-->
+        <!--<div class="absolute icon-header-logo home-page-header-logo bg-sprite"></div>-->
+        <!--<div class="absolute icon-header-2 home-page-header-2 bg-sprite"></div>-->
+        <!--<div class="absolute icon-header-1 home-page-header-1 bg-sprite"></div>-->
+
+        <!--<div class="absolute bg-sprite icon-enter home-page-enter"></div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash; 版本不符合要求弹窗 &ndash;&gt;-->
+    <!--<div class="screen absolute KM10-version-promote-page hide">-->
+        <!--<div class="absolute bg-sprite-2 KM10-version-promote icon-KM10-version-promote"></div>-->
+        <!--<a href="http://km.tencent.com/openkm/pages/download">-->
+            <!--<div class="absolute bg-sprite-2 KM10-version-confirm icon-KM10-version-confirm"></div>-->
+        <!--</a>-->
+    </div>
+
+    <!-- 洗牌界面 -->
     <div class="absolute screen KM10-game-page hide">
         <!-- 游戏模块 -->
         <div class="absolute bg-sprite icon-enter home-page-enter"></div>
@@ -232,9 +283,10 @@
                 "https://km-10029162.file.myqcloud.com/assets/img/expired.png"
         );
 
+        var pokerTurn = 'start';
+
         // KM10周年
         var KM10_app = {
-
             // page变量
             //   _page: "<?php echo $page; ?>",
             _page: "begin",
@@ -331,7 +383,20 @@
                     }
                 });
             },
-            // 结束下载资源 根据不同条件显示不同页面
+
+
+
+
+            show_new_page: function () {
+
+            },
+
+
+
+
+
+
+        // 结束下载资源 根据不同条件显示不同页面
             finish_download: function() {
                 if (KM10_app._page == 'end') {
 
@@ -569,6 +634,45 @@
                     $('#loading-left').removeClass('hide');
                 });
 
+                //首页点击旋转的扑克翻页
+                $('#emperScreen-one').one('click',function () {
+                    $('.KM10-show-data-guide').removeClass('hide');
+                    $('#emperScreen-one').addClass('hide');
+
+                    //重新改造摄像机及旋转方案
+                    resetSense();
+                });
+
+                //首页点击旋转的扑克翻页
+                $('.KM10-show-data-guide').one('click',function () {
+
+                    $('.KM10-show-data-page').removeClass('hide');
+                    $('.KM10-show-data-guide').addClass('hide');
+                });
+
+                //首页点击旋转的扑克翻页
+                $('.KM10-show-data-page').one('click',function () {
+
+                    $('.KM10-game-Reshuffle').removeClass('hide');
+                    $('.KM10-show-data-page').addClass('hide');
+                });
+
+                $('.KM10-game-Reshuffle').one('click',function () {
+//                    $('.KM10-game-Reshuffle').removeClass('hide');
+                    $('.poker-back').fadeToggle(200);
+                    pokerTurn = 'turn';
+                });
+
+                function resetSense() {
+                    camera.position.set(0, 0, 17 );
+                    geometry.rotation.x = 0;
+                    geometry.rotation.y = 0;
+                    pokerTurn = 'hode';
+                }
+
+
+
+
                 // 点击拆礼盒
                 $('.result-gift').one('click', function() {
                     $('.result-gift').addClass('anim');
@@ -651,9 +755,6 @@
             }
         });
 
-
-
-
         // webGL部分代码
         var renderer, camera, scene, light, stats, geometry;
 
@@ -664,6 +765,7 @@
             renderer.setClearColor(0xFFFFFF, 0.0);
             renderer.shadowMap.enabled = true;
             document.getElementById('emperScreen-one').appendChild(renderer.domElement);
+
         }
 
         function initCamera() {
@@ -717,9 +819,20 @@
         }
 
         function render() {
-            geometry.rotation.x += 0.004;
-            geometry.rotation.y += 0.02;
+            if (pokerTurn == 'start') {
+                geometry.rotation.x += 0.004;
+                geometry.rotation.y += 0.02;
+            }
+            if (pokerTurn == 'turn') {
+                document.getElementById('emperScreen-two').appendChild(renderer.domElement);
+                geometry.rotation.y += 0.04;
+                camera.position.z -= 0.15;
 
+                if (geometry.rotation.y >= Math.PI) {
+                    pokerTurn = 'final';
+                    $('.poker-front-txt').show();
+                }
+            }
         }
 
         function onWindowResize() {
