@@ -1921,17 +1921,20 @@ li {
     height: 14.4rem;
 }
 .poker11 {
-    top: 20.6rem;
+    top: 50%;
     left: 2rem;
+    margin-top: -7.2rem;
 }
 .poker12 {
-    top: 20.6rem;
+    top: 50%;
     left: 50%;
     margin-left: -4rem;
+    margin-top: -7.2rem;
 }
 .poker13 {
-    top: 20.6rem;
+    top: 50%;
     right: 2rem;
+    margin-top: -7.2rem;
 }
 .poker21 {
     top: 12rem;
