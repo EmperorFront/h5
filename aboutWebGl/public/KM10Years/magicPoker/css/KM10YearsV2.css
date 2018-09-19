@@ -1924,6 +1924,21 @@ li {
     top: 50%;
     left: 2rem;
     margin-top: -7.2rem;
+
+    animation:pokermove11 2s infinite;
+    animation-direction:alternate;
+    -webkit-animation-direction:alternate; /* Safari 和 Chrome */
+}
+@keyframes pokermove11
+{
+    from {left: 2rem;}
+    to {left: 25rem;}
+}
+
+@-webkit-keyframes pokermove11 /*Safari and Chrome*/
+{
+    from {left: 2rem;}
+    to {left: 25rem;}
 }
 .poker12 {
     top: 50%;
@@ -1935,6 +1950,21 @@ li {
     top: 50%;
     right: 2rem;
     margin-top: -7.2rem;
+
+    animation:pokermove13 2s infinite;
+    animation-direction:alternate;
+    -webkit-animation-direction:alternate; /* Safari 和 Chrome */
+}
+@keyframes pokermove13
+{
+    from {right: 2rem;}
+    to {right: 25rem;}
+}
+
+@-webkit-keyframes pokermove13 /*Safari and Chrome*/
+{
+    from {right: 2rem;}
+    to {right: 25rem;}
 }
 .poker21 {
     top: 12rem;
