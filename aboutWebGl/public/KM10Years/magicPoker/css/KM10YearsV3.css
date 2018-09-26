@@ -2016,7 +2016,7 @@ li {
 }
 .show-area {
     display: block;
-    width: 300px;
+    width: 600px;
     position: relative;
 }
 .poker-front-txt-pic {
@@ -2038,6 +2038,7 @@ li {
     margin-top: -270px;
     left: 50%;
     margin-left: -150px;
+    width: 20rem;
 }
 .close-save {
     width: 2rem;
