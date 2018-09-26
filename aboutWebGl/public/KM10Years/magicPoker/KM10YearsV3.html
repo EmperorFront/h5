@@ -685,8 +685,8 @@
 
                 $('.poker-button-right-js').click(function () {
                     html2canvas($("#share-img"), {
-                        height: $("#share-img").outerHeight() * 2,
-                        width: $("#share-img").outerWidth() * 2,
+                        height: $("#share-img").outerHeight() + 20,
+                        width: $("#share-img").outerWidth() + 20  ,
                         onrendered: function(canvas) {
                             //将canvas画布放大若干倍，然后盛放在较小的容器内，就显得不模糊了
                             var timestamp = Date.parse(new Date());
@@ -924,4 +924,3 @@
 </div>
 </body>
 </html>
- 
