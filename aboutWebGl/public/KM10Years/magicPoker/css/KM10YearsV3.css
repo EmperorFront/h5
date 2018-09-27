@@ -1792,6 +1792,11 @@ li {
     background-repeat: no-repeat;
     background-size: 11rem;
 }
+.bg-sprite-guide-txt {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180927/b0deb4266e7729ecc0fe60279c2d0595.png);
+    background-repeat: no-repeat;
+    background-size: 17rem;
+}
 .bg-sprite-pokersave {
     background-image: url("https://km-10029162.file.myqcloud.com/ImageHosting/20180926/5e5988f298bed1a9b5a4ac26f44cf312.png");
     background-repeat: no-repeat;
@@ -1864,7 +1869,10 @@ li {
     width: 23rem;
     line-height: 4rem;
     text-align: center;
-    margin: 20rem auto 0rem;
+    margin: 0rem auto 0rem;
+}
+.txt-area-employee {
+    margin-top: 9rem;
 }
 .data-text-area {
     font-size: 1.8rem;
@@ -1875,11 +1883,11 @@ li {
     margin: auto;
 }
 .data-figure-top {
-    width: 9.4rem;
-    height: 1.9rem;
-    background-position: 0rem -38.7rem;
+    width: 17rem;
+    height: 16.9rem;
+    background-position: 0rem 0rem;
     left: 50%;
-    margin-left: -4.7rem;
+    margin-left: -8.5rem;
     top: 16rem;
 }
 .data-figure-bottom {
@@ -1898,7 +1906,7 @@ li {
     right: 0;
 }
 .data-figure-left {
-    width: 3.4rem;
+    width: 4.4rem;
     height: 36.9rem;
     background-position: -3.3rem -1.6rem;
     bottom: 0rem;
@@ -1913,7 +1921,7 @@ li {
     height: 4.5rem;
     background-position: 0rem -52.6rem;
     left: 50%;
-    margin-left: -5.6rem;
+    margin-left: -5.3rem;
     bottom: 10rem;
 }
 .poker-back {
@@ -1977,15 +1985,89 @@ li {
     margin-left: 1rem;
 }
 .poker-front-txt {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: black;
     width: 22rem;
     line-height: 4rem;
     text-align: center;
-    margin: 20rem auto 0rem;
     left: 50%;
     margin-left: -11rem;
+    top: 50%;
+    margin-top: -9rem;
 }
+.poker-front-txt-name {
+    line-height: 1.8rem;
+    color: #663300;
+}
+.poker-front-txt-future {
+    line-height: 2.5rem;
+    color: #663300;
+}
+.poker-front-txt-title {
+    font-size: 3rem;
+    line-height: 6rem;
+    color: #fb9700;
+}
+.poker-front-txt-tip {
+    margin-top: 3.4rem;
+    line-height: 1rem;
+    color: #663300;
+}
+.poker-front-txt-tip2 {
+    color: #663300;
+}
+.poker-front-txt-tip3 {
+    color: #8c5900;
+    bottom: 11rem;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+.picpoker-front-txt {
+    text-align: center;
+    margin-top: -722px;
+    margin-left: 117px;
+    width: 365px;
+}
+.picpoker-front-txt-name {
+    font-size: 30px;
+    line-height: 45px;
+    color: #663300;
+}
+.picpoker-front-txt-future {
+    line-height: 38px;
+    color: #663300;
+    font-size: 26px;
+}
+.picpoker-front-txt-title {
+    font-size: 42px;
+    line-height: 93px;
+    color: #fb9700;
+}
+.picpoker-front-txt-tip {
+    margin-top: 56px;
+    font-size: 30px;
+    line-height: 45px;
+    color: #663300;
+}
+.picpoker-front-txt-tip2 {
+    font-size: 30px;
+    line-height: 45px;
+    color: #663300;
+}
+.picpoker-front-txt-tip3 {
+    color: #8c5900;
+    margin-top: 147px;
+    text-align: center;
+    margin-right: 196px;
+    font-size: 16px;
+}
+
+
+
+
 .poker-hands-left {
     width: 15rem;
     height: 15rem;
@@ -2020,7 +2102,7 @@ li {
     position: relative;
 }
 .poker-front-txt-pic {
-    margin-top: -170px;
+    margin-top: -524px;
     height: 0px;
     padding-bottom: 170px;
 }
@@ -2038,7 +2120,7 @@ li {
     margin-top: -270px;
     left: 50%;
     margin-left: -150px;
-    width: 20rem;
+    width: 25rem;
 }
 .close-save {
     width: 2rem;
