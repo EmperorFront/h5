@@ -1891,7 +1891,8 @@ li {
     background-position: 0rem 0rem;
     left: 50%;
     margin-left: -8.5rem;
-    top: 16rem;
+    top: 50%;
+    margin-top: -8.5rem;
 }
 .data-figure-bottom {
     width: 9.4rem;
@@ -2086,14 +2087,14 @@ li {
     background-position: -14rem 0.4rem;
 }
 .poker-button-left-js {
-    width: 8rem;
+    width: 8.5rem;
     height: 2.5rem;
     left: 4.5rem;
     bottom: 3rem;
     background-position: 0rem -17.9em;
 }
 .poker-button-right-js {
-    width: 8rem;
+    width: 8.5rem;
     height: 2.5rem;
     right: 4.5rem;
     bottom: 3rem;
@@ -2120,9 +2121,9 @@ li {
 }
 .show-pic-save {
     top: 50%;
-    margin-top: -270px;
+    margin-top: -21rem;
     left: 50%;
-    margin-left: -150px;
+    margin-left: -12.5rem;
     width: 25rem;
 }
 .close-save {
@@ -2130,10 +2131,10 @@ li {
     height: 3rem;
     position: absolute;
     top: 50%;
-    margin-top: -291px;
+    margin-top: -23rem;
     left: 50%;
     background-position: 0 -30rem;
-    margin-left: 140px;
+    margin-left: 12rem;
 }
 .show-pic-save-tip {
     bottom: 2rem;
