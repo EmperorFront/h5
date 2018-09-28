@@ -176,7 +176,8 @@
             $.ajax({
                 url:'http://km-idc.oa.com/10th/data',
                 success: function (data) {
-                    console.log(data);
+                    poker_data = data;
+                    initPokerData();
                 },
                 error: function () {
                     var data = '{"data":{"loading":{"description_list":[{"content":"你乐于分享","sub_content":"一共发表了23篇文章","tag":"tag6.01"},{"content":"你学识渊博","sub_content":"发表的文章被106人收藏","tag":"tag6.06"}],"influence_rate":"0","influence_value":"208"},"nick":"emperorliu","predict":[{"content":"生活家","desc1":"与优雅同行","desc2":"与艺术同居","sub_content":"与优雅同行，与艺术同居","tag":"tag1.06"},{"content":"头号玩家","desc1":"无敌","desc2":"是多么寂寞","sub_content":"无敌，是多么寂寞","tag":"tag1.01"},{"content":"影响者","desc1":"名动四方","desc2":"声闻天下","sub_content":"名动四方，声闻天下","tag":"tag2.04"},{"content":"天使投资人","desc1":"猪在天上飞","desc2":"风是你在吹","sub_content":"猪在天上飞，风是你在吹","tag":"tag2.05"},{"content":"球场王者","desc1":"顺风人不浪","desc2":"逆风能翻盘","sub_content":"顺风人不浪，逆风能翻盘","tag":"tag3.02"},{"content":"企业总监","desc1":"开局一个人","desc2":"搞个大新闻","sub_content":"开局一个人，搞个大新闻","tag":"tag5.11"},{"content":"雍正帝","desc1":"专治八阿哥","desc2":"（bug）","sub_content":"专治八阿哥，（bug）","tag":"tag4.01"},{"content":"超新星","desc1":"你的未来","desc2":"由你主宰","sub_content":"你的未来，由你主宰","tag":"tag4.06"}]},"success":true}';
