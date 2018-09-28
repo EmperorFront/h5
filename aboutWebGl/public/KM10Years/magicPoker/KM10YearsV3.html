@@ -597,7 +597,7 @@
                 $(".poker-button-left-js").click(function () {
                     poker_turn = 'turn-again';
                     times ++;
-                    if(times >= poker_data.length){
+                    if(times >= poker_data.data.predict.length){
                         times = 0;
                     }
                     $('.poker-button').hide();
