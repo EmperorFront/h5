@@ -30,10 +30,9 @@
     <!-- lewen三周年数据 -->
     <span   id="js-KM10-data" class="js-KM10-data js-share-to-wechat-data js-share-to-ikm-data hide"
             data-title="KM10周年"
-            data-pkmpath="{{{ Config::get('app.pkm_path') }}}"
-            data-sharelink="{{{ Config::get('app.pkm_path') . '/episodes/lewen-game-share?share_begin=1' }}}"
+            data-sharelink=""
             data-sharelinkkm="{{{ Config::get('app.pkm_path') . '/episodes/lewen-game-share?share_begin=1' }}}"
-            data-shareicon="http://km-10029162.cos.myqcloud.com/assets/img/share-icon-100.png">我正在参加KM10周年，拿好礼就看今天！ </span>
+            data-shareicon="https://km-10029162.file.myqcloud.com/ImageHosting/20180929/666fe918cf567a2deae286ebd8fb8fcc.">我正在参加KM10周年，拿好礼就看今天！ </span>
 
     <!-- 首頁加載 -->
     <div class="absolute screen relative loading-page hide">
@@ -173,18 +172,24 @@
         var times= 0;
         var poker_data = {};
         function handleDom () {
-            $.ajax({
-                url:'http://km-idc.oa.com/10th/data',
-                success: function (data) {
-                    poker_data = data;
-                    initPokerData();
-                },
-                error: function () {
-                    var data = '{"data":{"loading":{"description_list":[{"content":"你乐于分享","sub_content":"一共发表了23篇文章","tag":"tag6.01"},{"content":"你学识渊博","sub_content":"发表的文章被106人收藏","tag":"tag6.06"}],"influence_rate":"0","influence_value":"208"},"nick":"emperorliu","predict":[{"content":"生活家","desc1":"与优雅同行","desc2":"与艺术同居","sub_content":"与优雅同行，与艺术同居","tag":"tag1.06"},{"content":"头号玩家","desc1":"无敌","desc2":"是多么寂寞","sub_content":"无敌，是多么寂寞","tag":"tag1.01"},{"content":"影响者","desc1":"名动四方","desc2":"声闻天下","sub_content":"名动四方，声闻天下","tag":"tag2.04"},{"content":"天使投资人","desc1":"猪在天上飞","desc2":"风是你在吹","sub_content":"猪在天上飞，风是你在吹","tag":"tag2.05"},{"content":"球场王者","desc1":"顺风人不浪","desc2":"逆风能翻盘","sub_content":"顺风人不浪，逆风能翻盘","tag":"tag3.02"},{"content":"企业总监","desc1":"开局一个人","desc2":"搞个大新闻","sub_content":"开局一个人，搞个大新闻","tag":"tag5.11"},{"content":"雍正帝","desc1":"专治八阿哥","desc2":"（bug）","sub_content":"专治八阿哥，（bug）","tag":"tag4.01"},{"content":"超新星","desc1":"你的未来","desc2":"由你主宰","sub_content":"你的未来，由你主宰","tag":"tag4.06"}]},"success":true}';
-                    poker_data = $.parseJSON(data);
-                    initPokerData();
-                }
-            });
+            if(window.location.href.indexOf('km-idc') >= 0){
+                $.ajax({
+                    url:'http://km-idc.oa.com/10th/data',
+                    success: function (data) {
+                        poker_data = data;
+                        initPokerData();
+                    },
+                    error: function () {
+                        var data = '{"data":{"loading":{"description_list":[{"content":"你乐于分享","sub_content":"一共发表了23篇文章","tag":"tag6.01"},{"content":"你学识渊博","sub_content":"发表的文章被106人收藏","tag":"tag6.06"}],"influence_rate":"0","influence_value":"208"},"nick":"emperorliu","predict":[{"content":"生活家","desc1":"与优雅同行","desc2":"与艺术同居","sub_content":"与优雅同行，与艺术同居","tag":"tag1.06"},{"content":"头号玩家","desc1":"无敌","desc2":"是多么寂寞","sub_content":"无敌，是多么寂寞","tag":"tag1.01"},{"content":"影响者","desc1":"名动四方","desc2":"声闻天下","sub_content":"名动四方，声闻天下","tag":"tag2.04"},{"content":"天使投资人","desc1":"猪在天上飞","desc2":"风是你在吹","sub_content":"猪在天上飞，风是你在吹","tag":"tag2.05"},{"content":"球场王者","desc1":"顺风人不浪","desc2":"逆风能翻盘","sub_content":"顺风人不浪，逆风能翻盘","tag":"tag3.02"},{"content":"企业总监","desc1":"开局一个人","desc2":"搞个大新闻","sub_content":"开局一个人，搞个大新闻","tag":"tag5.11"},{"content":"雍正帝","desc1":"专治八阿哥","desc2":"（bug）","sub_content":"专治八阿哥，（bug）","tag":"tag4.01"},{"content":"超新星","desc1":"你的未来","desc2":"由你主宰","sub_content":"你的未来，由你主宰","tag":"tag4.06"}]},"success":true}';
+                        poker_data = $.parseJSON(data);
+                        initPokerData();
+                    }
+                });
+            } else {
+                var data = '{"data":{"loading":{"description_list":[{"content":"你乐于分享","sub_content":"一共发表了23篇文章","tag":"tag6.01"},{"content":"你学识渊博","sub_content":"发表的文章被106人收藏","tag":"tag6.06"}],"influence_rate":"0","influence_value":"208"},"nick":"emperorliu","predict":[{"content":"生活家","desc1":"与优雅同行","desc2":"与艺术同居","sub_content":"与优雅同行，与艺术同居","tag":"tag1.06"},{"content":"头号玩家","desc1":"无敌","desc2":"是多么寂寞","sub_content":"无敌，是多么寂寞","tag":"tag1.01"},{"content":"影响者","desc1":"名动四方","desc2":"声闻天下","sub_content":"名动四方，声闻天下","tag":"tag2.04"},{"content":"天使投资人","desc1":"猪在天上飞","desc2":"风是你在吹","sub_content":"猪在天上飞，风是你在吹","tag":"tag2.05"},{"content":"球场王者","desc1":"顺风人不浪","desc2":"逆风能翻盘","sub_content":"顺风人不浪，逆风能翻盘","tag":"tag3.02"},{"content":"企业总监","desc1":"开局一个人","desc2":"搞个大新闻","sub_content":"开局一个人，搞个大新闻","tag":"tag5.11"},{"content":"雍正帝","desc1":"专治八阿哥","desc2":"（bug）","sub_content":"专治八阿哥，（bug）","tag":"tag4.01"},{"content":"超新星","desc1":"你的未来","desc2":"由你主宰","sub_content":"你的未来，由你主宰","tag":"tag4.06"}]},"success":true}';
+                poker_data = $.parseJSON(data);
+                initPokerData();
+            }
         }
         function initPokerData () {
 
@@ -244,29 +249,69 @@
             // 初始化分享内容
             init_share: function() {
 
-//                // 更新手K分享内容(禁掉手Q分享)
-//                connectWebViewJavascriptBridge(function(bridge) {
-//                    // 唤起手机km的分享
-//                    var $share_to_wechat = $('.js-share-to-ikm-data');
-//                    if ($share_to_wechat.length) {
-//                        var title = $share_to_wechat.data('title');
-//                        var desc = $share_to_wechat.text();
-//                        var link = $share_to_wechat.data('sharelink');
-//                        var link_km = $share_to_wechat.data('sharelinkkm');
-//                        var img_url = $share_to_wechat.data('shareicon');
-//                        bridge.invoke('setShareButton', {
-//                                    'shareWx': 1,
-//                                    'shareWxTimeline': 1,
-//                                    'shareTitle': title,
-//                                    'shareDescription': desc,
-//                                    'shareThumbUrl': img_url,
-//                                    'shareUrl': 'http://km.tencent.com/openkm/url?link=' + encodeURIComponent(link_km),
-//                                    'shareWxUrl': link,
-//                                    'shareWXUrl': link},
-//                                function(response) {});
-//                        bridge.registerHandler('clickShareButton', function() {});
-//                    }
-//                });
+                if(typeof(wx) != 'undefined'){
+//                     分享给好友、分享到朋友圈
+                     function share_to (share_desc) {
+                     	var $share_to_wechat = $('.js-share-to-wechat-data');
+                     	var title = $share_to_wechat.data('title');
+                     	var link = $share_to_wechat.data('sharelink');
+                     	var img_url = $share_to_wechat.data('shareicon');
+                     	wx.ready(function () {
+                            //分享给好友
+                     		wx.onMenuShareAppMessage({
+                     			title: title, // 分享标题
+                     			desc: share_desc, // 分享描述
+                     			link: link, // 分享链接
+                     			imgUrl: img_url, // 分享图标
+                     			trigger: function (res) {
+                     				// alert('你分享的链接是：' + '{{{ full_url() }}}');
+                     			},
+                     			success: function (res) {
+                     				share_callback();
+                     			},
+                     			cancel: function (res) {
+                     				share_callback();
+                     			},
+                     			fail: function (res) {
+                     				share_callback();
+                     			}
+                     		});
+                            //分享朋友圈
+                     		wx.onMenuShareTimeline({
+                     			title: share_desc, // 分享标题
+                     			link: link, // 分享链接
+                     			imgUrl: img_url, // 分享图标
+                     			type: 'link',
+                     			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                     			trigger: function (res) {
+                     				//alert('你点击了分享到朋友圈');
+                     			},
+                     			success: function () {
+                     				share_callback();
+                     			},
+                     			cancel: function () {
+                     				share_callback();
+                     			}
+                     		});
+
+                     		wx.getNetworkType({
+                     			success: function (res) {
+                     				//var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+                     				//alert('你当前的网络是:' + networkType);
+                     			}
+                     		});
+
+                            function share_callback () {
+//                                分享登记
+                            }
+                     	});
+                     }
+
+                    share_to('这里不仅住着现在的你，还能看见未来的你');
+                }
+
+
+
             },
             // 初始化下载
             init_download: function() {
@@ -707,8 +752,6 @@
             KM10_app.init();
             // KM10_app.init_events();
 
-            // 初始化微信分享
-//            share_to_wechat();
         });
 
         // 资源加载完毕 隐藏loading页面 显示活动页面
