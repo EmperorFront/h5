@@ -248,7 +248,7 @@
             },
             // 初始化分享内容
             init_share: function() {
-
+                alert('判断微信' + typeof(wx) == 'undefined' + wx);
                 if(typeof(wx) != 'undefined'){
 //                     分享给好友、分享到朋友圈
                      function share_to (share_desc) {
@@ -256,6 +256,7 @@
                      	var title = $share_to_wechat.data('title');
                      	var link = $share_to_wechat.data('sharelink');
                      	var img_url = $share_to_wechat.data('shareicon');
+                         alert(title + link + share_desc + img_url);
                      	wx.ready(function () {
                             //分享给好友
                      		wx.onMenuShareAppMessage({
@@ -264,7 +265,7 @@
                      			link: link, // 分享链接
                      			imgUrl: img_url, // 分享图标
                      			trigger: function (res) {
-                     				// alert('你分享的链接是：' + '{{{ full_url() }}}');
+                     				 alert('你分享的链接是：' + link);
                      			},
                      			success: function (res) {
                      				share_callback();
