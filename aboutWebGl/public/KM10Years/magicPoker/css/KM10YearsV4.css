@@ -1,0 +1,1068 @@
+/**
+ * common styles
+ */
+canvas {
+    width: 100%;
+    height: 100%;
+}
+html {
+    height: 100%;
+    font-family: 'Microsoft YaHei', 'Helvetica Neue', Helvetica, STHeiTi, sans-serif;
+    font-size: 10px;
+    line-height: 1.4rem;
+    font-family: 'font1';
+}
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    color: #000;
+    overflow: hidden;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
+    /* 禁止选中文本 */
+
+    user-select: none;
+}
+@font-face{
+    font-family: 'font1';
+    src : url('../font/font1.ttf');
+}
+img {
+    vertical-align: top;
+}
+a {
+    text-decoration: none;
+}
+*,
+*:after,
+*:before {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-text-size-adjust: none;
+}
+img,
+a {
+    -webkit-touch-callout: none;
+    /* 禁止长按链接与图片弹出菜单 */
+
+}
+ul,
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.body-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.hide {
+    display: none;
+}
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+.clearfix {
+    *zoom: 1;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.center {
+    text-align: center;
+}
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+.overflow-hidden {
+    overflow: hidden;
+}
+.screen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.screen.active .screen-inner {
+    visibility: visible;
+}
+
+/* pages common styles */
+.bg-sprite {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180910/4b40e7d85ee92064bec4d19e42ea8fb1.png);
+    background-repeat: no-repeat;
+    background-size: 37.5rem;
+}
+.bg-sprite-loading {
+    /*background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180907/0d2d55d1258001b238dfb18d53806285.png);*/
+    /*background-repeat: no-repeat;*/
+    width: 100px;
+    height: 200px;
+}
+
+/* 公用icon */
+.icon-logo {
+    width: 12.4rem;
+    height: 4rem;
+    background-position: -12.5rem -56.9rem;
+}
+.icon-result-responsor {
+    width: 34.6rem;
+    height: 6.5rem;
+    background-position: 0rem -136rem;
+}
+
+/* loading page bg*/
+
+.loading-page .loading-progress-bar {
+    width: 19.6rem;
+    height: 0.9rem;
+    background: #633ec0;
+    border-radius: 0.5rem;
+    top: 7rem;
+}
+.loading-page .loading-progress-bar .loading-progress-bar-inner {
+    width: 0;
+    background: #cc72ff;
+    height: 0.9rem;
+    border-radius: 0.5rem;
+}
+.loading-page .loading-page-area {
+    width: 19.6rem;
+    height: 9rem;
+    left: 50%;
+    margin-left: -9.8rem;
+    top: 50%;
+    margin-top: -11.5rem;
+}
+.loading-page .loading-page-area .icon-loading-right {
+    width: 7.5rem;
+    height: 7rem;
+    background-position: 0.7rem 0.8rem;
+}
+.loading-page .loading-page-area #loading-right.active {
+    -webkit-animation: anim-loading-right 3.6s linear both;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-loading-right {
+    0% {
+        -webkit-transform: translate(16rem, 0rem);
+    }
+    17% {
+        -webkit-transform: translate(12.7rem, -1.4rem);
+    }
+    34% {
+        -webkit-transform: translate(9.4rem, 0rem);
+    }
+    51% {
+        -webkit-transform: translate(6.1rem, -1.4rem);
+    }
+    67% {
+        -webkit-transform: translate(2.9rem, 0rem);
+    }
+    83% {
+        -webkit-transform: translate(-0.2rem, -1.4rem);
+    }
+    100% {
+        -webkit-transform: translate(-3.6rem, 0rem);
+    }
+
+}
+.loading-page .loading-page-area .icon-loading-left {
+    width: 7.5rem;
+    height: 7rem;
+    background-position: -7.8rem 0.8rem;
+}
+.loading-page .loading-page-area #loading-left.active {
+    -webkit-animation: anim-loading-left 3.6s linear both;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-loading-left {
+    0% {
+        -webkit-transform: translate(-3.6rem, 0rem);
+    }
+    17% {
+        -webkit-transform: translate(-0.3rem, -1.4rem);
+    }
+    34% {
+        -webkit-transform: translate(3rem, 0rem);
+    }
+    51% {
+        -webkit-transform: translate(6.2rem, -1.4rem);
+    }
+    67% {
+        -webkit-transform: translate(9.5rem, 0rem);
+    }
+    83% {
+        -webkit-transform: translate(12.7rem, -1.4rem);
+    }
+    100% {
+        -webkit-transform: translate(16rem, 0rem);
+    }
+
+}
+
+.KM10-home-page {
+    /* 首页logo */
+
+    /* 首页进入游戏按钮 */
+
+}
+.KM10-home-page .icon-header-logo {
+    width: 32rem;
+    height: 44.8rem;
+    background-position: 0.3rem -8.5rem;
+}
+.KM10-home-page .home-page-header-logo {
+    top: 50%;
+    margin-top: -28.4rem;
+    left: 50%;
+    margin-left: -16rem;
+}
+.KM10-home-page .icon-header-1 {
+    width: 25rem;
+    height: 8.5rem;
+    background-position: 0.4rem -53.8rem;
+}
+.KM10-home-page .home-page-header-1 {
+    left: 50%;
+    margin-left: -11.2rem;
+    top: 50%;
+    margin-top: -7.8rem;
+}
+.KM10-home-page .icon-header-2 {
+    width: 6.8rem;
+    height: 8.3rem;
+    background-position: -28.8rem -53.8rem;
+}
+.KM10-home-page .home-page-header-2 {
+    left: 50%;
+    margin-left: -5rem;
+    top: 50%;
+    margin-top: -7.9rem;
+}
+.KM10-home-page .icon-enter {
+    width: 27.6rem;
+    height: 8.8rem;
+    background-position: 0rem 0rem;
+}
+.KM10-home-page .home-page-enter {
+    left: 50%;
+    margin-left: -15.7rem;
+    bottom: 4.9rem;
+}
+.KM10-home-page.active .home-page-header-2 {
+    -webkit-animation: anim-header-2 0.4s 0.2s ease both;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-header-2 {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(2, 2);
+    }
+    20% {
+        opacity: 0.4;
+        -webkit-transform: scale(2, 2);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1, 1);
+    }
+
+}
+.KM10-home-page.active .home-page-enter {
+    -webkit-animation: anim-enter 1s 0.5s ease both;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-enter {
+    from,
+    60%,
+    75%,
+    90%,
+    to {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(-3000px, 0, 0);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(25px, 0, 0);
+    }
+    75% {
+        -webkit-transform: translate3d(-10px, 0, 0);
+    }
+    90% {
+        -webkit-transform: translate3d(5px, 0, 0);
+    }
+    to {
+        -webkit-transform: none;
+    }
+
+}
+
+/* cover page bg */
+.cover-page-bg {
+    background-color: rgba(28, 24, 97, 0.4);
+    z-index: 10;
+    left: 0;
+    top: 0;
+}
+
+.KM10-share-page .KM10-share-bg {
+    background-color: rgba(28, 24, 97, 0.4);
+    z-index: 10;
+    left: 0;
+    top: 0;
+}
+.KM10-share-page .share-page-header {
+    left: 50%;
+    margin-left: -14.4rem;
+    top: 50%;
+    margin-top: -26.8rem;
+}
+.KM10-share-page .icon-share-page-header {
+    width: 28.8rem;
+    height: 14.5rem;
+    background-position: -0.8rem -116rem;
+}
+.KM10-share-page .share-page-logo {
+    left: 50%;
+    margin-left: -6.2rem;
+    top: 50%;
+    margin-top: -17.8rem;
+}
+.KM10-share-page .share-page-prize {
+    width: 100%;
+    text-align: center;
+    font-size: 1.9rem;
+    color: #FFFFFF;
+    line-height: 3.25rem;
+    top: 50%;
+    margin-top: 8.1rem;
+}
+.KM10-share-page .share-page-prize .share-page-prize-name {
+    color: #fff44f;
+}
+.KM10-share-page .share-page-light {
+    left: 50%;
+    margin-left: -12.5rem;
+    top: 50%;
+    margin-top: -13rem;
+}
+.KM10-share-page .icon-share-light {
+    width: 25rem;
+    height: 19rem;
+    background-position: -2.4rem -67rem;
+}
+.KM10-share-page .icon-play-game {
+    width: 21.4rem;
+    height: 7.8rem;
+    background-position: 0.3rem -159.9rem;
+}
+.KM10-share-page .play-game {
+    left: 50%;
+    margin-left: -10.7rem;
+    bottom: 6.5rem;
+}
+.KM10-share-page .share-responsor {
+    left: 50%;
+    margin-left: -17.3rem;
+    bottom: 1.2rem;
+}
+.KM10-share-page .share-page-prize-panel {
+    width: 100%;
+    top: 50%;
+}
+.KM10-share-page .lewenPillow {
+    left: 50%;
+    margin-left: -7.9rem;
+    top: 50%;
+    margin-top: -8.2rem;
+}
+
+.KM10-share-page.active .share-page-prize-panel {
+    -webkit-animation: anim-share-page-prize-panel 1s 0.3s ease both;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-share-page-prize-panel {
+    from {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    40% {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    60% {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+        opacity: 1;
+    }
+    80% {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+    }
+    to {
+        -webkit-transform: perspective(400px);
+        transform: perspective(400px);
+    }
+
+}
+.KM10-share-page.active .play-game {
+    -webkit-animation: anim-play-game-btn 1s 1.8s ease both;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-play-game-btn {
+    from {
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 1);
+    }
+    30% {
+        opacity: 1;
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+    }
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+    }
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+    }
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+    }
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+    }
+    to {
+        -webkit-transform: scale3d(1, 1, 1);
+    }
+
+}
+.KM10-end-page.active .end-page-result-gift {
+    -webkit-animation: anim-end-page-gift 1s 0.3s ease both;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-end-page-gift {
+    from {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    40% {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    60% {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+        opacity: 1;
+    }
+    80% {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+    }
+    to {
+        -webkit-transform: perspective(400px);
+        transform: perspective(400px);
+    }
+
+}
+/* 自己看自己的结果页面 */
+.KM10-end-page .result-creator {
+    font-size: 1.2rem;
+    color: #9996d3;
+    width: 100%;
+    height: 1.2rem;
+    text-align: center;
+    line-height: 1.2rem;
+    bottom: 2rem;
+}
+/* 游戏宣传页 */
+.KM10-intro-page .intro-page-bg {
+    background-color: rgba(28, 24, 97, 0.4);
+    z-index: 10;
+    left: 0;
+    top: 0;
+}
+.KM10-intro-page .share-page-header {
+    left: 50%;
+    margin-left: -14.4rem;
+    top: 50%;
+    margin-top: -26.8rem;
+}
+.KM10-intro-page .icon-share-page-header {
+    width: 28.8rem;
+    height: 14.5rem;
+    background-position: -0.8rem -116rem;
+}
+.KM10-intro-page .icon-intro-page-tip {
+    width: 18.6rem;
+    height: 6rem;
+    background-position: -7rem -128.7rem;
+}
+.KM10-intro-page .intro-page-tip {
+    left: 50%;
+    margin-left: -9.8rem;
+    top: 50%;
+    margin-top: 8rem;
+}
+.KM10-intro-page .intro-page-ding {
+    left: 50%;
+    margin-left: -8.5rem;
+    top: 50%;
+    margin-top: -11.9rem;
+}
+.KM10-intro-page .icon-intro-page-ding {
+    width: 19rem;
+    height: 19rem;
+    background-position: -17.4rem -24.4rem;
+}
+.KM10-intro-page .intro-page-light {
+    left: 50%;
+    margin-left: -12.5rem;
+    top: 50%;
+    margin-top: -13.3rem;
+}
+.KM10-intro-page .icon-intro-page-light {
+    width: 25rem;
+    height: 19rem;
+    background-position: -2.4rem -67rem;
+}
+.KM10-intro-page .play-game {
+    left: 50%;
+    margin-left: -11.3rem;
+    bottom: 6.5rem;
+}
+.KM10-intro-page .icon-play-game {
+    width: 21.4rem;
+    height: 7.7rem;
+    background-position: 0.3rem -160rem;
+}
+.KM10-intro-page.active .intro-page-ding {
+    -webkit-animation: anim-intro-page-ding-area 1s 0.3s ease both;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-intro-page-ding-area {
+    from {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    40% {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    60% {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+        opacity: 1;
+    }
+    80% {
+        -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+        transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+    }
+    to {
+        -webkit-transform: perspective(400px);
+        transform: perspective(400px);
+    }
+
+}
+
+.loading-page {
+    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180907/8b0ce29b1c5f78a4ff84887b1f647c16.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-position: center;
+}
+/* home page */
+.anniversary-home-bg {
+    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180907/8b0ce29b1c5f78a4ff84887b1f647c16.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-position: center;
+}
+.KM10-show-data-guide {
+    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180914/472daf493177506f79fecda4c7d86e3b.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-position: center;
+}
+.KM10-show-data-page {
+    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180914/472daf493177506f79fecda4c7d86e3b.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-position: center;
+}
+
+.bg-sprite {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180910/4b40e7d85ee92064bec4d19e42ea8fb1.png);
+    background-repeat: no-repeat;
+    background-size: 37.5rem;
+}
+.bg-sprite-data {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20181022/12d694c7a20749022f660c45a70147e5.png);
+    background-repeat: no-repeat;
+    background-size: 11rem;
+}
+.bg-sprite-data-txt-boreder {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20181022/12d694c7a20749022f660c45a70147e5.png);
+    background-repeat: no-repeat;
+    background-size: 23.4rem;
+}
+.bg-sprite-guide-txt {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20181011/afd93009632721a179b1b134cbe92ac0.png);
+    background-repeat: no-repeat;
+    background-size: 17rem;
+}
+.bg-sprite-pokersave {
+    background-image: url("https://km-10029162.file.myqcloud.com/ImageHosting/20180926/5e5988f298bed1a9b5a4ac26f44cf312.png");
+    background-repeat: no-repeat;
+    background-size: 32rem;
+}
+.poker-back {
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180917/9cad0a42aab0c8baab1f7acad65924f8.png);
+    background-repeat: no-repeat;
+    background-size: 8rem;
+}
+.KM10-game-Reshuffle {
+    background: url(https://km-10029162.file.myqcloud.com/ImageHosting/20180918/17d0469961712541f875314012236fb0.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-position: center;
+}
+/* 屏幕适配 */
+/*@media (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {*/
+
+/*}*/
+@media screen and (max-device-width: 430px), (max-device-width: 480px) {
+    /*ip5、ip4、三星gti9100*/
+    html {
+        font-size: 14px;
+    }
+}
+@media screen and (max-device-width: 400px), (max-device-width: 430px) {
+    /*ip5、ip4、三星gti9100*/
+    html {
+        font-size: 13px;
+    }
+}
+@media screen and (max-device-width: 370px), (max-device-width: 400px)  {
+    /*ip5、ip4、三星gti9100*/
+    html {
+        font-size: 12px;
+    }
+}
+.bg-sprite {
+    background-size: 34rem;
+}
+
+.first-page-title {
+    width: 28.6rem;
+    height: 12rem;
+    background-position: 0rem 0rem;
+    top:1rem;
+    left: 50%;
+    margin-left: -14.3rem;
+}
+.first-page-logo {
+    width: 19.2rem;
+    height: 6rem;
+    background-position: 0rem -14rem;
+    left: 50%;
+    margin-left: -9.1rem;
+    bottom: 11rem;
+}
+.first-page-book {
+    width: 28.2rem;
+    height: 34rem;
+    background-position: -2rem -22rem;
+    left: 50%;
+    margin-left: -17.1rem;
+    bottom: -2rem;
+}
+#poker-kind-show {
+    text-align: center;
+    position: absolute;
+    bottom: 27%;
+    width: 100%;
+    color: #6a3808;
+    line-height: 0;
+}
+.data-text-area-mgtop {
+    font-size: 1.7rem;
+    color: white;
+    width: 20rem;
+    line-height: 3.5rem;
+    text-align: left;
+    margin: 0rem auto 0rem;
+    font-family: 'font1';
+}
+.data-text-area-mgtop-name {
+    font-size: 1.8rem;
+    line-height: 3rem;
+}
+.data-text-area-mgtop-title {
+    font-size: 1.6rem;
+    line-height: 2rem;
+    margin-top: 1.5rem;
+}
+.data-figure-bottom-border {
+    width: 20rem;
+    height: 2rem;
+    background-position: 0rem -90.1rem;
+    top: 50%;
+    margin-top: 13rem;
+    left: 50%;
+    margin-left: -10rem;
+}
+.data-figure-top-border {
+    width: 20rem;
+    height: 2rem;
+    background-position: 0rem -90.1rem;
+    top: 50%;
+    margin-top: -15rem;
+    left: 50%;
+    margin-left: -10rem;
+}
+.txt-area-employee {
+    margin-top: -12.4rem;
+    top: 50%;
+    position: absolute;
+    width: 100%;
+}
+.data-text-area {
+    font-size: 1.8rem;
+    color: white;
+    width: 23rem;
+    line-height: 4rem;
+    text-align: center;
+    margin: auto;
+}
+.data-figure-top {
+    width: 17rem;
+    height: 16.9rem;
+    background-position: 0rem 0rem;
+    left: 50%;
+    margin-left: -8.5rem;
+    top: 50%;
+    margin-top: -8.5rem;
+}
+.data-figure-bottom {
+    width: 9.4rem;
+    height: 1.9rem;
+    background-position: 0rem -40.6rem;
+    left: 50%;
+    margin-left: -4.7rem;
+    bottom: 19rem;
+}
+.data-figure-right {
+    width: 3.4rem;
+    height: 36.9rem;
+    background-position: -0.3rem -1.6rem;
+    bottom: 0rem;
+    right: 0;
+}
+.data-figure-left {
+    width: 4.4rem;
+    height: 36.9rem;
+    background-position: -3.3rem -1.6rem;
+    bottom: 0rem;
+}
+
+.js-slow-show-2 {
+    display: none;
+}
+
+.data-figure-click {
+    width: 10.6rem;
+    height: 4.5rem;
+    background-position: 0rem -44.6rem;
+    left: 50%;
+    margin-left: -5.3rem;
+    bottom: 4rem;
+}
+.data-figure-click-in {
+    width: 10.6rem;
+    height: 4.5rem;
+    background-position: 0rem -52.6rem;
+    left: 50%;
+    margin-left: -5.3rem;
+    bottom: 4rem;
+}
+.data-figure-click-goon {
+    width: 10.6rem;
+    height: 4.5rem;
+    background-position: 0rem -60.6rem;
+    left: 50%;
+    margin-left: -5.3rem;
+    bottom: 4rem;
+}
+.poker-back {
+    width: 8rem;
+    height: 14.4rem;
+}
+.poker11 {
+    top: 50%;
+    left: 2rem;
+    margin-top: -7.2rem;
+
+    /*animation:pokermove11 2s infinite;*/
+    animation-direction:alternate;
+    -webkit-animation-direction:alternate; /* Safari 和 Chrome */
+}
+@keyframes pokermove11
+{
+    from {left: 2rem;}
+    to {left: 25rem;}
+}
+
+@-webkit-keyframes pokermove11 /*Safari and Chrome*/
+{
+    from {left: 2rem;}
+    to {left: 25rem;}
+}
+.poker12 {
+    top: 50%;
+    left: 50%;
+    margin-left: -4rem;
+    margin-top: -7.2rem;
+}
+.poker13 {
+    top: 50%;
+    right: 2rem;
+    margin-top: -7.2rem;
+
+    /*animation:pokermove13 2s infinite;*/
+    animation-direction:alternate;
+    -webkit-animation-direction:alternate; /* Safari 和 Chrome */
+}
+@keyframes pokermove13
+{
+    from {right: 2rem;}
+    to {right: 25rem;}
+}
+
+@-webkit-keyframes pokermove13 /*Safari and Chrome*/
+{
+    from {right: 2rem;}
+    to {right: 25rem;}
+}
+.poker21 {
+    top: 12rem;
+    left: 50%;
+    margin-left: -9rem;
+}
+.poker22 {
+    top: 12rem;
+    left: 50%;
+    margin-left: 1rem;
+}
+.poker-front-txt {
+    font-size: 1.5rem;
+    color: black;
+    width: 22rem;
+    line-height: 4rem;
+    text-align: center;
+    left: 50%;
+    margin-left: -11rem;
+    height: 100%;
+}
+.poker-front-txt-name {
+    height: 0;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    top: 37%;
+    line-height: 1.8rem;
+    color: #b28235;
+}
+.poker-front-txt-future {
+    line-height: 2.5rem;
+    color: #663300;
+}
+.poker-front-txt-title {
+    height: 0;
+    width: 100%;
+    position: absolute;
+    top: 41%;
+    line-height: 0rem;
+    font-size: 3rem;
+    line-height: 6rem;
+    color: #6a3808;
+    font-family: 'font1';
+}
+.poker-front-txt-tip {
+    height: 0;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    top: 60%;
+    line-height: 0;
+    color: #b16d00;
+}
+.poker-front-txt-tip2 {
+    height: 0;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    top: 65%;
+    line-height: 0;
+    color: #b16d00;
+}
+.poker-front-txt-tip3 {
+    color: #8c5900;
+    bottom: 20%;
+    width: 100%;
+    text-align: center;
+    height: 0;
+    font-size: 1rem;
+    line-height: 0;
+}
+.picpoker-front-txt {
+    text-align: center;
+    margin-top: -785px;
+    margin-left: 117px;
+    width: 365px;
+}
+.picpoker-front-txt-name {
+    font-size: 30px;
+    line-height: 45px;
+    color: #b28235;
+    margin-top: 29px;
+}
+.picpoker-front-txt-future {
+    line-height: 38px;
+    color: #663300;
+    font-size: 26px;
+}
+.picpoker-front-txt-title {
+    font-size: 48px;
+    line-height: 93px;
+    color: #6a3808;
+}
+.picpoker-front-txt-tip {
+    margin-top: 73px;
+    font-size: 30px;
+    line-height: 45px;
+    color: #b16d00;
+}
+.picpoker-front-txt-tip2 {
+    font-size: 30px;
+    line-height: 45px;
+    color: #b16d00;
+}
+.picdata-text-area-mgtop {
+    margin-top: 76px;
+    font-size: 32px;
+    color: #6a3808;
+}
+.picpoker-front-txt-tip3 {
+    color: #8c5900;
+    margin-top: 37px;
+    text-align: center;
+    margin-right: 0px;
+    font-size: 16px;
+}
+
+.poker-hands-left {
+    width: 15rem;
+    height: 15rem;
+    left: 0;
+    bottom: 0;
+    background-position: 0rem 0.4rem;
+}
+.poker-hands-right {
+    width: 12rem;
+    height: 17rem;
+    right: 0;
+    bottom: 0;
+    background-position: -14rem 0.4rem;
+}
+.poker-button-left-js {
+    width: 8.5rem;
+    height: 2.5rem;
+    left: 4.5rem;
+    bottom: 3rem;
+    background-position: 0rem -17.9em;
+}
+.poker-button-right-js {
+    width: 8.5rem;
+    height: 2.5rem;
+    right: 4.5rem;
+    bottom: 3rem;
+    background-position: 0rem -20.4em;
+}
+.show-area {
+    display: block;
+    width: 600px;
+    position: relative;
+}
+.poker-front-txt-pic {
+    margin-top: -524px;
+    height: 0px;
+    padding-bottom: 170px;
+}
+.share-img-pic {
+    width: 100%;
+    display: block;
+}
+.black-mask {
+    width: 101%;
+    height: 100%;
+    background-color: rgba(14,7,37,0.9);
+}
+.show-pic-save {
+    top: 50%;
+    margin-top: -20.7rem;
+    left: 50%;
+    margin-left: -11.5rem;
+    width: 23rem;
+}
+.close-save {
+    width: 2rem;
+    height: 3rem;
+    position: absolute;
+    top: 50%;
+    margin-top: -22.5rem;
+    left: 50%;
+    background-position: 0 -30rem;
+    margin-left: 11rem;
+
+}
+.show-pic-save-tip {
+    bottom: 2rem;
+    color: white;
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: center;
+}
+.sentence {
+    display: none;
+}
