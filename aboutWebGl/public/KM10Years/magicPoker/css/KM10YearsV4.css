@@ -27,7 +27,7 @@ body {
 }
 @font-face{
     font-family: 'font1';
-    src : url('../font/font1.ttf');
+    src : url('font1.ttf');
 }
 img {
     vertical-align: top;
@@ -637,7 +637,7 @@ li {
     background-size: 23.4rem;
 }
 .bg-sprite-guide-txt {
-    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20181011/afd93009632721a179b1b134cbe92ac0.png);
+    background-image: url(https://km-10029162.file.myqcloud.com/ImageHosting/20181023/27b6abab474fb916d9ab1acaeccc32a6.png);
     background-repeat: no-repeat;
     background-size: 17rem;
 }
@@ -966,9 +966,10 @@ li {
     font-size: 48px;
     line-height: 93px;
     color: #6a3808;
+    margin-top: 18px;
 }
 .picpoker-front-txt-tip {
-    margin-top: 73px;
+    margin-top: 55px;
     font-size: 30px;
     line-height: 45px;
     color: #b16d00;
