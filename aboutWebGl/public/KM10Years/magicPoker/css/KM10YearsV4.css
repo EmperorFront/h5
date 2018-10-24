@@ -928,12 +928,12 @@ li {
     color: #b16d00;
 }
 .poker-front-txt-tip2 {
-    height: 0;
+    height: 3rem;
     width: 100%;
     position: absolute;
     text-align: center;
-    top: 65%;
-    line-height: 0;
+    top: 62%;
+    line-height: 3rem;
     color: #b16d00;
 }
 .poker-front-txt-tip3 {
