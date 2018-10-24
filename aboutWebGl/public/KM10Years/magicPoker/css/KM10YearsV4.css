@@ -895,13 +895,13 @@ li {
     height: 100%;
 }
 .poker-front-txt-name {
-    height: 0;
+    height: 2.8rem;
     width: 100%;
     position: absolute;
     text-align: center;
     top: 36%;
     line-height: 2.8rem;
-    color: #6a3808;
+    color: #b28235;
 }
 .poker-front-txt-future {
     line-height: 2.5rem;
