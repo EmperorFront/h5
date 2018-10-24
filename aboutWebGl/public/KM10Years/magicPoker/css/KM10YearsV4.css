@@ -900,8 +900,8 @@ li {
     position: absolute;
     text-align: center;
     top: 37%;
-    line-height: 1.8rem;
-    color: #b28235;
+/*     line-height: 1.8rem; */
+    color: red;
 }
 .poker-front-txt-future {
     line-height: 2.5rem;
