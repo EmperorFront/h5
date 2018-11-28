@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="apple-touch-fullscreen" content="YES">
+		<meta http-equiv="X-UA-Compatible" content="edge" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes">
+		<title>腾讯乐问两周年</title>
+	</head>
+	<body>
+		<div class="body-container">
+			<link rel="stylesheet" type="text/css" href="css/apps/episodes/q_anniversary_2nd.css">
+			<!-- loading页 -->
+			<div class="page-q-anniversary loading-page">
+				<div class="loading-down bg-loading-down absolute"></div>
+				<div class="js-loading loading-wrap absolute">
+					<div class="loading-icon bg-sprites-loading-icon absolute"></div>
+					<div class="loading-up bg-loading-up absolute"></div>
+				</div>
+			</div>
+			<!-- 主页 -->
+			<div class="page-q-anniversary homepage bg-homepage absolute hide">
+				<span class="logo bg-sprites-homepage"></span>
+				<span class="music-icon js-music-icon absolute bg-sprites-homepage"></span>
+				<div class="final-ol-wrap absolute">
+					<div class="final-ol bg-sprites-homepage absolute"></div>
+					<div class="light bg-sprites-homepage absolute"></div>
+					<div class="light-dot bg-sprites-homepage absolute"></div>
+				</div>
+				<div class="rules-wrap bg-sprites-homepage absolute">
+					<ul class="rules">
+						<li class="rule">1.挑战不知火舞，PK八神不用币</li>
+						<li class="rule">2.连中六次，将获得实物抽奖机会</li>
+						<li class="rule">3.连中九次，能抽<span class="wording">Apple Watch</span></li>
+						<li class="rule">4.只要不砸蛋，就能无限重来</li>
+						<li class="gift wording">更有丰富乐问礼品、拳皇98周边等你拿</li>
+					</ul>
+				</div>
+				<div class="btn-challenge bg-sprites-homepage absolute"></div>
+			</div>
+			<!-- 角色选择页 -->
+			<div class="page-q-anniversary role-choose absolute hide">
+				<span class="logo bg-sprites-homepage"></span>
+				<span class="music-icon js-music-icon absolute bg-sprites-homepage"></span>
+				<div class="role-choose-wording-wrap absolute">
+					<div class="role-choose-wording bg-sprites-role-choose absolute"></div>
+					<div class="role-choose-light-up bg-sprites-role-choose absolute"></div>
+					<div class="role-choose-light-down bg-sprites-role-choose absolute"></div>
+				</div>
+				<div class="role-female-wrap absolute">
+					<div class="js-role-choose role-female bg-sprites-role-choose absolute" data-role_selected="female" data-role_unselected="male"></div>
+					<div class="role-female-border bg-sprites-role-choose absolute"></div>
+					<div class="fire-female fire-female-1 bg-sprites-role-choose absolute"></div>
+					<div class="fire-female fire-female-2 bg-sprites-role-choose absolute"></div>
+				</div>
+				<div class="role-female-choose bg-role-female-choose absolute"></div>
+
+				<div class="role-male-wrap absolute">
+					<div class="js-role-choose role-male bg-sprites-role-choose absolute" data-role_selected="male" data-role_unselected="female"></div>
+					<div class="role-male-border bg-sprites-role-choose absolute"></div>
+					<div class="fire-male fire-male-1 bg-sprites-role-choose absolute"></div>
+					<div class="fire-male fire-male-2 bg-sprites-role-choose absolute"></div>
+				</div>
+				<div class="role-male-choose bg-role-male-choose absolute"></div>
+			</div>
+			<!-- 答题页 -->
+			<div class="page-q-anniversary answer-questions-wrap js-answer-questions absolute hide">
+				<span class="music-icon js-music-icon absolute bg-sprites-homepage"></span>
+				<div class="answer-questions-container-wrap js-answer-questions-container absolute"></div>
+			</div>
+			<!-- 结果页 -->
+			<div class="page-q-anniversary challenge-result result-fail bg-result-fail hide">
+				<span class="logo bg-sprites-homepage"></span>
+				<span class="music-icon js-music-icon absolute bg-sprites-homepage"></span>
+				<div class="fail-icon bg-sprites-result-fail absolute"></div>
+				<div class="fail-wording bg-sprites-result-fail absolute"></div>
+				<div class="fail-tips absolute">
+					<div>你只答对<span class="wording js-right-count"></span>道题，小伙伴，再忙也常来乐问嘛</div>
+					<div>答对<span class="wording">6</span>道题以上，能抽取乐问和拳皇周边，答对<span class="wording">9</span>道题以上，更有Apple Watch抽奖机会</div>
+				</div>
+				<div class="challenge-again-btn bg-sprites-result-fail absolute"></div>
+				<div class="partners bg-sprites-result-fail absolute"></div>
+			</div>
+			<div class="page-q-anniversary challenge-result result-success bg-result-success hide">
+				<span class="logo bg-sprites-homepage"></span>
+				<span class="music-icon js-music-icon absolute bg-sprites-homepage"></span>
+				<div class="success-ribbon bg-sprites-result-success absolute"></div>
+				<div class="success-icon bg-sprites-result-success absolute"></div>
+				<div class="success-egg-wrap absolute">
+					<div class="success-hammer bg-sprites-result-success absolute"></div>
+					<div class="success-egg bg-sprites-result-success absolute"></div>
+					<div class="success-egg-bottom bg-sprites-result-success absolute"></div>
+					<div class="success-egg-bottom-light bg-sprites-result-success absolute"></div>
+				</div>
+				<div class="challenge-again-btn bg-sprites-result-fail absolute"></div>
+				<div class="partners bg-sprites-result-success absolute"></div>
+			</div>
+			<div class="prize-modal bg-sprites-result-prize-success absolute hide">
+				<div class="close bg-sprites-result-prize-success absolute"></div>
+				<div class="js-prize js-prize-entity hide">
+					<div class="prize-entity">
+						<div class="prize bg-sprites-result-prize-success js-final-prize-entity"></div>
+						<div class="wording">恭喜你！获得<span class="js-final-prize-entity-wording"></span></div>
+					</div>
+					<div class="share-btn bg-sprites-result-prize-success"></div>
+					<div class="share-tips">
+						<div>奖品发放</div>
+						<div>活动结束后（2015.9.15）将会安排发放奖品</div>
+					</div>
+				</div>
+				<div class="js-prize js-prize-num hide">
+					<div class="prize-num">
+						<div class="prize num js-final-prize-num"></div>
+						<div class="wording">恭喜获得<span class="js-final-prize-num-wording">Apple Watch抽奖码</span></div>
+					</div>
+					<div class="share-btn bg-sprites-result-prize-success"></div>
+					<div class="share-tips">
+						Apple Watch中奖码=9月11日腾讯股票收盘价*上证指数*1000/持有抽奖幸运码总人数的余数+1
+					</div>
+				</div>
+				<div class="js-prize js-prize-nothing hide">
+					<div class="prize-nothing">
+						<div class="prize nothing bg-sprites-result-prize-success js-final-prize-nothing"></div>
+						<div class="wording">很遗憾！你未砸到奖品</div>
+						<div class="wording small">谢谢你对乐问的关注与支持</div>
+					</div>
+					<div class="share-btn bg-sprites-result-prize-success"></div>
+				</div>
+			</div>
+			<div class="mask hide"></div>
+			<div class="share-mask hide"></div>
+			<div class="share-tip-icon bg-sprites-result-prize-success absolute hide"></div>
+
+			<script id="question-template" type="text/art-template">
+				<% for (var i = 0, len = questions.length; i < len; i++) { %>
+				<div class="question question-<%= i %> bg-answer-<%= questions[i].index_bg %> hide">
+					<div class="role-info clearfix">
+						<div class="avatar-role avatar-left bg-answer-sprites left"></div>
+						<div class="progress-bar progress-bar-left left">
+							<div class="progress"></div>
+						</div>
+						<div class="vs bg-answer-sprites left"></div>
+						<div class="progress-bar progress-bar-right left">
+							<div class="progress"></div>
+						</div>
+						<div class="avatar-role avatar-right bg-answer-sprites left"></div>
+					</div>
+					<div>
+						<div class="question-info">
+							<div class="title"><span class="js-answer-num"></span><%= questions[i].title %></div>
+							<ul class="alternative-answers">
+								<% for (var j = 0, length = questions[i].answers.length; j < length; j++) { %>
+								<li class="js-answer answer-<%= j %> bg-answer-sprites relative" data-result="<%= questions[i].answers[j].result %>">
+									<%= questions[i].answers[j].answer %>
+									<div class="bg-answer-sprites role-bg role-bg-<%= questions[i].answers[j].random %>"></div>
+									<div class="tips absolute">
+										<div class="tip tip-1 absolute bg-answer-sprites"></div>
+										<div class="tip tip-2 absolute bg-answer-sprites"></div>
+										<div class="tip tip-3 absolute bg-answer-sprites"></div>
+									</div>
+									<div class="js-result-icon bg-answer-sprites absolute <%= questions[i].answers[j].result %>-icon hide"></div>
+								</li>
+								<% } %>
+							</ul>
+							<div class="next-question bg-answer-sprites hide"></div>
+						</div>
+					</div>
+					<div class="role-animation-area">
+						<div class="judge-area absolute">
+							<div class="answer bg-answer-sprites absolute">
+								<div class="wording"><%= questions[i].comment %></div>
+							</div>
+							<div class="judge bg-answer-sprites absolute"></div>
+						</div>
+						<div class="role-animation">
+							<div class="role-current absolute"></div>
+							<div class="js-role-animation js-male male prepare absolute"></div>
+							<div class="js-role-animation js-female female prepare absolute"></div>
+						</div>
+					</div>
+				</div>
+				<% } %>
+			</script>
+
+			<audio id="audio" preload="auto" loop>
+				<source src="{{ Config::get('app.pkm_path') . '/audio/anniversary.mp3' }}" type="audio/mpeg" />
+			</audio>
+			<script type="text/javascript" src="js/libs/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="js/libs/art-template-native.js"></script>
+			<!-- <script type="text/javascript" src="js/libs/res-loader.js"></script> -->
+			<script type="text/javascript">
+				var images = new Array();
+				function preload() {
+					var length = preload.arguments.length;
+					for (i = 0; i < length; i++) {
+						images[i] = new Image();
+						images[i].src = preload.arguments[i];
+					}
+				}
+				preload(
+					'img/episodes/loading_icon.png',
+					'img/episodes/loading_down.jpg',
+					'img/episodes/loading_up.jpg',
+					'img/episodes/homepage_bg.png',
+					'img/episodes/homepage_sprites.png',
+					'img/episodes/role_choose_sprites.png',
+					'img/episodes/role_male_choose_bg.png',
+					'img/episodes/role_male_choose_bg_active.png',
+					'img/episodes/role_female_choose_bg.png',
+					'img/episodes/role_female_choose_bg_active.png',
+					'img/episodes/answer_bg_0.jpg',
+					'img/episodes/answer_bg_1.jpg',
+					'img/episodes/answer_bg_2.jpg',
+					'img/episodes/answer_bg_3.jpg',
+					'img/episodes/answer_bg_4.jpg',
+					'img/episodes/answer_bg_5.jpg',
+					'img/episodes/answer_bg_6.jpg',
+					'img/episodes/answer_bg_7.jpg',
+					'img/episodes/answer_bg_8.jpg',
+					'img/episodes/answer_bg_9.jpg',
+					'img/episodes/answer_sprites.png',
+					'img/episodes/female_fight.png',
+					'img/episodes/halo.png',
+					'img/episodes/male.png',
+					'img/episodes/female.png',
+					'img/episodes/result_fail_bg.png',
+					'img/episodes/result_fail_sprites.png',
+					'img/episodes/result_success_bg.png',
+					'img/episodes/result_success_sprites.png'
+				);
+				
+				// var loader = new resLoader({
+				// 	resources: ['img/episodes/loading_down.jpg',
+				// 	'img/episodes/loading_up.jpg',
+				// 	'img/episodes/homepage_bg.png',
+				// 	'img/episodes/homepage_sprites.png',
+				// 	'img/episodes/role_choose_sprites.png',
+				// 	'img/episodes/role_male_choose_bg.png',
+				// 	'img/episodes/role_male_choose_bg_active.png',
+				// 	'img/episodes/role_female_choose_bg.png',
+				// 	'img/episodes/role_female_choose_bg_active.png',
+				// 	'img/episodes/answer_bg_0.jpg',
+				// 	'img/episodes/answer_bg_1.jpg',
+				// 	'img/episodes/answer_bg_2.jpg',
+				// 	'img/episodes/answer_bg_3.jpg',
+				// 	'img/episodes/answer_bg_4.jpg',
+				// 	'img/episodes/answer_bg_5.jpg',
+				// 	'img/episodes/answer_bg_6.jpg',
+				// 	'img/episodes/answer_bg_7.jpg',
+				// 	'img/episodes/answer_bg_8.jpg',
+				// 	'img/episodes/answer_bg_9.jpg',
+				// 	'img/episodes/answer_sprites.png',
+				// 	'img/episodes/female_fight.png',
+				// 	'img/episodes/halo.png',
+				// 	'img/episodes/male.png',
+				// 	'img/episodes/female.png',
+				// 	'img/episodes/result_fail_bg.png',
+				// 	'img/episodes/result_fail_sprites.png',
+				// 	'img/episodes/result_success_bg.png',
+				// 	'img/episodes/result_success_sprites.png'],
+				// 	onStart: function(total) {
+				// 		// console.log('start:' + total);
+				// 	},
+				// 	onProgress: function(current, total) {
+				// 		// console.log(current + '/' + total);
+				// 		var percent = parseInt(current / total * 100) - 10;
+				// 		$('.js-loading').animate({width: percent + '%'}, 40);
+				// 		// $('.js-loading').width(percent);
+				// 	},
+				// 	onComplete: function(total) {
+				// 		// $('.loading-page').addClass('hide');
+				// 	}
+				// });
+
+				// loader.start();
+			</script>
+			<script type="text/javascript" src="js/apps/episodes/q_anniversary_2nd.js"></script>
+		</div>
+	</body>
+</html>
