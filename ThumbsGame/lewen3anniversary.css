@@ -1,0 +1,1756 @@
+/**
+ * common styles
+ */
+@font-face {
+  font-family: lewen3;
+src: url(../../../img/episodes/lewen3/HOBOSTD.OTF);
+}
+html {
+  height: 100%;
+  font-family: 'Microsoft YaHei', 'Helvetica Neue', Helvetica, STHeiTi, sans-serif;
+  font-size: 10px;
+  line-height: 1.4rem;
+}
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: #000;
+  overflow: hidden;
+  -webkit-text-size-adjust: none;
+  -webkit-user-select: none;
+  /* ��ֹѡ���ı� */
+
+  user-select: none;
+}
+img {
+  vertical-align: top;
+}
+a {
+  text-decoration: none;
+}
+*,
+*:after,
+*:before {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-text-size-adjust: none;
+}
+img,
+a {
+  -webkit-touch-callout: none;
+  /* ��ֹ����������ͼƬ�����˵� */
+
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.body-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.hide {
+  display: none;
+}
+.clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  font-size: 0;
+  height: 0;
+  visibility: hidden;
+}
+.clearfix {
+  *zoom: 1;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.center {
+  text-align: center;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.screen.active .screen-inner {
+  visibility: visible;
+}
+/* ��Ļ���� */
+@media (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+  
+}
+@media screen and (max-device-width: 374px), (max-device-width: 480px) and (-webkit-max-device-pixel-ratio: 1.5) {
+  /*ip5��ip4������gti9100*/
+  html {
+  font-size: 8.5px;
+}
+
+}
+/* pages common styles */
+.bg-sprite {
+  background-image: url(https://km-10029162.file.myqcloud.com/assets/img/sprites1.png);
+  background-repeat: no-repeat;
+  background-size: 37.5rem;
+}
+.bg-sprite-2 {
+  background-image: url(https://km-10029162.file.myqcloud.com/assets/img/sprites2.png);
+  background-repeat: no-repeat;
+  background-size: 37.5rem;
+}
+.gifts-sprite {
+  background-image: url(https://km-10029162.file.myqcloud.com/assets/img/gifts-sprite.png);
+  background-repeat: no-repeat;
+  background-size: 45.6rem;
+}
+.bg-sprite-loading {
+  background-image: url(https://km-10029162.file.myqcloud.com/assets/img/loading-sprite.png);
+  background-repeat: no-repeat;
+  background-size: 15.5rem;
+}
+/* ����icon */
+.icon-logo {
+  width: 12.4rem;
+  height: 4rem;
+  background-position: -12.5rem -56.9rem;
+}
+.icon-result-responsor {
+  width: 34.6rem;
+  height: 6.5rem;
+  background-position: 0rem -136rem;
+}
+/* ��Ʒicon */
+.icon-lewenPillow {
+  width: 15.8rem;
+  height: 15.1rem;
+  background-position: 0 0;
+}
+.icon-redenvelope1,
+.icon-redenvelope2,
+.icon-redenvelope3,
+.icon-redenvelope4,
+.icon-redenvelope5 {
+  width: 20rem;
+  height: 20rem;
+  background-position: -24.8rem -115rem;
+}
+.icon-lewenTshirt {
+  width: 17rem;
+  height: 15.5rem;
+  background-position: -21rem 0rem;
+}
+.icon-lewenBag {
+  width: 10.2rem;
+  height: 17.3rem;
+  background-position: 0.4rem -17.5rem;
+}
+.icon-wzrylibao1 {
+  width: 20rem;
+  height: 13.5rem;
+  background-position: -15.8rem -23.3rem;
+}
+.icon-wzrylibao2 {
+  width: 20rem;
+  height: 13.5rem;
+  background-position: -15.8rem -41.3rem;
+}
+.icon-txspvipyk {
+  width: 18.6rem;
+  height: 13rem;
+  background-position: -0.5rem -135.4rem;
+}
+.icon-wzrylibai {
+  width: 13.4rem;
+  height: 19rem;
+  background-position: 0rem -37.5rem;
+}
+.icon-txspvipjk {
+  width: 18rem;
+  height: 12.2rem;
+  background-position: 0rem -60.6rem;
+}
+.icon-txspvipnk {
+  width: 12.4rem;
+  height: 18.3rem;
+  background-position: -24.4rem -57rem;
+}
+.icon-bwlbdzgz {
+  width: 13.6rem;
+  height: 18rem;
+  background-position: 0rem -76.8rem;
+}
+.icon-bwlbyxlb {
+  width: 23rem;
+  height: 14.5rem;
+  background-position: -0.2rem -118.6rem;
+}
+.icon-ttdzpkp {
+  width: 16rem;
+  height: 18.3rem;
+  background-position: 0rem -97rem;
+}
+.icon-qmfjdzzz,
+.icon-qmcszz {
+  width: 19rem;
+  height: 16rem;
+  background-position: -19.3rem -97rem;
+}
+.icon-yxsynxdzcb {
+  width: 15.8rem;
+  height: 15.4rem;
+  background-position: -18.5rem -78.4rem;
+}
+.icon-qmtjolysyz {
+  width: 19rem;
+  height: 12.5rem;
+  background-position: -22.5rem -135.6rem;
+}
+.icon-yxsxkdzygdz {
+  width: 21rem;
+  height: 15rem;
+  background-position: 0.3rem -150rem;
+}
+.icon-srdyp {
+  width: 19rem;
+  height: 10rem;
+  background-position: -22.5rem -152.8rem;
+}
+/*  */
+.lewen3-participation-tip {
+  font-size: 1.3rem;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  margin-top: 16rem;
+}
+/* loading page */
+.loading-page {
+  background: url(https://km-10029162.file.myqcloud.com/assets/img/loading-bg.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.loading-page .loading-progress-bar {
+  width: 19.6rem;
+  height: 0.9rem;
+  background: #633ec0;
+  border-radius: 0.5rem;
+  top: 7rem;
+}
+.loading-page .loading-progress-bar .loading-progress-bar-inner {
+  width: 0;
+  background: #cc72ff;
+  height: 0.9rem;
+  border-radius: 0.5rem;
+}
+.loading-page .loading-page-area {
+  width: 19.6rem;
+  height: 9rem;
+  left: 50%;
+  margin-left: -9.8rem;
+  top: 50%;
+  margin-top: -11.5rem;
+}
+.loading-page .loading-page-area .icon-loading-right {
+  width: 7.5rem;
+  height: 7rem;
+  background-position: 0.7rem 0.8rem;
+}
+.loading-page .loading-page-area #loading-right.active {
+  -webkit-animation: anim-loading-right 3.6s linear both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-loading-right {
+  0% {
+  -webkit-transform: translate(16rem, 0rem);
+}
+17% {
+  -webkit-transform: translate(12.7rem, -1.4rem);
+}
+34% {
+  -webkit-transform: translate(9.4rem, 0rem);
+}
+51% {
+  -webkit-transform: translate(6.1rem, -1.4rem);
+}
+67% {
+  -webkit-transform: translate(2.9rem, 0rem);
+}
+83% {
+  -webkit-transform: translate(-0.2rem, -1.4rem);
+}
+100% {
+  -webkit-transform: translate(-3.6rem, 0rem);
+}
+
+}
+.loading-page .loading-page-area .icon-loading-left {
+  width: 7.5rem;
+  height: 7rem;
+  background-position: -7.8rem 0.8rem;
+}
+.loading-page .loading-page-area #loading-left.active {
+  -webkit-animation: anim-loading-left 3.6s linear both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-loading-left {
+  0% {
+  -webkit-transform: translate(-3.6rem, 0rem);
+}
+17% {
+  -webkit-transform: translate(-0.3rem, -1.4rem);
+}
+34% {
+  -webkit-transform: translate(3rem, 0rem);
+}
+51% {
+  -webkit-transform: translate(6.2rem, -1.4rem);
+}
+67% {
+  -webkit-transform: translate(9.5rem, 0rem);
+}
+83% {
+  -webkit-transform: translate(12.7rem, -1.4rem);
+}
+100% {
+  -webkit-transform: translate(16rem, 0rem);
+}
+
+}
+/* home page */
+.anniversary-home-bg {
+  background: url(https://km-10029162.file.myqcloud.com/assets/img/home-bg.png);
+  background-repeat: no-repeat;
+  background-size: 120%;
+  background-position: center;
+}
+.lewen3-home-page {
+  /* ��ҳlogo */
+
+  /* ��ҳ������Ϸ��ť */
+
+}
+.lewen3-home-page .icon-header-logo {
+  width: 32rem;
+  height: 44.8rem;
+  background-position: 0.3rem -8.5rem;
+}
+.lewen3-home-page .home-page-header-logo {
+  top: 50%;
+  margin-top: -28.4rem;
+  left: 50%;
+  margin-left: -16rem;
+}
+.lewen3-home-page .icon-header-1 {
+  width: 25rem;
+  height: 8.5rem;
+  background-position: 0.4rem -53.8rem;
+}
+.lewen3-home-page .home-page-header-1 {
+  left: 50%;
+  margin-left: -11.2rem;
+  top: 50%;
+  margin-top: -7.8rem;
+}
+.lewen3-home-page .icon-header-2 {
+  width: 6.8rem;
+  height: 8.3rem;
+  background-position: -28.8rem -53.8rem;
+}
+.lewen3-home-page .home-page-header-2 {
+  left: 50%;
+  margin-left: -5rem;
+  top: 50%;
+  margin-top: -7.9rem;
+}
+.lewen3-home-page .icon-enter {
+  width: 27.6rem;
+  height: 8.8rem;
+  background-position: 0rem 0rem;
+}
+.lewen3-home-page .home-page-enter {
+  left: 50%;
+  margin-left: -15.7rem;
+  bottom: 4.9rem;
+}
+.lewen3-home-page.active .home-page-header-2 {
+  -webkit-animation: anim-header-2 0.4s 0.2s ease both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-header-2 {
+  0% {
+  opacity: 0;
+  -webkit-transform: scale(2, 2);
+}
+20% {
+  opacity: 0.4;
+  -webkit-transform: scale(2, 2);
+}
+100% {
+  opacity: 1;
+  -webkit-transform: scale(1, 1);
+}
+
+}
+.lewen3-home-page.active .home-page-enter {
+  -webkit-animation: anim-enter 1s 0.5s ease both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-enter {
+  from,
+60%,
+75%,
+90%,
+to {
+  -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+0% {
+  opacity: 0;
+  -webkit-transform: translate3d(-3000px, 0, 0);
+}
+60% {
+  opacity: 1;
+  -webkit-transform: translate3d(25px, 0, 0);
+}
+75% {
+  -webkit-transform: translate3d(-10px, 0, 0);
+}
+90% {
+  -webkit-transform: translate3d(5px, 0, 0);
+}
+to {
+  -webkit-transform: none;
+}
+
+}
+/* �汾������Ҫ��ҳ�� */
+.lewen3-version-promote-page {
+  background-color: rgba(28, 24, 97, 0.45);
+  z-index: 10;
+  left: 0;
+  top: 0;
+}
+.lewen3-version-promote-page .lewen3-version-promote {
+  left: 50%;
+  margin-left: -14.3rem;
+  top: 50%;
+  margin-top: -20rem;
+}
+.lewen3-version-promote-page .icon-lewen3-version-promote {
+  width: 28.6rem;
+  height: 24.5rem;
+  background-position: 0.2rem -89.8rem;
+}
+.lewen3-version-promote-page .lewen3-version-confirm {
+  left: 50%;
+  margin-left: -7.8rem;
+  top: 50%;
+  margin-top: -4rem;
+}
+.lewen3-version-promote-page .icon-lewen3-version-confirm {
+  width: 15.6rem;
+  height: 5.6rem;
+  background-position: -17.4rem -53.4rem;
+}
+/* cover page bg */
+.cover-page-bg {
+  background-color: rgba(28, 24, 97, 0.4);
+  z-index: 10;
+  left: 0;
+  top: 0;
+}
+/* �������ҳ�� */
+.lewen3-result-gift-page {
+  /*opacity: 0;*/
+
+  /* �𿪽�Ʒҳicon */
+
+  /* ��Ʒicon */
+
+}
+.lewen3-result-gift-page .icon-result-light {
+  width: 25rem;
+  height: 19rem;
+  background-position: -2.4rem -67rem;
+}
+.lewen3-result-gift-page .gift-page-light {
+  top: 50%;
+  margin-top: -26.2rem;
+  left: 50%;
+  margin-left: -12.2rem;
+}
+.lewen3-result-gift-page .result-congratulation {
+  left: 50%;
+  margin-left: -5.8rem;
+  top: 50%;
+  margin-top: -4.9rem;
+}
+.lewen3-result-gift-page .icon-result-congratulation {
+  width: 11.6rem;
+  height: 3.7rem;
+  background-position: 0rem -153rem;
+}
+.lewen3-result-gift-page .result-words {
+  color: #FFFFFF;
+  height: 1.8rem;
+  line-height: 1.8rem;
+  font-size: 1.9rem;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  margin-top: 0rem;
+}
+.lewen3-result-gift-page .result-words .result-prize-name {
+  color: #f5d333;
+}
+.lewen3-result-gift-page .icon-result-share-btn {
+  width: 13rem;
+  height: 5.5rem;
+  background-position: -0.3rem -145.2rem;
+}
+.lewen3-result-gift-page .result-share-btn {
+  left: 50%;
+  margin-left: -6.5rem;
+  top: 50%;
+  margin-top: 3.8rem;
+}
+.lewen3-result-gift-page .result-creator {
+  font-size: 1.2rem;
+  color: #9996d3;
+  width: 100%;
+  height: 1.2rem;
+  text-align: center;
+  line-height: 1.2rem;
+  bottom: 2rem;
+}
+.lewen3-result-gift-page .result-responsor {
+  left: 50%;
+  margin-left: -17.3rem;
+  bottom: 4.8rem;
+}
+.lewen3-result-gift-page .result-prize-tip {
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+  height: 1.4rem;
+  color: #9996d3;
+  width: 100%;
+  text-align: center;
+  bottom: 11.5rem;
+}
+.lewen3-result-gift-page .lewenPillow {
+  left: 50%;
+  margin-left: -7.9rem;
+  top: 50%;
+  margin-top: -21.2rem;
+}
+.lewen3-result-gift-page .redenvelope1,
+.lewen3-result-gift-page .redenvelope2,
+.lewen3-result-gift-page .redenvelope3,
+.lewen3-result-gift-page .redenvelope4,
+.lewen3-result-gift-page .redenvelope5 {
+  left: 50%;
+  margin-left: -8.4rem;
+  top: 50%;
+  margin-top: -26rem;
+}
+.lewen3-result-gift-page .lewenTshirt {
+  left: 50%;
+  margin-left: -8.5rem;
+  top: 50%;
+  margin-top: -22.2rem;
+}
+.lewen3-result-gift-page .lewenBag {
+  left: 50%;
+  margin-left: -5.1rem;
+  top: 50%;
+  margin-top: -23.7rem;
+}
+.lewen3-result-gift-page .wzrylibao1 {
+  left: 50%;
+  margin-left: -10rem;
+  top: 50%;
+  margin-top: -20.2rem;
+}
+.lewen3-result-gift-page .wzrylibao2 {
+  left: 50%;
+  margin-left: -10rem;
+  top: 50%;
+  margin-top: -20.2rem;
+}
+.lewen3-result-gift-page .wzrylibai {
+  left: 50%;
+  margin-left: -5.5rem;
+  top: 50%;
+  margin-top: -25.2rem;
+}
+.lewen3-result-gift-page .txspvipyk {
+  left: 50%;
+  margin-left: -8.3rem;
+  top: 50%;
+  margin-top: -20.2rem;
+}
+.lewen3-result-gift-page .txspvipjk {
+  left: 50%;
+  margin-left: -9rem;
+  top: 50%;
+  margin-top: -19.2rem;
+}
+.lewen3-result-gift-page .txspvipnk {
+  left: 50%;
+  margin-left: -6rem;
+  top: 50%;
+  margin-top: -25.2rem;
+}
+.lewen3-result-gift-page .bwlbdzgz {
+  left: 50%;
+  margin-left: -6.8rem;
+  top: 50%;
+  margin-top: -24.2rem;
+}
+.lewen3-result-gift-page .bwlbyxlb {
+  left: 50%;
+  margin-left: -11.2rem;
+  top: 50%;
+  margin-top: -21.2rem;
+}
+.lewen3-result-gift-page .ttdzpkp {
+  left: 50%;
+  margin-left: -9rem;
+  top: 50%;
+  margin-top: -24.2rem;
+}
+.lewen3-result-gift-page .qmfjdzzz,
+.lewen3-result-gift-page .qmcszz {
+  left: 50%;
+  margin-left: -9.5rem;
+  top: 50%;
+  margin-top: -22.7rem;
+}
+.lewen3-result-gift-page .yxsynxdzcb {
+  left: 50%;
+  margin-left: -7.9rem;
+  top: 50%;
+  margin-top: -22.2rem;
+}
+.lewen3-result-gift-page .yxsxkdzygdz {
+  left: 50%;
+  margin-left: -11.3rem;
+  top: 50%;
+  margin-top: -21.2rem;
+}
+.lewen3-result-gift-page .qmtjolysyz {
+  left: 50%;
+  margin-left: -9.5rem;
+  top: 50%;
+  margin-top: -20.2rem;
+}
+.lewen3-result-gift-page .srdyp {
+  left: 50%;
+  margin-left: -9.5rem;
+  top: 50%;
+  margin-top: -17rem;
+}
+.lewen3-result-gift-page.active {
+  -webkit-animation: anim-result-gift-page 1s 0.3s ease both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-result-gift-page {
+  0% {
+  opacity: 0;
+}
+100% {
+  opacity: 1;
+}
+
+}
+/* ����ҳ�� */
+.lewen3-share-page {
+  background: url(https://km-10029162.file.myqcloud.com/assets/img/loading-bg.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  /* ����ҳ������icon */
+
+  /* ��Ʒicon */
+
+}
+.lewen3-share-page .lewen3-share-bg {
+  background-color: rgba(28, 24, 97, 0.4);
+  z-index: 10;
+  left: 0;
+  top: 0;
+}
+.lewen3-share-page .share-page-header {
+  left: 50%;
+  margin-left: -14.4rem;
+  top: 50%;
+  margin-top: -26.8rem;
+}
+.lewen3-share-page .icon-share-page-header {
+  width: 28.8rem;
+  height: 14.5rem;
+  background-position: -0.8rem -116rem;
+}
+.lewen3-share-page .share-page-logo {
+  left: 50%;
+  margin-left: -6.2rem;
+  top: 50%;
+  margin-top: -17.8rem;
+}
+.lewen3-share-page .share-page-prize {
+  width: 100%;
+  text-align: center;
+  font-size: 1.9rem;
+  color: #FFFFFF;
+  line-height: 3.25rem;
+  top: 50%;
+  margin-top: 8.1rem;
+}
+.lewen3-share-page .share-page-prize .share-page-prize-name {
+  color: #fff44f;
+}
+.lewen3-share-page .share-page-light {
+  left: 50%;
+  margin-left: -12.5rem;
+  top: 50%;
+  margin-top: -13rem;
+}
+.lewen3-share-page .icon-share-light {
+  width: 25rem;
+  height: 19rem;
+  background-position: -2.4rem -67rem;
+}
+.lewen3-share-page .icon-play-game {
+  width: 21.4rem;
+  height: 7.8rem;
+  background-position: 0.3rem -159.9rem;
+}
+.lewen3-share-page .play-game {
+  left: 50%;
+  margin-left: -10.7rem;
+  bottom: 6.5rem;
+}
+.lewen3-share-page .share-responsor {
+  left: 50%;
+  margin-left: -17.3rem;
+  bottom: 1.2rem;
+}
+.lewen3-share-page .share-page-prize-panel {
+  width: 100%;
+  top: 50%;
+}
+.lewen3-share-page .lewenPillow {
+  left: 50%;
+  margin-left: -7.9rem;
+  top: 50%;
+  margin-top: -8.2rem;
+}
+.lewen3-share-page .redenvelope1,
+.lewen3-share-page .redenvelope2,
+.lewen3-share-page .redenvelope3,
+.lewen3-share-page .redenvelope4,
+.lewen3-share-page .redenvelope5 {
+  left: 50%;
+  margin-left: -8.4rem;
+  top: 50%;
+  margin-top: -12rem;
+}
+.lewen3-share-page .lewenTshirt {
+  left: 50%;
+  margin-left: -8.5rem;
+  top: 50%;
+  margin-top: -8.2rem;
+}
+.lewen3-share-page .lewenBag {
+  left: 50%;
+  margin-left: -5.1rem;
+  top: 50%;
+  margin-top: -10.2rem;
+}
+.lewen3-share-page .wzrylibao1 {
+  left: 50%;
+  margin-left: -10rem;
+  top: 50%;
+  margin-top: -7.2rem;
+}
+.lewen3-share-page .wzrylibao2 {
+  left: 50%;
+  margin-left: -10rem;
+  top: 50%;
+  margin-top: -7.2rem;
+}
+.lewen3-share-page .wzrylibai {
+  left: 50%;
+  margin-left: -5.5rem;
+  top: 50%;
+  margin-top: -12.2rem;
+}
+.lewen3-share-page .txspvipyk {
+  left: 50%;
+  margin-left: -8.3rem;
+  top: 50%;
+  margin-top: -6.2rem;
+}
+.lewen3-share-page .txspvipjk {
+  left: 50%;
+  margin-left: -9rem;
+  top: 50%;
+  margin-top: -6.7rem;
+}
+.lewen3-share-page .txspvipnk {
+  left: 50%;
+  margin-left: -6rem;
+  top: 50%;
+  margin-top: -11.2rem;
+}
+.lewen3-share-page .bwlbdzgz {
+  left: 50%;
+  margin-left: -6.8rem;
+  top: 50%;
+  margin-top: -10.2rem;
+}
+.lewen3-share-page .bwlbyxlb {
+  left: 50%;
+  margin-left: -11.2rem;
+  top: 50%;
+  margin-top: -8.2rem;
+}
+.lewen3-share-page .ttdzpkp {
+  left: 50%;
+  margin-left: -9rem;
+  top: 50%;
+  margin-top: -10.2rem;
+}
+.lewen3-share-page .qmfjdzzz,
+.lewen3-share-page .qmcszz {
+  left: 50%;
+  margin-left: -9.5rem;
+  top: 50%;
+  margin-top: -9.7rem;
+}
+.lewen3-share-page .yxsynxdzcb {
+  left: 50%;
+  margin-left: -7.9rem;
+  top: 50%;
+  margin-top: -8.2rem;
+}
+.lewen3-share-page .yxsxkdzygdz {
+  left: 50%;
+  margin-left: -11.1rem;
+  top: 50%;
+  margin-top: -8.2rem;
+}
+.lewen3-share-page .qmtjolysyz {
+  left: 50%;
+  margin-left: -9.5rem;
+  top: 50%;
+  margin-top: -6.2rem;
+}
+.lewen3-share-page .srdyp {
+  left: 50%;
+  margin-left: -9.5rem;
+  margin-top: -3rem;
+}
+.lewen3-share-page.active .share-page-prize-panel {
+  -webkit-animation: anim-share-page-prize-panel 1s 0.3s ease both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-share-page-prize-panel {
+  from {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  opacity: 0;
+}
+40% {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+}
+60% {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+  opacity: 1;
+}
+80% {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+}
+to {
+  -webkit-transform: perspective(400px);
+  transform: perspective(400px);
+}
+
+}
+.lewen3-share-page.active .play-game {
+  -webkit-animation: anim-play-game-btn 1s 1.8s ease both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-play-game-btn {
+  from {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+}
+30% {
+  opacity: 1;
+  -webkit-transform: scale3d(1.25, 0.75, 1);
+}
+40% {
+  -webkit-transform: scale3d(0.75, 1.25, 1);
+}
+50% {
+  -webkit-transform: scale3d(1.15, 0.85, 1);
+}
+65% {
+  -webkit-transform: scale3d(0.95, 1.05, 1);
+}
+75% {
+  -webkit-transform: scale3d(1.05, 0.95, 1);
+}
+to {
+  -webkit-transform: scale3d(1, 1, 1);
+}
+
+}
+.lewen3-end-page.active .end-page-result-gift {
+  -webkit-animation: anim-end-page-gift 1s 0.3s ease both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-end-page-gift {
+  from {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  opacity: 0;
+}
+40% {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+}
+60% {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+  opacity: 1;
+}
+80% {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+}
+to {
+  -webkit-transform: perspective(400px);
+  transform: perspective(400px);
+}
+
+}
+/* �Լ����Լ��Ľ��ҳ�� */
+.lewen3-end-page-bg {
+  background-image: url(https://km-10029162.file.myqcloud.com/assets/img/loading-bg.png);
+  background-size: cover;
+}
+.lewen3-end-page .result-creator {
+  font-size: 1.2rem;
+  color: #9996d3;
+  width: 100%;
+  height: 1.2rem;
+  text-align: center;
+  line-height: 1.2rem;
+  bottom: 2rem;
+}
+/* ��Ϸ����ҳ */
+.lewen3-intro-page .intro-page-bg {
+  background-color: rgba(28, 24, 97, 0.4);
+  z-index: 10;
+  left: 0;
+  top: 0;
+}
+.lewen3-intro-page .share-page-header {
+  left: 50%;
+  margin-left: -14.4rem;
+  top: 50%;
+  margin-top: -26.8rem;
+}
+.lewen3-intro-page .icon-share-page-header {
+  width: 28.8rem;
+  height: 14.5rem;
+  background-position: -0.8rem -116rem;
+}
+.lewen3-intro-page .icon-intro-page-tip {
+  width: 18.6rem;
+  height: 6rem;
+  background-position: -7rem -128.7rem;
+}
+.lewen3-intro-page .intro-page-tip {
+  left: 50%;
+  margin-left: -9.8rem;
+  top: 50%;
+  margin-top: 8rem;
+}
+.lewen3-intro-page .intro-page-ding {
+  left: 50%;
+  margin-left: -8.5rem;
+  top: 50%;
+  margin-top: -11.9rem;
+}
+.lewen3-intro-page .icon-intro-page-ding {
+  width: 19rem;
+  height: 19rem;
+  background-position: -17.4rem -24.4rem;
+}
+.lewen3-intro-page .intro-page-light {
+  left: 50%;
+  margin-left: -12.5rem;
+  top: 50%;
+  margin-top: -13.3rem;
+}
+.lewen3-intro-page .icon-intro-page-light {
+  width: 25rem;
+  height: 19rem;
+  background-position: -2.4rem -67rem;
+}
+.lewen3-intro-page .play-game {
+  left: 50%;
+  margin-left: -11.3rem;
+  bottom: 6.5rem;
+}
+.lewen3-intro-page .icon-play-game {
+  width: 21.4rem;
+  height: 7.7rem;
+  background-position: 0.3rem -160rem;
+}
+.lewen3-intro-page.active .intro-page-ding {
+  -webkit-animation: anim-intro-page-ding-area 1s 0.3s ease both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-intro-page-ding-area {
+  from {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  opacity: 0;
+}
+40% {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, -40deg);
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+}
+60% {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, 20deg);
+  opacity: 1;
+}
+80% {
+  -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+}
+to {
+  -webkit-transform: perspective(400px);
+  transform: perspective(400px);
+}
+
+}
+.lewen3-intro-page-bg {
+  background: url(https://km-10029162.file.myqcloud.com/assets/img/loading-bg.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+/* ����ҳ�� */
+.expired-page {
+  background: url(https://km-10029162.file.myqcloud.com/assets/img/expired.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+/* ��ͷ����ҳ�� */
+.arrow-share-page {
+  z-index: 1001;
+}
+.arrow-share-page .share-arrow {
+  right: 2.5rem;
+  top: 1rem;
+}
+.arrow-share-page .icon-share-arrow {
+  width: 23rem;
+  height: 12rem;
+  background-position: 0rem -62rem;
+}
+.arrow-share-page-bg {
+  background-color: rgba(28, 24, 97, 0.78);
+  z-index: 10;
+  left: 0;
+  top: 0;
+}
+/* ��Ϸ֮�ϸ��� */
+.lewen3-game-page-cover {
+  background-color: rgba(28, 24, 97, 0.4);
+  z-index: 10;
+  left: 0;
+  top: 0;
+  /* ����˵�� */
+
+  /* ��Ϸ�������� */
+
+  /* ��Ϸʧ��ҳ�� */
+
+  /* �����ǰҳ�� */
+
+  /* ��������֮��Ч�� */
+
+  /* չʾ�����ҳ���Ч�� */
+
+  /* ����Ϊ��ҳ�� */
+
+}
+.lewen3-game-page-cover .lewen3-game-page-enter-confirm.active {
+  -webkit-animation: anim-game-enter-confirm 0.5s 0.1s ease both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-game-enter-confirm {
+  0% {
+  opacity: 0;
+  -webkit-transform: scale(0.1, 0.1);
+}
+100% {
+  opacity: 1;
+  -webkit-transform: scale(1, 1);
+}
+
+}
+.lewen3-game-page-cover .icon-enter-confirm {
+  height: 24.3rem;
+  width: 28.8rem;
+  background-position: 0.3rem 0.3rem;
+}
+.lewen3-game-page-cover .lewen3-game-page-enter-confirm {
+  left: 50%;
+  margin-left: -14.4rem;
+  top: 50%;
+  margin-top: -18.9rem;
+}
+.lewen3-game-page-cover .lewen3-game-page-enter-confirm .icon-lewen3-game-start {
+  width: 16rem;
+  height: 5.9rem;
+  background-position: 0.4rem -53.3rem;
+}
+.lewen3-game-page-cover .lewen3-game-page-enter-confirm .lewen3-game-start {
+  left: 50%;
+  margin-left: -8rem;
+  margin-top: 16.4rem;
+}
+.lewen3-game-page-cover .lewen3-game-end-promote {
+  left: 50%;
+  margin-left: -11rem;
+  top: 22.3%;
+}
+.lewen3-game-page-cover .icon-lewen3-game-end-promote {
+  width: 22rem;
+  height: 15rem;
+  background-position: 0.4rem -74rem;
+}
+.lewen3-game-page-cover .lewen3-game-end-promote.active {
+  -webkit-animation: anim-lewen3-game-end-promote 1.7s 0.1s both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-lewen3-game-end-promote {
+  0% {
+  opacity: 0;
+  -webkit-transform: scale(0.1, 0.1);
+}
+50% {
+  opacity: 1;
+  -webkit-transform: scale(1, 1);
+}
+65% {
+  opacity: 1;
+  -webkit-transform: scale(1, 1);
+}
+85% {
+  opacity: 0;
+  -webkit-transform: scale(0.6, 0.6);
+}
+100% {
+  opacity: 0;
+  -webkit-transform: scale(0.6, 0.6);
+}
+
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .icon-fail-play-again {
+  width: 12.8rem;
+  height: 5.2rem;
+  background-position: 0.1rem -47.2rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .fail-play-again {
+  left: 50%;
+  margin-left: -6.4rem;
+  bottom: 14.8rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .icon-fail-share {
+  width: 12.8rem;
+  height: 5.2rem;
+  background-position: -18.8rem -47.2rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .fail-share {
+  left: 50%;
+  margin-left: -6.4rem;
+  bottom: 8.8rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .fail-words {
+  width: 100%;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 1.9rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+  top: 50%;
+  margin-top: 5.9rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .fail-words .fail-words-count-left {
+  color: #fff44f;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .icon-fail-ding {
+  width: 13.2rem;
+  height: 17.8rem;
+  background-position: -0.2rem -25rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .fail-ding {
+  left: 50%;
+  margin-left: -6.6rem;
+  top: 50%;
+  margin-top: -12.5rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .icon-fail-light {
+  width: 25rem;
+  height: 19rem;
+  background-position: -2.4rem -67rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .fail-light {
+  top: 50%;
+  left: 50%;
+  margin-left: -12.5rem;
+  margin-top: -15rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .icon-result-count {
+  width: 32rem;
+  height: 11rem;
+  background-position: 0.6rem -109.5rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .result-count {
+  left: 50%;
+  margin-left: -16rem;
+  top: 50%;
+  margin-top: -22.4rem;
+  text-align: center;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .result-count .result-count-area {
+  font-family: lewen3;
+  font-size: 5rem;
+  color: #FFFFFF;
+  margin-left: -4rem;
+  line-height: 9.8rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .result-count .result-count-area .icon-result-count-zan {
+  width: 5rem;
+  height: 5rem;
+  background-position: 0 -129rem;
+}
+.lewen3-game-page-cover .lewen3-game-fail-page .result-count .result-count-area .result-count-zan {
+  top: 2.2rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-count {
+  left: 50%;
+  margin-left: -16rem;
+  top: 50%;
+  margin-top: -21.2rem;
+  text-align: center;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-count .result-count-area {
+  font-family: lewen3;
+  font-size: 5rem;
+  color: #FFFFFF;
+  margin-left: -4rem;
+  line-height: 9.8rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-count .result-count-area .icon-result-count-zan {
+  width: 5rem;
+  height: 5rem;
+  background-position: 0 -129rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-count .result-count-area .result-count-zan {
+  top: 2.2rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .icon-result-count {
+  width: 32rem;
+  height: 11rem;
+  background-position: 0.6rem -109.5rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-light {
+  left: 50%;
+  margin-left: -12.5rem;
+  top: 50%;
+  margin-top: -12.2rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .icon-result-light {
+  width: 25rem;
+  height: 19rem;
+  background-position: -2.4rem -67rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-gift {
+  left: 50%;
+  margin-left: -6.8rem;
+  top: 50%;
+  margin-top: -8.2rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .icon-result-gift {
+  width: 13.6rem;
+  height: 15rem;
+  background-position: -1rem -87.6rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-tip {
+  top: 50%;
+  margin-top: 9rem;
+  left: 50%;
+  margin-left: -10rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .icon-result-tip {
+  width: 20rem;
+  height: 6rem;
+  background-position: 0.8rem -169.2rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .icon-result-ribbon-1 {
+  width: 3rem;
+  height: 1.5rem;
+  background-position: -1.2rem -105rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-ribbon-1 {
+  left: 50%;
+  margin-left: -10.5rem;
+  top: 50%;
+  margin-top: -5.2rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .icon-result-ribbon-2 {
+  width: 2.3rem;
+  height: 1.8rem;
+  background-position: -9.8rem -104.8rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-ribbon-2 {
+  left: 50%;
+  margin-left: 5.5rem;
+  top: 50%;
+  margin-top: -6rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .icon-result-ribbon-3 {
+  width: 2.4rem;
+  height: 2.8rem;
+  background-position: -5.8rem -104.6rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-ribbon-3 {
+  left: 50%;
+  margin-left: -9.6rem;
+  top: 50%;
+  margin-top: -3rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .icon-result-ribbon-4 {
+  width: 1rem;
+  height: 1rem;
+  background-position: -14.4rem -105.2rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked .result-ribbon-4 {
+  left: 50%;
+  margin-left: 6.6rem;
+  top: 50%;
+  margin-top: -3.2rem;
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked.anim {
+  -webkit-animation: anim-checked-result-page 1s 0.1s ease both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-checked-result-page {
+  0% {
+  opacity: 1;
+}
+100% {
+  opacity: 0;
+}
+
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked.anim .result-light {
+  -webkit-animation: anim-checked-light 1s 0.1s ease both;
+  -webkit-transform-origin: 50% 100%;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-checked-light {
+  0% {
+  -webkit-transform: scale(1, 1);
+}
+100% {
+  -webkit-transform: scale(4, 4);
+}
+
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked.active {
+  -webkit-animation: anim-result-page 0.75s 0.15s both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-result-page {
+  from,
+20%,
+40%,
+60%,
+80%,
+to {
+  -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+0% {
+  opacity: 0;
+  -webkit-transform: scale3d(0.3, 0.3, 0.3);
+  transform: scale3d(0.3, 0.3, 0.3);
+}
+20% {
+  -webkit-transform: scale3d(1.1, 1.1, 1.1);
+  transform: scale3d(1.1, 1.1, 1.1);
+}
+40% {
+  -webkit-transform: scale3d(0.9, 0.9, 0.9);
+  transform: scale3d(0.9, 0.9, 0.9);
+}
+60% {
+  opacity: 1;
+  -webkit-transform: scale3d(1.03, 1.03, 1.03);
+  transform: scale3d(1.03, 1.03, 1.03);
+}
+80% {
+  -webkit-transform: scale3d(0.97, 0.97, 0.97);
+  transform: scale3d(0.97, 0.97, 0.97);
+}
+to {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
+
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked.active .result-gift {
+  -webkit-animation: anim-result-gift 2s 1.8s ease infinite both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-result-gift {
+  from {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+}
+30% {
+  opacity: 1;
+  -webkit-transform: scale3d(1.15, 0.95, 1);
+}
+40% {
+  -webkit-transform: scale3d(0.95, 1.15, 1);
+}
+50% {
+  -webkit-transform: scale3d(1.15, 0.85, 1);
+}
+65% {
+  -webkit-transform: scale3d(1, 1, 1);
+}
+to {
+  -webkit-transform: scale3d(1, 1, 1);
+}
+
+}
+.lewen3-game-page-cover .lewen3-result-page-unchecked.active .result-gift.anim {
+  -webkit-animation: anim-result-gift-jump 0.3s 0.1s ease infinite both;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+@-webkit-keyframes anim-result-gift-jump {
+  0% {
+  -webkit-transform: translatey(0rem) scale3d(1, 1, 1);
+}
+70% {
+  -webkit-transform: translatey(-2.8rem) scale3d(1.1, 0.9, 1);
+}
+100% {
+  -webkit-transfrom: translatey(0rem) scale3d(0.8, 0.8, 1);
+}
+
+}
+.lewen3-game-page-cover .empty-gifts-page .icon-fail-ding {
+  width: 13.2rem;
+  height: 17.8rem;
+  background-position: -0.2rem -25rem;
+}
+.lewen3-game-page-cover .empty-gifts-page .fail-ding {
+  left: 50%;
+  margin-left: -6.6rem;
+  top: 50%;
+  margin-top: -22.6rem;
+}
+.lewen3-game-page-cover .empty-gifts-page .icon-fail-light {
+  width: 25rem;
+  height: 19rem;
+  background-position: -2.4rem -67rem;
+}
+.lewen3-game-page-cover .empty-gifts-page .fail-light {
+  top: 50%;
+  left: 50%;
+  margin-left: -12.5rem;
+  margin-top: -25rem;
+}
+.lewen3-game-page-cover .empty-gifts-page .icon-fail-no-prize {
+  width: 11.9rem;
+  height: 3.5rem;
+  background-position: -16.2rem -153rem;
+}
+.lewen3-game-page-cover .empty-gifts-page .fail-no-prize {
+  left: 50%;
+  margin-left: -6rem;
+  top: 50%;
+  margin-top: -4.7rem;
+}
+.lewen3-game-page-cover .empty-gifts-page .fail-no-prize-words {
+  font-size: 1.9rem;
+  color: #ffffff;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  margin-top: -0.5rem;
+}
+.lewen3-game-page-cover .empty-gifts-page .result-responsor {
+  left: 50%;
+  margin-left: -17.3rem;
+  bottom: 6.3rem;
+}
+.lewen3-game-page-cover .empty-gifts-page .result-creator {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #9996d3;
+  width: 10.8rem;
+  height: 3.5rem;
+  border-radius: 3rem;
+  text-align: center;
+  line-height: 3.5rem;
+  background-color: #392890;
+  bottom: 1.6rem;
+  left: 50%;
+  margin-left: -5.4rem;
+}
+/* ��Ϸҳ�� */
+.lewen3-game-page {
+  /* ��Ϸ���� */
+
+}
+.lewen3-game-page .collect-thumbs {
+  color: #f3f3f8;
+  text-align: center;
+  overflow-x: hidden;
+  background-image: url(https://km-10029162.file.myqcloud.com/assets/img/loading-bg.png);
+  background-size: cover;
+  height: 100%;
+}
+.lewen3-game-page .sprite-merge {
+  background-size: 386px 567px;
+  background-image: url(https://km-10029162.file.myqcloud.com/assets/img/thumbs.png);
+  transform: translatez(0);
+  position: absolute;
+  width: 73px;
+  height: 75px;
+  border-radius: 1rem;
+  display: inline-block;
+}
+.lewen3-game-page .hide {
+  display: none;
+}
+.lewen3-game-page .normal-like {
+  background-position: -106px 0px;
+}
+.lewen3-game-page .middle-like {
+  background-position: -191px 0px;
+}
+.lewen3-game-page .heigh-like {
+  background-position: -278px 0px;
+}
+.lewen3-game-page .ad-sprite {
+  width: 23px;
+  height: 23px;
+  border-radius: 4px;
+  display: none;
+}
+.lewen3-game-page .like-ad1 {
+  background-position: 0px -175px;
+}
+.lewen3-game-page .like-ad2 {
+  background-position: 0px -198px;
+}
+.lewen3-game-page .like-ad3 {
+  background-position: 0px -222px;
+}
+.lewen3-game-page .like-ad4 {
+  background-position: 0px -246px;
+}
+.lewen3-game-page .like-ad5 {
+  background-position: 0px -269px;
+}
+.lewen3-game-page .like-ad6 {
+  background-position: 0px -293px;
+}
+.lewen3-game-page .like-ad7 {
+  background-position: 0px -316px;
+}
+.lewen3-game-page .like-ad8 {
+  background-position: 0px -340px;
+}
+.lewen3-game-page .like-ad9 {
+  background-position: 0px -363px;
+}
+.lewen3-game-page .plus {
+  width: 33px;
+  height: 17px;
+  display: none;
+}
+.lewen3-game-page .plus10 {
+  background-position: 0px -140px;
+}
+.lewen3-game-page .plus5 {
+  background-position: 0px -140px;
+}
+.lewen3-game-page .plus1 {
+  background-position: 0px -158px;
+}
+.lewen3-game-page .ding-logo {
+  left: 0px;
+  width: 71px;
+  height: 57px;
+  background-position: 0px 0px;
+  animation: dingMove 1s infinite alternate;
+  -webkit-animation: dingMove 1s infinite alternate;
+}
+@keyframes dingMove {
+  from {
+  top: 0px;
+}
+to {
+  top: 20px;
+}
+
+}
+@-webkit-keyframes dingMove {
+  from {
+  top: 0px;
+}
+to {
+  top: 20px;
+}
+
+}
+.lewen3-game-page .flow-up {
+  animation: scoreUp 0.7s 1 alternate;
+  -webkit-animation: scoreUp 0.7s 1 alternate;
+}
+@keyframes scoreUp {
+  to {
+  transform: translate(0px, -15px);
+}
+
+}
+@-webkit-keyframes scoreUp {
+  to {
+  -webkit-transform: translate(0px, -15px);
+}
+
+}
+.lewen3-game-page .score-logo {
+  top: 9px;
+  right: 123px;
+  width: 82px;
+  height: 33px;
+  border-radius: 0;
+  background-position: 0px -57px;
+  font-family: lewen3;
+}
+.lewen3-game-page .score-logo span {
+  position: relative;
+  font-size: 20px;
+  left: 5px;
+  top: 8px;
+  transform: translatez(0);
+  display: inline-block;
+}
+.lewen3-game-page .time-logo {
+  top: 9px;
+  right: 8px;
+  width: 107px;
+  height: 32px;
+  border-radius: 0;
+  background-position: 0px -90px;
+  font-family: lewen3;
+}
+.lewen3-game-page .time-logo span {
+  position: relative;
+  font-size: 20px;
+  left: 5px;
+  top: 8px;
+  transform: translatez(0);
+  display: inline-block;
+}
+.lewen3-game-page .countdown {
+  animation: timeCount 0.5s infinite alternate;
+  -webkit-animation: timeCount 0.5s infinite alternate;
+  /*Safari and Chrome*/
+
+}
+@keyframes timeCount {
+  to {
+  transform: scale(3, 3);
+}
+
+}
+@-webkit-keyframes timeCount {
+  to {
+  -webkit-transform: scale(3, 3);
+}
+
+}
+.lewen3-game-page .explosion {
+  -webkit-animation: explosion 0.6s steps(6) forwards;
+  animation: explosion 0.6s steps(6) forwards;
+}
+@-webkit-keyframes explosion {
+  0% {
+  background-position-y: 0;
+}
+100% {
+  background-position-y: -476px;
+}
+
+}
+@keyframes explosion {
+  0% {
+  background-position-y: 0;
+}
+100% {
+  background-position-y: -476px;
+}
+
+}

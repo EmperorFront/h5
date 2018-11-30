@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui,  viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="csrf-token">
+    <title> 乐问两周年 </title>
+
+    <script type="text/javascript">
+        var current_user = '{{{ Session::get("user") }}}';
+        var pkm_path = '{{{ Config::get("app.pkm_path") }}}';
+        var pkm_api_path = '{{{ Config::get("app.pkm_api_path") }}}';
+        var km_path = '{{{ Config::get("app.km_path") }}}';
+        var ua_type = '{{{ get_user_agent() }}}';
+        // var pkm_code = {{ json_encode(Config::get("errcode")) }};
+        //用于H5查看大图的token
+        var preview_image_token = '{{ gen_token(3600 * 2) }}';
+        //判断当前是否为H5页面 0为是
+        var is_h5 = '{{{ preg_match("/iOS KM|Android KM/i", $_SERVER["HTTP_USER_AGENT"]) }}}';
+        var is_qywx = '{{ is_qywx() }}'
+    </script>
+    <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+
+    <script src="raven.min.js"></script>
+
+    <script type="text/javascript" src="common.js"></script>
+    <script type="text/javascript" src="jweixin-1.0.0.js"></script>
+    <!-- 是否显示vconsole调试工具 -->
+    <?php echo get_vconsole_tool(); ?>
+    <script type="text/javascript">
+        function WeixinJSAPIReady(callback){
+            if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+                callback();
+            } else {
+                if (document.addEventListener) {
+                    document.addEventListener("WeixinJSBridgeReady", callback, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent("WeixinJSBridgeReady", callback);
+                    document.attachEvent("onWeixinJSBridgeReady", callback);
+                }
+            }
+        }
+
+        // wx.config({
+        //     beta: true,
+        //     debug: false,
+        //     appId: 'wxab249edd27d57738',
+        //     timestamp: <?php echo $jssdk_signpackage["timestamp"];?>,
+        // nonceStr: '<?php echo $jssdk_signpackage["nonceStr"];?>',
+        //     signature: '<?php echo $jssdk_signpackage["signature"];?>',
+        //     jsApiList: [
+        //     'onMenuShareTimeline',
+        //     'onMenuShareAppMessage',
+        //     'getNetworkType',
+        //     'hideOptionMenu',
+        //     'showOptionMenu',
+        //     'previewImage',
+        //     'hideMenuItems',
+        //     'getRecevieBizHongBaoRequest',
+        //     'getBrandWCPayRequest',
+        //     'openUrlWithExtraWebview'
+        // ]
+        // });
+    </script>
+</head>
+<body>
+<div class="body-container">
+    <link rel="stylesheet" href="lewen3anniversary.css">
+
+    <!-- lewen三周年数据 -->
+    <span   id="js-lewen3-data" class="js-lewen3-data js-share-to-wechat-data js-share-to-ikm-data hide"
+            data-title="乐问三周年挑赞达人，据说100%有奖？"
+            data-pkmpath="{{{ Config::get('app.pkm_path') }}}"
+            data-sharelink="{{{ Config::get('app.pkm_path') . '/episodes/lewen-game-share?share_begin=1' }}}"
+            data-sharelinkkm="{{{ Config::get('app.pkm_path') . '/episodes/lewen-game-share?share_begin=1' }}}"
+            data-shareicon="http://km-10029162.cos.myqcloud.com/assets/img/share-icon-100.png">我正在参加乐问三周年挑赞达人活动，秒破百赞拿好礼就看今天！ </span>
+
+    <div class="absolute screen relative loading-page hide">
+        <div class="loading-page-area relative">
+            <div id="loading-left" class="active absolute icon-loading-left bg-sprite-loading"></div>
+            <div id="loading-right" class="hide absolute icon-loading-right bg-sprite-loading"></div>
+
+            <div class="absolute loading-progress-bar">
+                <div class="loading-progress-bar-inner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 活动首页 -->
+    <div class="screen active anniversary-home-bg relative lewen3-home-page hide">
+        <div class="absolute icon-header-logo home-page-header-logo bg-sprite"></div>
+        <div class="absolute icon-header-2 home-page-header-2 bg-sprite"></div>
+        <div class="absolute icon-header-1 home-page-header-1 bg-sprite"></div>
+
+        <div class="absolute bg-sprite icon-enter home-page-enter"></div>
+    </div>
+
+    <!-- 版本不符合要求弹窗 -->
+    <div class="screen absolute lewen3-version-promote-page hide">
+        <div class="absolute bg-sprite-2 lewen3-version-promote icon-lewen3-version-promote"></div>
+        <a href="http://km.tencent.com/openkm/pages/download">
+            <div class="absolute bg-sprite-2 lewen3-version-confirm icon-lewen3-version-confirm"></div>
+        </a>
+    </div>
+
+    <!-- 游戏界面 -->
+    <div class="absolute screen lewen3-game-page hide">
+        <!-- 游戏模块 -->
+        <div class="collect-thumbs">
+        </div>
+    </div>
+
+    <!-- 游戏后页面 -->
+    <div class="absolute screen lewen3-game-page-cover hide">
+        <!-- 游戏规则 -->
+        <div class="absolute lewen3-game-page-enter-confirm icon-enter-confirm bg-sprite-2 hide">
+            <div class="absolute bg-sprite-2 lewen3-game-start icon-lewen3-game-start"></div>
+        </div>
+
+        <!-- 游戏结束弹窗 -->
+        <div class="absolute bg-sprite-2 lewen3-game-end-promote icon-lewen3-game-end-promote hide"></div>
+
+        <!-- 挑战失败 -->
+        <div class="absolute screen lewen3-game-fail-page hide">
+            <div class="absolute bg-sprite icon-fail-light fail-light"></div>
+            <div class="absolute bg-sprite-2 icon-fail-ding fail-ding"></div>
+            <div class="absolute bg-sprite icon-result-count result-count">
+                    <span class="result-count-area">
+                        <span class="fail-result-page-count result-page-count">100</span>
+                        <span class="absolute bg-sprite icon-result-count-zan result-count-zan"></span>
+                    </span>
+            </div>
+            <div class="absolute fail-words">还差<span class="fail-words-count-left">20赞</span>就能成为百赞达人!</div>
+            <div class="absolute bg-sprite-2 icon-fail-play-again fail-play-again"></div>
+            <div class="absolute bg-sprite-2 icon-fail-share fail-share"></div>
+        </div>
+
+        <!-- 未拆宝箱页面 -->
+        <div class="screen lewen3-result-page-unchecked hide">
+            <div class="absolute bg-sprite icon-result-count result-count">
+                    <span class="result-count-area">
+                        <span class="result-page-count"></span>
+                        <span class="absolute bg-sprite icon-result-count-zan result-count-zan"></span>
+                    </span>
+            </div>
+            <div class="absolute bg-sprite icon-result-light result-light"></div>
+            <div class="absolute bg-sprite icon-result-gift result-gift"></div>
+            <div class="absolute bg-sprite result-tip icon-result-tip"></div>
+
+            <div class="absolute bg-sprite icon-result-ribbon-1 result-ribbon-1"></div>
+            <div class="absolute bg-sprite icon-result-ribbon-2 result-ribbon-2"></div>
+            <div class="absolute bg-sprite icon-result-ribbon-3 result-ribbon-3"></div>
+            <div class="absolute bg-sprite icon-result-ribbon-4 result-ribbon-4"></div>
+        </div>
+
+        <!-- 拆开后页面 -->
+        <div class="absolute screen lewen3-result-gift-page cover-page-bg hide">
+            <div class="absolute bg-sprite icon-result-light gift-page-light"></div>
+            <div class="absolute gifts-sprite game-prize-div"></div>
+            <div class="absolute bg-sprite icon-result-congratulation result-congratulation"></div>
+            <div class="absolute result-words">获得<span class="result-prize-name"></span></div>
+            <div class="absolute bg-sprite result-share-btn icon-result-share-btn"></div>
+            <div class="absolute result-prize-tip">感谢本次活动合作伙伴</div>
+            <div class="absolute bg-sprite result-responsor icon-result-responsor"></div>
+            <div class="absolute result-creator begin-result-creator">奖品领取请关注KM平台通知</div>
+        </div>
+
+        <!-- 礼物为空页面 -->
+        <div class="absolute screen empty-gifts-page hide">
+            <div class="absolute bg-sprite icon-fail-light fail-light"></div>
+            <div class="absolute bg-sprite-2 icon-fail-ding fail-ding"></div>
+            <div class="absolute bg-sprite icon-fail-no-prize fail-no-prize"></div>
+            <div class="absolute fail-no-prize-words">哎呀，手气有点差！</div>
+            <div class="absolute bg-sprite result-responsor icon-result-responsor"></div>
+            <div class="absolute result-creator">KM平台出品</div>
+        </div>
+    </div>
+
+    <!-- 玩完游戏再进入 展示结果 -->
+    <div class="absolute screen lewen3-result-gift-page lewen3-end-page lewen3-end-page-bg hide">
+        <div class="absolute screen cover-page-bg">
+            <div class="absolute bg-sprite icon-result-light gift-page-light"></div>
+            <div class="absolute gifts-sprite end-page-result-gift"></div>
+            <div class="absolute bg-sprite icon-result-congratulation result-congratulation"></div>
+            <div class="absolute result-words">获得<span class="end-page-prize-name result-prize-name"></span></div>
+            <div class="absolute bg-sprite result-share-btn icon-result-share-btn"></div>
+            <div class="absolute result-prize-tip">感谢本次活动合作伙伴</div>
+            <div class="absolute bg-sprite result-responsor icon-result-responsor"></div>
+            <div class="absolute result-creator end-page-creator">奖品领取请关注KM平台通知</div>
+        </div>
+    </div>
+
+    <!-- 游戏时间过期 -->
+    <div class="screen absolute expired-page hide"></div>
+
+    <!-- 箭头分享页面 -->
+    <div class="absolute screen arrow-share-page arrow-share-page-bg hide">
+        <div class="absolute icon-share-arrow share-arrow bg-sprite-2"></div>
+    </div>
+
+    <script type="text/javascript">
+        // 版本是否符合
+        var is_version_ok = true;
+        // 判断终端版本
+        var is_ios = true;
+
+        // 检查手机KM版本
+        // if iOS 低于5.8.0, 提示升级
+        // if Android 低于5.8.3, 提示升级.
+        // 刚好等于或大于该版本的不提示.
+
+        connectWebViewJavascriptBridge(function (bridge) {
+
+            bridge.invoke('getClientVersion', {}, function (response) {
+                if (response && response.OS && response.KM) {
+                    var os = response.OS.split(' ');
+
+                    if (os[0] == 'iOS' && os[1] && response.KM < '5.8.0') {
+                        is_version_ok = false;
+                    } else if (os[0] == 'Android' && os[1] && response.KM < '5.8.3') {
+                        is_version_ok = false;
+                    } else {
+                        is_version_ok = true;
+                    }
+
+                    if (os[0] == 'Android') {
+                        is_ios = false;
+                        $('#js-lewen3-data').data('shareicon', 'http://km.oa.com/files/photos/pictures/201608/1470978663_67_w100_h100.png');
+                    } else if (os[0] == 'iOS') {
+                        is_ios = true;
+                        $('#js-lewen3-data').data('shareicon', 'https://km-10029162.file.myqcloud.com/assets/img/share-icon-100.png');
+                    };
+                }
+            });
+        });
+
+        // 资源预加载
+        var images = new Array();
+        function preload(imgs) {
+
+            for (var i = 0; i < imgs.length; i++) {
+                images[i] = new Image();
+                images[i].src = imgs[i];
+            };
+        }
+
+        // 游戏页面所需资源
+        var begin_gifts = new Array(
+            "https://km-10029162.file.myqcloud.com/assets/img/loading-sprite.png",
+            "https://km-10029162.file.myqcloud.com/assets/img/loading-bg.png",
+            "https://km-10029162.file.myqcloud.com/assets/img/sprites1.png",
+            "https://km-10029162.file.myqcloud.com/assets/img/sprites2.png",
+            "https://km-10029162.file.myqcloud.com/assets/img/home-bg.png",
+            "https://km-10029162.file.myqcloud.com/assets/img/gifts-sprite.png",
+            "https://km-10029162.file.myqcloud.com/assets/img/thumbs.png"
+        );
+
+        var end_gifts = new Array(
+            "https://km-10029162.file.myqcloud.com/assets/img/loading-bg.png",
+            "https://km-10029162.file.myqcloud.com/assets/img/sprites1.png",
+            "https://km-10029162.file.myqcloud.com/assets/img/sprites2.png",
+            "https://km-10029162.file.myqcloud.com/assets/img/gifts-sprite.png"
+        );
+
+        var expired_gifts = new Array(
+            "https://km-10029162.file.myqcloud.com/assets/img/expired.png"
+        );
+
+        // 乐问三周年app
+        var lewen3_app = {
+
+            // page变量
+         //   _page: "<?php echo $page; ?>",
+            _page: "begin",
+            // 当前页面
+            _current_screen: 1,
+            // 当前得分
+            _score: 0,
+            // 获得礼物（若有）
+            _award: "<?php echo isset($award) ? $award : ''; ?>",
+            // 获得礼物的中文名字（若有）
+            _award_alias: "<?php echo isset($award_alias) ? $award_alias : ''; ?>",
+            // 加密过的用户名
+            _share_nick: "<?php echo isset($share_nick) ? $share_nick : ''; ?>",
+            // 初始化
+            init: function() {
+
+                // 初始化loading 游戏页才有loading
+                if (lewen3_app._page == 'begin') {
+                    $('.loading-page').removeClass('hide');
+                    lewen3_app.init_loading();
+                };
+                // 初始化屏幕高宽
+                lewen3_app.init_screen_size();
+                // 初始化下载
+                lewen3_app.init_download();
+                // 初始化事件
+                lewen3_app.init_events();
+                // 初始化分享（禁掉手K内QQ分享）
+                lewen3_app.init_share();
+            },
+            // 初始化分享内容
+            init_share: function() {
+
+                // 更新手K分享内容(禁掉手Q分享)
+                connectWebViewJavascriptBridge(function(bridge) {
+                    // 唤起手机km的分享
+                    var $share_to_wechat = $('.js-share-to-ikm-data');
+                    if ($share_to_wechat.length) {
+                        var title = $share_to_wechat.data('title');
+                        var desc = $share_to_wechat.text();
+                        var link = $share_to_wechat.data('sharelink');
+                        var link_km = $share_to_wechat.data('sharelinkkm');
+                        var img_url = $share_to_wechat.data('shareicon');
+                        bridge.invoke('setShareButton', {
+                                'shareWx': 1,
+                                'shareWxTimeline': 1,
+                                'shareTitle': title,
+                                'shareDescription': desc,
+                                'shareThumbUrl': img_url,
+                                'shareUrl': 'http://km.tencent.com/openkm/url?link=' + encodeURIComponent(link_km),
+                                'shareWxUrl': link,
+                                'shareWXUrl': link},
+                            function(response) {});
+                        bridge.registerHandler('clickShareButton', function() {});
+                    }
+                });
+            },
+            // 初始化下载
+            init_download: function() {
+
+                if (lewen3_app._page == 'begin') {
+                    preload(begin_gifts);
+                } else if (lewen3_app._page == 'end') {
+                    preload(end_gifts);
+                } else if (lewen3_app._page == 'expired') {
+                    preload(expired_gifts);
+                } else {
+
+                }
+            },
+            // 初始化loading
+            init_loading: function() {
+                $('.loading-progress-bar-inner').animate({width: '65%'}, 2500);
+            },
+            // 结束loading 显示活动页面
+            finish_loading: function() {
+                $('.loading-progress-bar-inner').animate({width: '100%'}, 700, function() {
+
+                    // 显示游戏首页
+                    if (lewen3_app._page == 'begin') {
+
+                        // 显示首页
+                        $('.lewen3-home-page').removeClass('hide');
+                        $('.loading-page').addClass('hide');
+                        $('.lewen3-home-page').addClass('active');
+
+                        // 若版本不符合要求 则提示升级手机KM版本
+                        if (!is_version_ok) {
+                            $('.lewen3-version-promote-page').removeClass('hide');
+                        };
+                    }
+                });
+            },
+            // 结束下载资源 根据不同条件显示不同页面
+            finish_download: function() {
+                if (lewen3_app._page == 'end') {
+
+                    // 更新个人结果页面数据
+                    if (lewen3_app._award != '') {
+
+                        $('.end-page-prize-name').text(lewen3_app._award_alias);
+                        $('.end-page-result-gift').addClass(lewen3_app._award);
+                        $('.end-page-result-gift').addClass("icon-" + lewen3_app._award);
+
+                        // 显示个人结果页
+                        $('.lewen3-end-page').removeClass('hide');
+                        $('.loading-page').addClass('hide');
+                        $('.lewen3-end-page').addClass('active');
+
+                        // 更新分享内容
+                        lewen3_app.change_share_content(1);
+                    };
+
+                } else if (lewen3_app._page == 'expired') {
+
+                    // 过期页面
+                    $('.expired-page').removeClass('hide');
+                } else {
+
+                }
+            },
+            // 初始化屏幕宽高
+            init_screen_size: function() {
+                var screen_height = $('body').height();
+                var screen_width = $('body').width();
+                $('.screen').height(screen_height);
+                $('.screen').width(screen_width);
+            },
+            // 打开拆宝箱页面
+            show_open_prize_page: function(score) {
+
+                // 改变结果页面获得赞的数量
+                $('.result-page-count').text(score);
+
+                $('.lewen3-result-page-unchecked').removeClass('hide');
+                $('.lewen3-result-page-unchecked').addClass('active');
+            },
+            // 展示游戏失败页面
+            show_failure: function(score) {
+
+                // 更新失败页面数据
+                $('.fail-result-page-count').text(score);
+                var remaining_count_left = 100 - score;
+                $('.fail-words-count-left').text(remaining_count_left + '赞');
+
+                $('.lewen3-game-page-cover').removeClass('hide');
+                $('.lewen3-game-fail-page').removeClass('hide');
+            },
+            // 根据类型修改分享的内容
+            change_share_content: function(type) {
+
+                // 分享自己的奖品
+                if (lewen3_app._award != '') {
+                    if (lewen3_app._award != 'redenvelope1' && lewen3_app._award != 'redenvelope2' && lewen3_app._award != 'redenvelope3'
+                        && lewen3_app._award != 'redenvelope4' && lewen3_app._award != 'redenvelope5') {
+
+                        var share_words = '我在乐问三周年挑赞成功，获得' + lewen3_app._award_alias;
+                        var share_desc = '秒破百赞就看今天，一起开始挑赞达人吧！100%有奖这种事我怎么会乱说！';
+
+                        $('#js-lewen3-data').data('title', share_words);
+                        $('#js-lewen3-data').text(share_desc);
+                    } else {
+                        var share_words = '我在乐问三周年挑赞成功，获得现金红包';
+                        var share_desc = '秒破百赞就看今天，一起开始挑赞达人吧！100%有奖这种事我怎么会乱说！';
+
+                        $('#js-lewen3-data').data('title', share_words);
+                        $('#js-lewen3-data').text(share_desc);
+
+                        // 红包类型的奖品下方提示方式变更
+                        if (lewen3_app._page == 'end') {
+                            $('.end-page-creator').text('现金红包将于两小时内转入你的微信零钱中');
+                        } else if (lewen3_app._page == 'begin') {
+                            $('.begin-result-creator').text('现金红包将于两小时内转入你的微信零钱中');
+                        };
+                    }
+
+                    if (type == 1) {
+                        var pkm_path = $('#js-lewen3-data').data('pkmpath');
+
+                        var new_share_url = pkm_path + '/episodes/lewen-game-share?share=' + lewen3_app._share_nick;
+                        $('#js-lewen3-data').data('sharelink', new_share_url);
+                        $('#js-lewen3-data').data('sharelinkkm', new_share_url);
+                    } else if (type == 2) {
+                        var new_share_url = window.location.href;
+                        $('#js-lewen3-data').data('sharelink', new_share_url);
+                        $('#js-lewen3-data').data('sharelinkkm', new_share_url);
+                    }
+
+                    // 更新微信和手K分享内容
+                    share_to_wechat();
+                    connectWebViewJavascriptBridge(function(bridge) {
+                        // 唤起手机km的分享
+                        var $share_to_wechat = $('.js-share-to-ikm-data');
+                        if ($share_to_wechat.length) {
+                            var title = $share_to_wechat.data('title');
+                            var desc = $share_to_wechat.text();
+                            var link = $share_to_wechat.data('sharelink');
+                            var link_km = $share_to_wechat.data('sharelinkkm');
+                            var img_url = $share_to_wechat.data('shareicon');
+                            bridge.invoke('setShareButton', {
+                                    'shareWx': 1,
+                                    'shareWxTimeline': 1,
+                                    'shareTitle': title,
+                                    'shareDescription': desc,
+                                    'shareThumbUrl': img_url,
+                                    'shareUrl': 'http://km.tencent.com/openkm/url?link=' + encodeURIComponent(link_km),
+                                    'shareWxUrl': link,
+                                    'shareWXUrl': link},
+                                function(response) {});
+                            bridge.registerHandler('clickShareButton', function() {});
+                        }
+                    });
+                }
+            },
+            // ajax获取奖品
+            get_prize: function() {
+                $.ajax({
+                    url: pkm_api_path + '/episodes/lewen-game-gift',
+                    type: 'POST',
+                    dataType: 'json',
+                    timeout: 10000,
+                    success: function(data) {
+                        if (data.result == 'success') {
+                            var gift_name = data.gift;
+                            // 中文名字
+                            var gift_alias = data.gift_alias;
+
+                            if (gift_name != '') {
+                                // 更新数据
+                                lewen3_app._award = gift_name;
+                                lewen3_app._award_alias = gift_alias;
+                                setTimeout("lewen3_app.show_prize()", 600);
+
+                                lewen3_app.change_share_content(1);
+                            } else {
+                                alert('服务器很忙，请稍后再试~');
+                                // redis连接失败等 刷新页面
+                                lewen3_app.game_page_reload();
+                            }
+                        } else if (data.result == 'empty') {
+                            // 礼物为空
+                            setTimeout("lewen3_app.show_empty_page()", 900);
+
+                        } else if (data.result == 'fail') {
+                            alert('服务器很忙，请稍后再试~');
+                            // redis连接失败等 刷新页面
+                            lewen3_app.game_page_reload();
+                        };
+                    },
+                    error: function() {
+                        var data = {
+                            gift:'wzrylibai',
+                            gift_alias:'王者荣耀李白手办',
+                        }
+                        var gift_name = data.gift;
+                        // 中文名字
+                        var gift_alias = data.gift_alias;
+
+                        if (gift_name != '') {
+                            // 更新数据
+                            lewen3_app._award = gift_name;
+                            lewen3_app._award_alias = gift_alias;
+                            setTimeout("lewen3_app.show_prize()", 600);
+
+                            lewen3_app.change_share_content(1);
+                        } else {
+                            alert('服务器很忙，请稍后再试~');
+                            // redis连接失败等 刷新页面
+                            lewen3_app.game_page_reload();
+                        }
+                    }
+                });
+            },
+            // 游戏页面刷新
+            game_page_reload: function() {
+                // android ios分别刷新实现
+                if (is_ios) {
+                    location.reload(true);
+                } else {
+                    reload();
+                }
+            },
+            // 游戏结束 TODO
+            game_finish: function(score) {
+                $('.lewen3-game-page-cover').removeClass('hide');
+                $('.lewen3-game-end-promote').removeClass('hide');
+                $('.lewen3-game-end-promote').addClass('active');
+
+                lewen3_app._score = score;
+            },
+            // 展示最后奖品
+            show_prize: function() {
+                var gift_name = lewen3_app._award;
+                var gift_alias = lewen3_app._award_alias;
+
+                // 更新奖品页面
+                $('.result-prize-name').text(gift_alias);
+                $('.game-prize-div').addClass(gift_name);
+                $('.game-prize-div').addClass('icon-' + gift_name);
+
+                // 执行拆宝箱动画
+                $('.lewen3-result-page-unchecked').removeClass('active');
+                $('.lewen3-result-page-unchecked').addClass('anim');
+
+                // 显示结果页面
+                $('.lewen3-result-gift-page').removeClass('hide');
+                $('.lewen3-result-gift-page').addClass('active');
+            },
+            // 展示礼物为空页面
+            show_empty_page: function() {
+                $('.lewen3-result-page-unchecked').addClass('hide');
+                $('.empty-gifts-page').removeClass('hide');
+            },
+            // 初始化事件
+            init_events: function() {
+
+                // loading 左侧动画
+                $('#loading-left')[0].addEventListener('webkitAnimationEnd', function() {
+                    $('#loading-left').removeClass('active');
+                    $('#loading-left').addClass('hide');
+                    $('#loading-right').removeClass('hide');
+                    $('#loading-right').addClass('active');
+                });
+                // loading 右侧动画
+                $('#loading-right')[0].addEventListener('webkitAnimationEnd', function() {
+                    $('#loading-right').removeClass('active');
+                    $('#loading-right').addClass('hide');
+                    $('#loading-left').addClass('active');
+                    $('#loading-left').removeClass('hide');
+                });
+
+                // 点击拆礼盒
+                $('.result-gift').one('click', function() {
+                    $('.result-gift').addClass('anim');
+
+                    // 发请求拆礼盒
+                    lewen3_app.get_prize();
+                });
+
+                // 点击进入游戏界面
+                $('.home-page-enter').one('click', function() {
+                    $('.lewen3-game-page').removeClass('hide');
+                    $('.lewen3-game-page-cover').removeClass('hide');
+                    $('.lewen3-home-page').addClass('hide');
+
+                    $('.lewen3-game-page-enter-confirm').removeClass('hide');
+                    $('.lewen3-game-page-enter-confirm').addClass('active');
+                });
+
+                // 点击开始游戏
+                $('.lewen3-game-start').one('click', function() {
+                    // 开始游戏
+                    setTimeout(gameStart, 1000);
+
+                    $('.lewen3-game-page-cover').addClass('hide');
+                    $('.lewen3-game-page-enter-confirm').addClass('hide');
+                });
+
+                // 游戏失败页面 重新玩游戏
+                $('.fail-play-again').on('click', function() {
+                    $('.lewen3-game-fail-page').addClass('hide');
+                    $('.lewen3-game-page-cover').addClass('hide');
+
+                    // 重启游戏
+                    setTimeout(gameStart, 1000);
+                });
+
+                // 绑定游戏结束弹窗动画
+                if ($('.lewen3-game-end-promote').length > 0) {
+                    $('.lewen3-game-end-promote')[0].addEventListener('webkitAnimationEnd', function() {
+
+                        $('.lewen3-game-end-promote').addClass('hide');
+
+                        if (lewen3_app._score >= 100) {
+                            lewen3_app.show_open_prize_page(lewen3_app._score);
+                        } else {
+                            lewen3_app.show_failure(lewen3_app._score);
+                        }
+                    });
+                }
+
+                // 点击唤起分享
+                $('.result-share-btn').on('click', function() {
+                    $('.arrow-share-page').show();
+                });
+                $('.lewen3-game-fail-page').delegate('.fail-share', 'click', function() {
+                    $('.arrow-share-page').show();
+                });
+                $('.arrow-share-page').on('click', function() {
+                    $('.arrow-share-page').hide();
+                });
+            }
+        };
+
+        $(function() {
+            // app初始化
+            lewen3_app.init();
+            // lewen3_app.init_events();
+
+            // 初始化微信分享
+            share_to_wechat();
+        });
+
+        // 资源加载完毕 隐藏loading页面 显示活动页面
+        $(window).load(function () {
+            // 只有游戏页面显示loading
+            if (lewen3_app._page == 'begin') {
+                lewen3_app.finish_loading();
+            } else {
+                lewen3_app.finish_download();
+            }
+        });
+
+
+
+
+        // 游戏部分代码
+        document.body.addEventListener("touchmove", function(e){
+            e.preventDefault();
+        }, true);
+        var collectThumbs = {
+            score: 0,
+            initWidth: window.screen.width - 80,
+            html: '',
+            height: window.screen.height - 180,
+            time: 20,
+            flag: 1,
+            timeInterval: 0,
+            currTicket: (new Date()).valueOf(),
+            init: function(){
+                collectThumbs.score = 0;
+                collectThumbs.time = 20;
+                collectThumbs.flag = 1;
+                $('.collect-thumbs').height(window.screen.height);
+                collectThumbs.html = '<div class="score-logo sprite-merge"><span class="score">0</span></div><div class="time-logo sprite-merge"><span class="time">0</span></div><div class="ding-logo sprite-merge"></div>';
+
+                //构造池子,这里改成join
+                for(var i =0; i < 4; i++){
+                    collectThumbs.html += "<div class='normal-like hide sprite-merge' style='left:" + Math.ceil(collectThumbs.initWidth * Math.random()) + "px'></div>";
+                }
+                for (var i =0; i < 1; i++){
+                    collectThumbs.html += "<div class='middle-like middle-like" + Math.ceil(10 * Math.random()) + " hide sprite-merge' style='left:" + Math.ceil(collectThumbs.initWidth * Math.random()) + "px'></div>";
+                    collectThumbs.html += "<div class='plus plus5 sprite-merge'></div>";
+                }
+                for (var i =0; i < 1; i++){
+                    collectThumbs.html += "<div class='heigh-like heigh-like" + Math.ceil(10 * Math.random()) + " hide sprite-merge' style='left:" + Math.ceil(collectThumbs.initWidth * Math.random()) + "px'></div>";
+                    collectThumbs.html += "<div class='plus plus10 sprite-merge'></div>";
+                }
+                for (var i =0; i < 3; i++){
+                    //产品还没定型，猜测加5,10，可能没有这么多，因此拿到赞那里初始化
+                    collectThumbs.html += "<div class='plus plus1 sprite-merge'></div>";
+                }
+                for(var i=1; i < 10; i++){
+                    collectThumbs.html += "<div class='ad-sprite like-ad" + i + " sprite-merge'></div>";
+                }
+                $('.collect-thumbs').html(collectThumbs.html);
+                //得分逻辑
+                var _this;
+                $('.normal-like').bind('touchstart', function(){
+                    _this = $(this);
+                    if(!_this.hasClass('explosion'))
+                        showScorePlus(_this,1);
+                });
+
+                $('.middle-like').bind('touchstart', function(){
+                    _this = $(this);
+                    if(!_this.hasClass('explosion'))
+                        showScorePlus(_this,5);
+                });
+
+                $('.heigh-like').bind('touchstart', function(){
+                    _this = $(this);
+                    if(!_this.hasClass('explosion'))
+                        showScorePlus(_this,10);
+                });
+            }
+        };
+        function showScorePlus(_this,_score){
+            //每次创建都要新的并回收，这里可以全局化
+            //展示加分及广告
+            var thePlus;
+            var theAd;
+            switch(_score){
+                case 1:
+                    thePlus = $('.plus1:hidden:first');
+                    break;
+                case 5:
+                    thePlus = $('.plus5:first');
+                    theAd = $('.like-ad' + ( 1 + parseInt(9 * Math.random())));
+                    break;
+                case 10:
+                    thePlus = $('.plus10:first');
+                    theAd = $('.like-ad' + ( 1 + parseInt(9 * Math.random())));
+                    _score = 5;
+                    break;
+            }
+            //爆炸效果
+            _this.addClass('explosion');
+            //加分效果
+            thePlus.css({ 'top':_this.position().top, 'left':_this.position().left + 40 });
+            thePlus.addClass('flow-up');
+            thePlus.fadeToggle(300);
+            if(theAd){
+                theAd.css({ 'top':_this.position().top - 5, 'left':_this.position().left + 75 });
+                theAd.addClass('flow-up');
+                theAd.fadeToggle(300);
+                theAd.fadeToggle(450);
+            }
+            thePlus.fadeToggle(470);
+            _this.stop();
+            setTimeout(function(){
+                _this.addClass('hide');
+                _this.removeClass('explosion');
+                //重新定位
+                _this.css('left', Math.ceil(collectThumbs.initWidth * Math.random()) + 'px');
+            },470);
+
+            //展示分数，中断动画
+            collectThumbs.score += _score;
+            $('.score').html(collectThumbs.score);
+
+
+        }
+        //move
+        function move(nextMove){
+            var a = nextMove;
+            for(var i = 0; i < nextMove.length && i < ( 21 - collectThumbs.time ); i++){
+                nextMove[i].removeClass('hide');
+                nextMove[i].animate({top:collectThumbs.height + 'px'}, 1500 + 1500 * Math.random(), 'linear', function(){
+                    if(!$(this).hasClass('hide')){$(this).addClass('hide');}
+                });
+            }
+        }
+        function timeChange(){
+            collectThumbs.time --;
+            if(collectThumbs.time == 5){
+                $('.time').addClass('countdown');
+            }
+            if(collectThumbs.time <= 0 && collectThumbs.flag){
+                collectThumbs.flag = 0;
+                if(collectThumbs.score >= 100){
+                    lewen3_app.game_finish(collectThumbs.score);
+                }else{
+                    lewen3_app.game_finish(collectThumbs.score);
+                }
+                clearTimeout(collectThumbs.timeInterval);
+                $('.collect-thumbs').html('');
+            }
+            $('.time').html(collectThumbs.time);
+        }
+        function gameStart(){
+            collectThumbs.init();
+            //andriod手K规避左右滑动的问题
+            if (typeof km_util != 'undefined') {
+                km_util.go_back = function(){};
+            }
+            //开始计时
+            collectThumbs.timeInterval = setInterval(timeChange,1000);
+            //当选点消失，自己悄悄的异步修改其起始位置即可
+            //研究，这里的操作能否分多个帧完成
+            requestAnimationFrame(animationRender);
+            function animationRender() {
+                var now = (new Date()).valueOf();
+                if(now - collectThumbs.currTicket > 500) {
+                    collectThumbs.currTicket = now;
+                    //把消失的点初始化
+                    var nextMove = [];
+                    $('.collect-thumbs .hide').each(function(){
+                        $(this).css("top", "0px");
+                        nextMove.push($(this));
+                    });
+                    //move
+                    move(nextMove);
+                }
+                requestAnimationFrame(animationRender);
+            }
+        }
+    </script>
+
+</div>
+</body>
+</html>
