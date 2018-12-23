@@ -16,7 +16,7 @@
     document.body.appendChild(renderer.domElement);
 
     let bunny = new THREE.Object3D();
-    for(let i = 0; i < 20060; i++){
+    for(let i = 0; i < 2060; i++){
         let geometry = new THREE.SphereGeometry(0.5);
         let material = new THREE.MeshBasicMaterial({color: '#'+ Math.random().toString(16).substr(-6)});
         point = new THREE.Mesh(geometry, material);
