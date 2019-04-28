@@ -15,43 +15,24 @@
 				height: 500px;
 				font-size: 18px;
 			}
-			@keyframes rowupleft {
-				0% {
-					-webkit-transform: translate3d(0, 0, 0);
-					transform: translate3d(0, 0, 0);
-				}
-				100% {
-					-webkit-transform: translate3d(0, -307px, 0);
-					transform: translate3d(0, -307px, 0);
-				}
-			}
-			@keyframes rowupright {
-				0% {
-					-webkit-transform: translate3d(0, 0, 0);
-					transform: translate3d(0, 0, 0);
-				}
-				100% {
-					-webkit-transform: translate3d(0, -307px, 0);
-					transform: translate3d(0, -307px, 0);
-				}
-			}
 			.list{
 				width: 100%;
+				height: 400px;
 				border: 1px solid #999;
 				margin: 20px auto;
 				position: relative;
 				overflow: hidden;
 			}
 			.list .rowupleft{
-				-webkit-animation: 10s rowupleft linear infinite normal;
-				animation: 10s rowupleft linear infinite normal;
+				-webkit-animation: 6s rowupleft linear infinite normal;
+				animation: 6s rowupleft linear infinite normal;
 				position: relative;
 				float: left;
 				width: 49%;
 			}
 			.list .rowupright{
-				-webkit-animation: 3s rowupright linear infinite normal;
-				animation: 3s rowupright linear infinite normal;
+				-webkit-animation: 4s rowupright linear infinite normal;
+				animation: 4s rowupright linear infinite normal;
 				position: relative;
 				float: right;
 				width: 49%;
@@ -162,7 +143,6 @@
 				document.querySelector('.list .ccleft').className += ' rowupleft'; // 添加 rowup
 			}					
 			initleft();
-			
 			function initright(){
 				//右边的数据
 				var data = '羌管悠悠霜满地，人不寐，将军白发征夫泪。塞下秋来风景异，衡阳雁去无留意。四面边声连角起，千嶂里，长烟落日孤城闭。浊酒一杯家万里，燕然未勒归无计。', //样例数据
@@ -181,10 +161,8 @@
 				addKeyFramesleft( '-'+height+'px' ); // 设置keyframes
 				document.querySelector('.list .ccright').className += ' rowupright'; // 添加 rowup
 			}
-			
 			initright();
 		}
 		init(); 
 	</script>
-
 </html>
