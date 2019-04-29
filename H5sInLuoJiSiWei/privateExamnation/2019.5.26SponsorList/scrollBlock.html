@@ -23,7 +23,7 @@
 			}
 			.list{
 				width: 100%;
-				height: 400px;
+				height: 166px;
 				border: 1px solid #999;
 				margin: 20px auto;
 				position: relative;
@@ -43,9 +43,23 @@
 				float: right;
 				width: 49%;
 			}
-			.item {
-
+			.name {
+				font-size: 15px;
 			}
+			.position {
+				font-size: 12px;
+				color: #666666;
+				margin-top: 2px;
+			}
+			.item {
+				margin-top: 15px;
+			}
+			/* 左右定制化 */
+			.ssleft {
+				padding-left: 10px;
+				padding-right: 5px;
+			}
+
 		</style>
 		<script type="text/javascript" src="js/libs/zepto-1.2.0.min.js"></script>
 		<script type="text/javascript" src="js/libs/data.js"></script>
@@ -69,6 +83,11 @@
 		</div>
 	</body>
 	<script type="text/javascript">
+		let option = {
+			current_scroll_page: 0,
+			onetime_count:11,
+		};
+
 		// 动态编辑css 覆盖 transform
 		function addKeyFramesright(height){
 			var style = document.createElement('style');
@@ -129,39 +148,49 @@
 			document.getElementsByTagName('head')[0].appendChild(style);
 		}
 		function init(){
+
 			console.log(list);
+			
 			function initleft(){
 				//左边的数据
-				var data = '塞下秋来风景异，衡阳雁去无留意。四面边声连角起，千嶂里，长烟落日孤城闭。浊酒一杯家万里，燕然未勒归无计。羌管悠悠霜满地，人不寐，将军白发征夫泪。', //样例数据
-					data_len = data.length,//数据的文字数
-					len = parseInt(Math.random()*6)+6, // 数据的长度
-					html = '<div class="ssleft">';
-				
-				for(var i=0; i<len; i++){
-					var start = parseInt( Math.random()*(data_len-20) ),
-						s = parseInt( Math.random()*data_len );
-					html += '<div class="item">'+i+'- '+data.substr(start, s)+'</div>';
+				let count = parseInt(Math.random()*6)+6; // 数据的长度
+				//拼装第一屏数据
+				let html = '<div class="ssleft">';
+				for(var i=0; i<count; i++){
+					let name = list[option.current_scroll_page +i].name;
+					let position = list[option.current_scroll_page +i].position;
+					html += `<div class="item">
+						 <div class="name">${name}</div>
+						 <div class="position">${position}</div>
+						</div>`;
 				}
 				html += '</div>';
+				//拼装接续数据
+				
 				document.querySelector('.list .ccleft').innerHTML = html+html; // 复制一份数据
 				var height = document.querySelector('.list .ssleft').offsetHeight; // 一份数据的高度
 				addKeyFramesright( '-'+height+'px' ); // 设置keyframes
 				document.querySelector('.list .ccleft').className += ' rowupleft'; // 添加 rowup
+				
+				//新增条数。
+				option.current_scroll_page += count;
 			}					
 			initleft();
 			function initright(){
-				//右边的数据
-				var data = '羌管悠悠霜满地，人不寐，将军白发征夫泪。塞下秋来风景异，衡阳雁去无留意。四面边声连角起，千嶂里，长烟落日孤城闭。浊酒一杯家万里，燕然未勒归无计。', //样例数据
-					data_len = data.length,//数据的文字数
-					len = parseInt(Math.random()*6)+8, // 数据的长度
-					html = '<div class="ssright">';
-				
-				for(var i=0; i<len; i++){
-					var start = parseInt( Math.random()*(data_len-20) ),
-						s = parseInt( Math.random()*data_len );
-					html += '<div class="item">'+i+'- '+data.substr(start, s)+'</div>';
+				//左边的数据
+				let count = option.onetime_count; // 数据的长度
+				//拼装第一屏数据
+				let html = '<div class="ssright">';
+				for(var i=0; i<count; i++){
+					let name = list[option.current_scroll_page +i].name;
+					let position = list[option.current_scroll_page +i].position;
+					html += `<div class="item">
+						 <div class="name">${name}</div>
+						 <div class="position">${position}</div>
+						</div>`;
 				}
 				html += '</div>';
+				//拼装接续数据
 				document.querySelector('.list .ccright').innerHTML = html+html; // 复制一份数据
 				var height = document.querySelector('.list .ssright').offsetHeight; // 一份数据的高度
 				addKeyFramesleft( '-'+height+'px' ); // 设置keyframes
