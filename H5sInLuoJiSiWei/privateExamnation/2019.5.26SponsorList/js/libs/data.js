@@ -106,7 +106,7 @@ let list = [
 ];
 
 
-document.querySelector('.scroll-block').innerHTML = `
+document.querySelector('#scroll-block').innerHTML = `
 <!-- 这一层是我的代码，指定高度即视区，宽度100% -->
 <div class="list">
 	<!-- 这一层是移动层，有滚动效果，该层不断加载销毁新数据，上移 -->
