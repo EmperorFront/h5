@@ -204,8 +204,17 @@ function initleft(){
 	}
 	html += '</div>';
 	//拼装接续数据
+	 html += '<div class="ssleft">';
+	for(let i=0; i<count; i++){
+		let name = list[option.current_scroll_page +i].name;
+		let position = list[option.current_scroll_page +i].position;
+		html += `<div class="item">
+			 <div class="name">${name}</div>
+			</div>`;
+	}
+	html += '</div>';
 	
-	document.querySelector('.list .ccleft').innerHTML = html+html; // 复制一份数据
+	document.querySelector('.list .ccleft').innerHTML = html; // 复制一份数据
 	let height = document.querySelector('.list .ssleft').offsetHeight; // 一份数据的高度
 	addKeyFramesright( '-'+height+'px' ); // 设置keyframes
 	document.querySelector('.list .ccleft').className += ' rowupleft'; // 添加 rowup

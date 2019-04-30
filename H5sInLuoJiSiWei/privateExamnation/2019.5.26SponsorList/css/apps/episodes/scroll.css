@@ -12,8 +12,8 @@
 	overflow: hidden;
 }
 .list .rowupleft{
-	-webkit-animation: 6s rowupleft linear infinite normal;
-	animation: 6s rowupleft linear infinite normal;
+	-webkit-animation: 6s rowupleft linear 1 normal;
+	animation: 6s rowupleft linear 1 normal;
 	position: relative;
 	float: left;
 	width: 49%;
