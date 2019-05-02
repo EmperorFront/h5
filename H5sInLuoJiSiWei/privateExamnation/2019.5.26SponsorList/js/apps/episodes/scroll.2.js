@@ -80,8 +80,8 @@ function editDom (block) {
 	//删除老的dom
 	$(block.children('.item')[0]).remove();
 	//追加新的dom
-	if(!list[option.current_scroll_page +1]){
-		current_scroll_page = 0;
+	if(option.current_scroll_page +1 >= list.length){
+		option.current_scroll_page = 0;
 	}
 	let name = list[option.current_scroll_page +1].name;
 	let position = list[option.current_scroll_page + 1	].position;
