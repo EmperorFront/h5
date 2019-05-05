@@ -7,6 +7,7 @@ let list = [{"name":"张晓男","position":"军人"},{"name":"朱玲","position"
 document.querySelector('#scroll-block').innerHTML = `
 <!-- 这一层是我的代码，指定高度即视区，宽度100% -->
 <div class="list">
+	<img src="http://piccdn.igetget.com/img/201905/05/201905052003256579196938.png" class="transparency"/>
 	<!-- 这一层是移动层，有滚动效果，该层不断加载销毁新数据，上移 -->
 	<div class="ccleft rowupleft" id="left-block">
 		<!-- 这里边添加item一项项，一行行 -->

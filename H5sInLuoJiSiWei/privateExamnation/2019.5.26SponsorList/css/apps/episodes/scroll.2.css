@@ -40,3 +40,8 @@
 	padding-left: 10px;
 	padding-right: 5px;
 }
+.transparency {
+	position: absolute;
+    z-index: 1;
+    width: 100%;
+}
