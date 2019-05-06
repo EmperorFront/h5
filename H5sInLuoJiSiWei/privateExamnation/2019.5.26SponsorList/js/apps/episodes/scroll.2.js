@@ -19,7 +19,7 @@ document.querySelector('#scroll-block').innerHTML = `
 `; 
 let option = {
 	current_scroll_page: 0,
-	onetime_count:5,
+	onetime_count:6,
 	left_height: 100,
 	speed: 1,
 	right_height:100,
