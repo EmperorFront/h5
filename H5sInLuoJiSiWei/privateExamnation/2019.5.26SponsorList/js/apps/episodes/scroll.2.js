@@ -11,20 +11,23 @@ if(ua.indexOf('igetapp') && Asio.send()){
 	//获取用户id
 	Asio.send('agent.info').then(res =>{
 		console.log(res);
-		user_id = res.data.id;
+		user_id = res.data.userid;
 		
 		//获取用户信息
 		Asio.send('network.load', {
 			url: '$_ENTREE_DOMAIN_$/gifts/v1/honor/patron/info',
 			method: 'GET',
 			params: {
-			  user_id: 1
+			  user_id: user_id
 			},
 			contentType: 'application/json',
 			proxyType: 'gateway/entree',
 		  }).then(res => {
-			console.log(res);
-			list[9]= res.data.list;
+			if(res.status_code == 0){
+				let chname = res.name;
+				let chposition = res.position;
+				list[9] = {name:chname,position:chposition};
+			}
 		  })
 	});
   }
@@ -42,7 +45,7 @@ document.querySelector('#scroll-block').innerHTML = `
 			<!-- 这里边添加item一项项，一行行 -->
 		</div>
 	</div>
-</div>
+</div> 
 `; 
 let option = {
 	current_scroll_page: 0,
