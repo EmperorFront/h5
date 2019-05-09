@@ -5,7 +5,7 @@ let list = [{"name":"张晓男","position":"军人"},{"name":"朱玲","position"
 // 判断环境
 let ua = navigator.userAgent;
 //app内
-if(ua.indexOf('igetapp')){
+if(ua.indexOf('igetapp') && Asio){
 	let user_id = 1;
 	console.log('is app');
 	//获取用户id
