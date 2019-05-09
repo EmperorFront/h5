@@ -110,13 +110,13 @@ function markHeight(block) {
 function moveAnimate () {
 	if (option.left_height > option.left_mgtop) {
 		option.left_mgtop += option.speed;
-		option.current_left_children.css("padding-top","-"+option.left_mgtop+"px");
+		option.current_left_children.css("margin-top","-"+option.left_mgtop+"px");
 	} else {
 		editDom(leftBlock);
 	}
 	if (option.right_height > option.right_mgtop) {
 		option.right_mgtop += option.speed;
-		option.current_right_children.css("padding-top","-"+option.right_mgtop+"px");
+		option.current_right_children.css("margin-top","-"+option.right_mgtop+"px");
 	} else {
 		editDom(rightBlock);
 	}
