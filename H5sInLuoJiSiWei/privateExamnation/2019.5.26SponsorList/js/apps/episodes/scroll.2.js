@@ -31,7 +31,7 @@ if(ua.indexOf('igetapp') && Asio.send('')){
 						<div class="name">${chname}</div>
 						<div class="position">${chposition}</div>
 					</div>`;
-				block.append(newElement);
+				leftBlock.append(newElement);
 			}
 		  })
 	});
