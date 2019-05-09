@@ -26,7 +26,7 @@ if(ua.indexOf('igetapp') && Asio.send()){
 			if(res.status_code == 0){
 				let chname = res.name;
 				let chposition = res.position;
-				list[9] = {name:chname,position:chposition};
+				list[9] ={}
 			}
 		  })
 	});
@@ -113,13 +113,13 @@ function markHeight(block) {
 function moveAnimate () {
 	if (option.left_height > option.left_mgtop) {
 		option.left_mgtop += option.speed;
-		leftBlock.css("padding-top","-"+option.left_mgtop+"px");
+		option.current_left_children.css("margin-top","-"+option.left_mgtop+"px");
 	} else {
 		editDom(leftBlock);
 	}
 	if (option.right_height > option.right_mgtop) {
 		option.right_mgtop += option.speed;
-		rightBlock.css("padding-top","-"+option.right_mgtop+"px");
+		option.current_right_children.css("margin-top","-"+option.right_mgtop+"px");
 	} else {
 		editDom(rightBlock);
 	}
