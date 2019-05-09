@@ -23,6 +23,7 @@ if(ua.indexOf('igetapp') && Asio.send()){
 			contentType: 'application/json',
 			proxyType: 'gateway/entree',
 		  }).then(res => {
+			  console.log(res);
 			if(res.status_code == 0){
 				let chname = res.name;
 				let chposition = res.position;
