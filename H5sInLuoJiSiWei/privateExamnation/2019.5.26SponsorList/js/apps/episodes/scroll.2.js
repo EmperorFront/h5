@@ -26,7 +26,7 @@ if(ua.indexOf('igetapp') && Asio.send('')){
 			if(res.status_code == 0){
 				let chname = res.data.name;
 				let chposition = res.data.position;
-				list[9] = {name:chname,position:chposition};
+				list[10] = {name:chname,position:chposition};
 				//dom操作改名字
 				$('.item')[10].innerHTML="<div class='name'>"+chname+"</div><div class='position'>"+chposition+"</div>";
 			}
