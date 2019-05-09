@@ -26,7 +26,7 @@ if(ua.indexOf('igetapp') && Asio.send()){
 			if(res.status_code == 0){
 				let chname = res.name;
 				let chposition = res.position;
-				list[9] ={}
+				list[9] = {name:chname,position:chposition};
 			}
 		  })
 	});
