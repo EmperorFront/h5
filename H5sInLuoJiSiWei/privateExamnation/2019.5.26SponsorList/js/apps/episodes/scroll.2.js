@@ -52,7 +52,15 @@ document.querySelector('#scroll-block').innerHTML = `
 		</div>
 	</div>
 </div> 
+<div id="button" onclick="jump();"></div>
 `; 
+function jump() {
+	Asio.send('jump.ddURL', {
+		ddURL: 'igetapp://activity/detail?url=https%3A%2F%2Fpiccdn.luojilab.com%2Ffe-oss%2Fdefault%2FMTU1Nzc0MzEzNTg5.html',
+		ddURLMinVer: '5.2.0'
+	})
+}
+let button = $()
 let option = {
 	current_scroll_page: 0,
 	onetime_count:6,
