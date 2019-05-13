@@ -33,11 +33,12 @@ if(ua.indexOf('igetapp') && Asio.send('')){
 					</div>`;
 				leftBlock.append(newElement);
 			}
-		  })
+		})
 	});
-  }
+}
 // 初始化
 document.querySelector('#scroll-block').innerHTML = `
+<div id="hoder"></div>
 <div id="scroll">
 	<!-- 这一层是我的代码，指定高度即视区，宽度100% -->
 	<div class="list">
