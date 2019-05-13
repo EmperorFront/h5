@@ -55,18 +55,38 @@ document.querySelector('#scroll-block').innerHTML = `
 <div id="button" onclick="jump();"></div>
 `; 
 function jump() {
-	if( Asio.compareVersion(window.___datasourse___.extra.version, '6.2.0') < 0 ){
-		Asio.send('jump.ddURL', {
-			ddURL: 'igetapp://activity/detail?url=https%3A%2F%2Fpiccdn.luojilab.com%2Ffe-oss%2Fdefault%2FMTU1Nzc0MzEzNTg5.html',
-			ddURLMinVer: '5.2.0'
-		})
+	if(ua.indexOf('igetapp') && Asio.send('')) {
+		//APP内
+		if( Asio.compareVersion(window.___datasourse___.extra.version, '6.2.0') < 0 ){
+			Asio.send('jump.ddURL', {
+				ddURL: 'igetapp://activity/detail?url=https%3A%2F%2Fpiccdn.luojilab.com%2Ffe-oss%2Fdefault%2FMTU1Nzc0MzEzNTg5.html',
+				ddURLMinVer: '5.2.0'
+			})
+		} else {
+			Asio.send('jump.ddURL', {
+				ddURL: 'igetapp://activity/special/sponsor',
+				ddURLMinVer: '6.2.0'
+			})
+		}
 	} else {
-		Asio.send('jump.ddURL', {
-			ddURL: 'igetapp://activity/special/sponsor',
-			ddURLMinVer: '6.2.0'
-		})
+		//App外
+		let href = window.location.href;
+		let reTest = /\/postertest\//
+		if (reTest.test(href)) {
+		  window.___datasourse___.env = 'testing';
+		  window.location.href = `http://m.iget.dev.didatrip.com/native/sponsor`;
+		}
+		let reSimu = /\/postersimu\//
+		if (reSimu.test(href)) {
+		  window.___datasourse___.env = 'simulation'
+		  window.location.href = `http://m.dev.igetget.com/native/sponsor`;
+		}
+		let reSimu = /\/poster\//
+		if (reSimu.test(href)) {
+		  window.___datasourse___.env = 'production'
+		  window.location.href = `http://m.igetget.com/native/sponsor`;
+		}
 	}
-
 }
 let button = $()
 let option = {
