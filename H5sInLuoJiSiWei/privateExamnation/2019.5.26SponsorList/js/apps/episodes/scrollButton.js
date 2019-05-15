@@ -1,7 +1,9 @@
 var onetime_click = 1;
 var Asio = Asio || {send:function(){}};
 // 初始化
-document.querySelector('#scroll-button').innerHTML = "<img src='https://piccdn.luojilab.com/fe-oss/default/MTU1NzkwODY5MzYz.png' style='width:100%;' onclick='jump();'>";
+$(function(){
+	document.querySelector('#scroll-button').innerHTML = "<img src='https://piccdn.luojilab.com/fe-oss/default/MTU1NzkwODY5MzYz.png' style='width:100%;' onclick='jump();'>";
+});
 function jump() {
 	if(onetime_click){
 		onetime_click = 0;	
