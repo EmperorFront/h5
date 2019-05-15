@@ -152,6 +152,9 @@ document.querySelector('#scroll-button').innerHTML = "<img src='https://piccdn.l
 function jump() {
 	if(onetime_click){
 		onetime_click = 0;	
+		setTimeout(function(){
+			onetime_click = 1;	
+		},300);
 		if(ua.indexOf('igetapp') && Asio.send('')) {
 			//APP内
 			if( Asio.compareVersion(window.___datasourse___.extra.version, '6.2.0') < 0 ){
