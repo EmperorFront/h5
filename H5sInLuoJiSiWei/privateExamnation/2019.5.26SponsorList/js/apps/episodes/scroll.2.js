@@ -56,9 +56,12 @@ document.querySelector('#scroll-block').innerHTML = `
 </div> 
 `; 
 
+//随机一个点位，从这个点位开始滚动
+let random = Math.ceil(Math.random()*list.length) - 50;
+
 let button = $()
 let option = {
-	current_scroll_page: 0,
+	current_scroll_page: random,
 	onetime_count:6,
 	left_height: 100,
 	speed: 1,
@@ -162,7 +165,7 @@ function jump() {
 					ddURLMinVer: '6.2.0'
 				})
 			}
-		} else {debugger;
+		} else {
 			//App外
 			let href = window.location.href;
 			let reTest = /\/postertest\//
