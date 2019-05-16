@@ -132,6 +132,11 @@ window.requestAnimationFrame(function () {
 //按钮
 var onetime_click = 1;
 var Asio = Asio || {send:function(){}};
+
+//更改这一行
+var lowVernChangeDANGEROUS = encodeURIComponent('https://piccdn.luojilab.com/fe-oss/default/index.html');
+
+
 // 初始化
 document.querySelector('#scroll-button').innerHTML = "<img src='https://piccdn.luojilab.com/fe-oss/default/MTU1NzkwODY5MzYz.png' style='width:100%;' onclick='jump();'>";
 function jump() {
@@ -144,7 +149,7 @@ function jump() {
 			//APP内
 			if( Asio.compareVersion(window.___datasourse___.extra.version, '6.2.0') < 0 ){
 				Asio.send('jump.ddURL', {
-					ddURL: 'igetapp://activity/detail?url=https%3A%2F%2Fpiccdn.luojilab.com%2Ffe-oss%2Fdefault%2FMTU1Nzc0MzEzNTg5.html',
+					ddURL: 'igetapp://activity/detail?url=' + lowVernChangeDANGEROUS,
 					ddURLMinVer: '5.2.0'
 				})
 			} else {
