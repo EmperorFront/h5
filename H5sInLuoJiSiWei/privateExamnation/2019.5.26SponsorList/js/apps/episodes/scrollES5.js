@@ -138,7 +138,7 @@ var lowVernChangeDANGEROUS = encodeURIComponent('https://piccdn.luojilab.com/fe-
 
 
 // 初始化
-document.querySelector('#scroll-button').innerHTML = "<img src='https://piccdn.luojilab.com/fe-oss/default/MTU1NzkwODY5MzYz.png' style='width:100%;' onclick='jump();'>";
+document.querySelector('#scroll-button').innerHTML = "<img src='https://piccdn.luojilab.com/fe-oss/default/MTU1ODM2MjkxNzA5.png' style='width:100%;' onclick='jump();'>";
 function jump() {
 	if(onetime_click){
 		onetime_click = 0;	
@@ -160,8 +160,8 @@ function jump() {
 			}
 		} else {
 			//App外
-			let href = window.location.href;
-			let reTest = /\/postertest\//
+			var href = window.location.href;
+			var reTest = /\/postertest\//
 			if (reTest.test(href)) {
 			window.___datasourse___.env = 'testing';
 			window.location.href = `http://m.iget.dev.didatrip.com/native/sponsor`;
