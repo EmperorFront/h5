@@ -137,7 +137,7 @@ var onetime_click = 1;
 var Asio = Asio || {send:function(){}};
 
 //更改这一行
-var lowVernChangeDANGEROUS = encodeURIComponent('https://piccdn.luojilab.com/fe-oss/default/index.html');
+var lowVernChangeDANGEROUS = encodeURIComponent('https://piccdn.luojilab.com/fe-oss/default/MTU1ODQ1MTMzOTc5.html');
 
 
 // 初始化
