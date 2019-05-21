@@ -58,7 +58,9 @@ document.querySelector('#scroll-block').innerHTML = `
 
 //随机一个点位，从这个点位开始滚动
 let random = Math.ceil(Math.random()*list.length) - 50;
-
+if(random < 1){
+	random += 50;
+  }
 let button = $()
 let option = {
 	current_scroll_page: random,

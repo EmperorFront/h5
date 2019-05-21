@@ -39,6 +39,9 @@ if (ua.indexOf('igetapp') && Asio.send('')) {
 document.querySelector('#scroll-block').innerHTML = "\n<div id=\"hoder\"></div>\n<div id=\"scroll\">\n\t<!-- \u8FD9\u4E00\u5C42\u662F\u6211\u7684\u4EE3\u7801\uFF0C\u6307\u5B9A\u9AD8\u5EA6\u5373\u89C6\u533A\uFF0C\u5BBD\u5EA6100% -->\n\t<div class=\"list\">\n\t\t<img src=\"https://piccdn.luojilab.com/fe-oss/default/MTU1NzkxOTY3ODg2.png\" class=\"transparency\"/>\n\t\t<!-- \u8FD9\u4E00\u5C42\u662F\u79FB\u52A8\u5C42\uFF0C\u6709\u6EDA\u52A8\u6548\u679C\uFF0C\u8BE5\u5C42\u4E0D\u65AD\u52A0\u8F7D\u9500\u6BC1\u65B0\u6570\u636E\uFF0C\u4E0A\u79FB -->\n\t\t<div class=\"ccleft rowupleft\" id=\"left-block\">\n\t\t\t<!-- \u8FD9\u91CC\u8FB9\u6DFB\u52A0item\u4E00\u9879\u9879\uFF0C\u4E00\u884C\u884C -->\n\t\t</div>\n\t\t<div class=\"ccright rowupright\" id=\"right-block\">\n\t\t\t<!-- \u8FD9\u91CC\u8FB9\u6DFB\u52A0item\u4E00\u9879\u9879\uFF0C\u4E00\u884C\u884C -->\n\t\t</div>\n\t</div>\n</div> \n"; //随机一个点位，从这个点位开始滚动
 
 var random = Math.ceil(Math.random() * list.length) - 50;
+if(random < 1) {
+  random += 50;
+}
 var button = $();
 var option = {
   current_scroll_page: random,
