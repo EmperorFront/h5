@@ -1,5 +1,4 @@
 #scroll {
-	/* back ground-color: aqua; */
 	width: 100%;
 	font-size: 18px;
 	background-image: url(https://piccdn.luojilab.com/fe-oss/default/MTU1NzczODE4MjY3.png);
@@ -10,7 +9,6 @@
 .list {
 	width: 83%;
 	height: 260px;
-	/* border: 1px solid #999; */
 	position: relative;
 	overflow: hidden;
 	margin: 0 auto;
