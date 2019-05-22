@@ -21,7 +21,7 @@ if (ua.indexOf('igetapp') && Asio.send('')) {
       params: {
         user_id: user_id
       },
-      contentType: 'application/json',
+      contentType: 'application/x-www-form-urlencoded',
       proxyType: 'gateway/entree'
     }).then(function (res) {
       if (res.status_code == 0 && res.data.name && res.data.position) {
