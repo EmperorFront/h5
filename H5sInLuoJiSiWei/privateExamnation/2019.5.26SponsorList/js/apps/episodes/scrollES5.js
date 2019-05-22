@@ -11,7 +11,8 @@ if (ua.indexOf('igetapp') && Asio.send('')) {
   var user_id = 0;
   console.log('is app'); //获取用户id
 
-  Asio.send('agent.info').finally(function (res) {
+  Asio.send('agent.info').then(function (res) {
+    console.log(res);
     user_id = res.data.userid; //获取用户信息
 
     Asio.send('network.load', {
