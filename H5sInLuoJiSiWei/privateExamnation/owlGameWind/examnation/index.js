@@ -206,21 +206,21 @@ Fan.prototype.update = function(xTarget, yTarget){//风扇自动更新原生函�
   this.tPosX = rule3(xTarget, -200, 200, -250, 250);//根据视野大小，鼠标位置，换算出风扇所应在的位置
   this.tPosY = rule3(yTarget, -200, 200, 250, -250);//猜测后边四个值为视区虚拟逻辑大小
 
-  this.threegroup.position.x += (this.tPosX - this.threegroup.position.x) /10;
+  this.threegroup.position.x += (this.tPosX - this.threegroup.position.x) /10;//风扇的移动速度是鼠标移动速度的1/10 //移动会柔和很多
   this.threegroup.position.y += (this.tPosY - this.threegroup.position.y) /10;
   
-  this.targetSpeed = (this.isBlowing) ? .3 : .01;
+  this.targetSpeed = (this.isBlowing) ? .3 : .01;//哈哈该变量全局未使用
   if (this.isBlowing && this.speed < .5){
     this.acc +=.001;
-    this.speed += this.acc;
+    this.speed += this.acc;//启动时加速匀速
   }else if (!this.isBlowing){
     this.acc = 0;
-    this.speed *= .98;
+    this.speed *= .98;//终止时减速匀速
   }
-  this.propeller.rotation.z += this.speed; 
+  this.propeller.rotation.z += this.speed; //转速
 }
 
-Lion = function(){
+Lion = function(){//狮子模型
   this.windTime = 0;
   this.bodyInitPositions = [];
   this.maneParts = [];
