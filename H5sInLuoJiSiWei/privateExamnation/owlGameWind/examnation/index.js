@@ -221,90 +221,90 @@ Fan.prototype.update = function(xTarget, yTarget){//风扇自动更新原生函�
 }
 
 Lion = function(){//狮子模型
-  this.windTime = 0;
-  this.bodyInitPositions = [];
-  this.maneParts = [];
-  this.threegroup = new THREE.Group();
-  this.yellowMat = new THREE.MeshLambertMaterial ({
+  this.windTime = 0;//风吹时间
+  this.bodyInitPositions = [];//身体初始化位置
+  this.maneParts = [];//鬃毛配件，随风飞舞
+  this.threegroup = new THREE.Group();//初始化一个3D组
+  this.yellowMat = new THREE.MeshLambertMaterial ({//黄色的材质，用于身体大部分
     color: 0xfdd276, 
     shading:THREE.FlatShading
   });
-  this.redMat = new THREE.MeshLambertMaterial ({
+  this.redMat = new THREE.MeshLambertMaterial ({//红色材质，用于鬃毛配件
     color: 0xad3525, 
     shading:THREE.FlatShading
   });
   
-  this.pinkMat = new THREE.MeshLambertMaterial ({
+  this.pinkMat = new THREE.MeshLambertMaterial ({//粉色材质，全局未使用，可以考虑做风吹变色
     color: 0xe55d2b, 
     shading:THREE.FlatShading
   });
   
-  this.whiteMat = new THREE.MeshLambertMaterial ({
+  this.whiteMat = new THREE.MeshLambertMaterial ({//白色材质，用于眼睛,材质默认白色 
     color: 0xffffff, 
     shading:THREE.FlatShading
   });
   
-  this.purpleMat = new THREE.MeshLambertMaterial ({
+  this.purpleMat = new THREE.MeshLambertMaterial ({//紫色材质，用于眼睛瞳
     color: 0x451954, 
     shading:THREE.FlatShading
   });
   
-  this.greyMat = new THREE.MeshLambertMaterial ({
+  this.greyMat = new THREE.MeshLambertMaterial ({//灰色材质，用于鼻子和胡须
     color: 0x653f4c, 
     shading:THREE.FlatShading
   });
   
-  this.blackMat = new THREE.MeshLambertMaterial ({
+  this.blackMat = new THREE.MeshLambertMaterial ({//黑色材质，用于嘴巴
     color: 0x302925, 
     shading:THREE.FlatShading
   });
   
   
-  var bodyGeom = new THREE.CylinderGeometry(30,80, 140, 4);
-  var maneGeom = new THREE.BoxGeometry(40,40,15);
-  var faceGeom = new THREE.BoxGeometry(80,80,80);
-  var spotGeom = new THREE.BoxGeometry(4,4,4);
-  var mustacheGeom = new THREE.BoxGeometry(30,2,1);
-  mustacheGeom.applyMatrix( new THREE.Matrix4().makeTranslation( 15, 0, 0 ) );
+  var bodyGeom = new THREE.CylinderGeometry(30,80, 140, 4);//身体几何模块，圆柱几何体
+  var maneGeom = new THREE.BoxGeometry(40,40,15);//鬃毛几何模块，单次抖动的单位
+  var faceGeom = new THREE.BoxGeometry(80,80,80);//面部主体几何模块。
+  var spotGeom = new THREE.BoxGeometry(4,4,4);//面部的斑点几何模块
+  var mustacheGeom = new THREE.BoxGeometry(30,2,1);//面部胡须几何模块
+  mustacheGeom.applyMatrix( new THREE.Matrix4().makeTranslation( 15, 0, 0 ) );//矩阵变换，离中轴远了15单位
   
-  var earGeom = new THREE.BoxGeometry(20,20,20);
-  var noseGeom = new THREE.BoxGeometry(40,40,20);
-  var eyeGeom = new THREE.BoxGeometry(5,30,30);
-  var irisGeom = new THREE.BoxGeometry(4,10,10);
-  var mouthGeom = new THREE.BoxGeometry(20,20,10);
-  var smileGeom = new THREE.TorusGeometry( 12, 4, 2, 10, Math.PI );
-  var lipsGeom = new THREE.BoxGeometry(40,15,20);
-  var kneeGeom = new THREE.BoxGeometry(25, 80, 80);
-  kneeGeom.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 50, 0 ) );
-  var footGeom = new THREE.BoxGeometry(40, 20, 20);
+  var earGeom = new THREE.BoxGeometry(20,20,20);//耳朵几何模型
+  var noseGeom = new THREE.BoxGeometry(40,40,20);//鼻子几何模型
+  var eyeGeom = new THREE.BoxGeometry(5,30,30);//眼白几何模型
+  var irisGeom = new THREE.BoxGeometry(4,10,10);//眼瞳几何模型
+  var mouthGeom = new THREE.BoxGeometry(20,20,10);//嘴巴几何模型
+  var smileGeom = new THREE.TorusGeometry( 12, 4, 2, 10, Math.PI );//笑嘴巴几何模型,圆环几何模型
+  var lipsGeom = new THREE.BoxGeometry(40,15,20);//下巴尖几何模型
+  var kneeGeom = new THREE.BoxGeometry(25, 80, 80);//左右柱状膝盖模型
+  kneeGeom.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 50, 0 ) );//对此二模型做简单矩阵变换，往上了50单位
+  var footGeom = new THREE.BoxGeometry(40, 20, 20);//脚指头
   
   // body
-  this.body = new THREE.Mesh(bodyGeom, this.yellowMat);
+  this.body = new THREE.Mesh(bodyGeom, this.yellowMat);//身体网格
   this.body.position.z = -60;
   this.body.position.y = -30;
   this.bodyVertices = [0,1,2,3,4,10];
   
   for (var i=0;i<this.bodyVertices.length; i++){
     var tv = this.body.geometry.vertices[this.bodyVertices[i]];
-    tv.z =70;
+    tv.z =70;//身体棱柱前倾70
     //tv.x = 0;
     this.bodyInitPositions.push({x:tv.x, y:tv.y, z:tv.z});
   }
   
   // knee
-  this.leftKnee = new THREE.Mesh(kneeGeom, this.yellowMat);
+  this.leftKnee = new THREE.Mesh(kneeGeom, this.yellowMat);//左腿网格
   this.leftKnee.position.x = 65;
   this.leftKnee.position.z = -20;
   this.leftKnee.position.y = -110;
   this.leftKnee.rotation.z = -.3;
   
-  this.rightKnee = new THREE.Mesh(kneeGeom, this.yellowMat);
+  this.rightKnee = new THREE.Mesh(kneeGeom, this.yellowMat);//右腿网格
   this.rightKnee.position.x = -65;
   this.rightKnee.position.z = -20;
   this.rightKnee.position.y = -110;
   this.rightKnee.rotation.z = .3;
   
-  // feet
+  // feet 四个脚趾网格
   this.backLeftFoot = new THREE.Mesh(footGeom, this.yellowMat);
   this.backLeftFoot.position.z = 30;
   this.backLeftFoot.position.x = 75;
@@ -325,13 +325,12 @@ Lion = function(){//狮子模型
   this.frontLeftFoot.position.x = 22;
   this.frontLeftFoot.position.y = -90;
   
-  // mane
+  // mane //鬃毛逻辑
+  this.mane = new THREE.Group();//创建鬃毛组
   
-  this.mane = new THREE.Group();
-  
-  for (var j=0; j<4; j++){
-    for (var k=0; k<4; k++){
-      var manePart = new THREE.Mesh(maneGeom, this.redMat);
+  for (var j=0; j<4; j++){//四排
+    for (var k=0; k<4; k++){//每排四个
+      var manePart = new THREE.Mesh(maneGeom, this.redMat);//鬃毛网格
       manePart.position.x = (j*40)-60;
       manePart.position.y = (k*40)-60;
       
@@ -342,7 +341,7 @@ Lion = function(){//狮子模型
       var angleAmpY, angleAmpX;
       var xInit, yInit;
       
-      
+      //一些位置调整 草
       if ((j==0 && k==0) || (j==0 && k==3) || (j==3 && k==0) || (j==3 && k==3)){
         amp = -10-Math.floor(Math.random()*5);
         zOffset = -5;
@@ -355,7 +354,7 @@ Lion = function(){//狮子模型
       }
       
       this.maneParts.push({mesh:manePart, amp:amp, zOffset:zOffset, periodOffset:periodOffset, xInit:manePart.position.x, yInit:manePart.position.y});
-      this.mane.add(manePart);
+      this.mane.add(manePart);//添加到组中
     }
   }
   
@@ -364,12 +363,11 @@ Lion = function(){//狮子模型
   //this.mane.rotation.z = Math.PI/4;
   
   // face
-  this.face = new THREE.Mesh(faceGeom, this.yellowMat);
+  this.face = new THREE.Mesh(faceGeom, this.yellowMat);//面部网格
   this.face.position.z = 135;
   
-  // Mustaches
-  
-  this.mustaches = [];
+  // Mustaches //胡须逻辑
+  this.mustaches = []; //胡须组创建六个胡须
   
   this.mustache1 = new THREE.Mesh(mustacheGeom, this.greyMat);
   this.mustache1.position.x = 30;
@@ -401,7 +399,7 @@ Lion = function(){//狮子模型
   this.mustaches.push(this.mustache6);
     
   // spots
-  this.spot1 = new THREE.Mesh(spotGeom, this.redMat);
+  this.spot1 = new THREE.Mesh(spotGeom, this.redMat);//斑点网格
   this.spot1.position.x = 39;
   this.spot1.position.z = 150;
   
@@ -427,7 +425,7 @@ Lion = function(){//狮子模型
   this.spot8.position.x = -39;
     
   // eyes
-  this.leftEye = new THREE.Mesh(eyeGeom, this.whiteMat);
+  this.leftEye = new THREE.Mesh(eyeGeom, this.whiteMat);//眼白网格
   this.leftEye.position.x = 40;
   this.leftEye.position.z = 120;
   this.leftEye.position.y = 25;
@@ -438,7 +436,7 @@ Lion = function(){//狮子模型
   this.rightEye.position.y = 25;
   
   // iris
-  this.leftIris = new THREE.Mesh(irisGeom, this.purpleMat);
+  this.leftIris = new THREE.Mesh(irisGeom, this.purpleMat);//眼瞳网格
   this.leftIris.position.x = 42;
   this.leftIris.position.z = 120;
   this.leftIris.position.y = 25;
@@ -449,25 +447,25 @@ Lion = function(){//狮子模型
   this.rightIris.position.y = 25;
   
   // mouth
-  this.mouth = new THREE.Mesh(mouthGeom, this.blackMat);
+  this.mouth = new THREE.Mesh(mouthGeom, this.blackMat);//嘴网格
   this.mouth.position.z = 171;
   this.mouth.position.y = -30;
   this.mouth.scale.set(.5,.5,1);
   
   // smile
-  this.smile = new THREE.Mesh(smileGeom, this.greyMat);
+  this.smile = new THREE.Mesh(smileGeom, this.greyMat);//笑嘴网格
   this.smile.position.z = 173;  
   this.smile.position.y = -15;
   this.smile.rotation.z = -Math.PI;
   
   // lips
-  this.lips = new THREE.Mesh(lipsGeom, this.yellowMat);
+  this.lips = new THREE.Mesh(lipsGeom, this.yellowMat);//下巴尖网格
   this.lips.position.z = 165;
   this.lips.position.y = -45;
   
    
   // ear
-  this.rightEar = new THREE.Mesh(earGeom, this.yellowMat);
+  this.rightEar = new THREE.Mesh(earGeom, this.yellowMat);//耳朵网格
   this.rightEar.position.x = -50;
   this.rightEar.position.y = 50;
   this.rightEar.position.z = 105;
@@ -478,12 +476,12 @@ Lion = function(){//狮子模型
   this.leftEar.position.z = 105;
   
   // nose
-  this.nose = new THREE.Mesh(noseGeom, this.greyMat);
+  this.nose = new THREE.Mesh(noseGeom, this.greyMat);//鼻子网格
   this.nose.position.z = 170;
   this.nose.position.y = 25;
   
-  // head
-  this.head = new THREE.Group();
+  // head //头部组，便于调方向的时候转头
+  this.head = new THREE.Group();//创建头部组
   this.head.add(this.face);
   this.head.add(this.mane);
   this.head.add(this.rightEar);
@@ -511,9 +509,9 @@ Lion = function(){//狮子模型
   this.head.add(this.mustache5);
   this.head.add(this.mustache6);
   
+  this.head.position.y = 60;//头部位置
   
-  this.head.position.y = 60;
-  
+  //把狮子作为一个3D网格组。
   this.threegroup.add(this.body);
   this.threegroup.add(this.head);
   this.threegroup.add(this.leftKnee);
@@ -523,7 +521,7 @@ Lion = function(){//狮子模型
   this.threegroup.add(this.frontRightFoot);
   this.threegroup.add(this.frontLeftFoot);
     
-  this.threegroup.traverse( function ( object ) {
+  this.threegroup.traverse( function ( object ) {//一些配置
 		if ( object instanceof THREE.Mesh ) {
 			object.castShadow = true;
 			object.receiveShadow = true;
@@ -531,7 +529,8 @@ Lion = function(){//狮子模型
 	} );
 }
 
-Lion.prototype.updateBody = function(speed){
+//传入参数为速度，更新头部身体等位置的动作，只有吹动的时候生效
+Lion.prototype.updateBody = function(speed){//做了一个原生方法更新身体各部分位置
   
   this.head.rotation.y += (this.tHeagRotY - this.head.rotation.y) / speed;
   this.head.rotation.x += (this.tHeadRotX - this.head.rotation.x) / speed;
@@ -565,6 +564,7 @@ Lion.prototype.updateBody = function(speed){
   this.smile.rotation.z += (this.tSmileRotZ - this.smile.rotation.z) / speed;
 }
 
+//传入目标位置，鼠标移动时的动作。
 Lion.prototype.look = function(xTarget, yTarget){
   this.tHeagRotY = rule3(xTarget, -200, 200, -Math.PI/4, Math.PI/4);
   this.tHeadRotX = rule3(yTarget, -200,200, -Math.PI/4, Math.PI/4);
@@ -654,6 +654,7 @@ Lion.prototype.cool = function(xTarget, yTarget){
   dt = Math.max(Math.min(dt,1), .5);
   this.windTime += dt;
   
+  //鬃毛摆动逻辑。
   for (var i=0; i<this.maneParts.length; i++){
     var m = this.maneParts[i].mesh;
     var amp = this.maneParts[i].amp;
@@ -666,19 +667,22 @@ Lion.prototype.cool = function(xTarget, yTarget){
   this.leftEar.rotation.x = Math.cos(this.windTime)*Math.PI/16*dt; 
   this.rightEar.rotation.x = -Math.cos(this.windTime)*Math.PI/16*dt; 
   
-   
+  //胡须摆动逻辑
   for (var i=0; i<this.mustaches.length; i++){
     var m = this.mustaches[i];
     var amp = (i<3) ? -Math.PI/8 : Math.PI/8;
     m.rotation.y = amp + Math.cos(this.windTime + i)*dt*amp;   
   };
   
+  //这块逻辑好像无用
   for (var i=0; i<this.bodyVertices.length; i++){
      var tvInit = this.bodyInitPositions[i];
       var tv = this.body.geometry.vertices[this.bodyVertices[i]];
       tv.x = tvInit.x + this.head.position.x;
   }
   this.body.geometry.verticesNeedUpdate = true;
+
+  
 }
 
 function loop(){
@@ -695,6 +699,7 @@ function loop(){
   }else{
     lion.look(xTarget, yTarget);
   }
+
   requestAnimationFrame(loop);
 }
 
@@ -716,7 +721,7 @@ function clamp(v,min, max){
   return Math.min(Math.max(v, min), max);
 }
 
-//全局工具函数，把位置正确转换到视区对应位置，如鼠标坐标转风扇渲染位置
+//全局工具函数，把逻辑位置 正确转换到视区对应位置，如鼠标坐标转风扇渲染位置
 function rule3(v,vmin,vmax,tmin, tmax){
   var nv = Math.max(Math.min(v,vmax), vmin);
   var dv = vmax-vmin;
@@ -725,4 +730,30 @@ function rule3(v,vmin,vmax,tmin, tmax){
   var tv = tmin + (pc*dt);
   return tv;
   
+}
+
+
+//改造包
+initControls();
+var controls;
+function initControls() {
+
+    controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+    // 如果使用animate方法时，将此函数删除
+    //controls.addEventListener( 'change', render );
+    // 使动画循环使用时阻尼或自转 意思是否有惯性
+    controls.enableDamping = true;
+    //动态阻尼系数 就是鼠标拖拽旋转灵敏度
+    //controls.dampingFactor = 0.25;
+    //是否可以缩放
+    controls.enableZoom = true;
+    //是否自动旋转
+    // controls.autoRotate = true;
+    //设置相机距离原点的最远距离
+    controls.minDistance  = 200;
+    //设置相机距离原点的最远距离
+    controls.maxDistance  = 1600;
+    //是否开启右键拖拽
+    controls.enablePan = true;
 }

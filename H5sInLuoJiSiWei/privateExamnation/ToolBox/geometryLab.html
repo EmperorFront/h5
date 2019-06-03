@@ -1,0 +1,121 @@
+<div id="world"></div>
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
+<script src="https://johnson2heng.github.io/three.js-demo/lib/js/controls/OrbitControls.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/264161/OrbitControls.js"></script>
+<script>
+//THREEJS 注册哪都能用的全局变量
+var scene, //场景变量注册
+    camera, //相机注册
+    controls, //控制开关?
+    fieldOfView, //
+  	aspectRatio, //
+  	nearPlane, //
+  	farPlane, //
+    shadowLight, // 
+    backLight, //
+    light,  //光线变量
+    renderer, //回执函数
+		container; //
+//SCENE
+var floor, 
+    lion, //动物模型 狮子
+    fan,
+    isBlowing = false;//某标志位
+//SCREEN VARIABLES
+var HEIGHT, //真实设备高度 静态变量
+  	WIDTH, //真实设备宽度 静态变量
+    windowHalfX, //真实设备高度的一半
+  	windowHalfY, //真实设备宽度的一半
+    mousePos = {x:0,y:0}; //鼠标位置
+    dist = 0; //
+//INIT THREE JS, SCREEN AND MOUSE EVENTS
+function init(){//初始化threejs，初始化 screen mouse事件
+  scene = new THREE.Scene();//初始化场景
+  HEIGHT = window.innerHeight;//场景高为屏幕高
+  WIDTH = window.innerWidth;//场景宽为屏幕宽
+  aspectRatio = WIDTH / HEIGHT;//屏幕宽高比
+  fieldOfView = 60;//视野？
+  nearPlane = 1;//近点渲染
+  farPlane = 2000; //远点渲染
+  camera = new THREE.PerspectiveCamera(//初始化相机
+    fieldOfView,//视野
+    aspectRatio,//宽高比
+    nearPlane,//最远渲染
+    farPlane);//最近渲染
+  camera.position.z = 800;  
+  camera.position.y = 0;  //相机位置
+  camera.lookAt(new THREE.Vector3(0,0,0));//查下，观察点和相机位置区别    
+  renderer = new THREE.WebGLRenderer({alpha: true, antialias: true });//渲染器初始化，透明度，高性能抗锯齿
+  renderer.setPixelRatio( window.devicePixelRatio );//初始化设备像素比
+  renderer.setSize(WIDTH, HEIGHT);//初始化屏幕宽高映射为渲染区域
+  renderer.shadowMapEnabled = true;//     某标志位
+  container = document.getElementById('world');//渲染区
+  container.appendChild(renderer.domElement);//草，这个写法。。。。
+  /*
+  controls = new THREE.OrbitControls( camera, renderer.domElement);
+  //*/
+  myfunction();
+}
+function loop(){
+  render();
+  requestAnimationFrame(loop);
+}
+function render(){
+  if (controls) controls.update();
+  renderer.render(scene, camera);
+}
+function createLights() {//创建光线
+  light = new THREE.HemisphereLight(0xffffff, 0xffffff, .5) 
+  shadowLight = new THREE.DirectionalLight(0xffffff, .8);
+  shadowLight.position.set(200, 200, 200);
+  shadowLight.castShadow = true;
+  shadowLight.shadowDarkness = .2;
+  backLight = new THREE.DirectionalLight(0xffffff, .4);
+  backLight.position.set(-100, 200, 50);
+  backLight.shadowDarkness = .1;
+  backLight.castShadow = true;
+  scene.add(backLight);
+  scene.add(light);
+  scene.add(shadowLight);
+}
+//控制器
+function initControls() {
+    controls = new THREE.OrbitControls( camera, renderer.domElement );
+    // 如果使用animate方法时，将此函数删除
+    //controls.addEventListener( 'change', render );
+    // 使动画循环使用时阻尼或自转 意思是否有惯性
+    controls.enableDamping = true;
+    //动态阻尼系数 就是鼠标拖拽旋转灵敏度
+    //controls.dampingFactor = 0.25;
+    //是否可以缩放
+    controls.enableZoom = true;
+    //是否自动旋转
+    // controls.autoRotate = true;
+    //设置相机距离原点的最远距离
+    controls.minDistance  = 200;
+    //设置相机距离原点的最远距离
+    controls.maxDistance  = 1600;
+    //是否开启右键拖拽
+    controls.enablePan = true;
+}
+init();
+createLights();
+loop();
+initControls();
+
+
+function myfunction(){
+  var bodyGeom = new THREE.BoxGeometry(40,40, 15);//身体几何模块，圆柱几何体
+  var yellowMat = new THREE.MeshLambertMaterial ({//黄色的材质，用于身体大部分
+    color: 0xad3525, 
+    shading:THREE.FlatShading
+  });
+  var body = new THREE.Mesh(bodyGeom,yellowMat);
+  body.position.x = 0;
+  body.position.y = 0;
+  body.position.z = 0;
+  scene.add(body);//此line对象包括了他的状态，模型只是一方面，加载只加载了模型
+}
+
+</script>
