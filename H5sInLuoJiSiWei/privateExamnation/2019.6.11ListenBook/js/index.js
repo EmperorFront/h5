@@ -190,7 +190,7 @@ function anmt4() {
             //绑定点击事件
             var spans = document.querySelectorAll(".pano span");
             for(var i = 0; i< spans.length; i++){
-              if(i%2){
+              if(i%3){
                 document.querySelectorAll(".pano span")[i].addEventListener('click', 
                   function (){
                     var speechSU = new window.SpeechSynthesisUtterance();
