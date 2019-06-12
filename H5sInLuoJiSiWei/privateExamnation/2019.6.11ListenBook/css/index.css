@@ -130,4 +130,19 @@ html {
 	margin-left: -64.5px;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
+	background-color: white;
+}
+#thediv {
+	position: absolute;
+	top: 50%;
+	margin-top: -300px;
+	height:600px;
+	left: 50%;
+	margin-left: -100px;
+	width: 200px;
+	font-size: 44px;
+	color:red;
+	background-color: white;
+	opacity: 0.8;
+	display: none;
 }

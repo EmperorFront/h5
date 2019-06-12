@@ -186,6 +186,32 @@ function anmt4() {
           callBack: function() {
             view.removeChild(logo4);
             anmt5();
+
+            //绑定点击事件
+            var spans = document.querySelectorAll(".pano span");
+            for(var i = 0; i< spans.length; i++){
+              if(i%2){
+                document.querySelectorAll(".pano span")[i].addEventListener('click', 
+                  function (){
+                    var speechSU = new window.SpeechSynthesisUtterance();
+                    speechSU.text = '马老师好帅';
+                    window.speechSynthesis.speak(speechSU);
+                  }
+                );
+              } else {
+                document.querySelectorAll(".pano span")[i].addEventListener('click', 
+                  function (){
+                    document.getElementById('thediv').setAttribute('style', 'display:block');
+                  }
+                );
+              }
+            }
+
+            document.getElementById('thediv').addEventListener('click', 
+            function (){
+              document.getElementById('thediv').setAttribute('style', 'display:none');
+            }
+          );
           }
         });
       }, 100)
