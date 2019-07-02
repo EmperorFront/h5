@@ -1,15 +1,15 @@
-(function() {
-  setLoading()
-  setPerc()
+(function() {//loading完搞入口函数
+  setLoading()//初始化loading动画
+  setPerc()//初始化图像动画
 })()
 
 /*
-  根据当前屏幕的大小，来计算景深 \
+  根据当前屏幕的大小，来计算景深
   1.固定视野的角度大小，根据这个角度的大小，计算出景深
   2. 保持我和景物之间的距离不变
 */
 function setPerc() {
-  resteview()
+  resteview()//重置视区？
   window.onresize = resteview
 
   function resteview() {
@@ -23,21 +23,21 @@ function setPerc() {
   }
 }
 /* 根据屏幕大小 计算景深 */
-function setLoading() {
-  var logoText = document.querySelector('.logoText');
-  var data = [];
-  var nub = 0;
-  for (var s in imgData) {
-    //console.log(imgData[s]);
-    data = data.concat(imgData[s]);
+function setLoading() {//该函数用来刷家在进度百分比条。
+  var logoText = document.querySelector('.logoText');//已加载1%。。。
+  var data = [];//数据数组
+  var nub = 0;//当前加载数
+  for (var s in imgData) {//imgData，所有的图片数组
+    // console.log(s);
+    data = data.concat(imgData[s]);//concat，数组链接。 把img的数据模块挨个放在data数组。二维数组变一维数组。
   }
   for (var i = 0; i < data.length; i++) {
     var img = new Image();
-    img.src = data[i];
+    img.src = data[i];//预加载图片
     img.onload = function() {
       nub++;
       //console.log(Math.floor(nub/data.length*100));
-      logoText.innerHTML = "已加载 " + (Math.floor(nub / data.length * 100)) + "%";
+      logoText.innerHTML = "已加载 " + (Math.floor(nub / data.length * 100)) + "%";//按照图片张数显示
       if (nub == data.length) {
         //图片加载完成之后，要做的事情
         anmt();
@@ -46,42 +46,44 @@ function setLoading() {
   }
 }
 
-function anmt() {
-  var view = document.querySelector('#view')
-  var logo1 = document.querySelector('#logo1')
-  var logo2 = document.createElement("div");
-  var logo3 = document.createElement("div");
+function anmt() {//百分比和首屏logo动画
+  var view = document.querySelector('#view')//全景容器
+  var logo1 = document.querySelector('#logo1')//该元素包含百分比和加载logo
+  var logo2 = document.createElement("div");//第二个logo容器（单logo黑白）
+  var logo3 = document.createElement("div");//第三个logo容器（彩色）
   var img = new Image()
   var img2 = new Image()
-  img.src = imgData.logo[0]
-  img2.src = imgData.logo[1]
-  logo2.id = "logo2"
+  img.src = imgData.logo[0]//加载过之后就有了，直接拿来用。
+  img2.src = imgData.logo[1]//组合第二个logo，黑白
+  logo2.id = "logo2"//赋上id
   logo3.id = "logo3"
-  logo2.className = logo3.className = "logoImg"
-  logo2.appendChild(img)
-  logo3.appendChild(img2)
-  css(logo2, "opacity", 0)
-  css(logo3, "opacity", 0)
-  css(logo2, 'translateZ', -1000)
-  css(logo3, 'translateZ', -1000)
-  view.appendChild(logo2)
-  view.appendChild(logo3)
+  logo2.className = logo3.className = "logoImg"//logo
+  logo2.appendChild(img);//黑白容器dom组合好
+  logo3.appendChild(img2);//彩色logo dom组合好
+  css(logo2, "opacity", 0);//隐藏第二个logo（黑白）
+  css(logo3, "opacity", 0);//隐藏第三个logo（彩色）
+  css(logo2, 'translateZ', -1000);//第二个logo挪的远远的
+  css(logo3, 'translateZ', -1000);
+  view.appendChild(logo2);//加到全景容器中
+  view.appendChild(logo3);
   MTween({
-    el: logo1,
+    el: logo1,//目标元素
     target: {
-      opacity: 0
+      opacity: 0,//最终态为透明
+      translateZ: -1000
     },
-    time: 1000,
-    type: 'easeOut',
+    time: 1000,//转态时间
+    // type: 'easeBoth',
+    type: 'easeOut',//
     callBack: function() {
-      view.removeChild(logo1)
-      css(logo2, 'opacity', 100)
+      //view.removeChild(logo1)
+      css(logo2, 'opacity', 100)//展现第二个logo（黑豹）
       MTween({
-        el: logo2,
+        el: logo2,//黑白logo
         target: {
-          translateZ: 0
+          translateZ: 0//最终态挪到最前边。
         },
-        time: 300,
+        time: 1000,
         type: 'easeBoth',
         callBack: anmt2
       })
@@ -90,20 +92,20 @@ function anmt() {
 }
 /* 隐藏logo2，开始让logo3显示出来 */
 function anmt2() {
-  var view = document.querySelector('#view')
-  var logo2 = document.querySelector('#logo2')
-  var logo3 = document.querySelector('#logo3')
+  var view = document.querySelector('#view');//全景全局容器
+  var logo2 = document.querySelector('#logo2');//第二个logo容器 （黑白）
+  var logo3 = document.querySelector('#logo3')//第三个logo容器 （彩色）
   setTimeout(function() {
     MTween({
-      el: logo2,
+      el: logo2,//黑白logo
       target: {
-        translateZ: -1000
+        translateZ: -1000//最终态挪到远处
       },
       time: 800,
       type: 'linear',
       callBack: function() {
         view.removeChild(logo2)
-        css(logo3, 'opacity', 100)
+        css(logo3, 'opacity', 100)//显示出彩色logo来
         setTimeout(function() {
           MTween({
             el: logo3,
@@ -119,123 +121,123 @@ function anmt2() {
 }
 
 function anmt3() {
-  var view = document.querySelector('#view');
-  var logo3 = document.querySelector('#logo3');
+  var view = document.querySelector('#view');//全景全局容器
+  var logo3 = document.querySelector('#logo3');//彩色logo
   setTimeout(function() {
     MTween({
-      el: logo3,
-      target: { translateZ: -2000 },
-      time: 2000,
+      el: logo3,//彩色logo
+      target: { translateZ: -2000 },//最终态
+      time: 2000,//
       type: "easeIn",
       callBack: function() {
         view.removeChild(logo3);
-        //开始添加爆照效果
-        anmt4();
+        anmt4();//爆炸效果
       }
     });
   }, 1000)
 }
 
 function anmt4() {
-  var view = document.querySelector('#view');
-  var logo4 = document.createElement("div");
-  var logoIcos = document.createElement("div");
+  var view = document.querySelector('#view');//全景全局容器
+  var logo4 = document.createElement("div");//风暴旋转容器
+  var logoIcos = document.createElement("div");//碎片容器
   var logo4Img = new Image()
-    // 设定碎片个数
-  var isonsLength = 27
+    
+  var iconsLength = 270;// 设定碎片个数
   logo4.id = "logo4"
   logoIcos.id = "logoIcos"
   logo4Img.id = "logo4Img"
-  logo4Img.src = imgData.logo[2]
-  css(logo4, "translateZ", -2000)
-  css(logo4, "scale", 0)
-  for (var i = 0; i < isonsLength; i++) {
+  logo4Img.src = imgData.logo[2]//取第三个logo
+  css(logo4, "translateZ", -2000)//设定起始位置为远方
+  css(logo4, "scale", 0)//设定起始不缩放
+  for (var i = 0; i < iconsLength; i++) {
     var span = document.createElement('span')
     var xR = 20 + Math.round(Math.random() * 240) // 圆柱碎片的X半径
-    var xDeg = Math.round(Math.random() * 360)
+    var xDeg = Math.round(Math.random() * 360)//倾斜x角度
     var yR = 10 + Math.round(Math.random() * 240) // 圆柱碎片的Y半径
     var yDeg = Math.round(Math.random() * 360)
     css(span, "rotateY", xDeg);
     css(span, "translateZ", xR);
     css(span, "rotateX", yDeg);
     css(span, "translateY", yR)
-    span.style.backgroundImage = "url(" + imgData.logoIco[(i % 3)] + ")"
+    span.style.backgroundImage = "url(" + imgData.logoIco[(i % 3)] + ")"//取012三个图
     logoIcos.appendChild(span)
   }
   logo4.appendChild(logoIcos)
   logo4.appendChild(logo4Img)
-  view.appendChild(logo4)
+  view.appendChild(logo4)//追加至全景。
   MTween({
     el: logo4,
     target: {
-      translateZ: 0,
-      scale: 100
+      translateZ: 0,//目标到眼前
+      scale: 100//缩放100
     },
-    time: 500,
+    time: 5000,
     type: "easeOutStrong",
     callBack: function() {
       setTimeout(function() {
         MTween({
           el: logo4,
           target: {
-            translateZ: -1000,
+            translateZ: -1000,//挪走。
             scale: 20
           },
           time: 3000,
           type: "linear",
           callBack: function() {
             view.removeChild(logo4);
-            anmt5();
-
-            //绑定点击事件
-            var spans = document.querySelectorAll(".pano span");
-            for(var i = 0; i< spans.length; i++){
-              if(i%3){
-                document.querySelectorAll(".pano span")[i].addEventListener('click', 
-                  function (){
-                    var speechSU = new window.SpeechSynthesisUtterance();
-                    speechSU.text = '马老师好帅';
-                    window.speechSynthesis.speak(speechSU);
-                  }
-                );
-              } else {
-                document.querySelectorAll(".pano span")[i].addEventListener('click', 
-                  function (){
-                    document.getElementById('thediv').setAttribute('style', 'display:block');
-                  }
-                );
-              }
-            }
-
-            document.getElementById('thediv').addEventListener('click', 
-            function (){
-              document.getElementById('thediv').setAttribute('style', 'display:none');
-            }
-          );
+            anmt5();//大动画
+            initclick();//绑定点击事件
           }
         });
       }, 100)
     }
   });
 }
+function initclick() {
+    //绑定点击事件
+    var spans = document.querySelectorAll(".pano span");
+    for(var i = 0; i< spans.length; i++){
+      if(i%3){
+        document.querySelectorAll(".pano span")[i].addEventListener('click', 
+          function (){
+            var speechSU = new window.SpeechSynthesisUtterance();
+            speechSU.text = '马老师好帅';
+            window.speechSynthesis.speak(speechSU);
+          }
+        );
+      } else {
+        document.querySelectorAll(".pano span")[i].addEventListener('click', 
+          function (){
+            document.getElementById('thediv').setAttribute('style', 'display:block');
+          }
+        );
+      }
+    }
 
+    document.getElementById('thediv').addEventListener('click', 
+    function (){
+      document.getElementById('thediv').setAttribute('style', 'display:none');
+    }
+  );
+}
 function anmt5() {
-  var tZ = document.querySelector('#tZ')
-  css(tZ, 'translateZ', -2000)
+  var tZ = document.querySelector('#tZ')//卷轴 + 图标 + 云朵容器
+  css(tZ, 'translateZ', -2000)//远处
   anmt6() // 主体
   anmt7() // 云朵
-  createPano() // 云朵
+  createPano() // 图标层
   MTween({
     el: tZ,
     target: {
-      translateZ: -160
+      translateZ: -160//主体往前挪
     },
     time: 3600,
     type: 'easeBoth'
   })
 }
 
-function anmt6() {
+function anmt6() {//卷轴动画
   var panoBg = document.querySelector('#panoBg');
   var width = 129 // 一张图片宽度
   var deg = 360 / imgData.bg.length // 圆柱图片角度

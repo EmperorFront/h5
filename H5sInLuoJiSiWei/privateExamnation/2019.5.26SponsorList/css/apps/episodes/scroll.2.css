@@ -62,6 +62,3 @@
 body.dark-theme .transparency{
 	filter: brightness(1);
 }
-body.dark-theme #scroll{
-	filter: brightness(.7);
-}
