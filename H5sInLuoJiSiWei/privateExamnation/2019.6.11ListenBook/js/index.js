@@ -230,7 +230,7 @@ function anmt5() {
   MTween({
     el: tZ,
     target: {
-      translateZ: -160//主体往前挪
+      translateZ: -1//主体往前挪  最大1500
     },
     time: 3600,
     type: 'easeBoth'
