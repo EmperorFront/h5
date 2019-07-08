@@ -242,8 +242,8 @@ function anmt5() {
   var tZ = document.querySelector('#tZ')//卷轴 + 图标 + 云朵容器
   css(tZ, 'translateZ', -2000)//远处
   anmt6() // 主体
-  if(jingshen === -100){
-    // anmt7() // 云朵
+  if(jingshen === -100 && zhouchang === 24){
+    anmt7() // 云朵
   }
   createPano() // 图标层
   MTween({
