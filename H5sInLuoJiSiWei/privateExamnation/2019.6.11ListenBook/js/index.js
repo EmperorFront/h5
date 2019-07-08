@@ -169,10 +169,10 @@ function anmt4() {
   MTween({
     el: logo4,
     target: {
-      translateZ: 0,//目标到眼前
-      scale: 100//缩放100
+      translateZ: 200,//目标到眼前
+      scale: 200//缩放100
     },
-    time: 5000,
+    time: 6000,
     type: "easeOutStrong",
     callBack: function() {
       setTimeout(function() {
@@ -182,7 +182,7 @@ function anmt4() {
             translateZ: -1000,//挪走。
             scale: 20
           },
-          time: 3000,
+          time: 3,
           type: "linear",
           callBack: function() {
             view.removeChild(logo4);
@@ -194,43 +194,62 @@ function anmt4() {
     }
   });
 }
+let jingshen = -100;
+let zhouchang = 24;
+let bgtemp = JSON.stringify(imgData.bg);
+imgData.bg = JSON.parse(bgtemp);
+imgData.bg.length =  zhouchang;
 function initclick() {
     //绑定点击事件
     var spans = document.querySelectorAll(".pano span");
     for(var i = 0; i< spans.length; i++){
-      if(i%3){
-        document.querySelectorAll(".pano span")[i].addEventListener('click', 
-          function (){
-            var speechSU = new window.SpeechSynthesisUtterance();
-            speechSU.text = '马老师好帅';
-            window.speechSynthesis.speak(speechSU);
-          }
-        );
-      } else {
+      // if(i%3){
+      //   document.querySelectorAll(".pano span")[i].addEventListener('click', 
+      //     function (){
+      //       var speechSU = new window.SpeechSynthesisUtterance();
+      //       speechSU.text = '马老师好帅';
+      //       window.speechSynthesis.speak(speechSU);
+      //     }
+      //   );
+      // } else {
         document.querySelectorAll(".pano span")[i].addEventListener('click', 
           function (){
             document.getElementById('thediv').setAttribute('style', 'display:block');
           }
         );
-      }
+      // }
     }
 
-    document.getElementById('thediv').addEventListener('click', 
+    document.getElementById('close-tip').addEventListener('click', 
     function (){
       document.getElementById('thediv').setAttribute('style', 'display:none');
+    
+      jingshen = document.getElementById('jingshen').value*1;
+      zhouchang = document.getElementById('zhouchang').value*1;
+      if(jingshen === 0){jingshen = -100}
+      if(zhouchang === 0){zhouchang = 24}
+      imgData.bg = JSON.parse(bgtemp);
+      imgData.bg.length =  zhouchang;
+      var panoBg = document.querySelector('#panoBg');
+      panoBg.innerHTML = '';
+      anmt5();
+      initclick();
     }
   );
 }
+
 function anmt5() {
   var tZ = document.querySelector('#tZ')//卷轴 + 图标 + 云朵容器
   css(tZ, 'translateZ', -2000)//远处
   anmt6() // 主体
-  anmt7() // 云朵
+  if(jingshen === -100){
+    // anmt7() // 云朵
+  }
   createPano() // 图标层
   MTween({
     el: tZ,
     target: {
-      translateZ: -1//主体往前挪  最大1500
+      translateZ: jingshen//主体往前挪
     },
     time: 3600,
     type: 'easeBoth'
