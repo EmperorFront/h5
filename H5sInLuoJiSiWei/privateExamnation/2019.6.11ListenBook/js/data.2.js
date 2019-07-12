@@ -67,6 +67,7 @@ var imgData = {
 	pano:[
 		"pano/p00-4.png",
 		"pano/p01-3.png",
+		"pano/pano2-2.png",
 		// "pano/p1-2.png",
 		"pano/p2-1.png",
 		"pano/p2-2.png",

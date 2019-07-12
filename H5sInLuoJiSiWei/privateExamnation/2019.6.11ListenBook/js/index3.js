@@ -86,7 +86,7 @@ function anmt() {//百分比和首屏logo动画
         time: 1000,
         type: 'easeBoth',
         callBack: function(){
-          anmt5();//大动画
+          anmt2();//大动画
           initclick();//绑定点击事件
         }
       })
@@ -500,7 +500,7 @@ function createPano() {
     startDeg -= deg;
     pano1.appendChild(span)
   }
-  pano.appendChild(pano1);
+  // pano.appendChild(pano1);
 
   var pano2 = document.querySelector('#pano');
   var startDeg2 = -90;
@@ -513,7 +513,7 @@ function createPano() {
   css(pano2, "translateZ", -9.877);
   for (var i = 0; i < 1; i++) {
     var span = document.createElement("span");
-    span.style.cssText = "height:178px;width:129px;margin-top:-256px;";
+    span.style.cssText = "height:178px;width:129px;margin-top:-240px;";
     span.style.background = "url(" + imgData["pano"][nub] + ")";
     css(span, "translateY", 0);
     css(span, "rotateY", startDeg2);
