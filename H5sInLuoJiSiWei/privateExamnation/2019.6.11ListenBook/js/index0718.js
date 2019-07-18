@@ -1020,7 +1020,7 @@ function createBigClick(){
     {id:"huanglining1",name:"黄昱宁-1",width:"181px",height:"289px",startDeg:103,marginTop:"-151px","point":"1111","link":"2222"},
     {id:"haunglining2",name:"黄昱宁-2",width:"0px",height:"0px",startDeg:99,marginTop:"-126px","point":"1111","link":"2222"},
     {id:"haungliningmingpai",name:"黄昱宁名牌",width:"39px",height:"91px",startDeg:94,marginTop:"-154px","point":"1111","link":"2222"},
-    {id:"liuweimingpai",name:"刘玮名牌",width:"38px",height:"91px",startDeg:83,marginTop:"-113px","point":"1111","link":"2222"},
+    {id:"liuweimingpai",name:"刘玮名牌",width:"0px",height:"0px",startDeg:83,marginTop:"-113px","point":"1111","link":"2222"},
     {id:"zhuwei1",name:"朱伟-1",width:"330px",height:"311px",startDeg:100,translateZ:'-540px',marginTop:"56px","point":"1111","link":"2222"},
     {id:"zhuwei2",name:"朱伟-2",width:"0px",height:"0px",startDeg:84,marginTop:"48px","point":"1111","link":"2222"},
     {id:"caoxingyuan1",name:"曹星原-1",width:"0px",height:"0px",startDeg:56,marginTop:"20px","point":"1111","link":"2222"},
