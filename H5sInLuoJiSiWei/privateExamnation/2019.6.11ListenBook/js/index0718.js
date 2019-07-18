@@ -298,7 +298,7 @@ function anmt6() {//卷轴动画
     callBack: function() {
       setDarg()//初始化拖拽逻辑
       setTimeout(function() {
-        setSensors()//初始化陀螺仪。
+        // setSensors()//初始化陀螺仪。
       }, 1000)
     }
   })
@@ -347,7 +347,9 @@ function anmt7() {
       cloud.parentNode.removeChild(cloud)
       bgShow();
       machineAnimit();//弹出领取机器
+      initcloud();
       addBigClickEvent();//绑定弹层点击事件
+      $("#go").show();
     }
   })
 }
@@ -424,6 +426,11 @@ function setDarg() {//拖动逻辑
       disZ = 300
     }
     css(tZ, 'translateZ', startZ - disZ);
+
+        //松手触发动画
+    //大件
+    //奖学金领取屏
+    doFloatingPiece(nowDeg.x);
   })
   document.addEventListener('touchend', function(e) {
 
@@ -431,10 +438,16 @@ function setDarg() {//拖动逻辑
       x: css(panoBg, "rotateY"),
       y: css(panoBg, "rotateX")
     };
-    var disDeg = {
+    var disDeg = {//缓冲距离
       x: lastDis.x * 10,
       y: lastDis.y * 10
     }
+
+       //松手触发动画
+        //大件
+        //奖学金领取屏
+        doFloatingPiece(nowDeg.x + disDeg.x);
+        
     MTween({
       el: tZ,
       target: {
@@ -465,11 +478,6 @@ function setDarg() {//拖动逻辑
     })
     console.log(nowDeg.x);
     console.log(nowDeg.y);
-
-    //松手触发动画
-    //大件
-    //奖学金领取屏
-    doFloatingPiece(nowDeg.x);
   })
 }
 
@@ -494,8 +502,8 @@ var panosClick = {
     marginTop:'-240px'
   },
   pano2:{
-    width:'105px',
-    height:'178px',
+    width:'0px',
+    height:'0px',
     startDeg:-95,
     marginTop:'-240px'
   },
@@ -1054,15 +1062,15 @@ function createBigClick(){
     {id:"yonghu3",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-25px","point":"1111","link":"2222"},
     {id:"tingshushujubang1",name:"听书数据榜-1",width:"153px",height:"235px",startDeg:-65,marginTop:"-294px","point":"1111","link":"2222"},
     {id:"tingshushujubang2",name:"听书数据榜-2",width:"0px",height:"0px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
-    {id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-82,marginTop:"-250px","point":"1111","link":"2222"},
-    {id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-247px","point":"1111","link":"2222"},
-    {id:"ditu3",name:"地图3",width:"45px",height:"63px",startDeg:-105,marginTop:"-215px","point":"1111","link":"2222"},
+    {id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-82,marginTop:"-222px","point":"1111","link":"2222"},
+    {id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-236px","point":"1111","link":"2222"},
+    {id:"ditu3",name:"地图3",width:"45px",height:"63px",startDeg:-105,marginTop:"-202px","point":"1111","link":"2222"},
     {id:"saodiseng",name:"扫地僧",width:"89px",height:"156px",startDeg:-96,marginTop:"-63px","point":"1111","link":"2222"},
     {id:"beisu",name:"倍速",width:"66px",height:"74px",startDeg:-85,marginTop:"9px","point":"1111","link":"2222"},
     {id:"yonghu4",name:"用户4",width:"90px",height:"213px",startDeg:-96,marginTop:"78px","point":"1111","link":"2222"},
     {id:"hongbaohe3",name:"红包盒3",width:"82px",height:"52px",startDeg:-131,marginTop:"113px","point":"1111","link":"2222"},
-    {id:"yanglei",name:"杨蕾",width:"100px",height:"306px",startDeg:-114,marginTop:"47px","point":"1111","link":"2222"},
-    {id:"ashi",name:"阿狮",width:"237px",height:"411px",startDeg:-145,marginTop:"-87px","point":"1111","link":"2222"},
+    {id:"yanglei",name:"杨蕾",width:"111px",height:"306px",startDeg:-114,marginTop:"47px","point":"1111","link":"2222"},
+    {id:"ashi",name:"阿狮",width:"237px",height:"411px",startDeg:-145,translateZ:'-406px',marginTop:"-87px","point":"1111","link":"2222"},
     ]
   var pano = document.querySelector('#pano');
   for(var i = 0; i < bigClickData.length; i++){
@@ -1070,7 +1078,7 @@ function createBigClick(){
     var imgDiv = document.createElement('div');
     imgDiv.className = bigClickData[i].id
     imgDiv.classList.add("showWindow");
-    var str = "opacity:0.8;background-color:'red';float:left;top:"+bigClickData[i].marginTop+
+    var str = "opacity:1;background-color:'red';float:left;top:"+bigClickData[i].marginTop+
               ";height:"+bigClickData[i].height+
               ";width: "+bigClickData[i].width+
               ";left: 0px;transform: translateY(0px) rotateY("+bigClickData[i].startDeg+
@@ -1081,7 +1089,6 @@ function createBigClick(){
     outDiv.appendChild(imgDiv);
     pano.appendChild(outDiv);
   }
-  
 }
 function addBigClickEvent(){
   //点击事件绑定
@@ -1095,4 +1102,54 @@ function addBigClickEvent(){
   window.click(function () {
     window.hide();  
   });
+}
+function initcloud(){
+  var pano = document.querySelector('#pano');
+  //首屏机器
+  //奖学金领取处机器
+  var thecloud01 = document.createElement('div');
+  var cloud01 = document.createElement('div');
+  cloud01.className = "cloud01";
+  var str = "opacity:1;float:left;height: 140px;width: 407px;left: 0px;transform: translateY(0px) rotateY(121deg) translateZ(-500px);float: left;position: absolute;top: 312px;";
+  cloud01.style.cssText = str;
+  cloud01.style.background = "url(" + imgData["cloud"][3] + ")";
+  thecloud01.appendChild(cloud01);
+  pano.appendChild(thecloud01);
+  //奖学金领取处文字
+  var thecloud02 = document.createElement('div');
+  var cloud02 = document.createElement('div');
+  cloud02.className = "cloud02";
+  var str = "opacity:1;height: 126px;width: 292px;left: 0px;transform: translateY(0px) rotateY(163deg) translateZ(-427px);float: left;position: absolute;top: 328px;";
+  cloud02.style.cssText = str;
+  cloud02.style.background = "url(" + imgData["cloud"][4] + ")";
+  thecloud02.appendChild(cloud02);
+  pano.appendChild(thecloud02);
+  cloudblink(cloud02,'left');
+  cloudblink(cloud01,'right')
+
+}
+function cloudblink(e,r){
+  MTween({
+    el: e,//奖学金领取处字样
+    target: {
+      opacity: 700,//透明变不透明
+      left:(r==='right'? 30:10),
+    },
+    time: (r==='right'?2000:1200),
+    type: 'linear',
+    callBack: function() {
+      MTween({
+        el: e,//奖学金领取处字样
+        target: {
+          opacity: 30,//透明变不透明
+          left: (r==='right'? 0:-40),
+        },
+        time: (r==='right'?2000:1200),
+        type: 'linear',
+        callBack: function() {
+          cloudblink(e,r);
+        }
+      })
+    }
+  })
 }
