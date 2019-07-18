@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>每天听本书</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	
+</head>
+<body>
+
+<div id="show">
+		<div id= "sc">生成</div>
+		<div id= "sz">数组</div>
+</div>
+<div id="output"> 
+
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+
+<script type="text/javascript">
+
+var oridata = [['贾行家',85,310,431,645],['李筠',78,293,530,507],['刘玮',78,259,945,521],['黄昱宁-1',32,263,742,460],['黄昱宁-2',30,263,774,460],['黄昱宁名牌',39,91,814,428],['刘玮名牌',38,91,909,474],['朱伟-1',86,256,817,654],['朱伟-2',27,256,903,654],['曹星原-1',21,330,1140,624],['曹星原-2',122,331,1161,623],['李南南',91,307,1295,589],['红包盒1-1',24,50,1395,749],['红包盒1-2',37,50,1419,749],['社会与经济',93,117,1294,450],['暗知识-1',23,115,1396,450],['暗知识-2',68,115,1419,450],['成事-1',50,116,1498,450],['成事-2',38,116,1548,450],['十问：霍金沉思录',90,120,1314,310],['美国陷阱-1',75,118,1473,312],['美国陷阱-2',15,117,1548,312],['卞恒沁',90,297,1570,501],['大设计',83,124,1723,310],['宅兹中国',94,123,1843,310],['锦灰堆',79,122,1677,457],['虚构的犹太民族-1',35,119,1771,457],['虚构的犹太民族-2',55,119,1806,457],['小说的艺术-1',61,121,1874,459],['小说的艺术-2',29,121,1935,459],['刘玄',89,275,1935,582],['听书帖士-1',44,220,2020,281],['听书帖士-2',59,220,2064,281],['书架里的红包',73,66,2064,507],['用户1',78,118,2091,573],['用户2',57,309,2193,623],['红包盒2',45,56,2277,802],['用户3',64,100,2258,572],['听书数据榜-1',41,241,2152,273],['听书数据榜-2',108,239,2193,273],['地图1',64,75,2335,322],['地图2',70,69,2459,325],['地图3',45,63,2535,361],['扫地僧',89,156,2451,530],['倍速',66,74,2358,611],['用户4',90,213,2451,687],['红包盒3',59,52,2771,726],['杨蕾',100,294,2607,693],['阿狮',129,383,2838,514]]
+
+var bigClick = [
+  {name:'pano0', width:"92px",height:"126px",startDeg:35,marginTop:"-270px",window:'1111111',point:'22222'},
+];
+
+var panosClick = [
+{id:"jiahangjia",name:"贾行家",width:"85px",height:"310px",startDeg:138,marginTop:"40px","point":"1111","link":"2222"},
+{id:"lijun",name:"李筠",width:"78px",height:"293px",startDeg:127,marginTop:"-83px","point":"1111","link":"2222"},
+{id:"liuwei",name:"刘玮",width:"78px",height:"259px",startDeg:79,marginTop:"-71px","point":"1111","link":"2222"},
+{id:"huanglining1",name:"黄昱宁-1",width:"32px",height:"263px",startDeg:102,marginTop:"-126px","point":"1111","link":"2222"},
+{id:"haunglining2",name:"黄昱宁-2",width:"30px",height:"263px",startDeg:99,marginTop:"-126px","point":"1111","link":"2222"},
+{id:"haungliningmingpai",name:"黄昱宁名牌",width:"39px",height:"91px",startDeg:94,marginTop:"-154px","point":"1111","link":"2222"},
+{id:"liuweimingpai",name:"刘玮名牌",width:"38px",height:"91px",startDeg:83,marginTop:"-113px","point":"1111","link":"2222"},
+{id:"zhuwei1",name:"朱伟-1",width:"86px",height:"256px",startDeg:94,marginTop:"48px","point":"1111","link":"2222"},
+{id:"zhuwei2",name:"朱伟-2",width:"27px",height:"256px",startDeg:84,marginTop:"48px","point":"1111","link":"2222"},
+{id:"caoxingyuan1",name:"曹星原-1",width:"21px",height:"330px",startDeg:56,marginTop:"21px","point":"1111","link":"2222"},
+
+{id:"caoxingyuan2",name:"曹星原-2",width:"122px",height:"331px",startDeg:54,marginTop:"20px","point":"1111","link":"2222"},
+{id:"linannan",name:"李南南",width:"91px",height:"307px",startDeg:38,marginTop:"-9px","point":"1111","link":"2222"},
+{id:"hongbaohe1-1",name:"红包盒1-1",width:"24px",height:"50px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
+{id:"hongbaohe1-2",name:"红包盒1-2",width:"37px",height:"50px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
+{id:"shehuiyujingji",name:"社会与经济",width:"93px",height:"117px",startDeg:38,marginTop:"-135px","point":"1111","link":"2222"},
+{id:"anzhishi1",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
+{id:"anzhishi2",name:"暗知识-2",width:"68px",height:"115px",startDeg:24,marginTop:"-135px","point":"1111","link":"2222"},
+{id:"chengshi1",name:"成事-1",width:"50px",height:"116px",startDeg:14,marginTop:"-135px","point":"1111","link":"2222"},
+{id:"chengshi2",name:"成事-2",width:"38px",height:"116px",startDeg:9,marginTop:"-135px","point":"1111","link":"2222"},
+{id:"shiwenhuojinchensilu",name:"十问：霍金沉思录",width:"90px",height:"120px",startDeg:36,marginTop:"-261px","point":"1111","link":"2222"},
+{id:"meiguoxianjing1",name:"美国陷阱-1",width:"75px",height:"118px",startDeg:17,marginTop:"-259px","point":"1111","link":"2222"},
+{id:"meiguoxianjing2",name:"美国陷阱-2",width:"15px",height:"117px",startDeg:9,marginTop:"-259px","point":"1111","link":"2222"},
+{id:"bianhengqin",name:"卞恒沁",width:"90px",height:"297px",startDeg:6,marginTop:"-89px","point":"1111","link":"2222"},
+{id:"dasheji",name:"大设计",width:"83px",height:"124px",startDeg:-11,marginTop:"-261px","point":"1111","link":"2222"},
+{id:"zhaizizhongguo",name:"宅兹中国",width:"94px",height:"123px",startDeg:-25,marginTop:"-261px","point":"1111","link":"2222"},
+{id:"jinhuidui",name:"锦灰堆",width:"79px",height:"122px",startDeg:-6,marginTop:"-128px","point":"1111","link":"2222"},
+{id:"xugoudeyoutaiminzu1",name:"虚构的犹太民族-1",width:"35px",height:"119px",startDeg:-16,marginTop:"-128px","point":"1111","link":"2222"},
+{id:"xugoudeyoutaiminzu2",name:"虚构的犹太民族-2",width:"55px",height:"119px",startDeg:-21,marginTop:"-128px","point":"1111","link":"2222"},
+{id:"xiaoshuodeyishu1",name:"小说的艺术-1",width:"61px",height:"121px",startDeg:-28,marginTop:"-126px","point":"1111","link":"2222"},
+{id:"xiaoshuodeyishu2",name:"小说的艺术-2",width:"29px",height:"121px",startDeg:-36,marginTop:"-126px","point":"1111","link":"2222"},
+{id:"liuxuan",name:"刘玄",width:"89px",height:"275px",startDeg:-36,marginTop:"-16px","point":"1111","link":"2222"},
+{id:"tingshutieshi1",name:"听书帖士-1",width:"44px",height:"220px",startDeg:-45,marginTop:"-287px","point":"1111","link":"2222"},
+{id:"tingshutieshi2",name:"听书帖士-2",width:"59px",height:"220px",startDeg:-51,marginTop:"-287px","point":"1111","link":"2222"},
+{id:"shujialidehongbao",name:"书架里的红包",width:"73px",height:"66px",startDeg:-51,marginTop:"-83px","point":"1111","link":"2222"},
+{id:"yonghu1",name:"用户1",width:"78px",height:"118px",startDeg:-54,marginTop:"-24px","point":"1111","link":"2222"},
+{id:"yonghu2",name:"用户2",width:"57px",height:"309px",startDeg:-66,marginTop:"20px","point":"1111","link":"2222"},
+{id:"hongbaohe2",name:"红包盒2",width:"45px",height:"56px",startDeg:-75,marginTop:"181px","point":"1111","link":"2222"},
+{id:"yonghu3",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-25px","point":"1111","link":"2222"},
+{id:"tingshushujubang1",name:"听书数据榜-1",width:"41px",height:"241px",startDeg:-61,marginTop:"-294px","point":"1111","link":"2222"},
+{id:"tingshushujubang2",name:"听书数据榜-2",width:"108px",height:"239px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
+{id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-82,marginTop:"-250px","point":"1111","link":"2222"},
+{id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-247px","point":"1111","link":"2222"},
+{id:"ditu3",name:"地图3",width:"45px",height:"63px",startDeg:-105,marginTop:"-215px","point":"1111","link":"2222"},
+{id:"saodiseng",name:"扫地僧",width:"89px",height:"156px",startDeg:-96,marginTop:"-63px","point":"1111","link":"2222"},
+{id:"beisu",name:"倍速",width:"66px",height:"74px",startDeg:-85,marginTop:"9px","point":"1111","link":"2222"},
+{id:"yonghu4",name:"用户4",width:"90px",height:"213px",startDeg:-96,marginTop:"78px","point":"1111","link":"2222"},
+{id:"hongbaohe3",name:"红包盒3",width:"59px",height:"52px",startDeg:-133,marginTop:"113px","point":"1111","link":"2222"},
+{id:"yanglei",name:"杨蕾",width:"100px",height:"294px",startDeg:-114,marginTop:"83px","point":"1111","link":"2222"},
+{id:"ashi",name:"阿狮",width:"129px",height:"383px",startDeg:-141,marginTop:"-77px","point":"1111","link":"2222"},
+]
+$('#sc').click(function(){
+		var str = "[";
+		for (var i = 0; i< oridata.length; i++){
+			var name = oridata[i][0];
+			var x = oridata[i][3];
+			var y = oridata[i][4];
+			var gao = oridata[i][2];
+			var kuan = oridata[i][1];
+
+			
+			str += '{id:"3333",name:"';
+			str += name + '",width:"'
+			str += kuan + 'px",height:"'
+			str += gao + 'px",startDeg:'
+			str += parseInt(180 - (x/3096*360)+9) + ',marginTop:"'
+			str += parseInt((0.9 * y - 540))+ 'px","point":"1111","link":"2222"},';	
+			str += "\r\n";
+		}
+		str += "]"
+		$('#output').html(str);
+	});
+
+	$('#sz').click(function(){
+		var str = "[";
+		for (var i = 0; i< panosClick.length; i++){
+			str += '"pano3/';
+			str += panosClick[i].id;
+			str += '.png",';
+			str += "\r\n";
+		}
+		str += "]"
+		$('#output').html(str);
+	});
+</script>
+
+</body>
+</html>

@@ -40,7 +40,7 @@ function setLoading() {//该函数用来刷家在进度百分比条。
       logoText.innerHTML = "已加载 " + (Math.floor(nub / data.length * 100)) + "%";//按照图片张数显示
       if (nub == data.length) {
         //图片加载完成之后，要做的事情
-        anmt();
+        anmt5();
       }
     };
   }
@@ -250,6 +250,7 @@ function anmt5() {
     anmt7() // 云朵
   }
   createPano() // 图标层
+  createBigClick();//点击响应层。
   MTween({//主体的前后向动画
     el: tZ,
     target: {
@@ -344,7 +345,9 @@ function anmt7() {
     },
     callBack: function() {//结束删除
       cloud.parentNode.removeChild(cloud)
-      bgShow()
+      bgShow();
+      machineAnimit();//弹出领取机器
+      addBigClickEvent();//绑定弹层点击事件
     }
   })
 }
@@ -420,7 +423,7 @@ function setDarg() {//拖动逻辑
     if (disZ > 300) {
       disZ = 300
     }
-    css(tZ, 'translateZ', startZ - disZ)
+    css(tZ, 'translateZ', startZ - disZ);
   })
   document.addEventListener('touchend', function(e) {
 
@@ -460,6 +463,13 @@ function setDarg() {//拖动逻辑
         window.isStart = false
       }
     })
+    console.log(nowDeg.x);
+    console.log(nowDeg.y);
+
+    //松手触发动画
+    //大件
+    //奖学金领取屏
+    doFloatingPiece(nowDeg.x);
   })
 }
 
@@ -475,6 +485,39 @@ function bgShow() {
   })
 }
 
+var panosClick = {
+  pano0:{width:"92px",height:"126px",startDeg:35,marginTop:"-270px"},
+  pano1:{
+    width:'12px',
+    height:'178px',
+    startDeg:-75,
+    marginTop:'-240px'
+  },
+  pano2:{
+    width:'105px',
+    height:'178px',
+    startDeg:-95,
+    marginTop:'-240px'
+  },
+  pano3:{width:"37px",height:"130px",startDeg:-18,marginTop:"-135px"},
+  pano4:{width:"60px",height:"130px",startDeg:-22,marginTop:"-135px"},
+
+
+  
+
+  length: 5,
+};
+// var panosClick = [
+//   {name:'pano0', width:"92px",height:"126px",startDeg:35,marginTop:"-270px"},
+//   {},
+
+// ];
+var bigClick = [
+  {name:'pano0', width:"92px",height:"126px",startDeg:35,marginTop:"-270px"},
+];
+
+
+
 // 漂浮层
 function createPano() {
   var pano = document.querySelector('#pano');
@@ -482,48 +525,77 @@ function createPano() {
   var R = 450;
   var nub = 0;
   var startDeg = 180;
-  css(pano, "rotateX", 0);
-  css(pano, "rotateY", 0);
-  css(pano, "scale", 0);
-  var pano1 = document.createElement("div");
-  pano1.className = "pano";
-  css(pano1, "translateX", 1.564);
-  css(pano1, "translateZ", -9.877);
-  for (var i = 0; i < 2; i++) {
-    var span = document.createElement("span");
-    span.style.cssText = "height:344px;margin-top:-172px;";
-    span.style.background = "url(" + imgData["pano"][nub] + ")";
-    css(span, "translateY", 0);
-    css(span, "rotateY", startDeg);
-    css(span, "translateZ", -R);
-    nub++;
-    startDeg -= deg;
-    pano1.appendChild(span)
-  }
+  // css(pano, "rotateX", 0);
+  // css(pano, "rotateY", 0);
+  // css(pano, "scale", 0);
+  // var pano1 = document.createElement("div");
+  // pano1.className = "pano";
+  // css(pano1, "translateX", 1.564);
+  // css(pano1, "translateZ", -9.877);
+  // for (var i = 0; i < 2; i++) {
+  //   var span = document.createElement("span");
+  //   span.style.cssText = "height:344px;margin-top:-172px;";
+  //   span.style.background = "url(" + imgData["pano"][nub] + ")";
+  //   css(span, "translateY", 0);
+  //   css(span, "rotateY", startDeg);
+  //   css(span, "translateZ", -R);
+  //   nub++;
+  //   startDeg -= deg;
+  //   pano1.appendChild(span)
+  // }
   // pano.appendChild(pano1);
 
-  var pano2 = document.querySelector('#pano');
-  var startDeg2 = -90;
-  css(pano, "rotateX", 0);
-  css(pano, "rotateY", 0);
-  css(pano, "scale", 0);
-  var pano2 = document.createElement("div");
-  pano2.className = "pano";
-  css(pano2, "translateX", 1.564);
-  css(pano2, "translateZ", -9.877);
-  for (var i = 0; i < 1; i++) {
-    var span = document.createElement("span");
-    span.style.cssText = "height:178px;width:129px;margin-top:-240px;";
+  // var pano2 = document.querySelector('#pano');
+  // var startDeg2 = panosClick.pano0.startDeg;
+  // css(pano, "rotateX", 0);
+  // css(pano, "rotateY", 0);
+  // css(pano, "scale", 0);
+  // var pano2 = document.createElement("div");
+  // pano2.className = "pano";
+  // css(pano2, "translateX", 1.564);
+  // css(pano2, "translateZ", -9.877);
+  // for (var i = 0; i < 1; i++) {
+  //   var span = document.createElement("span");
+  //   span.style.cssText = "height:178px;width:"+panosClick.pano0.width+";margin-top:-240px;";
+  //   span.style.background = "url(" + imgData["pano"][nub] + ")";
+  //   css(span, "translateY", 0);
+  //   css(span, "rotateY", startDeg2);
+  //   css(span, "translateZ", -R);
+  //   nub++;
+  //   startDeg -= deg;
+  //   pano2.appendChild(span)
+  // }
+  // pano.appendChild(pano2);
+  for (var j = 0; j < panosClick.length; j++) {
+    var thepano = document.createElement("div");
+    var startDeg2 = panosClick['pano' + j].startDeg;
+    css(pano, "rotateX", 0);
+    css(pano, "rotateY", 0);
+    css(pano, "scale", 0);
+    var span = document.createElement("div");
+    // span.className = "pano";
+    // // css(span, "translateX", 1.564);
+    // // css(span, "translateZ", -9.877);
+    // for (var i = 0; i < 1; i++) {
+    //   var span = document.createElement("div");
+
+    // opacity:0;height: 160px;width: 400px;left: -123px;background: url(&quot;pano3/machine2.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-427px);float: left;position: absolute;top: -400px;
+    var str = "height: 160px;width: 400px;left: -123px;background: url(&quot;pano3/machine2.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-427px);float: left;position: absolute;top: -400px;"
+    span.style.cssText = "float:left;height:"+panosClick['pano' + j].height+";width:"+panosClick['pano' + j].width+";margin-top:"+panosClick['pano' + j].marginTop+";";
     span.style.background = "url(" + imgData["pano"][nub] + ")";
     css(span, "translateY", 0);
     css(span, "rotateY", startDeg2);
     css(span, "translateZ", -R);
     nub++;
     startDeg -= deg;
-    pano2.appendChild(span)
+    thepano.appendChild(span);
+    // }
+    console.log(pano);
+    // debugger;
+    pano.appendChild(thepano);
   }
-  pano.appendChild(pano2);
-
+  //创建浮层元素
+  initFloatingPiece();
 
   setTimeout(function() {
     MTween({
@@ -670,6 +742,7 @@ function createPano() {
       css(panoBg,"rotateY",nowDegY);
   })
 }*/
+/*陀螺仪*/
 function setSensors() {
   var pano = document.querySelector('#pano');
   var panoBg = document.querySelector('#panoBg');
@@ -796,4 +869,230 @@ function setSensors() {
       })
     }
   })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//初始化浮片
+function initFloatingPiece() {
+  var pano = document.querySelector('#pano');
+  //首屏机器
+  //奖学金领取处机器
+  var themachine = document.createElement('div');
+  var machine = document.createElement('div');
+  machine.className = "machine";
+  var str = "opacity:0;float:left;height: 550px;width: 400px;left: -130px;background: url(&quot;pano3/mation.png&quot;);transform: translateY(0px) rotateY(166deg) translateZ(-429px);float: left;position: absolute;";
+  machine.style.cssText = str;
+  machine.style.background = "url(" + imgData["big"][0] + ")";
+  themachine.appendChild(machine);
+  pano.appendChild(themachine);
+  //奖学金领取处文字
+  var machineWords = document.createElement('div');
+  var words = document.createElement('div');
+  words.className = "machine2";
+  var str = "opacity:0;height: 160px;width: 400px;left: -123px;background: url(&quot;pano3/machine2.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-427px);float: left;position: absolute;top: -400px;";
+  words.style.cssText = str;
+  words.style.background = "url(" + imgData["big"][1] + ")";
+  machineWords.appendChild(words);
+  pano.appendChild(machineWords);
+  //硬币
+  var machineIcon = document.createElement('div');
+  var icon = document.createElement('div');
+  icon.className = "machine3";
+  var str = "opacity: 0;height: 131px;width: 237px;left: -12px;background: url(&quot;pano3/machine3.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-338px);float: left;position: absolute;top: 75px;";
+  icon.style.cssText = str;
+  icon.style.background = "url(" + imgData["big"][2] + ")";
+  machineIcon.appendChild(icon);
+  pano.appendChild(machineIcon);
+
+}
+
+//首屏奖学金机器
+function machineAnimit(){
+  MTween({
+    el: $(".machine")[0],//听书奖学金领取机器
+    target: {
+      opacity: 100,//透明变不透明
+      top: -269,//上升
+    },
+    time: 400,
+    type: 'linear',
+    callBack: function() {
+      MTween({
+        el: $(".machine2")[0],//奖学金领取处字样
+        target: {
+          opacity: 100,//透明变不透明
+          top: -400,//上升
+        },
+        time: 400,
+        type: 'linear',
+        callBack: function() {
+          iconAnimit();
+        }
+      })
+    }
+  })
+}
+function iconAnimit(){
+  MTween({
+    el: $(".machine3")[0],//奖学金领取处字样
+    target: {
+      opacity: 100,//透明变不透明
+      top: 80,//上升
+    },
+    time: 500,
+    type: 'linear',
+    callBack: function() {
+      MTween({
+        el: $(".machine3")[0],//奖学金领取处字样
+        target: {
+          opacity: 30,//透明变不透明
+          top: 75,//上升
+        },
+        time: 100,
+        type: 'linear',
+        callBack: function() {
+          iconAnimit();
+        }
+      })
+    }
+  })
+}
+//浮片动作
+function doFloatingPiece (nowDegx) {
+  if(Math.abs(((nowDegx + 360000) - 175))%360 < 50){
+    machineAnimit();
+  } else {
+    MTween({
+      el: $(".machine")[0],//黑白logo
+      target: {
+        opacity: -100,//最终态挪到远处
+        top: 269,
+      },
+      time: 50,
+      type: 'linear',
+      callBack: function() {
+        MTween({
+          el: $(".machine2")[0],//奖学金领取处字样
+          target: {
+            opacity: -100,//透明变不透明
+            top: 40,//上升
+          },
+          time: 50,
+          type: 'linear',
+          callBack: function() {
+            MTween({
+              el: $(".machine3")[0],//钱币
+              target: {
+                opacity: -100,//透明变不透明
+                top: 40,//上升
+              },
+              time: 50,
+              type: 'linear',
+              callBack: function() {
+              }
+            })
+          }
+        })
+      }
+    })
+  }
+}
+//创建各种点击及浮层
+function createBigClick(){
+  var bigClickData = [
+    {id:"jiahangjia",name:"贾行家",width:"146px",height:"310px",startDeg:135,marginTop:"45px","point":"1111","link":"2222"},
+    {id:"lijun",name:"李筠",width:"174px",height:"371px",startDeg:125,marginTop:"-169px","point":"1111","link":"2222"},
+    {id:"liuwei",name:"刘玮",width:"157px",height:"304px",startDeg:79,translateZ:"-463px",marginTop:"-107px","point":"1111","link":"2222"},
+    {id:"huanglining1",name:"黄昱宁-1",width:"181px",height:"289px",startDeg:103,marginTop:"-151px","point":"1111","link":"2222"},
+    {id:"haunglining2",name:"黄昱宁-2",width:"0px",height:"0px",startDeg:99,marginTop:"-126px","point":"1111","link":"2222"},
+    {id:"haungliningmingpai",name:"黄昱宁名牌",width:"39px",height:"91px",startDeg:94,marginTop:"-154px","point":"1111","link":"2222"},
+    {id:"liuweimingpai",name:"刘玮名牌",width:"38px",height:"91px",startDeg:83,marginTop:"-113px","point":"1111","link":"2222"},
+    {id:"zhuwei1",name:"朱伟-1",width:"309px",height:"311px",startDeg:100,translateZ:'-540px',marginTop:"56px","point":"1111","link":"2222"},
+    {id:"zhuwei2",name:"朱伟-2",width:"0px",height:"0px",startDeg:84,marginTop:"48px","point":"1111","link":"2222"},
+    {id:"caoxingyuan1",name:"曹星原-1",width:"0px",height:"0px",startDeg:56,marginTop:"20px","point":"1111","link":"2222"},
+    {id:"caoxingyuan2",name:"曹星原-2",width:"286px",height:"345px",startDeg:65,translateZ:'-500px',marginTop:"20px","point":"1111","link":"2222"},
+    {id:"linannan",name:"李南南",width:"102px",height:"315px",startDeg:37,translateZ:'-448px',marginTop:"-9px","point":"1111","link":"2222"},
+    {id:"hongbaohe1-1",name:"红包盒1-1",width:"24px",height:"50px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
+    {id:"hongbaohe1-2",name:"红包盒1-2",width:"37px",height:"50px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
+    {id:"shehuiyujingji",name:"社会与经济",width:"93px",height:"117px",startDeg:38,marginTop:"-135px","point":"1111","link":"2222"},
+    {id:"anzhishi1",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
+    {id:"anzhishi2",name:"暗知识-2",width:"79px",height:"115px",startDeg:25,marginTop:"-135px","point":"1111","link":"2222"},
+    {id:"chengshi1",name:"成事-1",width:"89px",height:"116px",startDeg:14,marginTop:"-135px","point":"1111","link":"2222"},
+    {id:"chengshi2",name:"成事-2 无",width:"38px",height:"116px",startDeg:9,marginTop:"-135px","point":"1111","link":"2222"},
+    {id:"shiwenhuojinchensilu",name:"十问：霍金沉思录",width:"90px",height:"120px",startDeg:36,marginTop:"-261px","point":"1111","link":"2222"},
+    {id:"meiguoxianjing1",name:"美国陷阱-1",width:"90px",height:"118px",startDeg:17,marginTop:"-259px","point":"1111","link":"2222"},
+    {id:"meiguoxianjing2",name:"美国陷阱-2 无",width:"15px",height:"117px",startDeg:9,marginTop:"-259px","point":"1111","link":"2222"},
+    {id:"bianhengqin",name:"卞恒沁",width:"104px",height:"301px",startDeg:6,marginTop:"-89px","point":"1111","link":"2222"},
+    {id:"dasheji",name:"大设计",width:"99px",height:"124px",startDeg:-11,marginTop:"-254px","point":"1111","link":"2222"},
+    {id:"zhaizizhongguo",name:"宅兹中国",width:"99px",height:"123px",startDeg:-25,marginTop:"-258px","point":"1111","link":"2222"},
+    {id:"jinhuidui",name:"锦灰堆",width:"89px",height:"122px",startDeg:-6,marginTop:"-128px","point":"1111","link":"2222"},
+    {id:"xugoudeyoutaiminzu1",name:"虚构的犹太民族-1",width:"86px",height:"119px",startDeg:-18,marginTop:"-128px","point":"1111","link":"2222"},
+    {id:"xugoudeyoutaiminzu2",name:"虚构的犹太民族-2 无",width:"55px",height:"119px",startDeg:-21,marginTop:"-128px","point":"1111","link":"2222"},
+    {id:"xiaoshuodeyishu1",name:"小说的艺术-1",width:"92px",height:"121px",startDeg:-30,marginTop:"-126px","point":"1111","link":"2222"},
+    {id:"xiaoshuodeyishu2",name:"小说的艺术-2 无",width:"29px",height:"121px",startDeg:-36,marginTop:"-126px","point":"1111","link":"2222"},
+    {id:"liuxuan",name:"刘玄",width:"110px",height:"285px",startDeg:-36,marginTop:"-16px","point":"1111","link":"2222"},
+    {id:"tingshutieshi1",name:"听书帖士-1",width:"44px",height:"220px",startDeg:-45,marginTop:"-287px","point":"1111","link":"2222"},
+    {id:"tingshutieshi2",name:"听书帖士-2",width:"59px",height:"220px",startDeg:-51,marginTop:"-287px","point":"1111","link":"2222"},
+    {id:"shujialidehongbao",name:"书架里的红包",width:"73px",height:"66px",startDeg:-51,marginTop:"-83px","point":"1111","link":"2222"},
+    {id:"yonghu1",name:"用户1",width:"78px",height:"118px",startDeg:-54,marginTop:"-24px","point":"1111","link":"2222"},
+    {id:"yonghu2",name:"用户2",width:"175px",height:"307px",startDeg:-66,marginTop:"34px","point":"1111","link":"2222"},
+    {id:"hongbaohe2",name:"红包盒2",width:"79px",height:"56px",startDeg:-75,marginTop:"181px","point":"1111","link":"2222"},
+    {id:"yonghu3",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-25px","point":"1111","link":"2222"},
+    {id:"tingshushujubang1",name:"听书数据榜-1",width:"153px",height:"235px",startDeg:-65,marginTop:"-294px","point":"1111","link":"2222"},
+    {id:"tingshushujubang2",name:"听书数据榜-2",width:"0px",height:"0px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
+    {id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-82,marginTop:"-250px","point":"1111","link":"2222"},
+    {id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-247px","point":"1111","link":"2222"},
+    {id:"ditu3",name:"地图3",width:"45px",height:"63px",startDeg:-105,marginTop:"-215px","point":"1111","link":"2222"},
+    {id:"saodiseng",name:"扫地僧",width:"89px",height:"156px",startDeg:-96,marginTop:"-63px","point":"1111","link":"2222"},
+    {id:"beisu",name:"倍速",width:"66px",height:"74px",startDeg:-85,marginTop:"9px","point":"1111","link":"2222"},
+    {id:"yonghu4",name:"用户4",width:"90px",height:"213px",startDeg:-96,marginTop:"78px","point":"1111","link":"2222"},
+    {id:"hongbaohe3",name:"红包盒3",width:"82px",height:"52px",startDeg:-131,marginTop:"113px","point":"1111","link":"2222"},
+    {id:"yanglei",name:"杨蕾",width:"100px",height:"306px",startDeg:-114,marginTop:"47px","point":"1111","link":"2222"},
+    {id:"ashi",name:"阿狮",width:"237px",height:"411px",startDeg:-145,marginTop:"-87px","point":"1111","link":"2222"},
+    ]
+  var pano = document.querySelector('#pano');
+  for(var i = 0; i < bigClickData.length; i++){
+    var outDiv = document.createElement('div');
+    var imgDiv = document.createElement('div');
+    imgDiv.className = bigClickData[i].id
+    imgDiv.classList.add("showWindow");
+    var str = "opacity:0.8;background-color:'red';float:left;top:"+bigClickData[i].marginTop+
+              ";height:"+bigClickData[i].height+
+              ";width: "+bigClickData[i].width+
+              ";left: 0px;transform: translateY(0px) rotateY("+bigClickData[i].startDeg+
+              "deg) translateZ("+(bigClickData[i].translateZ === undefined ? "-429px": bigClickData[i].translateZ)+
+              ");float: left;position: absolute;";
+    imgDiv.style.cssText = str;
+    imgDiv.style.background = "url(" + imgData["panosClick"][i] + ")";
+    outDiv.appendChild(imgDiv);
+    pano.appendChild(outDiv);
+  }
+  
+}
+function addBigClickEvent(){
+  //点击事件绑定
+  var window = $('#window');
+  var windowImg = $('#windowImg');
+  $('.showWindow').click(function(){
+    var windowName = $(this)[0].classList[0];
+    windowImg[0].src = 'window/'+windowName+'.png'
+    window.show();
+  });
+  window.click(function () {
+    window.hide();  
+  });
 }
