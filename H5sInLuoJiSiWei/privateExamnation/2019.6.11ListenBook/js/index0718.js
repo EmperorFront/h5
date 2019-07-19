@@ -1241,7 +1241,12 @@ function getMoney() {
                 $('#nick')[0].src = userInfo.nick_name;
                 
                 $('#getButton').click(function(){
-                  window.location.href=userInfo.activity_coupon_list.coupon_url;
+                  var link = encodeURIComponent(userInfo.activity_coupon_list.coupon_url);
+                  var url = 'igetapp://activity/detail?url='+link;
+                  Asio.send('jump.ddURL', {
+                    ddURL: url,
+                    ddURLMinVer: '5.2.0'
+                  })
                 });
               });
             });
