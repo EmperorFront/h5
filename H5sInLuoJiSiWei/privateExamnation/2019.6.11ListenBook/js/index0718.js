@@ -1209,7 +1209,7 @@ function cloudblink(e,r){
 var onetime_click = 1;
 var ua = navigator.userAgent;
 var Asio = Asio || {send:function(a){ return false }};
-var userInfo = {};
+var userInfo = {activity_coupon_list:{coupon_url:''}};
 function getMoney() {
 	if(onetime_click){
 		onetime_click = 0;	
@@ -1239,6 +1239,10 @@ function getMoney() {
                 userInfo = res.data;
                 $('#avatar')[0].src = userInfo.avatar;
                 $('#nick')[0].src = userInfo.nick_name;
+                
+                $('#getButton').click(function(){
+                  window.location.href=userInfo.activity_coupon_list.coupon_url;
+                });
               });
             });
           }
@@ -1268,5 +1272,6 @@ function getMoney() {
           }
         }
       });
+
 	}
 }
