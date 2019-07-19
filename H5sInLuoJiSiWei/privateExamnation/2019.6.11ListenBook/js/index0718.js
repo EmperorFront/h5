@@ -382,6 +382,21 @@ function setDarg() {//拖动逻辑
     startPoint.y = e.changedTouches[0].pageY;console.log(startPoint.y);
     panoBgDeg.x = css(panoBg, 'rotateY');console.log('panoBgDeg.x',panoBgDeg.x);
     panoBgDeg.y = css(panoBg, 'rotateX');console.log('panoBgDeg.y',panoBgDeg.y);
+  
+    
+    var top = document.scrollTop
+      , totalScroll = document.scrollHeight
+      , currentScroll = top + document.offsetHeight
+    //If we're at the top or the bottom of the containers
+    //scroll, push up or down one pixel.
+    //
+    //this prevents the scroll from "passing through" to
+    //the body.
+    if(top === 0) {
+      document.scrollTop = 1
+    } else if(currentScroll === totalScroll) {
+      document.scrollTop = top - 1
+    }
   })
 
   document.addEventListener('touchmove', function(e) {
@@ -480,9 +495,9 @@ function setDarg() {//拖动逻辑
     console.log(nowDeg.y);
   })
 
-  document.querySelector('body').addEventListener('touchstart',function(e){
-    e.preventDefault();
-  });
+  // document.querySelector('body').addEventListener('touchstart',function(e){
+
+  // });
 }
 
 function bgShow() {
