@@ -949,6 +949,7 @@ function initFloatingPiece() {
   var themachine = document.createElement('div');
   var machine = document.createElement('div');
   machine.className = "machine";
+  machine.classList.add("mcclick");
   var str = "opacity:0;float:left;height: 550px;width: 400px;left: -130px;background: url(&quot;pano3/mation.png&quot;);transform: translateY(0px) rotateY(166deg) translateZ(-429px);float: left;position: absolute;";
   machine.style.cssText = str;
   machine.style.background = "url(" + imgData["big"][0] + ")";
@@ -958,6 +959,7 @@ function initFloatingPiece() {
   var machineWords = document.createElement('div');
   var words = document.createElement('div');
   words.className = "machine2";
+  words.classList.add("mcclick");
   var str = "opacity:0;height: 160px;width: 400px;left: -123px;background: url(&quot;pano3/machine2.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-427px);float: left;position: absolute;top: -400px;";
   words.style.cssText = str;
   words.style.background = "url(" + imgData["big"][1] + ")";
@@ -967,12 +969,23 @@ function initFloatingPiece() {
   var machineIcon = document.createElement('div');
   var icon = document.createElement('div');
   icon.className = "machine3";
+  icon.classList.add("mcclick");
   var str = "opacity: 0;height: 131px;width: 237px;left: -12px;background: url(&quot;pano3/machine3.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-338px);float: left;position: absolute;top: 75px;";
   icon.style.cssText = str;
   icon.style.background = "url(" + imgData["big"][2] + ")";
   machineIcon.appendChild(icon);
   pano.appendChild(machineIcon);
 
+  //点击弹窗或跳转
+  $('.mcclick').click(function(){
+    if(ua.indexOf('igetapp')) {
+      //点击事件绑定
+      var window = $('#window');
+      var windowImg = $('#windowImg');
+      windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
+      window.show();
+    }
+  });
 }
 
 //首屏奖学金机器
@@ -1155,8 +1168,6 @@ function addBigClickEvent(){
 }
 function initcloud(){
   var pano = document.querySelector('#pano');
-  //首屏机器
-  //奖学金领取处机器
   var thecloud01 = document.createElement('div');
   var cloud01 = document.createElement('div');
   cloud01.className = "cloud01";
@@ -1165,7 +1176,6 @@ function initcloud(){
   cloud01.style.background = "url(" + imgData["cloud"][3] + ")";
   thecloud01.appendChild(cloud01);
   pano.appendChild(thecloud01);
-  //奖学金领取处文字
   var thecloud02 = document.createElement('div');
   var cloud02 = document.createElement('div');
   cloud02.className = "cloud02";
@@ -1207,6 +1217,7 @@ function cloudblink(e,r){
 var onetime_click = 1;
 var ua = navigator.userAgent;
 var Asio = Asio || {send:function(a){ return false }};
+var userInfo = {};
 function getMoney() {
 	if(onetime_click){
 		onetime_click = 0;	
@@ -1227,15 +1238,14 @@ function getMoney() {
           
               Asio.send('network.load', {
                 url: '$_ENTREE_DOMAIN_$/odob/v2/front_activity/user_and_coupon_info',
-                method: 'GET',
+                method: 'POST',
                 params: {
                   user_id: user_id
                 },
                 contentType: 'application/x-www-form-urlencoded',
                 proxyType: 'gateway/entree'
               }).then(function (res) {
-                
-                $('#window').show();
+                userInfo = res.data;
               });
             });
           }
