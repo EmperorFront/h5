@@ -22,7 +22,7 @@ var imgData = {
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0718/cloud01.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0718/cloud02.png",
 	],
-	pageBg:["bg0718/bg.jpg"],
+	pageBg:["https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0718/bg.jpg"],
 	bg:[
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0718/131729346184978349_01.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0718/131729346184978349_02.png",
@@ -117,7 +117,7 @@ var imgData = {
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0718/ashi.png",
 	],
 	window:[
-		'window/jiahangjia.png',
-		'window/lijun.png',
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/jiahangjia.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/lijun.png",
 	]
 };
