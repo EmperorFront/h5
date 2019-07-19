@@ -60,7 +60,6 @@ function setLoading() {//该函数用来刷家在进度百分比条。
   var data = [];//数据数组
   var nub = 0;//当前加载数
   for (var s in imgData) {//imgData，所有的图片数组
-    // console.log(s);
     data = data.concat(imgData[s]);//concat，数组链接。 把img的数据模块挨个放在data数组。二维数组变一维数组。
   }
   for (var i = 0; i < data.length; i++) {
@@ -68,7 +67,6 @@ function setLoading() {//该函数用来刷家在进度百分比条。
     img.src = data[i];//预加载图片
     img.onload = function() {
       nub++;
-      //console.log(Math.floor(nub/data.length*100));
       logoText.innerHTML = "已加载 " + (Math.floor(nub / data.length * 100)) + "%";//按照图片张数显示
       if (nub == data.length) {
         //图片加载完成之后，要做的事情
@@ -411,10 +409,10 @@ function setDarg() {//拖动逻辑
     clearInterval(pano.timer)
     clearInterval(panoBg.timer)
     clearInterval(tZ.timer)
-    startPoint.x = e.changedTouches[0].pageX;console.log(startPoint.x);
-    startPoint.y = e.changedTouches[0].pageY;console.log(startPoint.y);
-    panoBgDeg.x = css(panoBg, 'rotateY');console.log('panoBgDeg.x',panoBgDeg.x);
-    panoBgDeg.y = css(panoBg, 'rotateX');console.log('panoBgDeg.y',panoBgDeg.y);
+    startPoint.x = e.changedTouches[0].pageX;
+    startPoint.y = e.changedTouches[0].pageY;
+    panoBgDeg.x = css(panoBg, 'rotateY');
+    panoBgDeg.y = css(panoBg, 'rotateX');
   
     
     var top = document.scrollTop
@@ -524,8 +522,6 @@ function setDarg() {//拖动逻辑
         window.isStart = false
       }
     })
-    console.log(nowDeg.x);
-    console.log(nowDeg.y);
   })
 
   // document.querySelector('body').addEventListener('touchstart',function(e){
@@ -650,7 +646,6 @@ function createPano() {
     startDeg -= deg;
     thepano.appendChild(span);
     // }
-    console.log(pano);
     // debugger;
     pano.appendChild(thepano);
   }
