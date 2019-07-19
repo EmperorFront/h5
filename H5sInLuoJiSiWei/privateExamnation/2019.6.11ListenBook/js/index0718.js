@@ -980,6 +980,8 @@ function initFloatingPiece() {
   icon.style.background = "url(" + imgData["big"][2] + ")";
   machineIcon.appendChild(icon);
   pano.appendChild(machineIcon);
+  //绑定点击机器事件
+  getMoney();
 }
 
 //首屏奖学金机器
@@ -1222,7 +1224,6 @@ function getMoney() {
 			//APP内,发请求，弹窗
 
       //发请求
-      setTimeout(function(){ 
         ua = navigator.userAgent;
         if (ua.indexOf('igetapp')) {
           var user_id = 0;
@@ -1246,9 +1247,7 @@ function getMoney() {
             });
           }
         }
-      }, 500);
 		} 
-    setTimeout(function(){ 
       //点击弹窗或跳转
       $('.mcclick').click(function(){
         if(ua.indexOf('igetapp')>0) {
@@ -1273,6 +1272,5 @@ function getMoney() {
           }
         }
       });
-    }, 1000);
 	}
 }
