@@ -1264,7 +1264,7 @@ function getMoney() {
           windowDiv.show();
         }else{
           //cms环境的页面
-          if(Asio.send('')){
+          if(!(Asio.send('') === false)){
             var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
             var url = 'igetapp://activity/detail?url='+link;
             Asio.weLaunch(url);
