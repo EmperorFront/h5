@@ -40,7 +40,7 @@ function setLoading() {//该函数用来刷家在进度百分比条。
       logoText.innerHTML = "已加载 " + (Math.floor(nub / data.length * 100)) + "%";//按照图片张数显示
       if (nub == data.length) {
         //图片加载完成之后，要做的事情
-        anmt5();
+        anmt();
       }
     };
   }
@@ -69,27 +69,28 @@ function anmt() {//百分比和首屏logo动画
   MTween({
     el: logo1,//目标元素
     target: {
-      opacity: 0,//最终态为透明
-      translateZ: -1000
+      opacity: 40,//最终态为透明
+      translateZ: 350
     },
-    time: 1000,//转态时间
+    time: 1500,//转态时间
     // type: 'easeBoth',
     type: 'easeOut',//
     callBack: function() {
-      //view.removeChild(logo1)
-      css(logo2, 'opacity', 100)//展现第二个logo（黑豹）
-      MTween({
-        el: logo2,//黑白logo
-        target: {
-          translateZ: 0//最终态挪到最前边。
-        },
-        time: 1000,
-        type: 'easeBoth',
-        callBack: function(){
-          anmt2();//大动画
-          initclick();//绑定点击事件
-        }
-      })
+      view.removeChild(logo1)
+      anmt5();
+      // css(logo2, 'opacity', 100)//展现第二个logo（黑豹）
+      // MTween({
+      //   el: logo2,//黑白logo
+      //   target: {
+      //     translateZ: 0//最终态挪到最前边。
+      //   },
+      //   time: 1000,
+      //   type: 'easeBoth',
+      //   callBack: function(){
+      //     anmt2();//大动画
+      //     initclick();//绑定点击事件
+      //   }
+      // })
     }
   })
 }
@@ -1171,4 +1172,57 @@ function cloudblink(e,r){
       })
     }
   })
+}
+
+var onetime_click = 1;
+var ua = navigator.userAgent;
+var Asio = Asio || {send:function(a){ return false }};
+function getMoney() {
+	if(onetime_click){
+		onetime_click = 0;	
+		setTimeout(function(){
+			onetime_click = 1;	
+		},300);
+		if(ua.indexOf('igetapp') && Asio.send('')) {
+			//APP内,发请求，弹窗
+
+      //发请求
+      setTimeout(function(){ 
+        ua = navigator.userAgent;
+        if (ua.indexOf('igetapp')) {
+          var user_id = 0;
+          if( Asio.send('agent.info') != undefined ) {
+            Asio.send('agent.info').then(function (res) {
+              user_id = res.data.userid; //获取用户信息
+          
+              Asio.send('network.load', {
+                url: '$_ENTREE_DOMAIN_$/gifts/v1/honor/patron/info',
+                method: 'GET',
+                params: {
+                  user_id: user_id
+                },
+                contentType: 'application/x-www-form-urlencoded',
+                proxyType: 'gateway/entree'
+              }).then(function (res) {
+                if (res.status_code == 0 && res.data.name && res.data.position) {
+                  var chname = res.data.name;
+                  var chposition = res.data.position; //dom操作改名字
+          
+                  var newElement = "<div class=\"item\">\n\t\t\t\t\t\t<div class=\"name\">".concat(chname, "</div>\n\t\t\t\t\t\t<div class=\"position\">").concat(chposition, "</div>\n\t\t\t\t\t</div>");
+                  leftBlock.append(newElement);
+                }
+              });
+            });
+          }
+        }
+        
+      }, 500);
+		} else {
+      //cms环境的页面
+			if(Asio.send('')){
+        var url = 'www.baidu.com';
+        Asio.weLaunch(url);
+      }
+		}
+	}
 }

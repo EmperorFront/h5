@@ -43,16 +43,13 @@ html {
 }
 .logoImg {
 	position: absolute;
-	left: 35%;
-	top: 50%;
-	margin-top: -15%;
-	width: 30%;
+	width: 100%;
 } 
 .logoImg img {
 	width: 100%;
 	display: block;
-	-webkit-animation: 2s rotateY linear infinite;
-	animation: 2s rotateY linear infinite;
+	/* -webkit-animation: 2s rotateY linear infinite;
+	animation: 2s rotateY linear infinite; */
 }
 .logoText {
 	position: absolute;
