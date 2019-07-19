@@ -24,6 +24,9 @@ html {
 	overflow: hidden;
 	position: relative;
 }
+#root {
+	display: inline;
+}
 #pageBg{
 	position: absolute;
 	left: 0;

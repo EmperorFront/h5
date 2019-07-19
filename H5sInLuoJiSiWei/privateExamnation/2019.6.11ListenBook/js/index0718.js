@@ -1,3 +1,30 @@
+//填充dom
+var dom = `
+<div id="pageBg"></div>
+<div id="view">
+	<div id="logo1">
+		<div class="logoImg">
+			<img src="load/logo.png">
+		</div>
+		<p class="logoText">已加载 0%</p>
+	</div>
+	<div id="main">
+		<div id="tZ">
+			<div id="panoBg"></div>
+			<div id="cloud"></div>
+			<div id="pano"></div>
+		</div>
+	</div>
+</div>
+<div id="go" class="hidden" style="width: 10%;position: absolute;bottom: 5%;right: 15%;text-align: center;height: 10%;"> 
+	<img id="goImg" src="load/go.png" style="height: 100%;margin: auto;"/>
+</div>
+<div id="window" class="hidden" style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 90%;"> 
+	<img id="windowImg" src="" style="height: 100%;margin: auto;"/>
+</div>`;
+
+$('#root').html(dom);
+
 (function() {//loading完搞入口函数
   setLoading()//初始化loading动画
   setPerc()//初始化图像动画
