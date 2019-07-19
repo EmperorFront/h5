@@ -13,6 +13,8 @@
 <div id="show">
 		<div id= "sc">生成</div>
 		<div id= "sz">数组</div>
+		<div id= "tp">图片</div>
+
 </div>
 <div id="output"> 
 
@@ -107,6 +109,17 @@ $('#sc').click(function(){
 		var str = "[";
 		for (var i = 0; i< panosClick.length; i++){
 			str += '"pano3/';
+			str += panosClick[i].id;
+			str += '.png",';
+			str += "\r\n";
+		}
+		str += "]"
+		$('#output').html(str);
+	});
+	$('#tp').click(function(){
+		var str = "[";
+		for (var i = 0; i< panosClick.length; i++){
+			str += '"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/';
 			str += panosClick[i].id;
 			str += '.png",';
 			str += "\r\n";
