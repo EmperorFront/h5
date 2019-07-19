@@ -119,6 +119,6 @@ var imgData = {
 	window:[
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/jiahangjia.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/lijun.png",
-		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png",
+
 	]
 };

@@ -20,7 +20,12 @@ var dom = `
 	<img id="goImg" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/load/go.png" style="height: 100%;margin: auto;"/>
 </div>
 <div id="window" class="hidden" style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 90%;"> 
-	<img id="windowImg" src="" style="height: 100%;margin: auto;"/>
+  <div class="hidden" id="info">
+    <img id="avatar"></img>
+    <div id="nick"></div>
+    <div id="getButton"></div>
+  </div>
+  <img id="windowImg" src="" style="height: 100%;margin: auto;"/>
 </div>`;
 
 $('#root').html(dom);
@@ -980,10 +985,10 @@ function initFloatingPiece() {
   $('.mcclick').click(function(){
     if(ua.indexOf('igetapp')) {
       //点击事件绑定
-      var window = $('#window');
+      var windowDiv = $('#window');
       var windowImg = $('#windowImg');
       windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
-      window.show();
+      windowDiv.show();
     }
   });
 }
@@ -1246,6 +1251,8 @@ function getMoney() {
                 proxyType: 'gateway/entree'
               }).then(function (res) {
                 userInfo = res.data;
+                $('#avatar')[0].src = userInfo.avatar;
+                $('#nick')[0].src = userInfo.nick_name;
               });
             });
           }
