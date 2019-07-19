@@ -1150,7 +1150,7 @@ function addBigClickEvent(){
   var windowImg = $('#windowImg');
   $('.showWindow').click(function(){
     var windowName = $(this)[0].classList[0];
-    windowImg[0].src = 'window/'+windowName+'.png'
+    windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/'+windowName+'.png'
     window.show();
   });
   window.click(function () {
