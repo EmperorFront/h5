@@ -4,7 +4,7 @@ var dom = `
 <div id="view">
 	<div id="logo1">
 		<div class="logoImg">
-			<img src="load/logo.png">
+			<img src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/load/logo.png">
 		</div>
 		<p class="logoText">已加载 0%</p>
 	</div>
@@ -17,7 +17,7 @@ var dom = `
 	</div>
 </div>
 <div id="go" class="hidden" style="width: 10%;position: absolute;bottom: 5%;right: 15%;text-align: center;height: 10%;"> 
-	<img id="goImg" src="load/go.png" style="height: 100%;margin: auto;"/>
+	<img id="goImg" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/load/go.png" style="height: 100%;margin: auto;"/>
 </div>
 <div id="window" class="hidden" style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 90%;"> 
 	<img id="windowImg" src="" style="height: 100%;margin: auto;"/>
