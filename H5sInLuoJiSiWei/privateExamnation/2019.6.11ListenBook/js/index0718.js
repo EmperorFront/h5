@@ -79,23 +79,23 @@ function setLoading() {//该函数用来刷家在进度百分比条。
 function anmt() {//百分比和首屏logo动画
   var view = document.querySelector('#view')//全景容器
   var logo1 = document.querySelector('#logo1')//该元素包含百分比和加载logo
-  var logo2 = document.createElement("div");//第二个logo容器（单logo黑白）
-  var logo3 = document.createElement("div");//第三个logo容器（彩色）
-  var img = new Image()
-  var img2 = new Image()
-  img.src = imgData.logo[0]//加载过之后就有了，直接拿来用。
-  img2.src = imgData.logo[1]//组合第二个logo，黑白
-  logo2.id = "logo2"//赋上id
-  logo3.id = "logo3"
-  logo2.className = logo3.className = "logoImg"//logo
-  logo2.appendChild(img);//黑白容器dom组合好
-  logo3.appendChild(img2);//彩色logo dom组合好
-  css(logo2, "opacity", 0);//隐藏第二个logo（黑白）
-  css(logo3, "opacity", 0);//隐藏第三个logo（彩色）
-  css(logo2, 'translateZ', -1000);//第二个logo挪的远远的
-  css(logo3, 'translateZ', -1000);
-  view.appendChild(logo2);//加到全景容器中
-  view.appendChild(logo3);
+  // var logo2 = document.createElement("div");//第二个logo容器（单logo黑白）
+  // var logo3 = document.createElement("div");//第三个logo容器（彩色）
+  // var img = new Image()
+  // var img2 = new Image()
+  // img.src = imgData.logo[0]//加载过之后就有了，直接拿来用。
+  // img2.src = imgData.logo[1]//组合第二个logo，黑白
+  // logo2.id = "logo2"//赋上id
+  // logo3.id = "logo3"
+  // logo2.className = logo3.className = "logoImg"//logo
+  // logo2.appendChild(img);//黑白容器dom组合好
+  // logo3.appendChild(img2);//彩色logo dom组合好
+  // css(logo2, "opacity", 0);//隐藏第二个logo（黑白）
+  // css(logo3, "opacity", 0);//隐藏第三个logo（彩色）
+  // css(logo2, 'translateZ', -1000);//第二个logo挪的远远的
+  // css(logo3, 'translateZ', -1000);
+  // view.appendChild(logo2);//加到全景容器中
+  // view.appendChild(logo3);
   MTween({
     el: logo1,//目标元素
     target: {
