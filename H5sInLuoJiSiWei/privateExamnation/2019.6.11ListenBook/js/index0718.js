@@ -1154,6 +1154,7 @@ function addBigClickEvent(){
     window.show();
   });
   window.click(function () {
+    $('#info').hide();
     window.hide();  
   });
 }
