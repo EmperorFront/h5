@@ -447,7 +447,7 @@ function setDarg() {//拖动逻辑
         //大件
         //奖学金领取屏
         doFloatingPiece(nowDeg.x + disDeg.x);
-        
+
     MTween({
       el: tZ,
       target: {
@@ -479,6 +479,10 @@ function setDarg() {//拖动逻辑
     console.log(nowDeg.x);
     console.log(nowDeg.y);
   })
+
+  document.querySelector('body').addEventListener('touchstart',function(e){
+    e.preventDefault();
+  });
 }
 
 function bgShow() {
