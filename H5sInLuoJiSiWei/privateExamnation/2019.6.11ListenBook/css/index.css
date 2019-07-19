@@ -47,6 +47,31 @@ html {
 	-webkit-perspective: 300px;
 	perspective: 300px;
 }
+#avatar {
+	width: 20%;
+    border-radius: 100px;
+    position: absolute;
+    top: 25%;
+	left: 50%;
+	margin-left: -10%;
+}
+#nick {
+	position: absolute;
+    top: 36%;
+    left: 50%;
+    margin-left: -20%;
+    width: 40%;
+}
+#getButton {
+	position: absolute;
+    width: 60%;
+    height: 16%;
+    opacity: 0.2;
+    left: 50%;
+    background-color: rebeccapurple;
+    margin-left: -30%;
+    top: 66%;
+}
 .logoImg {
 	position: absolute;
 	width: 100%;

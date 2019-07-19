@@ -980,17 +980,6 @@ function initFloatingPiece() {
   icon.style.background = "url(" + imgData["big"][2] + ")";
   machineIcon.appendChild(icon);
   pano.appendChild(machineIcon);
-
-  //点击弹窗或跳转
-  $('.mcclick').click(function(){
-    if(ua.indexOf('igetapp')) {
-      //点击事件绑定
-      var windowDiv = $('#window');
-      var windowImg = $('#windowImg');
-      windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
-      windowDiv.show();
-    }
-  });
 }
 
 //首屏奖学金机器
@@ -1257,14 +1246,33 @@ function getMoney() {
             });
           }
         }
-        
       }, 500);
-		} else {
-      //cms环境的页面
-			if(Asio.send('')){
-        var url = 'www.baidu.com';
-        Asio.weLaunch(url);
-      }
-		}
+		} 
+    setTimeout(function(){ 
+      //点击弹窗或跳转
+      $('.mcclick').click(function(){
+        if(ua.indexOf('igetapp')>0) {
+          //点击事件绑定
+          var windowDiv = $('#window');
+          var windowImg = $('#windowImg');
+          windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
+          $('#info').show();
+          windowDiv.show();
+        }else{
+          //cms环境的页面
+          if(Asio.send('')){
+            var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
+            var url = 'igetapp://activity/detail?url='+link;
+            Asio.weLaunch(url);
+          }else{
+            //自研
+            var windowDiv = $('#window');
+            var windowImg = $('#windowImg');
+            windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
+            windowDiv.show();
+          }
+        }
+      });
+    }, 1000);
 	}
 }
