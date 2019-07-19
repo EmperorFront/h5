@@ -1098,6 +1098,7 @@ function createBigClick(){
     var imgDiv = document.createElement('div');
     imgDiv.className = bigClickData[i].id
     imgDiv.classList.add("showWindow");
+    imgDiv.classList.add("hidden");
     var str = "opacity:1;background-color:'red';float:left;top:"+bigClickData[i].marginTop+
               ";height:"+bigClickData[i].height+
               ";width: "+bigClickData[i].width+
@@ -1111,6 +1112,8 @@ function createBigClick(){
   }
 }
 function addBigClickEvent(){
+  //显示
+  $('.showWindow').show()
   //点击事件绑定
   var window = $('#window');
   var windowImg = $('#windowImg');
@@ -1196,7 +1199,7 @@ function getMoney() {
               user_id = res.data.userid; //获取用户信息
           
               Asio.send('network.load', {
-                url: '$_ENTREE_DOMAIN_$/gifts/v1/honor/patron/info',
+                url: '$_ENTREE_DOMAIN_$/odob/v2/front_activity/user_and_coupon_info',
                 method: 'GET',
                 params: {
                   user_id: user_id
@@ -1204,13 +1207,8 @@ function getMoney() {
                 contentType: 'application/x-www-form-urlencoded',
                 proxyType: 'gateway/entree'
               }).then(function (res) {
-                if (res.status_code == 0 && res.data.name && res.data.position) {
-                  var chname = res.data.name;
-                  var chposition = res.data.position; //dom操作改名字
-          
-                  var newElement = "<div class=\"item\">\n\t\t\t\t\t\t<div class=\"name\">".concat(chname, "</div>\n\t\t\t\t\t\t<div class=\"position\">").concat(chposition, "</div>\n\t\t\t\t\t</div>");
-                  leftBlock.append(newElement);
-                }
+                
+                $('#window').show();
               });
             });
           }
