@@ -196,13 +196,16 @@ var dom = `
 <div id="go" class="hidden" style="width: 20%;position: absolute;bottom: 5%;right: 15%;text-align: center;height: 20%;"> 
 	<img id="goImg" class= "mcclick" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/load/go.png" style="height: 100%;margin: auto;"/>
 </div>
-<div id="window" class="hidden" style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 90%;"> 
-  <div class="hidden" id="info">
-    <img id="avatar"></img>
-    <div id="nick"></div>
-    <div id="getButton"></div>
-  </div>
-  <img id="windowImg" src="" style="height: 100%;margin: auto;"/>
+<div id="window" class="hidden"style="width: 100%;/* min-height: 100px; */position: absolute;top: 0;left: 0;text-align: center;height: 100%;display: block;background-color: rgba(0,0,0,0.7);">
+    <div style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 80%;"> 
+        <div class="hidden" id="info">
+            <img id="avatar"></img>
+            <div id="nick"></div>
+            <div id="getButton"></div>
+        </div>
+        <img id="windowImg" src="" style="height: 100%;margin: auto;"/>
+    </div>
+    <img id="close" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/close.png" style="height: 100%;margin: auto;"/>
 </div>`;
 
 $('#root').html(dom);
