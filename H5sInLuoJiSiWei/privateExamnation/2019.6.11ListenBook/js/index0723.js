@@ -194,7 +194,7 @@ var dom = `
 	</div>
 </div>
 <div id="go" class="hidden" style="width: 20%;position: absolute;bottom: 5%;right: 15%;text-align: center;height: 20%;"> 
-	<img id="goImg" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/load/go.png" style="height: 100%;margin: auto;"/>
+	<img id="goImg" class= "mcclick" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/load/go.png" style="height: 100%;margin: auto;"/>
 </div>
 <div id="window" class="hidden" style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 90%;"> 
   <div class="hidden" id="info">
@@ -1210,8 +1210,58 @@ function iconAnimit(){
 }
 //浮片动作
 function doFloatingPiece (nowDegx) {console.log(nowDegx);
+    //滑动提示逻辑
+    if(Math.abs(((nowDegx + 360000) - 85.5))%360 < 25){
+        MTween({
+            el: $(".talkWindowbs")[0],//黑白logo
+            target: {
+              opacity: 100,//最终态挪到远处
+              top: -15,
+            },
+            time: 500,
+            type: 'linear',
+            callBack: function() {}
+          })
+      } else {
+        MTween({
+          el: $(".talkWindowbs")[0],//黑白logo
+          target: {
+            opacity: -100,//最终态挪到远处
+            top: 20,
+          },
+          time: 500,
+          type: 'linear',
+          callBack: function() {}
+        })
+      }
+
+      if(Math.abs(((nowDegx + 360000) - 107.5))%360 < 25){
+        MTween({
+            el: $(".talkWindowmp")[0],//黑白logo
+            target: {
+              opacity: 100,//最终态挪到远处
+              top: -250,
+            },
+            time: 500,
+            type: 'linear',
+            callBack: function() {}
+          })
+      } else {
+        MTween({
+          el: $(".talkWindowmp")[0],//黑白logo
+          target: {
+            opacity: -100,//最终态挪到远处
+            top: -200,
+          },
+          time: 500,
+          type: 'linear',
+          callBack: function() {}
+        })
+      }
+
+
     //首屏逻辑
-  if(Math.abs(((nowDegx + 360000) - 175))%360 < 50){
+  if(Math.abs(((nowDegx + 360000) - 165))%360 < 75){
     machineAnimit();
   } else {
     MTween({
@@ -1220,7 +1270,7 @@ function doFloatingPiece (nowDegx) {console.log(nowDegx);
         opacity: -100,//最终态挪到远处
         top: 269,
       },
-      time: 50,
+      time: 500,
       type: 'linear',
       callBack: function() {
         MTween({
@@ -1229,7 +1279,7 @@ function doFloatingPiece (nowDegx) {console.log(nowDegx);
             opacity: -100,//透明变不透明
             top: 40,//上升
           },
-          time: 50,
+          time: 100,
           type: 'linear',
           callBack: function() {
             MTween({
@@ -1265,7 +1315,7 @@ function createBigClick(){
     {id:"caoxingyuan2",name:"曹星原-2",width:"0px",height:"0px",startDeg:56,marginTop:"20px","point":"1111","link":"2222"},
     {id:"linannan",name:"李南南",width:"102px",height:"315px",startDeg:37,translateZ:'-448px',marginTop:"-9px","point":"1111","link":"2222"},
     {id:"hongbaohe1-1",name:"红包盒1-1",width:"0px",height:"0px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
-    {id:"hongbaohe1-2",name:"红包盒1-2",width:"37px",height:"80px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
+    {id:"hongbaohe1-2",name:"红包盒1-2",width:"80px",height:"55px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
     {blink:"blink",id:"shehuiyujingji",name:"社会与经济",width:"93px",height:"117px",startDeg:38,marginTop:"-135px","point":"1111","link":"2222"},
     {blink:"blink",id:"anzhishi1",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
     {blink:"blink",id:"anzhishi2",name:"暗知识-2",width:"79px",height:"115px",startDeg:25,marginTop:"-135px","point":"1111","link":"2222"},
@@ -1363,55 +1413,64 @@ function initcloud(){
 
   var blink1 = document.createElement('div');
   var blink11 = document.createElement('div');
-  var blink11str = "background-size: cover;opacity: 1;top: 91px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(38deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  var blink11str = "opacity: 1;top: 91px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(38deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
   blink11.style.cssText = blink11str;
-  blink11.className = 'showWindow blink';
+  blink11.className = 'linannan showWindow blink';
   blink1.appendChild(blink11);
   pano.appendChild(blink1);
 
   var blink1 = document.createElement('div');
   var blink11 = document.createElement('div');
-  var blink11str = "background-size: cover;opacity: 1;top: 154px;height: 42px;width: 50px;left: 41px;transform: translateY(0px) rotateY(53deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  var blink11str = "background-size: cover;opacity: 1;top: 154px;height: 42px;width: 50px;left: 41px;transform: translateY(0px) rotateY(53deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
   blink11.style.cssText = blink11str;
-  blink11.className = 'showWindow blink';
+  blink11.className = 'caoxingyuan1 showWindow blink';
   blink1.appendChild(blink11);
   pano.appendChild(blink1);
 
   var blink1 = document.createElement('div');
   var blink11 = document.createElement('div');
-  var blink11str = "background-size: cover;opacity: 1;top: 0px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(8deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  var blink11str = "background-size: cover;opacity: 1;top: 0px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(8deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
   blink11.style.cssText = blink11str;
-  blink11.className = 'showWindow blink';
+  blink11.className = 'bianhengqin showWindow blink';
   blink1.appendChild(blink11);
   pano.appendChild(blink1);
 
   var blink1 = document.createElement('div');
   var blink11 = document.createElement('div');
-  var blink11str = "background-size: cover;opacity: 1;top: 52px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(-85deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  var blink11str = "background-size: cover;opacity: 1;top: 52px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(-85deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
   blink11.style.cssText = blink11str;
-  blink11.className = 'showWindow blink';
+  blink11.className = 'beisu showWindow blink';
   blink1.appendChild(blink11);
   pano.appendChild(blink1);
 
+  var talkwindowbs = document.createElement('div');
+  var blink11 = document.createElement('div');
+  var blink11str = "opacity: 1;top: -15px;height: 88px;width: 165px;left: 31px;transform: translateY(0px) rotateY(-99deg) translateZ(-396px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkwindow.png);display: block;background-size: cover;"
+  blink11.style.cssText = blink11str;
+  blink11.className = 'talkWindowbs';
+  talkwindowbs.appendChild(blink11);
+  pano.appendChild(talkwindowbs);
+
+  //地图
   var blink1 = document.createElement('div');
   var blink11 = document.createElement('div');
-  var blink11str = "background-size: cover;opacity: 1;top: 52px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(-85deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  var blink11str = "opacity: 1;top: -174px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(-104deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
   blink11.style.cssText = blink11str;
-  blink11.className = 'showWindow blink';
+  blink11.className = 'ditu3 showWindow blink';
   blink1.appendChild(blink11);
   pano.appendChild(blink1);
 
-  var talkwindow = document.createElement('div');
+  var talkwindowbs = document.createElement('div');
   var blink11 = document.createElement('div');
-  var blink11str = "background-size: cover;opacity: 1;top: 0px;height: 60px;width: 165px;left: 31px;transform: translateY(0px) rotateY(-99deg) translateZ(-396px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkwindow.png);display: block;"
+  var blink11str = "opacity: 1;top: -248px;height: 88px;width: 165px;left: 31px;transform: translateY(0px) rotateY(-121deg) translateZ(-396px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkwindow.png);display: block;background-size: cover;"
   blink11.style.cssText = blink11str;
-  blink11.className = 'showWindow blink';
-  talkwindow.appendChild(blink11);
-  pano.appendChild(talkwindow);
+  blink11.className = 'talkWindowmp';
+  talkwindowbs.appendChild(blink11);
+  pano.appendChild(talkwindowbs);
 
   var theblinks = $('.blink');
     for(var i = 0; i<theblinks.length; i++){
-        // blinks(theblinks[i]);
+        blinks(theblinks[i]);
     }
 }
 function cloudblink(e,r){
@@ -1515,23 +1574,42 @@ function getMoney() {
       //点击弹窗或跳转
       $('.mcclick').click(function(){
         if(ua.indexOf('igetapp')>0) {
-          //点击事件绑定
+          //点击事件绑定 app内
           var windowDiv = $('#window');
           var windowImg = $('#windowImg');
           windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
           $('#info').show();
           windowDiv.show();
         }else{
-          //cms环境的页面
+          //cms环境的页面 app外
           if(!(Asio.send('') === false)){
-            var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
-            var url = 'igetapp://activity/detail?url='+link;
-            Asio.weLaunch(url);
+
+            var windowDiv = $('#window');
+            var windowImg = $('#windowImg');
+            windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
+            $('#info').show();
+
+            windowDiv.click(function(){
+                var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
+                var url = 'igetapp://activity/detail?url='+link;
+                Asio.weLaunch(url);
+            });
+
+            windowDiv.show();
+
           }else{
             //自研
             var windowDiv = $('#window');
             var windowImg = $('#windowImg');
-            windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
+            windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
+            $('#info').show();
+
+            windowDiv.click(function(){
+                // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
+                // var url = 'igetapp://activity/detail?url='+link;
+                // Asio.weLaunch(url);
+            });
+
             windowDiv.show();
           }
         }
