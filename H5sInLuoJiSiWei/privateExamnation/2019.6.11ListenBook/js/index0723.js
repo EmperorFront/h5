@@ -193,7 +193,7 @@ var dom = `
 		</div>
 	</div>
 </div>
-<div id="go" class="hidden" style="width: 10%;position: absolute;bottom: 5%;right: 15%;text-align: center;height: 10%;"> 
+<div id="go" class="hidden" style="width: 20%;position: absolute;bottom: 5%;right: 15%;text-align: center;height: 20%;"> 
 	<img id="goImg" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/load/go.png" style="height: 100%;margin: auto;"/>
 </div>
 <div id="window" class="hidden" style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 90%;"> 
@@ -1264,14 +1264,14 @@ function createBigClick(){
     {id:"linannan",name:"李南南",width:"102px",height:"315px",startDeg:37,translateZ:'-448px',marginTop:"-9px","point":"1111","link":"2222"},
     {id:"hongbaohe1-1",name:"红包盒1-1",width:"24px",height:"50px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
     {id:"hongbaohe1-2",name:"红包盒1-2",width:"37px",height:"50px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
-    {id:"shehuiyujingji",name:"社会与经济",width:"93px",height:"117px",startDeg:38,marginTop:"-135px","point":"1111","link":"2222"},
-    {id:"anzhishi1",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
-    {id:"anzhishi2",name:"暗知识-2",width:"79px",height:"115px",startDeg:25,marginTop:"-135px","point":"1111","link":"2222"},
-    {id:"chengshi1",name:"成事-1",width:"89px",height:"116px",startDeg:14,marginTop:"-135px","point":"1111","link":"2222"},
-    {id:"chengshi2",name:"成事-2 无",width:"38px",height:"116px",startDeg:9,marginTop:"-135px","point":"1111","link":"2222"},
-    {id:"shiwenhuojinchensilu",name:"十问：霍金沉思录",width:"90px",height:"120px",startDeg:36,marginTop:"-261px","point":"1111","link":"2222"},
-    {id:"meiguoxianjing1",name:"美国陷阱-1",width:"90px",height:"118px",startDeg:17,marginTop:"-259px","point":"1111","link":"2222"},
-    {id:"meiguoxianjing2",name:"美国陷阱-2 无",width:"15px",height:"117px",startDeg:9,marginTop:"-259px","point":"1111","link":"2222"},
+    {blink:"blink",id:"shehuiyujingji",name:"社会与经济",width:"93px",height:"117px",startDeg:38,marginTop:"-135px","point":"1111","link":"2222"},
+    {blink:"blink",id:"anzhishi1",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
+    {blink:"blink",id:"anzhishi2",name:"暗知识-2",width:"79px",height:"115px",startDeg:25,marginTop:"-135px","point":"1111","link":"2222"},
+    {blink:"blink",id:"chengshi1",name:"成事-1",width:"89px",height:"116px",startDeg:14,marginTop:"-135px","point":"1111","link":"2222"},
+    {blink:"blink",id:"chengshi2",name:"成事-2 无",width:"38px",height:"116px",startDeg:9,marginTop:"-135px","point":"1111","link":"2222"},
+    {blink:"blink",id:"shiwenhuojinchensilu",name:"十问：霍金沉思录",width:"90px",height:"120px",startDeg:36,marginTop:"-261px","point":"1111","link":"2222"},
+    {blink:"blink",id:"meiguoxianjing1",name:"美国陷阱-1",width:"90px",height:"118px",startDeg:17,marginTop:"-259px","point":"1111","link":"2222"},
+    {blink:"blink",id:"meiguoxianjing2",name:"美国陷阱-2 无",width:"15px",height:"117px",startDeg:9,marginTop:"-259px","point":"1111","link":"2222"},
     {id:"bianhengqin",name:"卞恒沁",width:"104px",height:"301px",startDeg:6,marginTop:"-89px","point":"1111","link":"2222"},
     {id:"dasheji",name:"大设计",width:"99px",height:"124px",startDeg:-11,marginTop:"-254px","point":"1111","link":"2222"},
     {id:"zhaizizhongguo",name:"宅兹中国",width:"99px",height:"123px",startDeg:-25,marginTop:"-258px","point":"1111","link":"2222"},
@@ -1307,6 +1307,9 @@ function createBigClick(){
     imgDiv.className = bigClickData[i].id
     imgDiv.classList.add("showWindow");
     imgDiv.classList.add("hidden");
+    if (bigClickData[i].blink === 'blink') {
+        imgDiv.classList.add("blink");
+    }
     var str = "opacity:1;background-color:'red';float:left;top:"+bigClickData[i].marginTop+
               ";height:"+bigClickData[i].height+
               ";width: "+bigClickData[i].width+
@@ -1354,8 +1357,11 @@ function initcloud(){
   thecloud02.appendChild(cloud02);
   pano.appendChild(thecloud02);
   cloudblink(cloud02,'left');
-  cloudblink(cloud01,'right')
-
+  cloudblink(cloud01,'right');
+  var theblinks = $('.blink');
+    for(var i = 0; i<theblinks.length; i++){
+        blinks(theblinks[i]);
+    }
 }
 function cloudblink(e,r){
   MTween({
@@ -1381,6 +1387,31 @@ function cloudblink(e,r){
       })
     }
   })
+}
+function blinks(e){
+    MTween({
+        el: e,//奖学金领取处字样
+        target: {
+          opacity: 700,//透明变不透明
+        //   left:(r==='right'? 30:10),
+        },
+        time: (500),
+        type: 'linear',
+        callBack: function() {
+          MTween({
+            el: e,//奖学金领取处字样
+            target: {
+              opacity: 30,//透明变不透明
+            //   left: (r==='right'? 0:-40),
+            },
+            time: (500),
+            type: 'linear',
+            callBack: function() {
+                blinks(e);
+            }
+          })
+        }
+    })
 }
 
 var onetime_click = 1;
