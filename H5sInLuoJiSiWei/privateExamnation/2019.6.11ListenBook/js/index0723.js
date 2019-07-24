@@ -654,6 +654,7 @@ function setDarg() {//拖动逻辑
     //大件
     //奖学金领取屏
     doFloatingPiece(nowDeg.x);
+    
   })
   document.addEventListener('touchend', function(e) {
 
@@ -1208,7 +1209,8 @@ function iconAnimit(){
   })
 }
 //浮片动作
-function doFloatingPiece (nowDegx) {
+function doFloatingPiece (nowDegx) {console.log(nowDegx);
+    //首屏逻辑
   if(Math.abs(((nowDegx + 360000) - 175))%360 < 50){
     machineAnimit();
   } else {
