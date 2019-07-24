@@ -1332,7 +1332,7 @@ function createBigClick(){
     {id:"zhaizizhongguo",name:"宅兹中国",width:"99px",height:"123px",startDeg:-25,marginTop:"-258px","point":"1111","link":"2222"},
     {id:"jinhuidui",name:"锦灰堆",width:"89px",height:"122px",startDeg:-6,marginTop:"-128px","point":"1111","link":"2222"},
     {id:"xugoudeyoutaiminzu1",name:"虚构的犹太民族-1",width:"86px",height:"119px",startDeg:-18,marginTop:"-128px","point":"1111","link":"2222"},
-    {id:"xugoudeyoutaiminzu2",name:"虚构的犹太民族-2 无",width:"55px",height:"119px",startDeg:-21,marginTop:"-128px","point":"1111","link":"2222"},
+    {id:"xugoudeyoutaiminzu2",name:"虚构的犹太民族-2 无",width:"0px",height:"0px",startDeg:-21,marginTop:"-128px","point":"1111","link":"2222"},
     {id:"xiaoshuodeyishu1",name:"小说的艺术-1",width:"92px",height:"121px",startDeg:-30,marginTop:"-126px","point":"1111","link":"2222"},
     {id:"xiaoshuodeyishu2",name:"小说的艺术-2 无",width:"29px",height:"121px",startDeg:-36,marginTop:"-126px","point":"1111","link":"2222"},
     {id:"liuxuan",name:"刘玄",width:"110px",height:"285px",startDeg:-36,marginTop:"-16px","point":"1111","link":"2222"},

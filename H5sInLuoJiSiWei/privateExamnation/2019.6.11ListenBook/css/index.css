@@ -24,6 +24,9 @@ html {
 	overflow: hidden;
 	position: relative;
 }
+body {
+	background-color: #90d5db;
+}
 #root {
 	display: inline;
 }
