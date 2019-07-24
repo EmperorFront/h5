@@ -1262,8 +1262,8 @@ function createBigClick(){
     {id:"caoxingyuan1",name:"曹星原-1",width:"286px",height:"345px",startDeg:65,translateZ:'-500px',marginTop:"20px","point":"1111","link":"2222"},
     {id:"caoxingyuan2",name:"曹星原-2",width:"0px",height:"0px",startDeg:56,marginTop:"20px","point":"1111","link":"2222"},
     {id:"linannan",name:"李南南",width:"102px",height:"315px",startDeg:37,translateZ:'-448px',marginTop:"-9px","point":"1111","link":"2222"},
-    {id:"hongbaohe1-1",name:"红包盒1-1",width:"24px",height:"50px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
-    {id:"hongbaohe1-2",name:"红包盒1-2",width:"37px",height:"50px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
+    {id:"hongbaohe1-1",name:"红包盒1-1",width:"0px",height:"0px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
+    {id:"hongbaohe1-2",name:"红包盒1-2",width:"37px",height:"80px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
     {blink:"blink",id:"shehuiyujingji",name:"社会与经济",width:"93px",height:"117px",startDeg:38,marginTop:"-135px","point":"1111","link":"2222"},
     {blink:"blink",id:"anzhishi1",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
     {blink:"blink",id:"anzhishi2",name:"暗知识-2",width:"79px",height:"115px",startDeg:25,marginTop:"-135px","point":"1111","link":"2222"},
@@ -1358,9 +1358,58 @@ function initcloud(){
   pano.appendChild(thecloud02);
   cloudblink(cloud02,'left');
   cloudblink(cloud01,'right');
+
+  var blink1 = document.createElement('div');
+  var blink11 = document.createElement('div');
+  var blink11str = "background-size: cover;opacity: 1;top: 91px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(38deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  blink11.style.cssText = blink11str;
+  blink11.className = 'showWindow blink';
+  blink1.appendChild(blink11);
+  pano.appendChild(blink1);
+
+  var blink1 = document.createElement('div');
+  var blink11 = document.createElement('div');
+  var blink11str = "background-size: cover;opacity: 1;top: 154px;height: 42px;width: 50px;left: 41px;transform: translateY(0px) rotateY(53deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  blink11.style.cssText = blink11str;
+  blink11.className = 'showWindow blink';
+  blink1.appendChild(blink11);
+  pano.appendChild(blink1);
+
+  var blink1 = document.createElement('div');
+  var blink11 = document.createElement('div');
+  var blink11str = "background-size: cover;opacity: 1;top: 0px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(8deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  blink11.style.cssText = blink11str;
+  blink11.className = 'showWindow blink';
+  blink1.appendChild(blink11);
+  pano.appendChild(blink1);
+
+  var blink1 = document.createElement('div');
+  var blink11 = document.createElement('div');
+  var blink11str = "background-size: cover;opacity: 1;top: 52px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(-85deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  blink11.style.cssText = blink11str;
+  blink11.className = 'showWindow blink';
+  blink1.appendChild(blink11);
+  pano.appendChild(blink1);
+
+  var blink1 = document.createElement('div');
+  var blink11 = document.createElement('div');
+  var blink11str = "background-size: cover;opacity: 1;top: 52px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(-85deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;"
+  blink11.style.cssText = blink11str;
+  blink11.className = 'showWindow blink';
+  blink1.appendChild(blink11);
+  pano.appendChild(blink1);
+
+  var talkwindow = document.createElement('div');
+  var blink11 = document.createElement('div');
+  var blink11str = "background-size: cover;opacity: 1;top: 0px;height: 60px;width: 165px;left: 31px;transform: translateY(0px) rotateY(-99deg) translateZ(-396px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkwindow.png);display: block;"
+  blink11.style.cssText = blink11str;
+  blink11.className = 'showWindow blink';
+  talkwindow.appendChild(blink11);
+  pano.appendChild(talkwindow);
+
   var theblinks = $('.blink');
     for(var i = 0; i<theblinks.length; i++){
-        blinks(theblinks[i]);
+        // blinks(theblinks[i]);
     }
 }
 function cloudblink(e,r){
