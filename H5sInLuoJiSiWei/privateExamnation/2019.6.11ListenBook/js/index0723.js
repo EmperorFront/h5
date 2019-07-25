@@ -259,23 +259,6 @@ function setLoading() {//该函数用来刷家在进度百分比条。
 function anmt() {//百分比和首屏logo动画
   var view = document.querySelector('#view')//全景容器
   var logo1 = document.querySelector('#logo1')//该元素包含百分比和加载logo
-  // var logo2 = document.createElement("div");//第二个logo容器（单logo黑白）
-  // var logo3 = document.createElement("div");//第三个logo容器（彩色）
-  // var img = new Image()
-  // var img2 = new Image()
-  // img.src = imgData.logo[0]//加载过之后就有了，直接拿来用。
-  // img2.src = imgData.logo[1]//组合第二个logo，黑白
-  // logo2.id = "logo2"//赋上id
-  // logo3.id = "logo3"
-  // logo2.className = logo3.className = "logoImg"//logo
-  // logo2.appendChild(img);//黑白容器dom组合好
-  // logo3.appendChild(img2);//彩色logo dom组合好
-  // css(logo2, "opacity", 0);//隐藏第二个logo（黑白）
-  // css(logo3, "opacity", 0);//隐藏第三个logo（彩色）
-  // css(logo2, 'translateZ', -1000);//第二个logo挪的远远的
-  // css(logo3, 'translateZ', -1000);
-  // view.appendChild(logo2);//加到全景容器中
-  // view.appendChild(logo3);
   MTween({
     el: logo1,//目标元素
     target: {
@@ -288,184 +271,20 @@ function anmt() {//百分比和首屏logo动画
     callBack: function() {
       view.removeChild(logo1)
       anmt5();
-      // css(logo2, 'opacity', 100)//展现第二个logo（黑豹）
-      // MTween({
-      //   el: logo2,//黑白logo
-      //   target: {
-      //     translateZ: 0//最终态挪到最前边。
-      //   },
-      //   time: 1000,
-      //   type: 'easeBoth',
-      //   callBack: function(){
-      //     anmt2();//大动画
-      //     initclick();//绑定点击事件
-      //   }
-      // })
     }
   })
 }
-/* 隐藏logo2，开始让logo3显示出来 */
-function anmt2() {
-  var view = document.querySelector('#view');//全景全局容器
-  var logo2 = document.querySelector('#logo2');//第二个logo容器 （黑白）
-  var logo3 = document.querySelector('#logo3')//第三个logo容器 （彩色）
-  setTimeout(function() {
-    MTween({
-      el: logo2,//黑白logo
-      target: {
-        translateZ: -1000//最终态挪到远处
-      },
-      time: 800,
-      type: 'linear',
-      callBack: function() {
-        view.removeChild(logo2)
-        css(logo3, 'opacity', 100)//显示出彩色logo来
-        setTimeout(function() {
-          MTween({
-            el: logo3,
-            target: { translateZ: 0 },
-            time: 300,
-            type: "easeBoth",
-            callBack: anmt3
-          });
-        }, 300);
-      }
-    })
-  }, 2000)
-}
-
-function anmt3() {
-  var view = document.querySelector('#view');//全景全局容器
-  var logo3 = document.querySelector('#logo3');//彩色logo
-  setTimeout(function() {
-    MTween({
-      el: logo3,//彩色logo
-      target: { translateZ: -2000 },//最终态
-      time: 2000,//
-      type: "easeIn",
-      callBack: function() {
-        view.removeChild(logo3);
-        anmt4();//爆炸效果
-      }
-    });
-  }, 1000)
-}
-
-function anmt4() {
-  var view = document.querySelector('#view');//全景全局容器
-  var logo4 = document.createElement("div");//风暴旋转容器
-  var logoIcos = document.createElement("div");//碎片容器
-  var logo4Img = new Image()
-    
-  var iconsLength = 270;// 设定碎片个数
-  logo4.id = "logo4"
-  logoIcos.id = "logoIcos"
-  logo4Img.id = "logo4Img"
-  logo4Img.src = imgData.logo[2]//取第三个logo
-  css(logo4, "translateZ", -2000)//设定起始位置为远方
-  css(logo4, "scale", 0)//设定起始不缩放
-  for (var i = 0; i < iconsLength; i++) {
-    var span = document.createElement('span')
-    var xR = 20 + Math.round(Math.random() * 240) // 圆柱碎片的X半径
-    var xDeg = Math.round(Math.random() * 360)//倾斜x角度
-    var yR = 10 + Math.round(Math.random() * 240) // 圆柱碎片的Y半径
-    var yDeg = Math.round(Math.random() * 360)
-    css(span, "rotateY", xDeg);
-    css(span, "translateZ", xR);
-    css(span, "rotateX", yDeg);
-    css(span, "translateY", yR)
-    span.style.backgroundImage = "url(" + imgData.logoIco[(i % 3)] + ")"//取012三个图
-    logoIcos.appendChild(span)
-  }
-  logo4.appendChild(logoIcos)
-  logo4.appendChild(logo4Img)
-  view.appendChild(logo4)//追加至全景。
-  MTween({
-    el: logo4,
-    target: {
-      translateZ: 200,//目标到眼前
-      scale: 200//缩放100
-    },
-    time: 6000,
-    type: "easeOutStrong",
-    callBack: function() {
-      setTimeout(function() {
-        MTween({
-          el: logo4,
-          target: {
-            translateZ: -1000,//挪走。
-            scale: 20
-          },
-          time: 3,
-          type: "linear",
-          callBack: function() {
-            view.removeChild(logo4);
-            anmt5();//大动画
-            initclick();//绑定点击事件
-          }
-        });
-      }, 100)
-    }
-  });
-}
-//这块代码后续要删掉，用于秀技术
-let jingshen = -100;
-let zhouchang = 24;
-let bgtemp = JSON.stringify(imgData.bg);
-imgData.bg = JSON.parse(bgtemp);
-imgData.bg.length =  zhouchang;
-function initclick() {
-    //绑定点击事件
-    var spans = document.querySelectorAll(".pano span");
-    for(var i = 0; i< spans.length; i++){
-      // if(i%3){
-      //   document.querySelectorAll(".pano span")[i].addEventListener('click', 
-      //     function (){
-      //       var speechSU = new window.SpeechSynthesisUtterance();
-      //       speechSU.text = '马老师好帅';
-      //       window.speechSynthesis.speak(speechSU);
-      //     }
-      //   );
-      // } else {
-        document.querySelectorAll(".pano span")[i].addEventListener('click', 
-          function (){
-            document.getElementById('thediv').setAttribute('style', 'display:block');
-          }
-        );
-      // }
-    }
-    //弹窗点击确定关闭逻辑
-    document.getElementById('close-tip').addEventListener('click', 
-    function (){
-      document.getElementById('thediv').setAttribute('style', 'display:none');
-    
-      jingshen = document.getElementById('jingshen').value*1;
-      zhouchang = document.getElementById('zhouchang').value*1;
-      if(jingshen === 0){jingshen = -100}
-      if(zhouchang === 0){zhouchang = 24}
-      imgData.bg = JSON.parse(bgtemp);
-      imgData.bg.length =  zhouchang;
-      var panoBg = document.querySelector('#panoBg');
-      panoBg.innerHTML = '';
-      anmt5();
-      initclick();
-    }
-  );
-}
-
 function anmt5() {
   var tZ = document.querySelector('#tZ')//卷轴 + 图标 + 云朵容器
   css(tZ, 'translateZ', -2000)//开始状态，启动点在远处
   anmt6() // 主体
-  if(jingshen === -100 && zhouchang === 24){//这一行后边会去掉。
     anmt7() // 云朵
-  }
   createPano() // 图标层
   createBigClick();//点击响应层。
   MTween({//主体的前后向动画
     el: tZ,
     target: {
-      translateZ: jingshen//主体往前挪至想要位置
+      translateZ: -100//主体往前挪至想要位置
     },
     time: 3600,//持续时间。
     type: 'easeBoth'
@@ -653,7 +472,7 @@ function setDarg() {//拖动逻辑
     }
     css(tZ, 'translateZ', startZ - disZ);
 
-        //松手触发动画
+    //松手触发动画
     //大件
     //奖学金领取屏
     doFloatingPiece(nowDeg.x);
@@ -670,10 +489,10 @@ function setDarg() {//拖动逻辑
       y: lastDis.y * 10
     }
 
-       //松手触发动画
-        //大件
-        //奖学金领取屏
-        doFloatingPiece(nowDeg.x + disDeg.x);
+    //松手触发动画
+    //大件
+    //奖学金领取屏
+    doFloatingPiece(nowDeg.x + disDeg.x);
 
     MTween({
       el: tZ,
@@ -704,10 +523,6 @@ function setDarg() {//拖动逻辑
       }
     })
   })
-
-  // document.querySelector('body').addEventListener('touchstart',function(e){
-
-  // });
 }
 
 function bgShow() {
@@ -762,47 +577,7 @@ function createPano() {
   var R = 450;
   var nub = 0;
   var startDeg = 180;
-  // css(pano, "rotateX", 0);
-  // css(pano, "rotateY", 0);
-  // css(pano, "scale", 0);
-  // var pano1 = document.createElement("div");
-  // pano1.className = "pano";
-  // css(pano1, "translateX", 1.564);
-  // css(pano1, "translateZ", -9.877);
-  // for (var i = 0; i < 2; i++) {
-  //   var span = document.createElement("span");
-  //   span.style.cssText = "height:344px;margin-top:-172px;";
-  //   span.style.background = "url(" + imgData["pano"][nub] + ")";
-  //   css(span, "translateY", 0);
-  //   css(span, "rotateY", startDeg);
-  //   css(span, "translateZ", -R);
-  //   nub++;
-  //   startDeg -= deg;
-  //   pano1.appendChild(span)
-  // }
-  // pano.appendChild(pano1);
 
-  // var pano2 = document.querySelector('#pano');
-  // var startDeg2 = panosClick.pano0.startDeg;
-  // css(pano, "rotateX", 0);
-  // css(pano, "rotateY", 0);
-  // css(pano, "scale", 0);
-  // var pano2 = document.createElement("div");
-  // pano2.className = "pano";
-  // css(pano2, "translateX", 1.564);
-  // css(pano2, "translateZ", -9.877);
-  // for (var i = 0; i < 1; i++) {
-  //   var span = document.createElement("span");
-  //   span.style.cssText = "height:178px;width:"+panosClick.pano0.width+";margin-top:-240px;";
-  //   span.style.background = "url(" + imgData["pano"][nub] + ")";
-  //   css(span, "translateY", 0);
-  //   css(span, "rotateY", startDeg2);
-  //   css(span, "translateZ", -R);
-  //   nub++;
-  //   startDeg -= deg;
-  //   pano2.appendChild(span)
-  // }
-  // pano.appendChild(pano2);
   for (var j = 0; j < panosClick.length; j++) {
     var thepano = document.createElement("div");
     var startDeg2 = panosClick['pano' + j].startDeg;
@@ -810,14 +585,6 @@ function createPano() {
     css(pano, "rotateY", 0);
     css(pano, "scale", 0);
     var span = document.createElement("div");
-    // span.className = "pano";
-    // // css(span, "translateX", 1.564);
-    // // css(span, "translateZ", -9.877);
-    // for (var i = 0; i < 1; i++) {
-    //   var span = document.createElement("div");
-
-    // opacity:0;height: 160px;width: 400px;left: -123px;background: url(&quot;pano3/machine2.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-427px);float: left;position: absolute;top: -400px;
-    var str = "height: 160px;width: 400px;left: -123px;background: url(&quot;pano3/machine2.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-427px);float: left;position: absolute;top: -400px;"
     span.style.cssText = "float:left;height:"+panosClick['pano' + j].height+";width:"+panosClick['pano' + j].width+";margin-top:"+panosClick['pano' + j].marginTop+";";
     span.style.background = "url(" + imgData["pano"][nub] + ")";
     css(span, "translateY", 0);
@@ -826,8 +593,6 @@ function createPano() {
     nub++;
     startDeg -= deg;
     thepano.appendChild(span);
-    // }
-    // debugger;
     pano.appendChild(thepano);
   }
   //创建浮层元素
@@ -844,140 +609,8 @@ function createPano() {
       type: "easeBoth"
     });
   }, 28);
-
-  // var pano2 = document.createElement("div");
-  // pano2.className = "pano";
-  // css(pano2, "translateX", 20.225);
-  // css(pano2, "translateZ", -14.695);
-  // for (var i = 0; i < 3; i++) {
-  //   var span = document.createElement("span");
-  //   span.style.cssText = "height:326px;margin-top:-163px;";
-  //   span.style.background = "url(" + imgData["pano"][nub] + ")";
-  //   css(span, "translateY", 278);
-  //   css(span, "rotateY", startDeg);
-  //   css(span, "translateZ", -R);
-  //   nub++;
-  //   startDeg -= deg;
-  //   pano2.appendChild(span)
-  // }
-  // pano.appendChild(pano2);
-
-  // var pano3 = document.createElement("div");
-  // pano3.className = "pano";
-  // css(pano3, "translateX", 22.175);
-  // css(pano3, "translateZ", -11.35);
-  // for (var i = 0; i < 4; i++) {
-  //   var span = document.createElement("span");
-  //   span.style.cssText = "height:195px;margin-top:-97.5px;";
-  //   span.style.background = "url(" + imgData["pano"][nub] + ")";
-  //   css(span, "translateY", 192.5);
-  //   css(span, "rotateY", startDeg);
-  //   css(span, "translateZ", -R);
-  //   nub++;
-  //   startDeg -= deg;
-  //   pano3.appendChild(span)
-  // }
-  // pano.appendChild(pano3);
-
-  // var pano4 = document.createElement("div");
-  // pano4.className = "pano";
-  // css(pano4, "translateX", 20.225);
-  // css(pano4, "translateZ", 14.695);
-  // startDeg = 90;
-  // for (var i = 0; i < 5; i++) {
-  //   var span = document.createElement("span");
-  //   span.style.cssText = "height:468px;margin-top:-234px;";
-  //   span.style.background = "url(" + imgData["pano"][nub] + ")";
-  //   css(span, "translateY", 129);
-  //   css(span, "rotateY", startDeg);
-  //   css(span, "translateZ", -R);
-  //   nub++;
-  //   startDeg -= deg;
-  //   pano4.appendChild(span)
-  // }
-  // pano.appendChild(pano4);
-
-  // var pano5 = document.createElement("div");
-  // pano5.className = "pano";
-  // css(pano5, "translateX", -4.54);
-  // css(pano5, "translateZ", 9.91);
-  // startDeg = 18;
-  // for (var i = 0; i < 6; i++) {
-  //   var span = document.createElement("span");
-  //   span.style.cssText = "height:444px;margin-top:-222px;";
-  //   span.style.background = "url(" + imgData["pano"][nub] + ")";
-  //   css(span, "translateY", -13);
-  //   css(span, "rotateY", startDeg);
-  //   css(span, "translateZ", -R);
-  //   nub++;
-  //   startDeg -= deg;
-  //   pano5.appendChild(span)
-  // }
-  // pano.appendChild(pano5);
-
-  // var pano6 = document.createElement("div");
-  // pano6.className = "pano";
-  // css(pano6, "translateX", -11.35);
-  // css(pano6, "translateZ", 22.275);
-  // startDeg = 18;
-  // for (var i = 0; i < 6; i++) {
-  //   var span = document.createElement("span");
-  //   span.style.cssText = "height:582px;margin-top:-291px;";
-  //   span.style.background = "url(" + imgData["pano"][nub] + ")";
-  //   css(span, "translateY", 256);
-  //   css(span, "rotateY", startDeg);
-  //   css(span, "translateZ", -R);
-  //   nub++;
-  //   startDeg -= deg;
-  //   pano6.appendChild(span)
-  // }
-  // pano.appendChild(pano6);
-  // setTimeout(function() {
-  //   MTween({
-  //     el: pano,
-  //     target: {
-  //       rotateY: 25,
-  //       scale: 100
-  //     },
-  //     time: 1200,
-  //     type: "easeBoth"
-  //   });
-  // }, 2800);
 }
 
-/*陀螺仪*/
-/*function setSensors(){
-  var pano = document.querySelector('#pano');
-  var panoBg = document.querySelector('#panoBg');
-  var last = {x:0 , y:0};
-  var isStart = false
-  window.addEventListener('deviceorientation', function(e){
-    var x = e.beta;
-    var y = e.gamma;
-    if(typeof last.x == 'undefined'){
-      last.x = x;
-      last.y = y;
-      return
-    }
-    x = x - last.x
-    y = y - last.y
-    last.x = x
-    last.y = y
-    var degX = css(pano, 'rotateX')
-    var degY = css(pano, 'rotateY')
-    var nowDegY = degY + y
-    var nowDegX = degX + x
-    if(nowDegY > 40){
-        nowDegY = 40;
-      } else if(nowDegY < -40) {
-        nowDegY = 40;
-      }
-      css(pano,"rotateX",nowDegY);
-      css(pano,"rotateY",nowDegY);  
-      css(panoBg,"rotateX",nowDegY);
-      css(panoBg,"rotateY",nowDegY);
-  })
-}*/
 /*陀螺仪*/
 function setSensors() {
   var pano = document.querySelector('#pano');
@@ -1106,20 +739,6 @@ function setSensors() {
     }
   })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //初始化浮片
@@ -1264,7 +883,7 @@ function doFloatingPiece (nowDegx) {console.log(nowDegx);
 
 
     //首屏逻辑
-  if(Math.abs(((nowDegx + 360000) - 165))%360 < 75){
+  if(Math.abs(((nowDegx + 360000) - 165))%360 < 360){
     machineAnimit();
   } else {
     MTween({
