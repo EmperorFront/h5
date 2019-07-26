@@ -1164,7 +1164,9 @@ function getMoney() {
 		},300);
 		if(ua.indexOf('igetapp') && Asio.send('')) {
 			//APP内,发请求，弹窗
-
+      //禁掉左滑
+      Asio.send('agent.swipe',{enable:false});
+      Asio.send('ui.minibar',{show:false});
       //发请求
         ua = navigator.userAgent;
         if (ua.indexOf('igetapp')) {
