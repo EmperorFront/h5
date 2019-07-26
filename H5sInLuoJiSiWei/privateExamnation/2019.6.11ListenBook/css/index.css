@@ -75,6 +75,16 @@ body {
     margin-left: -30%;
     top: 66%;
 }
+.goapp {
+	position: absolute;
+    width: 60%;
+    height: 16%;
+    opacity: 0.2;
+    left: 50%;
+    background-color: rebeccapurple;
+    margin-left: -30%;
+    top: 66%;
+}
 .logoImg {
 	position: absolute;
 	width: 100%;

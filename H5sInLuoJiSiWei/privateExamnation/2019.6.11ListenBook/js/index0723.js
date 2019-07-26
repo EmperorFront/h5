@@ -203,6 +203,9 @@ var dom = `
             <div id="nick"></div>
             <div id="getButton"></div>
         </div>
+        <div class="hidden" id="rules">
+            <div class="goapp"></div>
+        </div>
         <img id="windowImg" src="" style="height: 100%;margin: auto;"/>
     </div>
     <img id="close" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/close.png" style="width: 60px;margin: auto;height: 60px;bottom: 6%;position: absolute;margin-left: -30px;"/>
@@ -488,7 +491,6 @@ function setDarg() {//拖动逻辑
       x: lastDis.x * 10,
       y: lastDis.y * 10
     }
-
     //松手触发动画
     //大件
     //奖学金领取屏
@@ -519,9 +521,12 @@ function setDarg() {//拖动逻辑
       type: "easeOut",
       callBack: function() {
         window.isTouch = false
-        window.isStart = false
+        window.isStart = false   
       }
     })
+
+    lastDis.x =0,
+    lastDis.y =0
   })
 }
 
@@ -831,7 +836,7 @@ function iconAnimit(){
   })
 }
 //浮片动作
-function doFloatingPiece (nowDegx) {console.log(nowDegx);
+function doFloatingPiece (nowDegx) {
     //滑动提示逻辑
     if(Math.abs(((nowDegx + 360000) - 85.5))%360 < 25){
         MTween({
@@ -1009,6 +1014,7 @@ function addBigClickEvent(){
   });
   window.click(function () {
     $('#info').hide();
+    $('#rules').hide();
     window.hide();  
   });
 }
@@ -1181,11 +1187,12 @@ function getMoney() {
                 $('#nick')[0].src = userInfo.nick_name;
                 
                 $('#getButton').click(function(){
+                  //点击则跳转至cms奖金领取页。
                   var link = encodeURIComponent(userInfo.activity_coupon_list.coupon_url);
                   var url = 'igetapp://activity/detail?url='+link;
                   Asio.send('jump.ddURL', {
                     ddURL: url,
-                    ddURLMinVer: '5.2.0'
+                    ddURLMinVer: '5.1.0'
                   })
                 });
               });
@@ -1193,49 +1200,47 @@ function getMoney() {
           }
         }
 		} 
-      //点击弹窗或跳转
-      $('.mcclick').click(function(){
-        if(ua.indexOf('igetapp')>0) {
-          //点击事件绑定 app内
-          var windowDiv = $('#window');
-          var windowImg = $('#windowImg');
-          windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
-          $('#info').show();
-          windowDiv.show();
-        }else{
-          //cms环境的页面 app外
-          if(!(Asio.send('') === false)){
-
+        //点击弹窗或跳转
+        $('.mcclick').click(function(){
+            if(ua.indexOf('igetapp')>0) {
+            //点击事件绑定 app内
             var windowDiv = $('#window');
             var windowImg = $('#windowImg');
-            windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
+            windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
             $('#info').show();
-
-            windowDiv.click(function(){
-                var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
-                var url = 'igetapp://activity/detail?url='+link;
-                Asio.weLaunch(url);
-            });
-
             windowDiv.show();
+            }else{
+                //cms环境的页面 app外
+                if(!(Asio.send('') === false)){
+                    var windowDiv = $('#window');
+                    var windowImg = $('#windowImg');
+                    windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
+                    // $('#info').show();
+                    $('#rules').show();
+                    windowDiv.click(function(){
+                        // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
+                        // var url = 'igetapp://activity/detail?url='+link;
+                        // Asio.weLaunch(url);
+                    });
 
-          }else{
-            //自研
-            var windowDiv = $('#window');
-            var windowImg = $('#windowImg');
-            windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
-            $('#info').show();
+                    windowDiv.show();
 
-            windowDiv.click(function(){
-                // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
-                // var url = 'igetapp://activity/detail?url='+link;
-                // Asio.weLaunch(url);
-            });
+                }else{
+                    //自研
+                    var windowDiv = $('#window');
+                    var windowImg = $('#windowImg');
+                    windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
+                    $('#info').show();
 
-            windowDiv.show();
-          }
-        }
-      });
+                    windowDiv.click(function(){
+                        // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
+                        // var url = 'igetapp://activity/detail?url='+link;
+                        // Asio.weLaunch(url);
+                    });
 
+                    windowDiv.show();
+                }
+            }
+        });
 	}
 }
