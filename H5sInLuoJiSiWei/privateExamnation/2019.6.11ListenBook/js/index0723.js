@@ -959,7 +959,7 @@ function createBigClick(){
     {id:"tingshutieshi2",name:"听书帖士-2",width:"59px",height:"220px",startDeg:-51,marginTop:"-287px","point":"1111","link":"2222"},
     {id:"shujialidehongbao",name:"书架里的红包",width:"73px",height:"66px",startDeg:-51,marginTop:"-83px","point":"1111","link":"2222"},
     {id:"yonghu1",name:"用户1",width:"78px",height:"118px",startDeg:-54,marginTop:"-24px","point":"1111","link":"2222"},
-    {id:"yonghu2",name:"用户2",width:"175px",height:"307px",startDeg:-66,marginTop:"34px","point":"1111","link":"2222"},
+    {id:"yonghu2",name:"用户2",width:"175px",height:"307px",startDeg:-66,translateZ:'-400px',marginTop:"34px","point":"1111","link":"2222"},
     {id:"hongbaohe2",name:"红包盒2",width:"79px",height:"56px",startDeg:-75,marginTop:"181px","point":"1111","link":"2222"},
     {id:"yonghu3",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-25px","point":"1111","link":"2222"},
     {id:"tingshushujubang1",name:"听书数据榜-1",width:"153px",height:"235px",startDeg:-65,marginTop:"-294px","point":"1111","link":"2222"},
@@ -972,7 +972,7 @@ function createBigClick(){
     {id:"yonghu4",name:"用户4",width:"90px",height:"213px",startDeg:-96,marginTop:"78px","point":"1111","link":"2222"},
     {id:"hongbaohe3",name:"红包盒3",width:"82px",height:"52px",startDeg:-131,marginTop:"113px","point":"1111","link":"2222"},
     {id:"yanglei",name:"杨蕾",width:"111px",height:"306px",startDeg:-114,marginTop:"47px","point":"1111","link":"2222"},
-    {id:"ashi",name:"阿狮",width:"237px",height:"411px",startDeg:-145,translateZ:'-406px',marginTop:"-87px","point":"1111","link":"2222"},
+    {id:"ashi",name:"阿狮",width:"237px",height:"411px",startDeg:-145,translateZ:'-360px',marginTop:"-87px","point":"1111","link":"2222"},
     ]
   var pano = document.querySelector('#pano');
   for(var i = 0; i < bigClickData.length; i++){
