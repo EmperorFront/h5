@@ -1219,10 +1219,11 @@ function getMoney() {
                     windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
                     // $('#info').show();
                     $('#rules').show();
-                    windowDiv.click(function(){
-                        // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
-                        // var url = 'igetapp://activity/detail?url='+link;
-                        // Asio.weLaunch(url);
+                    var goapp = $('.goapp')
+                    goapp.click(function(){
+                        var link = encodeURIComponent('http://pic1cdn.luojilab.com');
+                        var url = 'igetapp://activity/detail?url='+link;
+                        Asio.weLaunch(url);
                     });
 
                     windowDiv.show();
