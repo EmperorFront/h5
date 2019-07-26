@@ -260,22 +260,22 @@ function setLoading() {//该函数用来刷家在进度百分比条。
 }
 
 function anmt() {//百分比和首屏logo动画
-  // var view = document.querySelector('#view')//全景容器
-  // var logo1 = document.querySelector('#logo1')//该元素包含百分比和加载logo
-  // MTween({
-  //   el: logo1,//目标元素
-  //   target: {
-  //     opacity: 40,//最终态为透明
-  //     translateZ: 350
-  //   },
-  //   time: 1500,//转态时间
-  //   // type: 'easeBoth',
-  //   type: 'easeOut',//
-  //   callBack: function() {
-  //     view.removeChild(logo1)
-  //     anmt5();
-  //   }
-  // })
+  var view = document.querySelector('#view')//全景容器
+  var logo1 = document.querySelector('#logo1')//该元素包含百分比和加载logo
+  MTween({
+    el: logo1,//目标元素
+    target: {
+      opacity: 40,//最终态为透明
+      translateZ: 350
+    },
+    time: 1500,//转态时间
+    // type: 'easeBoth',
+    type: 'easeOut',//
+    callBack: function() {
+      view.removeChild(logo1)
+      anmt5();
+    }
+  })
 }
 function anmt5() {
   var tZ = document.querySelector('#tZ')//卷轴 + 图标 + 云朵容器
