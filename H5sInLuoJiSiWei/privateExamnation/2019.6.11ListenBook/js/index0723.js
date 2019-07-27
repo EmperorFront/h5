@@ -180,9 +180,12 @@ var dom = `
 <div id="pageBg"></div>
 <div id="view">
 	<div id="logo1">
-		<div class="logoImg">
+    <div class="logoImg" id="bgdoor">
 			<img src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/load/logo.png">
-		</div>
+    </div>
+    <div class="goMarkImg">
+      <img src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/gomark.png">
+    </div>
 		<p class="logoText">已加载 0%</p>
 	</div>
 	<div id="main">
@@ -262,13 +265,14 @@ function setLoading() {//该函数用来刷家在进度百分比条。
 function anmt() {//百分比和首屏logo动画
   var view = document.querySelector('#view')//全景容器
   var logo1 = document.querySelector('#logo1')//该元素包含百分比和加载logo
+  var bgdoor = document.querySelector('#bgdoor')
   MTween({
-    el: logo1,//目标元素
+    el: bgdoor,//目标元素
     target: {
       opacity: 40,//最终态为透明
-      translateZ: 350
+      scale: 450
     },
-    time: 1500,//转态时间
+    time: 2000,//转态时间
     // type: 'easeBoth',
     type: 'easeOut',//
     callBack: function() {
@@ -383,6 +387,8 @@ function anmt7() {
       initcloud();
       addBigClickEvent();//绑定弹层点击事件
       $("#go").show();
+      //右下角按钮微微抖动
+      buttonAnimit();
     }
   })
 }
@@ -1103,18 +1109,18 @@ function initcloud(){
 }
 function cloudblink(e,r){
   MTween({
-    el: e,//奖学金领取处字样
+    el: e,//
     target: {
-      opacity: 700,//透明变不透明
+      opacity: 700,//
       left:(r==='right'? 30:10),
     },
     time: (r==='right'?2000:1200),
     type: 'linear',
     callBack: function() {
       MTween({
-        el: e,//奖学金领取处字样
+        el: e,//
         target: {
-          opacity: 30,//透明变不透明
+          opacity: 30,//
           left: (r==='right'? 0:-40),
         },
         time: (r==='right'?2000:1200),
@@ -1168,82 +1174,108 @@ function getMoney() {
       Asio.send('agent.swipe',{enable:false});
       Asio.send('ui.minibar',{show:false});
       //发请求
-        ua = navigator.userAgent;
-        if (ua.indexOf('igetapp')) {
-          var user_id = 0;
-          if( Asio.send('agent.info') != undefined ) {
-            Asio.send('agent.info').then(function (res) {
-              user_id = res.data.userid; //获取用户信息
-          
-              Asio.send('network.load', {
-                url: '$_ENTREE_DOMAIN_$/odob/v2/front_activity/user_and_coupon_info',
-                method: 'POST',
-                params: {
-                  user_id: user_id
-                },
-                contentType: 'application/x-www-form-urlencoded',
-                proxyType: 'gateway/entree'
-              }).then(function (res) {
-                userInfo = res.data;
-                $('#avatar')[0].src = userInfo.avatar;
-                $('#nick')[0].src = userInfo.nick_name;
-                
-                $('#getButton').click(function(){
-                  //点击则跳转至cms奖金领取页。
-                  var link = encodeURIComponent(userInfo.activity_coupon_list.coupon_url);
-                  var url = 'igetapp://activity/detail?url='+link;
-                  Asio.send('jump.ddURL', {
-                    ddURL: url,
-                    ddURLMinVer: '5.1.0'
-                  })
-                });
+      ua = navigator.userAgent;
+      if (ua.indexOf('igetapp')) {
+        var user_id = 0;
+        if( Asio.send('agent.info') != undefined ) {
+          Asio.send('agent.info').then(function (res) {
+            user_id = res.data.userid; //获取用户信息
+        
+            Asio.send('network.load', {
+              url: '$_ENTREE_DOMAIN_$/odob/v2/front_activity/user_and_coupon_info',
+              method: 'POST',
+              params: {
+                user_id: user_id
+              },
+              contentType: 'application/x-www-form-urlencoded',
+              proxyType: 'gateway/entree'
+            }).then(function (res) {
+              userInfo = res.data;
+              $('#avatar')[0].src = userInfo.avatar;
+              $('#nick')[0].src = userInfo.nick_name;
+              
+              $('#getButton').click(function(){
+                //点击则跳转至cms奖金领取页。
+                var link = encodeURIComponent(userInfo.activity_coupon_list.coupon_url);
+                var url = 'igetapp://activity/detail?url='+link;
+                Asio.send('jump.ddURL', {
+                  ddURL: url,
+                  ddURLMinVer: '5.1.0'
+                })
               });
             });
-          }
+          });
         }
+      }
 		} 
-        //点击弹窗或跳转
-        $('.mcclick').click(function(){
-            if(ua.indexOf('igetapp')>0) {
-            //点击事件绑定 app内
-            var windowDiv = $('#window');
-            var windowImg = $('#windowImg');
-            windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
-            $('#info').show();
-            windowDiv.show();
+    //点击弹窗或跳转
+    $('.mcclick').click(function(){
+        if(ua.indexOf('igetapp')>0) {
+        //点击事件绑定 app内
+        var windowDiv = $('#window');
+        var windowImg = $('#windowImg');
+        windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/getmoney.png'
+        $('#info').show();
+        windowDiv.show();
+        }else{
+            //cms环境的页面 app外
+            if(!(Asio.send('') === false)){
+                var windowDiv = $('#window');
+                var windowImg = $('#windowImg');
+                windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
+                // $('#info').show();
+                $('#rules').show();
+                windowDiv.show();
+
             }else{
-                //cms环境的页面 app外
-                if(!(Asio.send('') === false)){
-                    var windowDiv = $('#window');
-                    var windowImg = $('#windowImg');
-                    windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
-                    // $('#info').show();
-                    $('#rules').show();
-                    windowDiv.show();
+                //自研
+                var windowDiv = $('#window');
+                var windowImg = $('#windowImg');
+                windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
+                $('#info').show();
 
-                }else{
-                    //自研
-                    var windowDiv = $('#window');
-                    var windowImg = $('#windowImg');
-                    windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/guiding.png'
-                    $('#info').show();
+                windowDiv.click(function(){
+                    // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
+                    // var url = 'igetapp://activity/detail?url='+link;
+                    // Asio.weLaunch(url);
+                });
 
-                    windowDiv.click(function(){
-                        // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
-                        // var url = 'igetapp://activity/detail?url='+link;
-                        // Asio.weLaunch(url);
-                    });
-
-                    windowDiv.show();
-                }
+                windowDiv.show();
             }
-        });
-        //goapp会有弹出一次。
-        var goapp = $('.goapp')
-        goapp.click(function(){
-            var link = encodeURIComponent('http://pic1cdn.luojilab.com');
-            var url = 'igetapp://activity/detail?url='+link;
-            Asio.weLaunch(url);
-        });
+        }
+    });
+    //goapp会有弹出一次。
+    var goapp = $('.goapp')
+    goapp.click(function(){
+        var link = encodeURIComponent('http://pic1cdn.luojilab.com');
+        var url = 'igetapp://activity/detail?url='+link;
+        Asio.weLaunch(url);
+    });
 	}
+}
+function buttonAnimit() {
+  var goimg = $('#goImg')[0];
+    MTween({
+      el: goimg,
+      target: {
+        opacity: 100,
+        marginTop: 8,
+      },
+      time: 500,
+      type: 'linear',
+      callBack: function() {
+        MTween({
+          el: goimg,
+          target: {
+            opacity: 70,
+            marginTop: 0,
+          },
+          time: 300,
+          type: 'linear',
+          callBack: function() {
+            buttonAnimit();
+          }
+        })
+      }
+    })
 }

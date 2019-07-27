@@ -190,3 +190,12 @@ body {
 .hidden {
 	display: none;
   } 
+.goMarkImg {
+	position: absolute;
+    width: 100%;
+    top: 50%;
+	left: 40%;
+}
+.goMarkImg img {
+	width: 20%;
+}
