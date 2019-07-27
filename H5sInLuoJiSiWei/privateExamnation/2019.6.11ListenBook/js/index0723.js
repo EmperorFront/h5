@@ -935,7 +935,7 @@ function doFloatingPiece (nowDegx) {
 //创建各种点击及浮层
 function createBigClick(){
   var bigClickData = [
-    {id:"jiahangjia",name:"贾行家",width:"146px",height:"310px",startDeg:135,marginTop:"45px","point":"1111","link":"2222"},
+    {id:"jiahangjia",name:"贾行家",width:"146px",height:"310px",startDeg:135,translateZ:"-411px",marginTop:"45px","point":"1111","link":"2222"},
     {id:"lijun",name:"李筠",width:"174px",height:"371px",startDeg:125,marginTop:"-169px","point":"1111","link":"2222"},
     {id:"liuwei",name:"刘玮",width:"157px",height:"304px",startDeg:79,translateZ:"-463px",marginTop:"-107px","point":"1111","link":"2222"},
     {id:"huanglining1",name:"黄昱宁-1",width:"181px",height:"289px",startDeg:103,marginTop:"-151px","point":"1111","link":"2222"},
@@ -981,7 +981,7 @@ function createBigClick(){
     {id:"saodiseng",name:"扫地僧",width:"89px",height:"156px",startDeg:-96,marginTop:"-63px","point":"1111","link":"2222"},
     {id:"beisu",name:"倍速",width:"66px",height:"74px",startDeg:-85,marginTop:"9px","point":"1111","link":"2222"},
     {id:"yonghu4",name:"用户4",width:"90px",height:"213px",startDeg:-96,marginTop:"78px","point":"1111","link":"2222"},
-    {id:"hongbaohe3",name:"红包盒3",width:"82px",height:"52px",startDeg:-131,marginTop:"113px","point":"1111","link":"2222"},
+    {id:"hongbaohe3",name:"红包盒3",width:"82px",height:"52px",startDeg:-131,translateZ:'-399px',marginTop:"113px","point":"1111","link":"2222"},
     {id:"yanglei",name:"杨蕾",width:"111px",height:"306px",startDeg:-114,marginTop:"47px","point":"1111","link":"2222"},
     {id:"ashi",name:"阿狮",width:"237px",height:"411px",startDeg:-145,translateZ:'-360px',marginTop:"-87px","point":"1111","link":"2222"},
     ]
