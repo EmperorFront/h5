@@ -199,3 +199,6 @@ body {
 .goMarkImg img {
 	width: 20%;
 }
+.slideout {
+	opacity: 0;
+}

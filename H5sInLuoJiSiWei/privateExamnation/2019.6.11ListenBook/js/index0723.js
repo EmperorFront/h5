@@ -481,10 +481,7 @@ function setDarg() {//拖动逻辑
     }
     css(tZ, 'translateZ', startZ - disZ);
 
-    //松手触发动画
-    //大件
-    //奖学金领取屏
-    doFloatingPiece(nowDeg.x);
+    doAnimationAboutPostion(nowDeg.x);
     
   })
   document.addEventListener('touchend', function(e) {
@@ -497,10 +494,8 @@ function setDarg() {//拖动逻辑
       x: lastDis.x * 10,
       y: lastDis.y * 10
     }
-    //松手触发动画
-    //大件
-    //奖学金领取屏
-    doFloatingPiece(nowDeg.x + disDeg.x);
+    //元素动画
+    doAnimationAboutPostion(nowDeg.x + disDeg.x);
 
     MTween({
       el: tZ,
@@ -841,6 +836,15 @@ function iconAnimit(){
     }
   })
 }
+//基于滑动的函数封装在这里
+function doAnimationAboutPostion(nowDegx){
+    //松手触发动画
+    //大件
+    //奖学金领取屏
+  doFloatingPiece(nowDegx);
+  //小元素滑出
+  doslideOut(nowDegx);
+}
 //浮片动作
 function doFloatingPiece (nowDegx) {
     //滑动提示逻辑
@@ -932,6 +936,35 @@ function doFloatingPiece (nowDegx) {
     })
   }
 }
+//小元素滑出
+function doslideOut(nowDegx) {console.log(nowDegx);
+    var outEle =  $('.slideout');
+    for (var i = 0; i < outEle.length; i++  ){
+      //当前元素的角度
+      if($('.slideout')[i]){
+        var currrentdeg = parseInt($($('.slideout')[i]).css("transform").substring( $($('.slideout')[i]).css("transform").indexOf('rotateY')+8, $($('.slideout')[0]).css("transform").indexOf('rotateY')+12));
+        if(Math.abs(((nowDegx + 360000) - (-parseInt(currrentdeg) )))%360 < 25){
+          //把他往下挪几个像素
+          var topnow = $($('.slideout')[i]).css('top')//-100px
+          var top = parseInt(topnow.substring(0,topnow.length-2)) + 40;
+          $(outEle[i]).css('top', top + 'px'); 
+          $(outEle[i]).removeClass('slideout');
+          //挪上来，变透明
+          MTween({
+            el: outEle[i],
+            target: {
+              opacity: 100,//不透明
+              top: parseInt(topnow.substring(0,topnow.length-2)),
+            },
+            time: 500,
+            type: 'linear',
+            callBack: function() {
+            }
+          })
+        }
+      }
+    }
+}
 //创建各种点击及浮层
 function createBigClick(){
   var bigClickData = [
@@ -975,9 +1008,9 @@ function createBigClick(){
     {id:"yonghu3",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-25px","point":"1111","link":"2222"},
     {id:"tingshushujubang1",name:"听书数据榜-1",width:"153px",height:"235px",startDeg:-65,marginTop:"-294px","point":"1111","link":"2222"},
     {id:"tingshushujubang2",name:"听书数据榜-2",width:"0px",height:"0px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
-    {id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-82,marginTop:"-222px","point":"1111","link":"2222"},
-    {id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-236px","point":"1111","link":"2222"},
-    {id:"ditu3",name:"地图3",width:"45px",height:"63px",startDeg:-105,marginTop:"-202px","point":"1111","link":"2222"},
+    {classList:"slideout",id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-82,marginTop:"-222px","point":"1111","link":"2222"},
+    {classList:"slideout",id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-236px","point":"1111","link":"2222"},
+    {classList:"slideout",id:"ditu3",name:"地图3",width:"45px",height:"63px",startDeg:-105,marginTop:"-202px","point":"1111","link":"2222"},
     {id:"saodiseng",name:"扫地僧",width:"89px",height:"156px",startDeg:-96,marginTop:"-63px","point":"1111","link":"2222"},
     {id:"beisu",name:"倍速",width:"66px",height:"74px",startDeg:-85,marginTop:"9px","point":"1111","link":"2222"},
     {id:"yonghu4",name:"用户4",width:"90px",height:"213px",startDeg:-96,marginTop:"78px","point":"1111","link":"2222"},
@@ -986,7 +1019,7 @@ function createBigClick(){
     {id:"ashi",name:"阿狮",width:"237px",height:"411px",startDeg:-145,translateZ:'-360px',marginTop:"-87px","point":"1111","link":"2222"},
     ]
   var pano = document.querySelector('#pano');
-  for(var i = 0; i < bigClickData.length; i++){
+  for(var i = 0; i < bigClickData.length; i++) {
     var outDiv = document.createElement('div');
     var imgDiv = document.createElement('div');
     imgDiv.className = bigClickData[i].id
@@ -995,7 +1028,7 @@ function createBigClick(){
     if (bigClickData[i].classList != undefined) {
         imgDiv.classList.add(bigClickData[i].classList);
     }
-    var str = "opacity:1;background-color:'red';float:left;top:"+bigClickData[i].marginTop+
+    var str = "background-color:'red';float:left;top:"+bigClickData[i].marginTop+
               ";height:"+bigClickData[i].height+
               ";width: "+bigClickData[i].width+
               ";left: 0px;transform: translateY(0px) rotateY("+bigClickData[i].startDeg+
@@ -1005,6 +1038,22 @@ function createBigClick(){
     imgDiv.style.background = "url(" + imgData["panosClick"][i] + ")";
     outDiv.appendChild(imgDiv);
     pano.appendChild(outDiv);
+
+    //添加闪光点
+    if(parseInt(bigClickData[i].width) > 0) {
+      var eltop = parseInt(bigClickData[i].marginTop) + (parseInt(bigClickData[i].height)*0.3)
+      var blink1 = document.createElement('div');
+      var blink11 = document.createElement('div');
+      var blink11str = "opacity: 1;top:"+eltop+
+      "px;height:50px"+
+      ";width: 50px;left: 0px;transform: translateY(0px) rotateY("+bigClickData[i].startDeg+
+      "deg) translateZ("+(bigClickData[i].translateZ === undefined ? "-429px": bigClickData[i].translateZ)+
+      ");float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
+      blink11.style.cssText = blink11str;
+      blink11.classList = bigClickData[i].id +' showWindow';
+      blink1.appendChild(blink11);
+      pano.appendChild(blink1);
+    }
   }
 }
 function addBigClickEvent(){
@@ -1045,37 +1094,7 @@ function initcloud(){
   cloudblink(cloud02,'left');
   cloudblink(cloud01,'right');
 
-  var blink1 = document.createElement('div');
-  var blink11 = document.createElement('div');
-  var blink11str = "opacity: 1;top: 91px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(38deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
-  blink11.style.cssText = blink11str;
-  blink11.className = 'linannan showWindow blink';
-  blink1.appendChild(blink11);
-  pano.appendChild(blink1);
 
-  var blink1 = document.createElement('div');
-  var blink11 = document.createElement('div');
-  var blink11str = "background-size: cover;opacity: 1;top: 154px;height: 42px;width: 50px;left: 41px;transform: translateY(0px) rotateY(53deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
-  blink11.style.cssText = blink11str;
-  blink11.className = 'caoxingyuan1 showWindow blink';
-  blink1.appendChild(blink11);
-  pano.appendChild(blink1);
-
-  var blink1 = document.createElement('div');
-  var blink11 = document.createElement('div');
-  var blink11str = "background-size: cover;opacity: 1;top: 0px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(8deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
-  blink11.style.cssText = blink11str;
-  blink11.className = 'bianhengqin showWindow blink';
-  blink1.appendChild(blink11);
-  pano.appendChild(blink1);
-
-  var blink1 = document.createElement('div');
-  var blink11 = document.createElement('div');
-  var blink11str = "background-size: cover;opacity: 1;top: 52px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(-85deg) translateZ(-429px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
-  blink11.style.cssText = blink11str;
-  blink11.className = 'beisu showWindow blink';
-  blink1.appendChild(blink11);
-  pano.appendChild(blink1);
 
   var talkwindowbs = document.createElement('div');
   var blink11 = document.createElement('div');
@@ -1104,7 +1123,7 @@ function initcloud(){
 
   var theblinks = $('.blink');
     for(var i = 0; i<theblinks.length; i++){
-        blinks(theblinks[i]);
+        // blinks(theblinks[i]);
     }
 }
 function cloudblink(e,r){
