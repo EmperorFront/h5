@@ -178,6 +178,7 @@ var Tween={linear:function(e,a,g,f){return g*e/f+a},easeIn:function(e,a,g,f){ret
 //填充dom
 var dom = `
 <div id="pageBg"></div>
+<div id="wrapper"></div>
 <div id="view">
 	<div id="logo1">
     <div class="logoImg" id="bgdoor">
@@ -186,7 +187,7 @@ var dom = `
     <div class="goMarkImg">
       <img src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/gomark.png">
     </div>
-		<p class="logoText">已加载 0%</p>
+    <p class="logoText">已加载 0%</p>
 	</div>
 	<div id="main">
 		<div id="tZ">
@@ -194,7 +195,7 @@ var dom = `
 			<div id="cloud"></div>
 			<div id="pano"></div>
 		</div>
-	</div>
+  </div>
 </div>
 <div id="go" class="hidden" style="width: 20%;position: absolute;bottom: 5%;right: 15%;text-align: center;height: 20%;"> 
 	<img id="goImg" class= "mcclick" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/load/go.png" style="height: 100%;margin: auto;"/>
@@ -256,6 +257,7 @@ function setLoading() {//该函数用来刷家在进度百分比条。
       logoText.innerHTML = "已加载 " + (Math.floor(nub / data.length * 100)) + "%";//按照图片张数显示
       if (nub == data.length) {
         //图片加载完成之后，要做的事情
+        document.getElementById('wrapper').style.opacity = 0;
         anmt();
       }
     };
@@ -294,7 +296,9 @@ function anmt5() {
       translateZ: -100//主体往前挪至想要位置
     },
     time: 3600,//持续时间。
-    type: 'easeBoth'
+    type: 'easeBoth',
+    callBack: function() {
+    }
   })
 }
 
@@ -389,6 +393,10 @@ function anmt7() {
       $("#go").show();
       //右下角按钮微微抖动
       buttonAnimit();
+
+      //底部有弹幕
+      document.getElementById('wrapper').style.zIndex = 0;
+      document.getElementById('wrapper').style.opacity = 1;
     }
   })
 }
@@ -844,6 +852,8 @@ function doAnimationAboutPostion(nowDegx){
   doFloatingPiece(nowDegx);
   //小元素滑出
   doslideOut(nowDegx);
+  //点击提示
+  clicktip(nowDegx);
 }
 //浮片动作
 function doFloatingPiece (nowDegx) {
@@ -937,33 +947,72 @@ function doFloatingPiece (nowDegx) {
   }
 }
 //小元素滑出
-function doslideOut(nowDegx) {console.log(nowDegx);
-    var outEle =  $('.slideout');
-    for (var i = 0; i < outEle.length; i++  ){
-      //当前元素的角度
-      if($('.slideout')[i]){
-        var currrentdeg = parseInt($($('.slideout')[i]).css("transform").substring( $($('.slideout')[i]).css("transform").indexOf('rotateY')+8, $($('.slideout')[0]).css("transform").indexOf('rotateY')+12));
-        if(Math.abs(((nowDegx + 360000) - (-parseInt(currrentdeg) )))%360 < 25){
-          //把他往下挪几个像素
-          var topnow = $($('.slideout')[i]).css('top')//-100px
-          var top = parseInt(topnow.substring(0,topnow.length-2)) + 40;
-          $(outEle[i]).css('top', top + 'px'); 
-          $(outEle[i]).removeClass('slideout');
-          //挪上来，变透明
-          MTween({
-            el: outEle[i],
-            target: {
-              opacity: 100,//不透明
-              top: parseInt(topnow.substring(0,topnow.length-2)),
-            },
-            time: 500,
-            type: 'linear',
-            callBack: function() {
-            }
-          })
-        }
+function doslideOut(nowDegx) {
+  var outEle =  $('.slideout');
+  for (var i = 0; i < outEle.length; i++  ){
+    //当前元素的角度
+    if($('.slideout')[i]){
+      var currrentdeg = parseInt($($('.slideout')[i]).css("transform").substring( $($('.slideout')[i]).css("transform").indexOf('rotateY')+8, $($('.slideout')[i]).css("transform").indexOf('rotateY')+12));
+      if(Math.abs(((nowDegx + 360000) - (-parseInt(currrentdeg) )))%360 < 25){
+        //把他往下挪几个像素
+        var topnow = $($('.slideout')[i]).css('top')//-100px
+        var top = parseInt(topnow.substring(0,topnow.length-2)) + 40;
+        $(outEle[i]).css('top', top + 'px'); 
+        $(outEle[i]).removeClass('slideout');
+        //挪上来，变透明
+        MTween({
+          el: outEle[i],
+          target: {
+            opacity: 100,//不透明
+            top: parseInt(topnow.substring(0,topnow.length-2)),
+          },
+          time: 500,
+          type: 'linear',
+          callBack: function() {
+          }
+        })
       }
     }
+  }
+}
+function clicktip(nowDegx) {
+  var outEle =  $('.clicktip');
+  for (var i = 0; i < outEle.length; i++  ){
+    //当前元素的角度
+    var currrentdeg = parseInt($(outEle[i]).css("transform").substring( $(outEle[i]).css("transform").indexOf('rotateY')+8, $(outEle[i]).css("transform").indexOf('rotateY')+12));
+    if(Math.abs(((nowDegx + 360000) - (-parseInt(currrentdeg) )))%360 < 25){
+      //把他往下挪几个像素
+      var topnow = $(outEle[i]).css('top')//-100px
+      // var top = parseInt(topnow.substring(0,topnow.length-2)) + 40;
+      // $(outEle[i]).css('top', top + 'px'); 
+      $(outEle[i]).removeClass('slideout');
+      //挪上来，变透明
+      MTween({
+        el: outEle[i],
+        target: {
+          opacity: 60,//不透明
+          // top: parseInt(topnow.substring(0,topnow.length-2)),
+        },
+        time: 500,
+        type: 'linear',
+        callBack: function() {
+        }
+      })
+    } else {
+      MTween({
+        el: outEle[i],
+        target: {
+          opacity: -100,//不透明
+          // top: parseInt(topnow.substring(0,topnow.length-2)),
+        },
+        time: 500,
+        type: 'linear',
+        callBack: function() {
+        }
+      })
+    }
+    
+  }
 }
 //创建各种点击及浮层
 function createBigClick(){
@@ -973,7 +1022,7 @@ function createBigClick(){
     {id:"liuwei",name:"刘玮",width:"157px",height:"304px",startDeg:79,translateZ:"-463px",marginTop:"-107px","point":"1111","link":"2222"},
     {id:"huanglining1",name:"黄昱宁-1",width:"181px",height:"289px",startDeg:103,marginTop:"-151px","point":"1111","link":"2222"},
     {id:"haunglining2",name:"黄昱宁-2",width:"0px",height:"0px",startDeg:99,marginTop:"-126px","point":"1111","link":"2222"},
-    {id:"haungliningmingpai",name:"黄昱宁名牌",width:"39px",height:"91px",startDeg:94,marginTop:"-154px","point":"1111","link":"2222"},
+    {id:"haungliningmingpai",name:"黄昱宁名牌",width:"0px",height:"0px",startDeg:94,marginTop:"-154px","point":"1111","link":"2222"},
     {id:"liuweimingpai",name:"刘玮名牌",width:"0px",height:"0px",startDeg:83,marginTop:"-113px","point":"1111","link":"2222"},
     {id:"zhuwei1",name:"朱伟-1",width:"330px",height:"311px",startDeg:100,translateZ:'-540px',marginTop:"56px","point":"1111","link":"2222"},
     {id:"zhuwei2",name:"朱伟-2",width:"0px",height:"0px",startDeg:84,marginTop:"48px","point":"1111","link":"2222"},
@@ -1040,17 +1089,19 @@ function createBigClick(){
     pano.appendChild(outDiv);
 
     //添加闪光点
-    if(parseInt(bigClickData[i].width) > 0) {
+    if(parseInt(bigClickData[i].width) > 0&&parseInt(bigClickData[i].height) > 0 ) {
       var eltop = parseInt(bigClickData[i].marginTop) + (parseInt(bigClickData[i].height)*0.3)
+      var eltranslateZ =  parseInt(bigClickData[i].translateZ === undefined ? "-429px": bigClickData[i].translateZ)*0.85
       var blink1 = document.createElement('div');
       var blink11 = document.createElement('div');
-      var blink11str = "opacity: 1;top:"+eltop+
+      var blink11str = "opacity: 0;top:"+eltop+
       "px;height:50px"+
-      ";width: 50px;left: 0px;transform: translateY(0px) rotateY("+bigClickData[i].startDeg+
-      "deg) translateZ("+(bigClickData[i].translateZ === undefined ? "-429px": bigClickData[i].translateZ)+
-      ");float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
+      ";width: 50px;left: "+( (80<parseInt(bigClickData[i].startDeg))?parseInt(bigClickData[i].width)/2:0) +
+      "px;transform: translateY(0px) rotateY("+bigClickData[i].startDeg+
+      "deg) translateZ("+eltranslateZ+
+      "px);float: left;position: absolute;background: url(https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/blinkcoin.png);display: block;background-size: cover;"
       blink11.style.cssText = blink11str;
-      blink11.classList = bigClickData[i].id +' showWindow';
+      blink11.classList = bigClickData[i].id +' showWindow clicktip';
       blink1.appendChild(blink11);
       pano.appendChild(blink1);
     }
@@ -1298,3 +1349,112 @@ function buttonAnimit() {
       }
     })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const MAX_DM_COUNT = 6;
+const CHANNEL_COUNT = 10;
+
+let domPool = [];
+let danmuPool =  ['前方高能！',' 来了老铁！这里是听书图书馆',' 听说可以领奖学金？听的越多，领的越多？',' 都别拦我，我去听书了！',' 哇！这里有我喜欢的解读老师！',' 听书听出红包雨，又涨知识又好运。',' 还有好多新书经典书呢',' 内有罗胖，能不能找到就看你的了',' 似乎有很多彩蛋？！同学们快去探索啊',' 太好玩了～我抢到了红包！',' 都憋说了，我要每天听书每天去领奖学金！',' 厉害了！得到放大招！',' 这红包太大了吧........',' 听书竟然能领红包？太爽了吧？',' 不要问我为什么懂得多，你听书你也多',' 我听得书多，不骗你，真有红包在等你',' 朱伟老师忠实听众前来报道',' 3年听书老会员，已就位',' 向我砸红包！',' 我听了1128本书，有谁比我多？',' 你也是听书会员吗？幸会幸会，里面请',' 进去不管看见啥，点就完事儿了',' 都说我脑图画得好，我不会告诉你我是在听书里学的',' 我撸猫时候听，跑步时候听，开车时候听，你啥时候听？',' 书山路有‘听’为径',' 听书一时爽，一直听书一直爽',' 扶我起来，还能再听个三天三夜',' 地上红包可以点，别问我是怎么知道的'];
+let hasPosition = [];
+
+/**
+ * 做一下初始化工作
+ */
+function init() {
+  let wrapper = document.getElementById('wrapper')
+  // 先new一些span 重复利用这些DOM
+  for (let j = 0; j < CHANNEL_COUNT; j++) {
+    let doms = [];
+    for (let i = 0; i < MAX_DM_COUNT; i++) {
+      // 要全部放进wrapper
+      let dom = document.createElement('span');
+      wrapper.appendChild(dom);
+      // 初始化dom的位置 通过设置className
+      dom.className = 'right';
+      // DOM的通道是固定的 所以设置好top就不需要再改变了
+      dom.style.bottom = j * 40 + 'px';
+      // 放入改通道的DOM池
+      doms.push(dom);
+      // 每次到transition结束的时候 就是弹幕划出屏幕了 将DOM位置重置 再放回DOM池
+      dom.addEventListener('transitionend', () => {
+        dom.className = 'right';
+        // dom.style.transition = null;
+        // dom.style.left = null;
+        dom.style.transform = null;
+
+        domPool[j].push(dom);
+      });
+    }
+    domPool.push(doms);
+  }
+  // hasPosition 标记每个通道目前是否有位置
+  for (let i = 0; i < CHANNEL_COUNT; i++) {
+    hasPosition[i] = true;
+  }
+}
+
+/**
+ * 获取一个可以发射弹幕的通道 没有则返回-1
+ */
+function getChannel() {
+  for (let i = 0; i < CHANNEL_COUNT; i++) {
+    if (hasPosition[i] && domPool[i].length) return i;
+  }
+  return -1;
+}
+
+/**
+ * 根据DOM和弹幕信息 发射弹幕
+ */
+function shootDanmu(dom, text, channel) {
+  dom.innerText = text;
+  // 如果为每个弹幕设置 transition 可以保证每个弹幕的速度相同 这里没有保证速度相同
+  // dom.style.transition = `transform ${7 + dom.clientWidth / 100}s linear`;
+
+  // dom.style.left = '-' + dom.clientWidth + 'px';
+  // 设置弹幕的位置信息 性能优化 left -> transform
+  dom.style.transform = `translateX(${-dom.clientWidth}px)`;
+  dom.className = 'left';
+  
+  hasPosition[channel] = false;
+  // 弹幕全部显示之后 才能开始下一条弹幕
+  // 大概 dom.clientWidth * 10 的时间 该条弹幕就从右边全部划出到可见区域 再加1秒保证弹幕之间距离
+  setTimeout(() => {
+    hasPosition[channel] = true;
+  }, dom.clientWidth * 10 + 1000);
+}
+
+
+
+init();
+// 每隔1ms从弹幕池里获取弹幕（如果有的话）并发射
+setInterval(() => {
+  let channel;
+  if (danmuPool.length && (channel = getChannel()) != -1) {
+    let dom = domPool[channel].shift();
+    domPool[channel].push(dom);
+    let danmu = danmuPool.shift();
+    danmuPool.push(danmu);
+    shootDanmu(dom, danmu, channel);
+  }
+}, 1);
+
+
+ 
