@@ -15,30 +15,30 @@ var imgData={
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/cloud02.png",
 	],
 	bg:[
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__01.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__02.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__03.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__04.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__05.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__06.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__07.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__08.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__09.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__10.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__11.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__12.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__13.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__14.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__15.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__16.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__17.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__18.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__19.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__20.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__21.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__22.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__23.jpg",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801__24.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_01.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_02.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_03.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_04.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_05.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_06.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_07.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_08.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_09.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_10.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_11.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_12.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_13.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_14.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_15.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_16.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_17.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_18.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_19.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_20.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_21.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_22.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_23.jpg",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_24.jpg",
 	],
 	pano:[
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/book1-1.png",
@@ -202,6 +202,7 @@ var dom = `
 
 $('#root').html(dom);
 
+let canTouch = true;
 
 (function() {//loading完搞入口函数
   setLoading()//初始化loading动画
@@ -445,7 +446,12 @@ function setDarg() {//拖动逻辑
   var lastDeg = { x: 0, y: 0 };
   var lastDis = { x: 0, y: 0 };
   document.addEventListener('touchstart', function(e) {
-    window.isTouch = true
+    if(canTouch){
+      window.isTouch = true;
+    }
+    if(!canTouch){
+      return;
+    }
     clearInterval(pano.timer)
     clearInterval(panoBg.timer)
     clearInterval(tZ.timer)
@@ -471,6 +477,9 @@ function setDarg() {//拖动逻辑
   })
 
   document.addEventListener('touchmove', function(e) {
+    if(!canTouch){
+      return;
+    }
     var nowDeg = {}
     var nowDeg2 = {} // 悬浮层
     var nowPoint = {}
@@ -1207,17 +1216,20 @@ function addBigClickEvent(){
   //显示
   $('.showWindow').show()
   //点击事件绑定
-  var window = $('#window');
+  var thewindow = $('#window');
   var windowImg = $('#windowImg');
   $('.showWindow').click(function(){
     var windowName = $(this)[0].classList[0];
     windowImg[0].src = 'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/'+windowName+'.png'
-    window.show();
+    thewindow.show();
+    canTouch = false;
+    window.isTouch = false;
   });
   $('#close').click(function () {
     $('#info').hide();
     $('#rules').hide();
-    window.hide();  
+    thewindow.hide();  
+    canTouch = true;
   });
 }
 function initcloud(){
