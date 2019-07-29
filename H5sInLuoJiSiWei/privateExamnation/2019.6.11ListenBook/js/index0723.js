@@ -51,6 +51,8 @@ var imgData={
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/machine.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/machine2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/machine3.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/machinebutton1.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/machinebutton2.png",
 	],
 	panosClick:[
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/jiahangjia.png",
@@ -822,6 +824,25 @@ function initFloatingPiece() {
   icon.style.background = "url(" + imgData["big"][2] + ")";
   machineIcon.appendChild(icon);
   pano.appendChild(machineIcon);
+  //按钮
+  var machineIcon = document.createElement('div');
+  var icon = document.createElement('div');
+  icon.className = "machinebutton1";
+  icon.classList.add("mcclick");
+  var str = "opacity: 0;height: 129px;width: 237px;left: -12px;background: url(&quot;pano3/machine3.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-338px);float: left;position: absolute;top: 75px;";
+  icon.style.cssText = str;
+  icon.style.background = "url(" + imgData["big"][3] + ")";
+  machineIcon.appendChild(icon);
+  pano.appendChild(machineIcon);
+  var machineIcon = document.createElement('div');
+  var icon = document.createElement('div');
+  icon.className = "machinebutton2";
+  icon.classList.add("mcclick");
+  var str = "opacity: 0;height: 129px;width: 237px;left: -12px;background: url(&quot;pano3/machine3.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-338px);float: left;position: absolute;top: 75px;";
+  icon.style.cssText = str;
+  icon.style.background = "url(" + imgData["big"][4] + ")";
+  machineIcon.appendChild(icon);
+  pano.appendChild(machineIcon);
   //绑定点击机器事件
   getMoney();
 }
@@ -865,10 +886,10 @@ function iconAnimit(){
       MTween({
         el: $(".machine3")[0],//奖学金领取处字样
         target: {
-          opacity: 30,//透明变不透明
+          opacity: 70,//透明变不透明
           top: 75,//上升
         },
-        time: 100,
+        time: 1000,
         type: 'linear',
         callBack: function() {
           iconAnimit();
@@ -1431,6 +1452,30 @@ function getMoney() {
     });
 	}
 }
+//写死宝箱跳转链接
+$(function(){
+  if (ua.indexOf('igetapp')) {
+    $("#windowImg").click(function(e){
+      if($("#windowImg")[0].src.indexOf('hongbaohe')){
+        //点击则跳转至cms奖金领取页。
+        var link = encodeURIComponent('https://pic1cdn.luojilab.com/html/poster/picqqL8W9PRlXcgGo6AXrGW.html');
+        var url = 'igetapp://activity/detail?url='+link;
+        Asio.send('jump.ddURL', {
+          ddURL: url,
+          ddURLMinVer: '5.1.0'
+        })
+      };
+    });
+  } else {
+    $("#windowImg").click(function(e){
+      if($("#windowImg")[0].src.indexOf('hongbaohe')){
+        //点击则跳转至cms奖金领取页。
+        var link = 'https://pic1cdn.luojilab.com/html/poster/picqqL8W9PRlXcgGo6AXrGW.html';
+        window.location.href = link;
+      };
+    });
+  }
+});
 function buttonAnimit() {
   var goimg = $('#goImg')[0];
     MTween({
@@ -1458,15 +1503,7 @@ function buttonAnimit() {
     })
 }
 
-//写死宝箱跳转链接
-$(function(){
-  $("#windowImg").click(function(e){
-    if($("#windowImg")[0].src.indexOf('hongbaohe')){
-      // alert('缺一个微信领取链接！填入手机号');
-      //https://pic1cdn.luojilab.com/html/poster/picqqL8W9PRlXcgGo6AXrGW.html
-    }
-  });
-});
+
 
 
 
