@@ -217,6 +217,7 @@ var dom = `
 
 $('#root').html(dom);
 
+
 (function() {//loading完搞入口函数
   setLoading()//初始化loading动画
   setPerc()//初始化图像动画
@@ -844,6 +845,7 @@ function iconAnimit(){
     }
   })
 }
+var xiayu = 1;
 //基于滑动的函数封装在这里
 function doAnimationAboutPostion(nowDegx){
     //松手触发动画
@@ -854,6 +856,15 @@ function doAnimationAboutPostion(nowDegx){
   doslideOut(nowDegx);
   //点击提示
   clicktip(nowDegx);
+  //红包雨
+  if(xiayu === 1 && Math.abs(((nowDegx + 360000) - 500))%360 < 50){
+    xiayu = 0;
+    hongbaoyu(nowDegx);
+  } else {
+    if(Math.abs(((nowDegx + 360000) - 700))%360 < 90){
+      xiayu = 1;
+    }
+  }
 }
 //浮片动作
 function doFloatingPiece (nowDegx) {
@@ -1011,7 +1022,69 @@ function clicktip(nowDegx) {
         }
       })
     }
-    
+  }
+}
+function hongbaoyu(nowDegx) {
+  if(Math.abs(((nowDegx + 360000) - 500))%360 < 50){
+    var hongbaos = [
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+      'https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe3.png',
+  ];
+    for(var i = 0; i < hongbaos.length; i++){
+
+      var outDiv = document.createElement('div');
+      let imgDiv = document.createElement('div');
+      imgDiv.classList = "showWindow hongbaoyu";
+      var str = "position: absolute;top:-50px;right:-50px;width:50px;height:50px;background-image:url('"+hongbaos[i]+"');background-size: 50px;";
+      imgDiv.style.cssText = str;
+      outDiv.appendChild(imgDiv);
+      imgDiv.onclick = function(){
+        $('.hongbaohe3').click();
+      }
+      $('body')[0].appendChild(outDiv);
+
+      //生产一个随机时间
+      setTimeout(function(){
+        MTween({
+          el: imgDiv,
+          target: {
+            opacity: 60,//不透明
+            top:50+(Math.random()*2500),
+            right:400+(Math.random()*430)
+          },
+          time: (Math.random()*1000+2000),
+          type: 'linear',
+          callBack: function() {
+            imgDiv.remove();
+          }
+        })
+      },Math.abs(Math.random()*5000 -2000))
+    }
+  }else {
   }
 }
 //创建各种点击及浮层
@@ -1349,6 +1422,18 @@ function buttonAnimit() {
       }
     })
 }
+
+//写死宝箱跳转链接
+$(function(){
+  $("#windowImg").click(function(e){
+    if($("#windowImg")[0].src.indexOf('hongbaohe')){
+      // alert('缺一个微信领取链接！填入手机号');
+      //https://pic1cdn.luojilab.com/html/poster/picqqL8W9PRlXcgGo6AXrGW.html
+    }
+  });
+});
+
+
 
 
 
