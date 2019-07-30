@@ -1071,7 +1071,7 @@ function clicktip(nowDegx) {
       MTween({
         el: outEle[i],
         target: {
-          opacity: 60,//不透明
+          opacity: 70,//不透明
           // top: parseInt(topnow.substring(0,topnow.length-2)),
         },
         time: 500,
@@ -1471,7 +1471,7 @@ function getMoney() {
 }
 //写死宝箱跳转链接
 $(function(){
-  if (ua.indexOf('igetapp')) {
+  if (ua.indexOf('igetapp') > 0) {
     $("#windowImg").click(function(e){
       if($("#windowImg")[0].src.indexOf('hongbaohe')){
         //点击则跳转至cms奖金领取页。
