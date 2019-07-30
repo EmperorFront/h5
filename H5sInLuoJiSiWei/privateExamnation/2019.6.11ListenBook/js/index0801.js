@@ -40,6 +40,13 @@ var imgData={
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_23.jpg",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/bg0723/beijing0801_24.jpg",
 	],
+	pano:[
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/book1-1.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/book2-1.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/book2-2.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/book9-1.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/book9-2.png",
+	],
 	big:[
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/machine.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/machine2.png",
@@ -52,32 +59,32 @@ var imgData={
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/lijun.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/liuwei.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/huanglining1.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/haunglining2.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/haungliningmingpai.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/liuweimingpai.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/haunglining2.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/haungliningmingpai.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/liuweimingpai.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/zhuwei1.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/zhuwei2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/caoxingyuan1.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/caoxingyuan2.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/caoxingyuan2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/linannan.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/hongbaohe1-1.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/hongbaohe1-1.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/hongbaohe1-2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/shehuiyujingji.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/anzhishi1.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/anzhishi2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/chengshi1.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/chengshi2.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/chengshi2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/shiwenhuojinchensilu.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/meiguoxianjing1.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/meiguoxianjing2.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/meiguoxianjing2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/bianhengqin.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/dasheji.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/zhaizizhongguo.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/jinhuidui.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/xugoudeyoutaiminzu1.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/xugoudeyoutaiminzu2.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/xugoudeyoutaiminzu2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/xiaoshuodeyishu1.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/xiaoshuodeyishu2.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/xiaoshuodeyishu2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/liuxuan.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/tingshutieshi1.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/tingshutieshi2.png",
@@ -87,7 +94,7 @@ var imgData={
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/hongbaohe2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/yonghu3.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/tingshushujubang1.png",
-	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/tingshushujubang2.png",
+	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/tingshushujubang2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/ditu1.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/ditu2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/ditu3.png",
@@ -106,31 +113,31 @@ var others = {
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/lijun.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/liuwei.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/huanglining1.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/haunglining2.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/haungliningmingpai.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/liuweimingpai.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/haunglining2.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/haungliningmingpai.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/liuweimingpai.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/zhuwei1.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/caoxingyuan1.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/caoxingyuan2.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/caoxingyuan2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/linannan.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe1-1.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe1-1.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe1-2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/shehuiyujingji.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/anzhishi1.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/anzhishi2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/chengshi1.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/chengshi2.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/chengshi2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/shiwenhuojinchensilu.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/meiguoxianjing1.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/meiguoxianjing2.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/meiguoxianjing2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/bianhengqin.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/dasheji.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/zhaizizhongguo.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/jinhuidui.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/xugoudeyoutaiminzu1.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/xugoudeyoutaiminzu2.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/xugoudeyoutaiminzu2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/xiaoshuodeyishu1.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/xiaoshuodeyishu2.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/xiaoshuodeyishu2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/liuxuan.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/tingshutieshi1.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/tingshutieshi2.png",
@@ -140,7 +147,7 @@ var others = {
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/hongbaohe2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/yonghu3.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/tingshushujubang1.png",
-		// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/tingshushujubang2.png",
+		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/tingshushujubang2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/ditu1.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/ditu2.png",
 		"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/window/ditu3.png",
@@ -585,9 +592,25 @@ function bgShow() {
 
 var panosClick = {
   pano0:{width:"92px",height:"126px",startDeg:35,marginTop:"-270px"},
-  pano1:{width:"37px",height:"130px",startDeg:-18,marginTop:"-135px"},
-  pano2:{width:"60px",height:"130px",startDeg:-22,marginTop:"-135px"},
-  length: 3,
+  pano1:{
+    width:'0px',
+    height:'0px',
+    startDeg:-75,
+    marginTop:'-240px'
+  },
+  pano2:{
+    width:'0px',
+    height:'0px',
+    startDeg:-95,
+    marginTop:'-240px'
+  },
+  pano3:{width:"37px",height:"130px",startDeg:-18,marginTop:"-135px"},
+  pano4:{width:"60px",height:"130px",startDeg:-22,marginTop:"-135px"},
+
+
+  
+
+  length: 5,
 };
 // var panosClick = [
 //   {name:'pano0', width:"92px",height:"126px",startDeg:35,marginTop:"-270px"},
@@ -611,10 +634,12 @@ function createPano() {
   for (var j = 0; j < panosClick.length; j++) {
     var thepano = document.createElement("div");
     var startDeg2 = panosClick['pano' + j].startDeg;
-
+    css(pano, "rotateX", 0);
+    css(pano, "rotateY", 0);
+    css(pano, "scale", 0);
     var span = document.createElement("div");
     span.style.cssText = "float:left;height:"+panosClick['pano' + j].height+";width:"+panosClick['pano' + j].width+";margin-top:"+panosClick['pano' + j].marginTop+";";
-    // span.style.background = "url(" + imgData["pano"][nub] + ")";
+    span.style.background = "url(" + imgData["pano"][nub] + ")";
     css(span, "translateY", 0);
     css(span, "rotateY", startDeg2);
     css(span, "translateZ", -R);
@@ -622,14 +647,10 @@ function createPano() {
     startDeg -= deg;
     thepano.appendChild(span);
     pano.appendChild(thepano);
-    $(thepano).addClass('linshiclass'+j);
-
   }
-  css(pano, "rotateX", 0);
-  css(pano, "rotateY", 0);
-  css(pano, "scale", 0);
   //创建浮层元素
   initFloatingPiece();
+
   setTimeout(function() {
     MTween({
       el: pano,
@@ -1143,32 +1164,32 @@ function createBigClick(){
     {id:"lijun",name:"李筠",width:"174px",height:"371px",startDeg:125,marginTop:"-169px","point":"1111","link":"2222"},
     {id:"liuwei",name:"刘玮",width:"157px",height:"304px",startDeg:79,translateZ:"-463px",marginTop:"-107px","point":"1111","link":"2222"},
     {id:"huanglining1",name:"黄昱宁-1",width:"181px",height:"289px",startDeg:103,marginTop:"-151px","point":"1111","link":"2222"},
-    // {id:"haunglining2",name:"黄昱宁-2",width:"0px",height:"0px",startDeg:99,marginTop:"-126px","point":"1111","link":"2222"},
-    // {id:"haungliningmingpai",name:"黄昱宁名牌",width:"0px",height:"0px",startDeg:94,marginTop:"-154px","point":"1111","link":"2222"},
-    // {id:"liuweimingpai",name:"刘玮名牌",width:"0px",height:"0px",startDeg:83,marginTop:"-113px","point":"1111","link":"2222"},
+    {id:"haunglining2",name:"黄昱宁-2",width:"0px",height:"0px",startDeg:99,marginTop:"-126px","point":"1111","link":"2222"},
+    {id:"haungliningmingpai",name:"黄昱宁名牌",width:"0px",height:"0px",startDeg:94,marginTop:"-154px","point":"1111","link":"2222"},
+    {id:"liuweimingpai",name:"刘玮名牌",width:"0px",height:"0px",startDeg:83,marginTop:"-113px","point":"1111","link":"2222"},
     {id:"zhuwei1",name:"朱伟-1",width:"330px",height:"311px",startDeg:100,translateZ:'-540px',marginTop:"56px","point":"1111","link":"2222"},
     {id:"zhuwei2",name:"朱伟-2",width:"0px",height:"0px",startDeg:84,marginTop:"48px","point":"1111","link":"2222"},
     {id:"caoxingyuan1",name:"曹星原-1",width:"286px",height:"345px",startDeg:65,translateZ:'-500px',marginTop:"20px","point":"1111","link":"2222"},
-    // {id:"caoxingyuan2",name:"曹星原-2",width:"0px",height:"0px",startDeg:56,marginTop:"20px","point":"1111","link":"2222"},
+    {id:"caoxingyuan2",name:"曹星原-2",width:"0px",height:"0px",startDeg:56,marginTop:"20px","point":"1111","link":"2222"},
     {id:"linannan",name:"李南南",width:"102px",height:"315px",startDeg:37,translateZ:'-448px',marginTop:"-9px","point":"1111","link":"2222"},
-    // {id:"hongbaohe1-1",name:"红包盒1-1",width:"0px",height:"0px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
+    {id:"hongbaohe1-1",name:"红包盒1-1",width:"0px",height:"0px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
     {classList:"slideout",id:"hongbaohe1-2",name:"红包盒1-2",width:"80px",height:"55px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
     {classList:"blink",id:"shehuiyujingji",name:"社会与经济",width:"93px",height:"117px",startDeg:38,marginTop:"-135px","point":"1111","link":"2222"},
     {classList:"blink",id:"anzhishi1",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
     {classList:"blink",id:"anzhishi2",name:"暗知识-2",width:"79px",height:"115px",startDeg:25,marginTop:"-135px","point":"1111","link":"2222"},
     {classList:"blink",id:"chengshi1",name:"成事-1",width:"89px",height:"116px",startDeg:14,marginTop:"-135px","point":"1111","link":"2222"},
-    // {classList:"blink",id:"chengshi2",name:"成事-2 无",width:"38px",height:"116px",startDeg:9,marginTop:"-135px","point":"1111","link":"2222"},
+    {classList:"blink",id:"chengshi2",name:"成事-2 无",width:"38px",height:"116px",startDeg:9,marginTop:"-135px","point":"1111","link":"2222"},
     {classList:"blink",id:"shiwenhuojinchensilu",name:"十问：霍金沉思录",width:"90px",height:"120px",startDeg:36,marginTop:"-261px","point":"1111","link":"2222"},
     {classList:"blink",id:"meiguoxianjing1",name:"美国陷阱-1",width:"90px",height:"118px",startDeg:17,marginTop:"-259px","point":"1111","link":"2222"},
-    // {classList:"blink",id:"meiguoxianjing2",name:"美国陷阱-2 无",width:"0px",height:"0px",startDeg:9,marginTop:"-259px","point":"1111","link":"2222"},
+    {classList:"blink",id:"meiguoxianjing2",name:"美国陷阱-2 无",width:"15px",height:"117px",startDeg:9,marginTop:"-259px","point":"1111","link":"2222"},
     {id:"bianhengqin",name:"卞恒沁",width:"104px",height:"301px",startDeg:6,marginTop:"-89px","point":"1111","link":"2222"},
     {id:"dasheji",name:"大设计",width:"99px",height:"124px",startDeg:-11,marginTop:"-254px","point":"1111","link":"2222"},
     {id:"zhaizizhongguo",name:"宅兹中国",width:"99px",height:"123px",startDeg:-25,marginTop:"-258px","point":"1111","link":"2222"},
     {id:"jinhuidui",name:"锦灰堆",width:"89px",height:"122px",startDeg:-6,marginTop:"-128px","point":"1111","link":"2222"},
     {id:"xugoudeyoutaiminzu1",name:"虚构的犹太民族-1",width:"86px",height:"119px",startDeg:-18,marginTop:"-128px","point":"1111","link":"2222"},
-    // {id:"xugoudeyoutaiminzu2",name:"虚构的犹太民族-2 无",width:"0px",height:"0px",startDeg:-21,marginTop:"-128px","point":"1111","link":"2222"},
+    {id:"xugoudeyoutaiminzu2",name:"虚构的犹太民族-2 无",width:"0px",height:"0px",startDeg:-21,marginTop:"-128px","point":"1111","link":"2222"},
     {id:"xiaoshuodeyishu1",name:"小说的艺术-1",width:"92px",height:"121px",startDeg:-30,marginTop:"-126px","point":"1111","link":"2222"},
-    // {id:"xiaoshuodeyishu2",name:"小说的艺术-2 无",width:"29px",height:"121px",startDeg:-36,marginTop:"-126px","point":"1111","link":"2222"},
+    {id:"xiaoshuodeyishu2",name:"小说的艺术-2 无",width:"29px",height:"121px",startDeg:-36,marginTop:"-126px","point":"1111","link":"2222"},
     {id:"liuxuan",name:"刘玄",width:"110px",height:"285px",startDeg:-36,marginTop:"-16px","point":"1111","link":"2222"},
     {id:"tingshutieshi1",name:"听书帖士-1",width:"44px",height:"220px",startDeg:-45,marginTop:"-287px","point":"1111","link":"2222"},
     {id:"tingshutieshi2",name:"听书帖士-2",width:"59px",height:"220px",startDeg:-51,marginTop:"-287px","point":"1111","link":"2222"},
@@ -1178,7 +1199,7 @@ function createBigClick(){
     {id:"hongbaohe2",name:"红包盒2",width:"79px",height:"56px",startDeg:-75,marginTop:"181px","point":"1111","link":"2222"},
     {id:"yonghu3",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-25px","point":"1111","link":"2222"},
     {id:"tingshushujubang1",name:"听书数据榜-1",width:"153px",height:"235px",startDeg:-65,marginTop:"-294px","point":"1111","link":"2222"},
-    // {id:"tingshushujubang2",name:"听书数据榜-2",width:"0px",height:"0px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
+    {id:"tingshushujubang2",name:"听书数据榜-2",width:"0px",height:"0px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
     {classList:"slideout",id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-87,marginTop:"-170px","point":"1111","link":"2222"},
     {classList:"slideout",id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-236px","point":"1111","link":"2222"},
     {classList:"slideout",id:"ditu3",name:"地图3",width:"45px",height:"58px",startDeg:-105,marginTop:"-202px","point":"1111","link":"2222"},
