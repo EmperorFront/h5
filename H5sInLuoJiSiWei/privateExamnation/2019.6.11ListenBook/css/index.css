@@ -247,3 +247,9 @@ body {
 	border-radius: 10px;
 	font-size: 16px;
   }
+.opacity0 {
+	opacity: 0!important;
+}
+.opacity1 {
+	opacity: 1!important;
+}

@@ -239,7 +239,7 @@ function setLoading() {//该函数用来刷家在进度百分比条。
   for (var j = 0; j < first.length; j++) {
     var img = new Image();
     img.src = first[j];//预加载图片
-    logoText.innerHTML = "疯狂加载中" + (Math.floor(nub / first.length * 100)) + "%";//疯狂加载中
+    logoText.innerHTML = "疯狂加载中";//疯狂加载中
     if(j == first.length -1){
       //首批加载完了
       img.onload = function() {
@@ -419,6 +419,10 @@ function anmt7() {
       $("#go").show();
       //右下角按钮微微抖动
       buttonAnimit();
+
+      //按钮动画
+      mbuttonAnimit();
+      setTimeout(function(){$('.machinebutton2').addClass('opacity1')},500);
 
       //底部有弹幕
       document.getElementById('wrapper').style.zIndex = 0;
@@ -827,9 +831,9 @@ function initFloatingPiece() {
   //按钮
   var machineIcon = document.createElement('div');
   var icon = document.createElement('div');
-  icon.className = "machinebutton1";
-  icon.classList.add("mcclick");
-  var str = "opacity: 0;height: 129px;width: 237px;left: -12px;background: url(&quot;pano3/machine3.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-338px);float: left;position: absolute;top: 75px;";
+  icon.classList = "machinebutton1 mcclick opacity0";
+
+  var str = "height: 63px;width: 141px;left: 27px;transform: translateY(0px) rotateY(163deg) translateZ(-388px);float: left;position: absolute;top: 11px;";
   icon.style.cssText = str;
   icon.style.background = "url(" + imgData["big"][3] + ")";
   machineIcon.appendChild(icon);
@@ -838,7 +842,7 @@ function initFloatingPiece() {
   var icon = document.createElement('div');
   icon.className = "machinebutton2";
   icon.classList.add("mcclick");
-  var str = "opacity: 0;height: 129px;width: 237px;left: -12px;background: url(&quot;pano3/machine3.png&quot;);transform: translateY(0px) rotateY(163deg) translateZ(-338px);float: left;position: absolute;top: 75px;";
+  var str = "opacity: 0;height: 75px;width: 145px;left: 23px;transform: translateY(0px) rotateY(163deg) translateZ(-390px);float: left;position: absolute;top: 10px;"
   icon.style.cssText = str;
   icon.style.background = "url(" + imgData["big"][4] + ")";
   machineIcon.appendChild(icon);
@@ -897,6 +901,19 @@ function iconAnimit(){
       })
     }
   })
+}
+function mbuttonAnimit() {
+  var machinebutton1 = $('.machinebutton1')
+    setTimeout(function(){
+      $('.machinebutton1').removeClass('opacity0');
+      $('.machinebutton1').addClass('opacity1');
+      setTimeout(function(){
+        $('.machinebutton1').removeClass('opacity1');
+        $('.machinebutton1').addClass('opacity0');
+        mbuttonAnimit();
+      },1000);
+    },1000);
+
 }
 var xiayu = 1;
 //基于滑动的函数封装在这里
@@ -1044,7 +1061,7 @@ function clicktip(nowDegx) {
   for (var i = 0; i < outEle.length; i++  ){
     //当前元素的角度
     var currrentdeg = parseInt($(outEle[i]).css("transform").substring( $(outEle[i]).css("transform").indexOf('rotateY')+8, $(outEle[i]).css("transform").indexOf('rotateY')+12));
-    if(Math.abs(((nowDegx + 360000) - (-parseInt(currrentdeg) )))%360 < 25){
+    if(Math.abs(((nowDegx + 360000) - (-parseInt(currrentdeg) )))%360 < 45){
       //把他往下挪几个像素
       var topnow = $(outEle[i]).css('top')//-100px
       // var top = parseInt(topnow.substring(0,topnow.length-2)) + 40;
