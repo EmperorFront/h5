@@ -56,7 +56,7 @@ var imgData={
 	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/haungliningmingpai.png",
 	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/liuweimingpai.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/zhuwei1.png",
-	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/zhuwei2.png",
+	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/zhuwei2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/caoxingyuan1.png",
 	// "https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/caoxingyuan2.png",
 	"https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/pano0723/linannan.png",
@@ -190,7 +190,7 @@ var dom = `
         <div class="hidden" id="rules">
             <div class="goapp"></div>
         </div>
-        <img id="windowImg" src="" style="height: 100%;margin: auto;"/>
+        <img id="windowImg" src="" style="height: 100%;margin: auto;border-radius: 20px;"/>
     </div>
     <img id="close" src="https://emperorfront.github.io/h5/H5sInLuoJiSiWei/privateExamnation/2019.6.11ListenBook/others/close.png" style="width: 50px;margin: auto;height: 50px;bottom: 3%;position: absolute;margin-left: -25px;"/>
 </div>`;
@@ -1147,7 +1147,7 @@ function createBigClick(){
     // {id:"haungliningmingpai",name:"黄昱宁名牌",width:"0px",height:"0px",startDeg:94,marginTop:"-154px","point":"1111","link":"2222"},
     // {id:"liuweimingpai",name:"刘玮名牌",width:"0px",height:"0px",startDeg:83,marginTop:"-113px","point":"1111","link":"2222"},
     {id:"zhuwei1",name:"朱伟-1",width:"330px",height:"311px",startDeg:100,translateZ:'-540px',marginTop:"56px","point":"1111","link":"2222"},
-    {id:"zhuwei2",name:"朱伟-2",width:"0px",height:"0px",startDeg:84,marginTop:"48px","point":"1111","link":"2222"},
+    // {id:"zhuwei2",name:"朱伟-2",width:"0px",height:"0px",startDeg:84,marginTop:"48px","point":"1111","link":"2222"},
     {id:"caoxingyuan1",name:"曹星原-1",width:"286px",height:"345px",startDeg:65,translateZ:'-500px',marginTop:"20px","point":"1111","link":"2222"},
     // {id:"caoxingyuan2",name:"曹星原-2",width:"0px",height:"0px",startDeg:56,marginTop:"20px","point":"1111","link":"2222"},
     {id:"linannan",name:"李南南",width:"102px",height:"315px",startDeg:37,translateZ:'-448px',marginTop:"-9px","point":"1111","link":"2222"},
