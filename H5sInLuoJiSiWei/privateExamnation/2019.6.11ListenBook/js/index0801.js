@@ -1388,9 +1388,7 @@ function getMoney() {
           //点击事件绑定 app内
           var windowDiv = $('#window');
           var windowImg = $('#windowImg');
-          windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_tanchuang8.png'
-          $('#info').show();
-          windowDiv.show();
+
 
           //先判断是否登录
           Asio.send('agent.info').then(function(res){
@@ -1459,6 +1457,9 @@ function getMoney() {
                     $('#hadfinish').html(hadfinish);
                     //钱币图
                     $('#moneypic')[0].src = ('https://piccdn.luojilab.com/fe-oss/default/window_tanchuang'+numcount+'.png');
+                    //展示出来
+                    $('#info').show();
+                    windowDiv.show();
 
                     $('#getButton').click(function(){
                       //点击则跳转至cms奖金领取页。
@@ -1473,8 +1474,12 @@ function getMoney() {
                 });
               }
             } else {
-              //用户未登录，跳登录
-              Asio.send('ui.login');
+              //用户未登录，展示规则，之后跳登录
+              var windowImg = $('#windowImg');
+              windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_guiding.png'
+              // $('#info').show();
+              $('#rules').show();
+              windowDiv.show();
             }
           });
         }else{
@@ -1517,6 +1522,7 @@ function getMoney() {
 $(function(){
   if (ua.indexOf('igetapp') > 0) {
     $("#windowImg").click(function(e){
+      //所有小红包都是一个入口
       if($("#windowImg")[0].src.indexOf('hongbaohe') > 0){
         //点击则跳转至cms奖金领取页。
         var link = encodeURIComponent('https://pic1cdn.luojilab.com/html/poster/picqqL8W9PRlXcgGo6AXrGW.html');
@@ -1526,6 +1532,11 @@ $(function(){
           ddURLMinVer: '5.1.0'
         })
       };
+      //app内，展示规则点击跳登录
+      if($("#windowImg")[0].src.indexOf('rules') > 0){
+        //点击则跳转至cms奖金领取页。
+        Asio.send('ui.login');
+      };
     });
   } else {
     $("#windowImg").click(function(e){
@@ -1534,6 +1545,11 @@ $(function(){
         var link = 'https://pic1cdn.luojilab.com/html/poster/picqqL8W9PRlXcgGo6AXrGW.html';
         window.location.href = link;
       };
+      // //app外，展示规则点击跳app
+      // if($("#windowImg")[0].src.indexOf('rules') > 0){
+      //   var goapp = $('.goapp')
+      //   goapp.click();
+      // };
     });
   }
 });
