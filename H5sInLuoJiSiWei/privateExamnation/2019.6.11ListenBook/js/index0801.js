@@ -1543,7 +1543,7 @@ function getMoney() {
           //点击事件绑定 app内
           var windowDiv = $('#window');
           var windowImg = $('#windowImg');
-
+          windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_tanchuang8.png'
 
           //先判断是否登录
           Asio.send('agent.info').then(function(res){
