@@ -3,7 +3,7 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
 
 var first= [
   "https://piccdn.luojilab.com/fe-oss/default/load_gomark.png",
-  "https://piccdn.luojilab.com/fe-oss/default/load_logo.png",
+  "https://piccdn.luojilab.com/fe-oss/default/load_logo.jpg",
 ];
 var imgData={
 	logo:[],
@@ -165,6 +165,111 @@ var others = {
 
 var Tween={linear:function(e,a,g,f){return g*e/f+a},easeIn:function(e,a,g,f){return g*(e/=f)*e+a},easeOut:function(e,a,g,f){return -g*(e/=f)*(e-2)+a},easeBoth:function(e,a,g,f){if((e/=f/2)<1){return g/2*e*e+a}return -g/2*((--e)*(e-2)-1)+a},easeInStrong:function(e,a,g,f){return g*(e/=f)*e*e*e+a},easeOutStrong:function(e,a,g,f){return -g*((e=e/f-1)*e*e*e-1)+a},easeBothStrong:function(e,a,g,f){if((e/=f/2)<1){return g/2*e*e*e*e+a}return -g/2*((e-=2)*e*e*e-2)+a},elasticIn:function(g,e,k,j,f,i){if(g===0){return e}if((g/=j)==1){return e+k}if(!i){i=j*0.3}if(!f||f<Math.abs(k)){f=k;var h=i/4}else{var h=i/(2*Math.PI)*Math.asin(k/f)}return -(f*Math.pow(2,10*(g-=1))*Math.sin((g*j-h)*(2*Math.PI)/i))+e},elasticOut:function(g,e,k,j,f,i){if(g===0){return e}if((g/=j)==1){return e+k}if(!i){i=j*0.3}if(!f||f<Math.abs(k)){f=k;var h=i/4}else{var h=i/(2*Math.PI)*Math.asin(k/f)}return f*Math.pow(2,-10*g)*Math.sin((g*j-h)*(2*Math.PI)/i)+k+e},elasticBoth:function(g,e,k,j,f,i){if(g===0){return e}if((g/=j/2)==2){return e+k}if(!i){i=j*(0.3*1.5)}if(!f||f<Math.abs(k)){f=k;var h=i/4}else{var h=i/(2*Math.PI)*Math.asin(k/f)}if(g<1){return -0.5*(f*Math.pow(2,10*(g-=1))*Math.sin((g*j-h)*(2*Math.PI)/i))+e}return f*Math.pow(2,-10*(g-=1))*Math.sin((g*j-h)*(2*Math.PI)/i)*0.5+k+e},backIn:function(e,a,h,g,f){if(typeof f=="undefined"){f=1.70158}return h*(e/=g)*e*((f+1)*e-f)+a},backOut:function(e,a,h,g,f){if(typeof f=="undefined"){f=2.70158}return h*((e=e/g-1)*e*((f+1)*e+f)+1)+a},backBoth:function(e,a,h,g,f){if(typeof f=="undefined"){f=1.70158}if((e/=g/2)<1){return h/2*(e*e*(((f*=(1.525))+1)*e-f))+a}return h/2*((e-=2)*e*(((f*=(1.525))+1)*e+f)+2)+a},bounceIn:function(e,a,g,f){return g-Tween.bounceOut(f-e,0,g,f)+a},bounceOut:function(e,a,g,f){if((e/=f)<(1/2.75)){return g*(7.5625*e*e)+a}else{if(e<(2/2.75)){return g*(7.5625*(e-=(1.5/2.75))*e+0.75)+a}else{if(e<(2.5/2.75)){return g*(7.5625*(e-=(2.25/2.75))*e+0.9375)+a}}}return g*(7.5625*(e-=(2.625/2.75))*e+0.984375)+a},bounceBoth:function(e,a,g,f){if(e<f/2){return Tween.bounceIn(e*2,0,g,f)*0.5+a}return Tween.bounceOut(e*2-f,0,g,f)*0.5+g*0.5+a}};function cssTransform(c,a,e){if(!c.transform){c.transform={}}if(typeof e=="undefined"){if(typeof c.transform[a]=="undefined"){switch(a){case"scale":case"scaleX":case"scaleY":c.transform[a]=100;break;default:c.transform[a]=0}}return c.transform[a]}else{var d="";c.transform[a]=Number(e);for(var b in c.transform){switch(b){case"rotate":case"rotateX":case"rotateY":case"rotateZ":case"skewX":case"skewY":d+=" "+b+"("+c.transform[b]+"deg)";break;case"translateX":case"translateY":case"translateZ":d+=" "+b+"("+c.transform[b]+"px)";break;case"scale":case"scaleX":case"scaleY":d+=" "+b+"("+c.transform[b]/100+")";break}}c.style.WebkitTransform=c.style.transform=d}}function css(b,a,c){if(a=="rotate"||a=="rotateX"||a=="rotateY"||a=="rotateZ"||a=="scale"||a=="scaleX"||a=="scaleY"||a=="skewX"||a=="skewY"||a=="translateX"||a=="translateY"||a=="translateZ"){return cssTransform(b,a,c)}if(arguments.length==2){var c=getComputedStyle(b)[a];if(a=="opacity"){c=Math.round(c*100)}return parseFloat(c)}if(a=="opacity"){b.style.opacity=c/100}else{b.style[a]=c+"px"}}function MTween(h){var e=0;var a={};var i={};var g=h.time/20;for(var f in h.target){a[f]=css(h.el,f);i[f]=h.target[f]-a[f]}clearInterval(h.el.timer);h.el.timer=setInterval(function(){e++;if(e>g){clearInterval(h.el.timer);h.callBack&&h.callBack.call(h.el)}else{h.callIn&&h.callIn.call(h.el);for(var b in a){var c=(Tween[h.type](e,a[b],i[b],g)).toFixed(2);css(h.el,b,c)}}},20)};
 
+
+(function() {
+  function Progress() {
+    this.mountedId = null;
+    this.target = 100;
+    this.step = 1;
+    this.color = '#333';
+    this.fontSize = '18px';
+    this.borderRadius = 0;
+    this.backgroundColor = '#eee';
+    this.barBackgroundColor = '#26a2ff';
+  }
+
+  Progress.prototype = {
+    init: function(config) {
+      if (!config.mountedId) {
+        alert('请输入挂载节点的 id');
+        return;
+      }
+
+      this.mountedId = config.mountedId;
+      this.target = config.target || this.target;
+      this.step = config.step || this.step;
+      this.fontSize = config.fontSize || this.fontSize;
+      this.color = config.color || this.color;
+      this.borderRadius = config.borderRadius || this.borderRadius;
+      this.backgroundColor = config.backgroundColor || this.backgroundColor;
+      this.barBackgroundColor =
+        config.barBackgroundColor || this.barBackgroundColor;
+
+      var box = document.querySelector(this.mountedId);
+      var width = box.offsetWidth;
+      var height = box.offsetHeight;
+      var progress = document.createElement('div');
+      progress.style.position = 'absolute';
+      progress.style.height = height + 'px';
+      progress.style.width = width + 'px';
+      progress.style.borderRadius = this.borderRadius;
+      progress.style.backgroundColor = this.backgroundColor;
+
+      var bar = document.createElement('div');
+      bar.style.float = 'left';
+      bar.style.height = '100%';
+      bar.style.width = '0';
+      bar.style.lineHeight = height + 'px';
+      bar.style.textAlign = 'center';
+      bar.style.borderRadius = this.borderRadius;
+      bar.style.backgroundColor = this.barBackgroundColor;
+
+      var text = document.createElement('span');
+      text.style.position = 'absolute';
+      text.style.top = '0';
+      text.style.left = '0';
+      text.style.height = height + 'px';
+      text.style.lineHeight = height + 'px';
+      text.style.fontSize = this.fontSize;
+      text.style.color = this.color;
+
+      progress.appendChild(bar);
+      progress.appendChild(text);
+      box.appendChild(progress);
+
+      this.run(progress, bar, text, this.target, this.step);
+    },
+    /**
+     * @name 执行动画
+     * @param progress 底部的 dom 对象
+     * @param bar 占比的 dom 对象
+     * @param text 文字的 dom 对象
+     * @param target 目标值（ Number ）
+     * @param step 动画步长（ Number ）
+     */
+    run: function(progress, bar, text, target, step) {
+      var self = this;
+      ++step;
+      var endRate = parseInt(target) - parseInt(bar.style.width);
+      if (endRate <= step) {
+        step = endRate;
+      }
+      var width = parseInt(bar.style.width);
+      var endWidth = width + step + '%';
+      bar.style.width = endWidth;
+      text.innerHTML = endWidth;
+
+      if (width >= 94) {
+        text.style.left = '94%';
+      } else {
+        text.style.left = width + 1 + '%';
+      }
+
+      if (width === target) {
+        clearTimeout(timeout);
+        return;
+      }
+      var timeout = setTimeout(function() {
+        self.run(progress, bar, text, target, step);
+      }, 30);
+    },
+  };
+
+  // 注册到 window 全局
+  window.Progress = Progress;
+})();
+
+
 //填充dom
 var dom = `
 <div id="pageBg"></div>
@@ -172,12 +277,12 @@ var dom = `
 <div id="view">
 	<div id="logo1">
     <div class="logoImg hidden" id="bgdoor">
-			<img src="https://piccdn.luojilab.com/fe-oss/default/load_logo.png">
+			<img src="https://piccdn.luojilab.com/fe-oss/default/load_logo.jpg">
     </div>
     <div class="goMarkImg">
       <img src="https://piccdn.luojilab.com/fe-oss/default/load_gomark.png">
     </div>
-    <p class="logoText">已加载 0%</p>
+    <p class="logoText">疯狂加载中</p>
 	</div>
 	<div id="main">
 		<div id="tZ">
@@ -269,6 +374,24 @@ function setLoading() {//该函数用来刷家在进度百分比条。
               $('#close')[0].src="https://piccdn.luojilab.com/fe-oss/default/window_close.png";
             });
 
+
+            var config = {
+              mountedId: '#bar',
+              target: 8,
+              step: 1,
+              color: 'green',
+              fontSize: "20px",
+              borderRadius: "5px",
+              backgroundColor: '#eee',
+              barBackgroundColor: 'red',
+            };
+            var p = new Progress();
+            // p.init(config);
+            //最短2s
+            var gonext = false;
+            setTimeout(function(){
+              gonext = true;
+            },2000);
             //加载碎元素
             for (var s in imgData) {//imgData，所有的图片数组
               data = data.concat(imgData[s]);//concat，数组链接。 把img的数据模块挨个放在data数组。二维数组变一维数组。
@@ -279,10 +402,21 @@ function setLoading() {//该函数用来刷家在进度百分比条。
               img.onload = function() {
                 nub++;
                 logoText.innerHTML = "已加载 " + (Math.floor(nub / data.length * 100)) + "%";//按照图片张数显示
+                if((Math.floor(nub / data.length * 100)) == 100){
+                  logoText.remove();
+                }
                 if (nub == data.length) {
-                  //图片加载完成之后，要做的事情
-                  document.getElementById('wrapper').style.opacity = 0;
-                  anmt();
+                  if(gonext){
+                    //图片加载完成之后，要做的事情
+                    document.getElementById('wrapper').style.opacity = 0;
+                    anmt();
+                  } else {
+                    setTimeout(function(){
+                      //图片加载完成之后，要做的事情
+                      document.getElementById('wrapper').style.opacity = 0;
+                      anmt();
+                    },1000);
+                  }
                 }
               };
             }
@@ -1263,6 +1397,17 @@ function addBigClickEvent(){
     var windowName = $(this)[0].classList[0];
     windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_'+windowName+'.png'
     thewindow.show();
+    thewindow[0].style.opacity=0
+    MTween({
+      el: thewindow[0],//
+      target: {
+        opacity: 100,//
+      },
+      time: 500,
+      type: 'linear',
+      callBack: function() {
+      }
+    })
     canTouch = false;
     window.isTouch = false;
   });
@@ -1455,7 +1600,7 @@ function getMoney() {
                       {count:155,word:'fantastic!'},                
                       {count:365,word:'unbelievable!'},
                     ];
-                    var hadfinish = '你竟然听了';
+                    var hadfinish = '';
                     for(var i = 0; i < hadfinish_word.length; i++){
                       if(listened_count >= hadfinish_word[i].count){
                         hadfinish = '你竟然听了' + listened_count + '本，'+hadfinish_word[i].word;
