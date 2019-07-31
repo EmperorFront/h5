@@ -1670,9 +1670,15 @@ function getMoney() {
     //goapp会有弹出一次。
     var goapp = $('.goapp')
     goapp.click(function(){
+      if(ua.indexOf('igetapp')>0){
+        //app内为登录
+        Asio.send('ui.login');
+      }else{
+        //app外引流回来
         var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picYwqw01NZE8HlzAnkNVvJ.html');
         var url = 'igetapp://activity/detail?url='+link;
         Asio.weLaunch(url);
+      }
     });
 	}
 }
