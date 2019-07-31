@@ -199,7 +199,7 @@ var dom = `
             <img id="bludbar" src="https://piccdn.luojilab.com/fe-oss/default/window_tanchuang10.png"/>
             <img id="blud" src="https://piccdn.luojilab.com/fe-oss/default/window_tanchuang9.png"/>
             <div id="hadfinish"></div>
-            <div id="moneypic"></div>
+            <img id="moneypic" src=""/>
             <div id="getButton"></div>
         </div>
         <div class="hidden" id="rules">
@@ -1428,9 +1428,11 @@ function getMoney() {
                       {count:365,word:'每天听本书，每天，你真的做到了'},
                     ];
                     var showword = '';
+                    var numcount = 1;
                     for(var i = 0; i < white_word.length; i++){
                       if(listened_count > white_word[i].count){
                         showword =white_word[i].word;
+                        numcount ++;
                       }
                     }
                     $('#wordbig').html(showword);
@@ -1451,6 +1453,9 @@ function getMoney() {
                       }
                     }
                     $('#hadfinish').html(hadfinish);
+                    //钱币图
+                    $('#moneypic')[0].src = ('https://piccdn.luojilab.com/fe-oss/default/window_tanchuang'+numcount+'.png');
+
                     $('#getButton').click(function(){
                       //点击则跳转至cms奖金领取页。
                       var link = encodeURIComponent(userInfo.activity_coupon_list.coupon_url);
