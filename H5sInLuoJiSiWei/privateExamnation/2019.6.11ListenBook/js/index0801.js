@@ -1452,7 +1452,7 @@ function getMoney() {
 $(function(){
   if (ua.indexOf('igetapp') > 0) {
     $("#windowImg").click(function(e){
-      if($("#windowImg")[0].src.indexOf('hongbaohe')){
+      if($("#windowImg")[0].src.indexOf('hongbaohe') > 0){
         //点击则跳转至cms奖金领取页。
         var link = encodeURIComponent('https://pic1cdn.luojilab.com/html/poster/picqqL8W9PRlXcgGo6AXrGW.html');
         var url = 'igetapp://activity/detail?url='+link;
@@ -1464,7 +1464,7 @@ $(function(){
     });
   } else {
     $("#windowImg").click(function(e){
-      if($("#windowImg")[0].src.indexOf('hongbaohe')){
+      if($("#windowImg")[0].src.indexOf('hongbaohe') > 0){
         //点击则跳转至cms奖金领取页。
         var link = 'https://pic1cdn.luojilab.com/html/poster/picqqL8W9PRlXcgGo6AXrGW.html';
         window.location.href = link;
