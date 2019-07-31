@@ -103,7 +103,16 @@ var others = {
   window:[
     "https://piccdn.luojilab.com/fe-oss/default/window_jiahangjia.png",
     "https://piccdn.luojilab.com/fe-oss/default/window_guiding.png",
-		"https://piccdn.luojilab.com/fe-oss/default/window_getmoney.png",
+		"https://piccdn.luojilab.com/fe-oss/default/window_tanchuang1.png",
+		"https://piccdn.luojilab.com/fe-oss/default/window_tanchuang2.png",
+		"https://piccdn.luojilab.com/fe-oss/default/window_tanchuang3.png",
+		"https://piccdn.luojilab.com/fe-oss/default/window_tanchuang4.png",
+		"https://piccdn.luojilab.com/fe-oss/default/window_tanchuang5.png",
+		"https://piccdn.luojilab.com/fe-oss/default/window_tanchuang6.png",
+		"https://piccdn.luojilab.com/fe-oss/default/window_tanchuang7.png",
+		"https://piccdn.luojilab.com/fe-oss/default/window_tanchuang8.png",
+    "https://piccdn.luojilab.com/fe-oss/default/window_tanchuang9.png",		
+    "https://piccdn.luojilab.com/fe-oss/default/window_tanchuang10.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_lijun.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_liuwei.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_huanglining1.png",
@@ -1409,7 +1418,7 @@ function getMoney() {
         //点击事件绑定 app内
         var windowDiv = $('#window');
         var windowImg = $('#windowImg');
-        windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_getmoney.png'
+        windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_tanchuang8.png'
         $('#info').show();
         windowDiv.show();
         }else{
