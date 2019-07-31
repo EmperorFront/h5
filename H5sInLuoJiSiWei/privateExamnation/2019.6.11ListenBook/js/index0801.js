@@ -1619,7 +1619,7 @@ function getMoney() {
 
                     $('#getButton').click(function(){
                       //点击则跳转至cms奖金领取页。
-                      var link = encodeURIComponent(userInfo.activity_coupon_list.coupon_url);
+                      var link = encodeURIComponent(userInfo.activity_coupon_list[0].coupon_url);
                       var url = 'igetapp://activity/detail?url='+link;
                       Asio.send('jump.ddURL', {
                         ddURL: url,
