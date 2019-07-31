@@ -1428,7 +1428,7 @@ function getMoney() {
                       {count:365,word:'每天听本书，每天，你真的做到了'},
                     ];
                     var showword = '';
-                    for(var i = 0; i < white_word.count; i++){
+                    for(var i = 0; i < white_word.length; i++){
                       if(listened_count > white_word[i].count){
                         showword =white_word[i].word;
                       }
@@ -1445,7 +1445,7 @@ function getMoney() {
                       {count:365,word:'unbelievable!'},
                     ];
                     var hadfinish = '你竟然听了';
-                    for(var i = 0; i < hadfinish_word.count; i++){
+                    for(var i = 0; i < hadfinish_word.length; i++){
                       if(listened_count > hadfinish_word[i].count){
                         hadfinish += listened_count + '本，'+hadfinish_word[i].word;
                       }
