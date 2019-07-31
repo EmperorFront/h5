@@ -285,20 +285,22 @@ function anmt() {//百分比和首屏logo动画
     callBack: function() {
       view.removeChild(logo1)
       anmt5();
+      
+      //加载剩余元素
+      $(function(){
+        var data = others.window;//数据数组
+        var nub = 0;//当前加载数
+        for (var i = 0; i < data.length; i++) {
+          var img = new Image();
+          img.src = data[i];//预加载图片
+          img.onload = function() {
+            nub++;
+            console.log(nub);
+          };
+        }
+      });
     }
   })
-
-  //加载剩余元素
-  var data = others.window;//数据数组
-  var nub = 0;//当前加载数
-  for (var i = 0; i < data.length; i++) {
-    var img = new Image();
-    img.src = data[i];//预加载图片
-    img.onload = function() {
-      nub++;
-      console.log(nub);
-    };
-  }
 }
 function anmt5() {
   var tZ = document.querySelector('#tZ')//卷轴 + 图标 + 云朵容器
