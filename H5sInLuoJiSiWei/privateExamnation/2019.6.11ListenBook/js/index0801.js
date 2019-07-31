@@ -195,6 +195,11 @@ var dom = `
         <div class="hidden" id="info">
             <img id="avatar"></img>
             <div id="nick"></div>
+            <div id="wordbig"></div>
+            <img id="bludbar" src="https://piccdn.luojilab.com/fe-oss/default/window_tanchuang10.png"/>
+            <img id="blud" src="https://piccdn.luojilab.com/fe-oss/default/window_tanchuang9.png"/>
+            <div id="hadfinish"></div>
+            <div id="moneypic"></div>
             <div id="getButton"></div>
         </div>
         <div class="hidden" id="rules">
@@ -1396,8 +1401,44 @@ function getMoney() {
             }).then(function (res) {
               userInfo = res.data;
               $('#avatar')[0].src = userInfo.avatar;
-              $('#nick')[0].src = userInfo.nick_name;
-              
+              $('#nick').html(userInfo.nick_name);
+
+              //弹窗句组
+              var listened_count = userInfo.listened_count
+              var white_word = [
+                {count:-1,word:'万事开头难，一本就不少'},
+                {count:3,word:'中国人年均才读4.67本书'},
+                {count:15,word:'只有10%的中国人，每年读书超过10本'},
+                {count:40,word:'每周读1本，一年才读52本'},
+                {count:80,word:'这些书摞起来有1个篮球运动员那么高'},
+                {count:155,word:'顺着这些书，你能登上1层楼'},                
+                {count:365,word:'每天听本书，每天，你真的做到了'},
+              ];
+              var showword = '';
+              for(var i = 0; i < white_word.count; i++){
+                if(listened_count > white_word[i].count){
+                  showword =white_word[i].word;
+                }
+              }
+              $('#wordbig').html(showword);
+              //进度条
+              //条下文字
+              var hadfinish_word = [
+                {count:3,word:'good!'},
+                {count:15,word:'great!'},
+                {count:40,word:'amazing!'},
+                {count:80,word:'excellent!'},
+                {count:155,word:'fantastic!'},                
+                {count:365,word:'unbelievable!'},
+              ];
+              var hadfinish = '你竟然听了';
+              for(var i = 0; i < hadfinish_word.count; i++){
+                if(listened_count > hadfinish_word[i].count){
+                  hadfinish += listened_count + '本，'+hadfinish_word[i].word;
+                }
+              }
+              $('#hadfinish').html(hadfinish);
+
               $('#getButton').click(function(){
                 //点击则跳转至cms奖金领取页。
                 var link = encodeURIComponent(userInfo.activity_coupon_list.coupon_url);

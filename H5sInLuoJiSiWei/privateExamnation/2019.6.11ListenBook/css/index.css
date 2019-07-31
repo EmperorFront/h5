@@ -54,7 +54,7 @@ body {
 	width: 20%;
     border-radius: 100px;
     position: absolute;
-    top: 25%;
+    top: 20%;
 	left: 50%;
 	margin-left: -10%;
 }
@@ -63,7 +63,44 @@ body {
     top: 36%;
     left: 50%;
     margin-left: -20%;
-    width: 40%;
+	width: 40%;
+	font-size: 23px;
+}
+#wordbig {
+	position: absolute;
+	top: 44%;
+	left: 50%;
+	margin-left: -31%;
+	width: 62%;
+	font-size: 27px;
+	color:white;
+}
+#bludbar {
+	top: 57%;
+	height: 3%;
+	opacity: 1;
+	width: 48%;
+	margin-left: -24%;
+	left: 50%;
+}
+#blud {
+	width: 47%;
+	top: 57.4%;
+	position: absolute;
+	margin-left: -23.5%;
+}
+#hadfinish {
+	top: 62%;
+	font-size: 18px;
+	color: white;
+}
+#moneypic {
+	position: absolute;
+	width: 54%;
+	left: 50%;
+	background-color: rebeccapurple;
+	margin-left: -27%;
+	top: 69%;
 }
 #getButton {
 	position: absolute;
@@ -73,7 +110,7 @@ body {
     left: 50%;
     background-color: rebeccapurple;
     margin-left: -30%;
-    top: 78%;
+    top: 83%;
 }
 .goapp {
 	position: absolute;
