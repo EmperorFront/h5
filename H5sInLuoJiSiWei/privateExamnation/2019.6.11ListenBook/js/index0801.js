@@ -1428,9 +1428,9 @@ function getMoney() {
                       {count:365,word:'每天听本书，每天，你真的做到了'},
                     ];
                     var showword = '';
-                    var numcount = 1;
+                    var numcount = 0;
                     for(var i = 0; i < white_word.length; i++){
-                      if(listened_count > white_word[i].count){
+                      if(listened_count >= white_word[i].count){
                         showword =white_word[i].word;
                         numcount ++;
                       }
@@ -1439,6 +1439,7 @@ function getMoney() {
                     //进度条
                     //条下文字
                     var hadfinish_word = [
+                      {count:-1,word:''},
                       {count:3,word:'good!'},
                       {count:15,word:'great!'},
                       {count:40,word:'amazing!'},
@@ -1448,9 +1449,12 @@ function getMoney() {
                     ];
                     var hadfinish = '你竟然听了';
                     for(var i = 0; i < hadfinish_word.length; i++){
-                      if(listened_count > hadfinish_word[i].count){
+                      if(listened_count >= hadfinish_word[i].count){
                         hadfinish += listened_count + '本，'+hadfinish_word[i].word;
                       }
+                    } 
+                    if(listened_count < 3){
+                      hadfinish = '已经听了'+listened_count+'本，再接再厉';
                     }
                     $('#hadfinish').html(hadfinish);
                     //钱币图
