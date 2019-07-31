@@ -1691,7 +1691,7 @@ $(function(){
         })
       };
       //app内，展示规则点击跳登录
-      if($("#windowImg")[0].src.indexOf('rules') > 0){
+      if($("#windowImg")[0].src.indexOf('guiding') > 0){
         //点击则跳转至cms奖金领取页。
         Asio.send('ui.login');
       };
@@ -1704,7 +1704,7 @@ $(function(){
         window.location.href = link;
       };
       // //app外，展示规则点击跳app
-      // if($("#windowImg")[0].src.indexOf('rules') > 0){
+      // if($("#windowImg")[0].src.indexOf('guiding') > 0){
       //   var goapp = $('.goapp')
       //   goapp.click();
       // };
