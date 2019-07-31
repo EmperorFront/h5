@@ -369,7 +369,7 @@ function setLoading() {//该函数用来刷家在进度百分比条。
             $(function(){
               //可以在此添加图，dom中的那些。
               $('#goImg')[0].src="https://piccdn.luojilab.com/fe-oss/default/load_go.png";
-              $('#bludbar')[0].src="https://piccdn.luojilab.com/fe-oss/default/load_go.png";
+              $('#bludbar')[0].src="https://piccdn.luojilab.com/fe-oss/default/window_tanchuang10.png";
               $('#blud')[0].src="https://piccdn.luojilab.com/fe-oss/default/window_tanchuang9.png";
               $('#close')[0].src="https://piccdn.luojilab.com/fe-oss/default/window_close.png";
             });
