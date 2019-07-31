@@ -1378,119 +1378,121 @@ function getMoney() {
 			onetime_click = 1;	
 		},300);
 		if(ua.indexOf('igetapp') && Asio.send('')) {
-			//APP内,发请求，弹窗
-      //禁掉左滑
+			//APP内,发请求禁掉左滑
       Asio.send('agent.swipe',{enable:false});
       Asio.send('ui.minibar',{show:false});
-      //先判断是否登录
-      // if(){} else {
-      //   //登录
-      // }
-      //发请求
-      ua = navigator.userAgent;
-      if (ua.indexOf('igetapp')) {
-        var user_id = 0;
-        if( Asio.send('agent.info') != undefined ) {
-          Asio.send('agent.info').then(function (res) {
-            user_id = res.data.userid; //获取用户信息
-        
-            Asio.send('network.load', {
-              url: '$_ENTREE_DOMAIN_$/odob/v2/front_activity/user_and_coupon_info',
-              method: 'POST',
-              params: {
-                user_id: user_id
-              },
-              contentType: 'application/x-www-form-urlencoded',
-              proxyType: 'gateway/entree'
-            }).then(function (res) {
-              userInfo = res.data;
-              $('#avatar')[0].src = userInfo.avatar;
-              $('#nick').html(userInfo.nick_name);
-
-              //弹窗句组
-              var listened_count = userInfo.listened_count
-              var white_word = [
-                {count:-1,word:'万事开头难，一本就不少'},
-                {count:3,word:'中国人年均才读4.67本书'},
-                {count:15,word:'只有10%的中国人，每年读书超过10本'},
-                {count:40,word:'每周读1本，一年才读52本'},
-                {count:80,word:'这些书摞起来有1个篮球运动员那么高'},
-                {count:155,word:'顺着这些书，你能登上1层楼'},                
-                {count:365,word:'每天听本书，每天，你真的做到了'},
-              ];
-              var showword = '';
-              for(var i = 0; i < white_word.count; i++){
-                if(listened_count > white_word[i].count){
-                  showword =white_word[i].word;
-                }
-              }
-              $('#wordbig').html(showword);
-              //进度条
-              //条下文字
-              var hadfinish_word = [
-                {count:3,word:'good!'},
-                {count:15,word:'great!'},
-                {count:40,word:'amazing!'},
-                {count:80,word:'excellent!'},
-                {count:155,word:'fantastic!'},                
-                {count:365,word:'unbelievable!'},
-              ];
-              var hadfinish = '你竟然听了';
-              for(var i = 0; i < hadfinish_word.count; i++){
-                if(listened_count > hadfinish_word[i].count){
-                  hadfinish += listened_count + '本，'+hadfinish_word[i].word;
-                }
-              }
-              $('#hadfinish').html(hadfinish);
-
-              $('#getButton').click(function(){
-                //点击则跳转至cms奖金领取页。
-                var link = encodeURIComponent(userInfo.activity_coupon_list.coupon_url);
-                var url = 'igetapp://activity/detail?url='+link;
-                Asio.send('jump.ddURL', {
-                  ddURL: url,
-                  ddURLMinVer: '5.1.0'
-                })
-              });
-            });
-          });
-        }
-      }
 		} 
     //点击弹窗或跳转
     $('.mcclick').click(function(){
         if(ua.indexOf('igetapp')>0) {
-        //点击事件绑定 app内
-        var windowDiv = $('#window');
-        var windowImg = $('#windowImg');
-        windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_tanchuang8.png'
-        $('#info').show();
-        windowDiv.show();
-        }else{
-            //cms环境的页面 app外
-            if(!(Asio.send('') === false)){
-                var windowDiv = $('#window');
-                var windowImg = $('#windowImg');
-                windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_guiding.png'
-                // $('#info').show();
-                $('#rules').show();
-                windowDiv.show();
+          //点击事件绑定 app内
+          var windowDiv = $('#window');
+          var windowImg = $('#windowImg');
+          windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_tanchuang8.png'
+          $('#info').show();
+          windowDiv.show();
 
-            }else{
-                //自研
-                // var windowDiv = $('#window');
-                // var windowImg = $('#windowImg');
-                // windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_guiding.png'
-                // $('#info').show();
+          //先判断是否登录
+          Asio.send('agent.info').then(function(res){
+            var info = res.data;
+            if(info.islogin){
+              //用户已登录，发请求拿用户信息
+              ua = navigator.userAgent;
+              var user_id = 0;
+              if( Asio.send('agent.info') != undefined ) {//cms页面
+                Asio.send('agent.info').then(function (res) {
+                  user_id = res.data.userid; //获取用户信息
+              
+                  Asio.send('network.load', {
+                    url: '$_ENTREE_DOMAIN_$/odob/v2/front_activity/user_and_coupon_info',
+                    method: 'POST',
+                    params: {
+                      user_id: user_id
+                    },
+                    contentType: 'application/x-www-form-urlencoded',
+                    proxyType: 'gateway/entree'
+                  }).then(function (res) {
+                    userInfo = res.data;
+                    $('#avatar')[0].src = userInfo.avatar;
+                    $('#nick').html(userInfo.nick_name);
 
-                // windowDiv.click(function(){
-                //     // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
-                //     // var url = 'igetapp://activity/detail?url='+link;
-                //     // Asio.weLaunch(url);
-                // });
-
-                // windowDiv.show();
+                    //弹窗句组，组装弹窗素材
+                    var listened_count = userInfo.listened_count
+                    var white_word = [
+                      {count:-1,word:'万事开头难，一本就不少'},
+                      {count:3,word:'中国人年均才读4.67本书'},
+                      {count:15,word:'只有10%的中国人，每年读书超过10本'},
+                      {count:40,word:'每周读1本，一年才读52本'},
+                      {count:80,word:'这些书摞起来有1个篮球运动员那么高'},
+                      {count:155,word:'顺着这些书，你能登上1层楼'},                
+                      {count:365,word:'每天听本书，每天，你真的做到了'},
+                    ];
+                    var showword = '';
+                    for(var i = 0; i < white_word.count; i++){
+                      if(listened_count > white_word[i].count){
+                        showword =white_word[i].word;
+                      }
+                    }
+                    $('#wordbig').html(showword);
+                    //进度条
+                    //条下文字
+                    var hadfinish_word = [
+                      {count:3,word:'good!'},
+                      {count:15,word:'great!'},
+                      {count:40,word:'amazing!'},
+                      {count:80,word:'excellent!'},
+                      {count:155,word:'fantastic!'},                
+                      {count:365,word:'unbelievable!'},
+                    ];
+                    var hadfinish = '你竟然听了';
+                    for(var i = 0; i < hadfinish_word.count; i++){
+                      if(listened_count > hadfinish_word[i].count){
+                        hadfinish += listened_count + '本，'+hadfinish_word[i].word;
+                      }
+                    }
+                    $('#hadfinish').html(hadfinish);
+                    $('#getButton').click(function(){
+                      //点击则跳转至cms奖金领取页。
+                      var link = encodeURIComponent(userInfo.activity_coupon_list.coupon_url);
+                      var url = 'igetapp://activity/detail?url='+link;
+                      Asio.send('jump.ddURL', {
+                        ddURL: url,
+                        ddURLMinVer: '5.1.0'
+                      })
+                    });
+                  });
+                });
+              }
+            } else {
+              //用户未登录，跳登录
+              Asio.send('ui.login');
             }
+          });
+        }else{
+          //cms环境的页面 app外
+          if(!(Asio.send('') === false)){
+              var windowDiv = $('#window');
+              var windowImg = $('#windowImg');
+              windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_guiding.png'
+              // $('#info').show();
+              $('#rules').show();
+              windowDiv.show();
+
+          }else{
+              //自研
+              // var windowDiv = $('#window');
+              // var windowImg = $('#windowImg');
+              // windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_guiding.png'
+              // $('#info').show();
+
+              // windowDiv.click(function(){
+              //     // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
+              //     // var url = 'igetapp://activity/detail?url='+link;
+              //     // Asio.weLaunch(url);
+              // });
+
+              // windowDiv.show();
+          }
         }
     });
     //goapp会有弹出一次。
