@@ -1442,7 +1442,7 @@ function getMoney() {
     //goapp会有弹出一次。
     var goapp = $('.goapp')
     goapp.click(function(){
-        var link = encodeURIComponent('http://pic1cdn.luojilab.com');
+        var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picYwqw01NZE8HlzAnkNVvJ.html');
         var url = 'igetapp://activity/detail?url='+link;
         Asio.weLaunch(url);
     });
