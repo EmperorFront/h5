@@ -1460,6 +1460,7 @@ function getMoney() {
                     //展示出来
                     $('#info').show();
                     windowDiv.show();
+                    canTouch = false;
 
                     $('#getButton').click(function(){
                       //点击则跳转至cms奖金领取页。
@@ -1480,6 +1481,7 @@ function getMoney() {
               // $('#info').show();
               $('#rules').show();
               windowDiv.show();
+              canTouch = false;
             }
           });
         }else{
@@ -1491,6 +1493,7 @@ function getMoney() {
               // $('#info').show();
               $('#rules').show();
               windowDiv.show();
+              canTouch = false;
 
           }else{
               //自研
