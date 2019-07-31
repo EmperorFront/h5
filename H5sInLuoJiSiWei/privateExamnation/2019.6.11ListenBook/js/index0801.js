@@ -1188,9 +1188,9 @@ function createBigClick(){
     {id:"tingshutieshi1",name:"听书帖士-2",width:"59px",height:"220px",startDeg:-51,marginTop:"-287px","point":"1111","link":"2222"},
     {id:"shujialidehongbao",name:"书架里的红包",width:"73px",height:"66px",startDeg:-51,marginTop:"-83px","point":"1111","link":"2222"},
     {id:"yonghu1",name:"用户1",width:"78px",height:"118px",startDeg:-54,marginTop:"-24px","point":"1111","link":"2222"},
-    {id:"yonghu2",name:"用户2",width:"175px",height:"307px",startDeg:-66,translateZ:'-400px',marginTop:"34px","point":"1111","link":"2222"},
+    {id:"yonghu3",name:"用户2",width:"175px",height:"307px",startDeg:-66,translateZ:'-400px',marginTop:"34px","point":"1111","link":"2222"},
     {id:"hongbaohe1-2",name:"红包盒2",width:"79px",height:"56px",startDeg:-75,marginTop:"181px","point":"1111","link":"2222"},
-    {id:"yonghu3",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-25px","point":"1111","link":"2222"},
+    {id:"yonghu2",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-25px","point":"1111","link":"2222"},
     {id:"tingshushujubang1",name:"听书数据榜-1",width:"153px",height:"235px",startDeg:-65,marginTop:"-294px","point":"1111","link":"2222"},
     // {id:"tingshushujubang2",name:"听书数据榜-2",width:"0px",height:"0px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
     {classList:"slideout",id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-87,marginTop:"-170px","point":"1111","link":"2222"},
@@ -1382,6 +1382,10 @@ function getMoney() {
       //禁掉左滑
       Asio.send('agent.swipe',{enable:false});
       Asio.send('ui.minibar',{show:false});
+      //先判断是否登录
+      // if(){} else {
+      //   //登录
+      // }
       //发请求
       ua = navigator.userAgent;
       if (ua.indexOf('igetapp')) {
@@ -1474,18 +1478,18 @@ function getMoney() {
 
             }else{
                 //自研
-                var windowDiv = $('#window');
-                var windowImg = $('#windowImg');
-                windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_guiding.png'
-                $('#info').show();
+                // var windowDiv = $('#window');
+                // var windowImg = $('#windowImg');
+                // windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_guiding.png'
+                // $('#info').show();
 
-                windowDiv.click(function(){
-                    // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
-                    // var url = 'igetapp://activity/detail?url='+link;
-                    // Asio.weLaunch(url);
-                });
+                // windowDiv.click(function(){
+                //     // var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picPkWEl7Z8LmsRVD7mVjRV.html');
+                //     // var url = 'igetapp://activity/detail?url='+link;
+                //     // Asio.weLaunch(url);
+                // });
 
-                windowDiv.show();
+                // windowDiv.show();
             }
         }
     });
