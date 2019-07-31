@@ -188,7 +188,7 @@ var dom = `
   </div>
 </div>
 <div id="go" class="hidden" style="width: 20%;position: absolute;bottom: 5%;right: 15%;text-align: center;height: 20%;"> 
-	<img id="goImg" class= "mcclick" src="https://piccdn.luojilab.com/fe-oss/default/load_go.png" style="height: 100%;margin: auto;"/>
+	<img id="goImg" class= "mcclick" src="" style="height: 100%;margin: auto;"/>
 </div>
 <div id="window" class="hidden"style="width: 100%;position: absolute;top: 0;left: 0;text-align: center;height: 100%;background-color: rgba(0,0,0,0.7);">
     <div style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 80%;"> 
@@ -196,8 +196,8 @@ var dom = `
             <img id="avatar"></img>
             <div id="nick"></div>
             <div id="wordbig"></div>
-            <img id="bludbar" src="https://piccdn.luojilab.com/fe-oss/default/window_tanchuang10.png"/>
-            <img id="blud" src="https://piccdn.luojilab.com/fe-oss/default/window_tanchuang9.png"/>
+            <img id="bludbar" src=""/>
+            <img id="blud" src=""/>
             <div id="hadfinish"></div>
             <img id="moneypic" src=""/>
             <div id="getButton"></div>
@@ -207,7 +207,7 @@ var dom = `
         </div>
         <img id="windowImg" src="" style="height: 100%;margin: auto;border-radius: 20px;"/>
     </div>
-    <img id="close" src="https://piccdn.luojilab.com/fe-oss/default/window_close.png" style="width: 50px;margin: auto;height: 50px;bottom: 3%;position: absolute;margin-left: -25px;"/>
+    <img id="close" src="" style="width: 50px;margin: auto;height: 50px;bottom: 3%;position: absolute;margin-left: -25px;"/>
 </div>`;
 
 $('#root').html(dom);
@@ -259,25 +259,35 @@ function setLoading() {//该函数用来刷家在进度百分比条。
             opacity: 100,//最终态为透明
           },
           time: 1000,//转态时间
-          type: 'easeOut'
-        })
-        //加载碎元素
-        for (var s in imgData) {//imgData，所有的图片数组
-          data = data.concat(imgData[s]);//concat，数组链接。 把img的数据模块挨个放在data数组。二维数组变一维数组。
-        }
-        for (var i = 0; i < data.length; i++) {
-          var img = new Image();
-          img.src = data[i];//预加载图片
-          img.onload = function() {
-            nub++;
-            logoText.innerHTML = "已加载 " + (Math.floor(nub / data.length * 100)) + "%";//按照图片张数显示
-            if (nub == data.length) {
-              //图片加载完成之后，要做的事情
-              document.getElementById('wrapper').style.opacity = 0;
-              anmt();
+          type: 'easeOut',
+          callBack: function(){
+            $(function(){
+              //可以在此添加图，dom中的那些。
+              $('#goImg')[0].src="https://piccdn.luojilab.com/fe-oss/default/load_go.png";
+              $('#bludbar')[0].src="https://piccdn.luojilab.com/fe-oss/default/load_go.png";
+              $('#blud')[0].src="https://piccdn.luojilab.com/fe-oss/default/window_tanchuang9.png";
+              $('#close')[0].src="https://piccdn.luojilab.com/fe-oss/default/window_close.png";
+            });
+
+            //加载碎元素
+            for (var s in imgData) {//imgData，所有的图片数组
+              data = data.concat(imgData[s]);//concat，数组链接。 把img的数据模块挨个放在data数组。二维数组变一维数组。
             }
-          };
-        }
+            for (var i = 0; i < data.length; i++) {
+              var img = new Image();
+              img.src = data[i];//预加载图片
+              img.onload = function() {
+                nub++;
+                logoText.innerHTML = "已加载 " + (Math.floor(nub / data.length * 100)) + "%";//按照图片张数显示
+                if (nub == data.length) {
+                  //图片加载完成之后，要做的事情
+                  document.getElementById('wrapper').style.opacity = 0;
+                  anmt();
+                }
+              };
+            }
+          }
+        })
       };
     }
   }
@@ -1448,10 +1458,10 @@ function getMoney() {
                     var hadfinish = '你竟然听了';
                     for(var i = 0; i < hadfinish_word.length; i++){
                       if(listened_count >= hadfinish_word[i].count){
-                        hadfinish += listened_count + '本，'+hadfinish_word[i].word;
+                        hadfinish = '你竟然听了' + listened_count + '本，'+hadfinish_word[i].word;
                       }
                     } 
-                    if(listened_count < 3){
+                    if(listened_count < 3) {
                       hadfinish = '已经听了'+listened_count+'本，再接再厉';
                     }
                     $('#hadfinish').html(hadfinish);
