@@ -305,3 +305,21 @@ body {
 .opacity1 {
 	opacity: 1!important;
 }
+
+
+.loading-progress-bar {
+	position: absolute;
+    width: 36%;
+    height: 0.9rem;
+    background: #ff8648;
+    border-radius: 0.5rem;
+    top: 75%;
+    left: 50%;
+    margin-left: -18%;
+  }
+.loading-progress-bar-inner {
+	width: 0;
+	background: #ffce48;
+	height: 0.9rem;
+	border-radius: 0.5rem;
+  }
