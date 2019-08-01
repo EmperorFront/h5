@@ -1699,6 +1699,7 @@ $(function(){
       };
       //app内，展示规则点击跳登录
       if($("#windowImg")[0].src.indexOf('guiding') > 0){
+        $('#close').click();
         //点击则跳转至cms奖金领取页。
         Asio.send('ui.login');
       };
@@ -1900,31 +1901,7 @@ setInterval(() => {
     })
 
 var touch2 = function () {
-      var lastY;//最后一次y坐标点
-      var betterY;//每次touch最高点
-      document.querySelector('body').addEventListener('touchstart', function(event) {
-          lastY = event.originalEvent.changedTouches[0].clientY;
-          betterY = lastY;
-      });
-      document.querySelector('body').addEventListener('touchmove', function(event) {
-          var y = event.originalEvent.changedTouches[0].clientY;
-          if(y > betterY){
-              betterY = y;
-          }
-          var st = document.body.scrollTop; //滚动条高度
-          if (y >= lastY && st <= 10) {
-              lastY = y;
-              event.preventDefault();
-          }
-          lastY = y;
-      });
-      document.querySelector('body').addEventListener('touchend', function(event) {
-          var y = event.originalEvent.changedTouches[0].clientY;
-          var st = document.body.scrollTop; //滚动条高度
-          if(y < betterY && st <= 10){
-              event.preventDefault();
-          }
-      });
+  document.addEventListener('touchmove', function(e){e.preventDefault()}, false);
   }
 
   touch2();
