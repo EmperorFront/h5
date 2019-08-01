@@ -310,7 +310,7 @@ body {
 .loading-progress-bar {
 	position: absolute;
     width: 36%;
-    height: 0.9rem;
+    height: 2%;
     background: #ff8648;
     border-radius: 0.5rem;
     top: 75%;
@@ -320,6 +320,6 @@ body {
 .loading-progress-bar-inner {
 	width: 0;
 	background: #ffce48;
-	height: 0.9rem;
+	height: 100%;
 	border-radius: 0.5rem;
   }
