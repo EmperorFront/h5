@@ -29,6 +29,16 @@ body {
 }
 #root {
 	display: inline;
+	position:absolute; 
+	overflow:scroll; 
+	-webkit-overflow-scrolling: touch; 
+	top:0; 
+	left:0; 
+	bottom:0; 
+	right:0;
+}
+#event {
+	display: inline;
 }
 #pkg-wrap {
 	display:inline;

@@ -272,6 +272,7 @@ var Tween={linear:function(e,a,g,f){return g*e/f+a},easeIn:function(e,a,g,f){ret
 
 //填充dom
 var dom = `
+<div id="event">
 <div id="pageBg"></div>
 <div id="wrapper"></div>
 <div id="view">
@@ -313,7 +314,7 @@ var dom = `
         <img id="windowImg" src="" style="height: 100%;margin: auto;border-radius: 20px;"/>
     </div>
     <img id="close" src="" style="width: 50px;margin: auto;height: 50px;bottom: 3%;position: absolute;margin-left: -25px;"/>
-</div>`;
+</div></div>`;
 
 $('#root').html(dom);
 
@@ -602,7 +603,7 @@ function setDarg() {//拖动逻辑
   var startZ = css(tZ, "translateZ")
   var lastDeg = { x: 0, y: 0 };
   var lastDis = { x: 0, y: 0 };
-  window.document.getElementById("root").addEventListener('touchstart', function(e) {
+  window.document.getElementById("event").addEventListener('touchstart', function(e) {
     if(canTouch){
       window.isTouch = true;
     }
@@ -633,7 +634,7 @@ function setDarg() {//拖动逻辑
     }
   })
 
-  window.document.getElementById("root").addEventListener('touchmove', function(e) {
+  window.document.getElementById("event").addEventListener('touchmove', function(e) {
     if(!canTouch){
       return;
     }
@@ -682,7 +683,7 @@ function setDarg() {//拖动逻辑
     doAnimationAboutPostion(nowDeg.x);
     
   })
-  window.document.getElementById("root").addEventListener('touchend', function(e) {
+  window.document.getElementById("event").addEventListener('touchend', function(e) {
 
     var nowDeg = {
       x: css(panoBg, "rotateY"),
@@ -816,7 +817,7 @@ function setSensors() {
   var startZ = -160;
   var dir = window.orientation; //检测横竖屏
 
-  window.document.getElementById("root").addEventListener('orientationchange', function(e) {
+  window.document.getElementById("event").addEventListener('orientationchange', function(e) {
       dir = window.orientation //用户切换了横竖之后，重置方向
     })
     // deviceorientation执行的间隔 有可能小于
@@ -824,7 +825,7 @@ function setSensors() {
       注意 用户切换了横屏之后，左右旋转就不再是e.gamma，上下旋转也不再是e.beta，所以陀螺仪记得检测横竖屏
     */
 
-   window.document.getElementById("root").addEventListener('deviceorientation', function(e) {
+   window.document.getElementById("event").addEventListener('deviceorientation', function(e) {
     if (window.isTouch) {
       return
     }
@@ -1881,7 +1882,7 @@ setInterval(() => {
           evt._isScroller = true
       })
     }
-    overscroll(document.getElementsByTagName('body')[0]);
+    overscroll(document.getElementById('root'));
     document.body.addEventListener('touchmove', function(evt) {
       //In this case, the default behavior is scrolling the body, which
       //would result in an overflow.  Since we don't want that, we preventDefault.
@@ -1890,5 +1891,10 @@ setInterval(() => {
           return false;
         }
         evt.preventDefault();
+
+
+
+
+        
       }
     })
