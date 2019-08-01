@@ -1510,7 +1510,7 @@ function createBigClick(){
 
     //添加闪光点
     if(parseInt(bigClickData[i].width) > 0&&parseInt(bigClickData[i].height) > 0 ) {
-      var eltop = parseInt(bigClickData[i].marginTop) + (parseInt(bigClickData[i].height)*0.5)
+      var eltop = parseInt(bigClickData[i].marginTop) + (parseInt(bigClickData[i].height)*0.4)
       var eltranslateZ =  parseInt(bigClickData[i].translateZ === undefined ? "-429px": bigClickData[i].translateZ)*0.85
       var blink1 = document.createElement('div');
       var blink11 = document.createElement('div');
