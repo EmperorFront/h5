@@ -64,7 +64,7 @@ var imgData={
 	"https://piccdn.luojilab.com/fe-oss/default/pano_hongbaohe1-2.png",
 	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
 	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
-	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
+	// "https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
 	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
 	// "https://piccdn.luojilab.com/fe-oss/default/pano_chengshi2.png",
 	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
@@ -126,7 +126,7 @@ var others = {
 		// "https://piccdn.luojilab.com/fe-oss/default/window_hongbaohe1-1.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_hongbaohe1-2.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_shehuiyujingji.png",
-		"https://piccdn.luojilab.com/fe-oss/default/window_anzhishi2.png",
+		// "https://piccdn.luojilab.com/fe-oss/default/window_anzhishi2.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_anzhishi2.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_chengshi1.png",
 		// "https://piccdn.luojilab.com/fe-oss/default/window_chengshi2.png",
@@ -292,7 +292,7 @@ var dom = `
 		</div>
   </div>
 </div>
-<div id="go" class="hidden" style="width: 20%;position: absolute;bottom: 5%;right: 15%;text-align: center;height: 20%;"> 
+<div id="go" class="hidden" style="height: 12%;width: 12%;position: absolute;bottom: 5%;right: 15%;text-align: center;"> 
 	<img id="goImg" class= "mcclick" src="" style="height: 100%;margin: auto;"/>
 </div>
 <div id="window" class="hidden"style="width: 100%;position: absolute;top: 0;left: 0;text-align: center;height: 100%;background-color: rgba(0,0,0,0.7);">
@@ -602,7 +602,7 @@ function setDarg() {//拖动逻辑
   var startZ = css(tZ, "translateZ")
   var lastDeg = { x: 0, y: 0 };
   var lastDis = { x: 0, y: 0 };
-  document.addEventListener('touchstart', function(e) {
+  window.document.getElementById("root").addEventListener('touchstart', function(e) {
     if(canTouch){
       window.isTouch = true;
     }
@@ -633,7 +633,7 @@ function setDarg() {//拖动逻辑
     }
   })
 
-  document.addEventListener('touchmove', function(e) {
+  window.document.getElementById("root").addEventListener('touchmove', function(e) {
     if(!canTouch){
       return;
     }
@@ -682,7 +682,7 @@ function setDarg() {//拖动逻辑
     doAnimationAboutPostion(nowDeg.x);
     
   })
-  document.addEventListener('touchend', function(e) {
+  window.document.getElementById("root").addEventListener('touchend', function(e) {
 
     var nowDeg = {
       x: css(panoBg, "rotateY"),
@@ -816,7 +816,7 @@ function setSensors() {
   var startZ = -160;
   var dir = window.orientation; //检测横竖屏
 
-  window.addEventListener('orientationchange', function(e) {
+  window.document.getElementById("root").addEventListener('orientationchange', function(e) {
       dir = window.orientation //用户切换了横竖之后，重置方向
     })
     // deviceorientation执行的间隔 有可能小于
@@ -824,7 +824,7 @@ function setSensors() {
       注意 用户切换了横屏之后，左右旋转就不再是e.gamma，上下旋转也不再是e.beta，所以陀螺仪记得检测横竖屏
     */
 
-  window.addEventListener('deviceorientation', function(e) {
+   window.document.getElementById("root").addEventListener('deviceorientation', function(e) {
     if (window.isTouch) {
       return
     }
@@ -1064,7 +1064,7 @@ function doAnimationAboutPostion(nowDegx){
   //点击提示
   clicktip(nowDegx);
   //红包雨
-  if(xiayu === 1 && Math.abs(((nowDegx + 360000) - 500))%360 < 50){
+  if(xiayu === 1 && Math.abs(((nowDegx + 360000) - 500))%360 < 15){
     xiayu = 0;
     hongbaoyu(nowDegx);
   } else {
@@ -1312,7 +1312,7 @@ function createBigClick(){
     // {id:"hongbaohe1-1",name:"红包盒1-1",width:"0px",height:"0px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
     {classList:"slideout",id:"hongbaohe1-2",name:"红包盒1-2",width:"80px",height:"55px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
     {classList:"blink",id:"shehuiyujingji",name:"社会与经济",width:"93px",height:"117px",startDeg:38,marginTop:"-135px","point":"1111","link":"2222"},
-    {classList:"blink",id:"anzhishi2",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
+    // {classList:"blink",id:"anzhishi2",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
     {classList:"blink",id:"anzhishi2",name:"暗知识-2",width:"79px",height:"115px",startDeg:25,marginTop:"-135px","point":"1111","link":"2222"},
     {classList:"blink",id:"chengshi1",name:"成事-1",width:"89px",height:"116px",startDeg:14,marginTop:"-135px","point":"1111","link":"2222"},
     // {classList:"blink",id:"chengshi2",name:"成事-2 无",width:"38px",height:"116px",startDeg:9,marginTop:"-135px","point":"1111","link":"2222"},
@@ -1370,13 +1370,13 @@ function createBigClick(){
 
     //添加闪光点
     if(parseInt(bigClickData[i].width) > 0&&parseInt(bigClickData[i].height) > 0 ) {
-      var eltop = parseInt(bigClickData[i].marginTop) + (parseInt(bigClickData[i].height)*0.3)
+      var eltop = parseInt(bigClickData[i].marginTop) + (parseInt(bigClickData[i].height)*0.5)
       var eltranslateZ =  parseInt(bigClickData[i].translateZ === undefined ? "-429px": bigClickData[i].translateZ)*0.85
       var blink1 = document.createElement('div');
       var blink11 = document.createElement('div');
       var blink11str = "opacity: 0;top:"+eltop+
-      "px;height:50px"+
-      ";width: 50px;left: "+( (80<parseInt(bigClickData[i].startDeg))?parseInt(bigClickData[i].width)/2:0) +
+      "px;height:25px"+
+      ";width: 25px;left: "+( (80<parseInt(bigClickData[i].startDeg) || -140>parseInt(bigClickData[i].startDeg) )?parseInt(bigClickData[i].width)/2:0) +
       "px;transform: translateY(0px) rotateY("+bigClickData[i].startDeg+
       "deg) translateZ("+eltranslateZ+
       "px);float: left;position: absolute;background: url('https://piccdn.luojilab.com/fe-oss/default/window_blinkcoin.png');display: block;background-size: cover;"
@@ -1450,13 +1450,13 @@ function initcloud(){
   pano.appendChild(talkwindowbs);
 
   //地图
-  var blink1 = document.createElement('div');
-  var blink11 = document.createElement('div');
-  var blink11str = "opacity: 1;top: -174px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(-104deg) translateZ(-429px);float: left;position: absolute;background: url(https://piccdn.luojilab.com/fe-oss/default/window_blinkcoin.png);display: block;background-size: cover;"
-  blink11.style.cssText = blink11str;
-  blink11.className = 'ditu3 showWindow blink';
-  blink1.appendChild(blink11);
-  pano.appendChild(blink1);
+  // var blink1 = document.createElement('div');
+  // var blink11 = document.createElement('div');
+  // var blink11str = "opacity: 1;top: -174px;height: 42px;width: 50px;left: 31px;transform: translateY(0px) rotateY(-104deg) translateZ(-429px);float: left;position: absolute;background: url(https://piccdn.luojilab.com/fe-oss/default/window_blinkcoin.png);display: block;background-size: cover;"
+  // blink11.style.cssText = blink11str;
+  // blink11.className = 'ditu3 showWindow blink';
+  // blink1.appendChild(blink11);
+  // pano.appendChild(blink1);
 
   var talkwindowbs = document.createElement('div');
   var blink11 = document.createElement('div');
@@ -1856,3 +1856,39 @@ setInterval(() => {
 
 
  
+
+    //禁止下拉
+    var overscroll = function(el) {
+      el.addEventListener('touchstart', function() {
+        var top = el.scrollTop
+          , totalScroll = el.scrollHeight
+          , currentScroll = top + el.offsetHeight
+        //If we're at the top or the bottom of the containers
+        //scroll, push up or down one pixel.
+        //
+        //this prevents the scroll from "passing through" to
+        //the body.
+        if(top === 0) {
+          el.scrollTop = 1
+        } else if(currentScroll === totalScroll) {
+          el.scrollTop = top - 1
+        }
+      })
+      el.addEventListener('touchmove', function(evt) {
+        //if the content is actually scrollable, i.e. the content is long enough
+        //that scrolling can occur
+        if(el.offsetHeight < el.scrollHeight)
+          evt._isScroller = true
+      })
+    }
+    overscroll(document.getElementsByTagName('body')[0]);
+    document.body.addEventListener('touchmove', function(evt) {
+      //In this case, the default behavior is scrolling the body, which
+      //would result in an overflow.  Since we don't want that, we preventDefault.
+      if(!evt._isScroller) {
+        evt.preventDefault = function(){
+          return false;
+        }
+        evt.preventDefault();
+      }
+    })
