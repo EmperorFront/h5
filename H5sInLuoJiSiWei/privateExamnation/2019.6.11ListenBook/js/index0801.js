@@ -1899,9 +1899,6 @@ setInterval(() => {
       }
     })
 
-    window.onscroll = function () {
-      var top = document.documentElement.scrollTop || document.body.scrollTop;
-      if(top <= 0){
-          document.body.scrollTop = 0;
-      }
-  }
+    document.querySelector('body').addEventListener('touchmove', function (e) { 
+      e.preventDefault(); 
+  });
