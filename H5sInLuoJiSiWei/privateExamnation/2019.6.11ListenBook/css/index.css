@@ -29,16 +29,13 @@ body {
 }
 #root {
 	display: inline;
-	position:absolute; 
-	overflow:scroll; 
-	-webkit-overflow-scrolling: touch; 
-	top:0; 
-	left:0; 
-	bottom:0; 
-	right:0;
-}
-#event {
-	display: inline;
+
+	position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 #pkg-wrap {
 	display:inline;
