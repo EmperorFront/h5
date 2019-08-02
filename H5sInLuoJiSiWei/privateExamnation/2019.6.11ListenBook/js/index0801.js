@@ -1756,16 +1756,6 @@ function getMoney() {
                     $('#info').show();
                     windowDiv.show();
                     canTouch = false;
-
-                    $('#getButton').click(function(){
-                      //点击则跳转至cms奖金领取页。
-                      var link = encodeURIComponent(userInfo.activity_coupon_list[0].coupon_url);
-                      var url = 'igetapp://activity/detail?url='+link;
-                      Asio.send('jump.ddURL', {
-                        ddURL: url,
-                        ddURLMinVer: '5.1.0'
-                      })
-                    });
                   });
                 });
               }
@@ -1807,6 +1797,18 @@ function getMoney() {
           }
         }
     });
+    if(ua.indexOf('igetapp')>0) {
+      //弹出领取
+      $('#getButton').click(function(){
+        //点击则跳转至cms奖金领取页。
+        var link = encodeURIComponent(userInfo.activity_coupon_list[0].coupon_url);
+        var url = 'igetapp://activity/detail?url='+link;
+        Asio.send('jump.ddURL', {
+          ddURL: url,
+          ddURLMinVer: '5.1.0'
+        })
+      });
+    }
     //goapp会有弹出一次。
     var goapp = $('.goapp')
     goapp.click(function(){
