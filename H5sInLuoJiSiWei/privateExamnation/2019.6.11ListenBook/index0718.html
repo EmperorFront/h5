@@ -51,48 +51,6 @@ $(document).ready(function(){
 			event.preventDefault();//禁止到底上拉
 		} else {
 			
-  //正常逻辑
-if(!canTouch){
-  return;
-}
-var nowDeg = {}
-var nowDeg2 = {} // 悬浮层
-var nowPoint = {}
-nowPoint.x = event.changedTouches[0].pageX;
-nowPoint.y = event.changedTouches[0].pageY;
-var dis = {}
-dis.x = nowPoint.x - startPoint.x
-dis.y = nowPoint.y - startPoint.y
-var disDeg = {}
-disDeg.x = -(dis.x / scale.x) // 距离转度数
-disDeg.y = dis.y / scale.y
-// panoBgDeg.y = css(panoBg, 'rotateX')
-
-nowDeg.y = panoBgDeg.y + disDeg.y // 开始角度 + 移动角度
-nowDeg.x = panoBgDeg.x + disDeg.x
-nowDeg2.x = panoBgDeg.x + (disDeg.x) * 0.95
-nowDeg2.y = panoBgDeg.y + (disDeg.y) * 0.95
-if (nowDeg.y > 45) {
-  nowDeg.y = 45
-} else if (nowDeg.y < -45) {
-  nowDeg.y = -45
-}
-
-if (nowDeg2.y > 45) {
-  nowDeg2.y = 45
-} else if (nowDeg2.y < -45) {
-  nowDeg2.y = -45
-}
-lastDis.x = nowDeg.x - lastDeg.x
-lastDeg.x = nowDeg.x
-lastDis.y = nowDeg.y - lastDeg.y
-lastDeg.y = nowDeg.y
-
-var disZ = Math.max(Math.abs(dis.x), Math.abs(dis.y))
-if (disZ > 300) {
-  disZ = 300
-}
-
 
 event.stopPropagation();
 event.cancelBubble = true;

@@ -633,7 +633,28 @@ function setDarg() {
   var startZ = css(tZ, "translateZ")
   var lastDeg = { x: 0, y: 0 };
   var lastDis = { x: 0, y: 0 };
+
+
+//容和目标
+	var app=document.getElementById("root");
+	// var touchstartY;
+	// app.addEventListener("touchstart",function(event){
+	// 	var events=event.touches[0]||event;
+	// 	touchstartY=events.clientY;//获取触摸目标在视口中的y坐标
+  // },false);
+  
+
+
+
+
+
   window.document.getElementById("root").addEventListener('touchstart', function(e) {
+    var _e = e;
+//融合目标
+var e=e.touches[0]||e;
+touchstartY=e.clientY;//获取触摸目标在视口中的y坐标
+
+    e = _e;
     if(canTouch){
       window.isTouch = true;
     }
@@ -662,7 +683,7 @@ function setDarg() {
     } else if(currentScroll === totalScroll) {
       document.scrollTop = top - 1
     }
-  })
+  },false)
 
 
 
@@ -670,54 +691,32 @@ function setDarg() {
 
 
 
- // 首先禁止body
- document.body.ontouchmove = function (e) {
-  e.preventDefault();
-};
 
-// 然后取得触摸点的坐标
-var startX = 0, startY = 0;
-
-// 然后对允许滚动的条件进行判断，这里讲滚动的元素指向body
-var _ss = document.body;
-_ss.ontouchmove = function (ev) {
-var _point = ev.touches[0],
-    _top = _ss.scrollTop;
-// 什么时候到底部
-var _bottomFaVal = _ss.scrollHeight - _ss.offsetHeight;
-// 到达顶端
-if (_top === 0) {
-    // 阻止向下滑动
-    if (_point.clientY > startY) {
-        ev.preventDefault();
-    } else {
-        // 阻止冒泡
-        // 正常执行
-        ev.stopPropagation();
-    }
-} else if (_top === _bottomFaVal) {
-    // 到达底部 如果想禁止页面滚动和上拉加载，讲这段注释放开，也就是在滚动到页面底部的制售阻止默认事件
-    // 阻止向上滑动
-    // if (_point.clientY < startY) {
-    //     ev.preventDefault();
-    // } else {
-    //     // 阻止冒泡
-    //     // 正常执行
-    //     ev.stopPropagation();
-    // }
-} else if (_top > 0 && _top < _bottomFaVal) {
+	app.addEventListener("touchmove",function(event){
+		var events=event.touches[0]||event;
+		//注意document.body.scrollTop始终为0
+		var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;//获取滚动部分的高度
+		var clientHeight=document.documentElement.clientHeight;//获取手机屏幕高度（可视部分高度）
+		var scrollHeight=document.body.scrollHeight;//所有内容的高度
+		if(events.clientY>touchstartY&&scrollTop===0&&event.cancelable){
+			event.preventDefault();//禁止到顶下拉
+		}else if(scrollTop+clientHeight>scrollHeight&&event.cancelable){
+			event.preventDefault();//禁止到底上拉
+    } 
+    // else {
+			
 
 
 
-  //正常逻辑
+        //正常逻辑
 if(!canTouch){
   return;
 }
 var nowDeg = {}
 var nowDeg2 = {} // 悬浮层
 var nowPoint = {}
-nowPoint.x = ev.changedTouches[0].pageX;
-nowPoint.y = ev.changedTouches[0].pageY;
+nowPoint.x = event.changedTouches[0].pageX;
+nowPoint.y = event.changedTouches[0].pageY;
 var dis = {}
 dis.x = nowPoint.x - startPoint.x
 dis.y = nowPoint.y - startPoint.y
@@ -757,16 +756,114 @@ css(tZ, 'translateZ', startZ - disZ);
 
 doAnimationAboutPostion(nowDeg.x);
 
-ev.stopPropagation();
-ev.cancelBubble = true;
+event.stopPropagation();
+event.cancelBubble = true;
 return false;
 
+		// }
+	},false);
 
 
-} else {
-    ev.preventDefault();
-}
-};
+
+
+
+//  // 首先禁止body
+//  document.body.ontouchmove = function (e) {
+//   e.preventDefault();
+// };
+
+// // 然后取得触摸点的坐标
+// var startX = 0, startY = 0;
+
+// // 然后对允许滚动的条件进行判断，这里讲滚动的元素指向body
+// var _ss = document.body;
+// _ss.ontouchmove = function (ev) {
+// var _point = ev.touches[0],
+//     _top = _ss.scrollTop;
+// // 什么时候到底部
+// var _bottomFaVal = _ss.scrollHeight - _ss.offsetHeight;
+// // 到达顶端
+// if (_top === 0) {
+//     // 阻止向下滑动
+//     if (_point.clientY > startY) {
+//         ev.preventDefault();
+//     } else {
+//         // 阻止冒泡
+//         // 正常执行
+//         ev.stopPropagation();
+//     }
+// } else if (_top === _bottomFaVal) {
+//     // 到达底部 如果想禁止页面滚动和上拉加载，讲这段注释放开，也就是在滚动到页面底部的制售阻止默认事件
+//     // 阻止向上滑动
+//     // if (_point.clientY < startY) {
+//     //     ev.preventDefault();
+//     // } else {
+//     //     // 阻止冒泡
+//     //     // 正常执行
+//     //     ev.stopPropagation();
+//     // }
+// } else if (_top > 0 && _top < _bottomFaVal) {
+
+
+
+//   //正常逻辑
+// if(!canTouch){
+//   return;
+// }
+// var nowDeg = {}
+// var nowDeg2 = {} // 悬浮层
+// var nowPoint = {}
+// nowPoint.x = ev.changedTouches[0].pageX;
+// nowPoint.y = ev.changedTouches[0].pageY;
+// var dis = {}
+// dis.x = nowPoint.x - startPoint.x
+// dis.y = nowPoint.y - startPoint.y
+// var disDeg = {}
+// disDeg.x = -(dis.x / scale.x) // 距离转度数
+// disDeg.y = dis.y / scale.y
+// // panoBgDeg.y = css(panoBg, 'rotateX')
+
+// nowDeg.y = panoBgDeg.y + disDeg.y // 开始角度 + 移动角度
+// nowDeg.x = panoBgDeg.x + disDeg.x
+// nowDeg2.x = panoBgDeg.x + (disDeg.x) * 0.95
+// nowDeg2.y = panoBgDeg.y + (disDeg.y) * 0.95
+// if (nowDeg.y > 45) {
+//   nowDeg.y = 45
+// } else if (nowDeg.y < -45) {
+//   nowDeg.y = -45
+// }
+
+// if (nowDeg2.y > 45) {
+//   nowDeg2.y = 45
+// } else if (nowDeg2.y < -45) {
+//   nowDeg2.y = -45
+// }
+// lastDis.x = nowDeg.x - lastDeg.x
+// lastDeg.x = nowDeg.x
+// lastDis.y = nowDeg.y - lastDeg.y
+// lastDeg.y = nowDeg.y
+// css(panoBg, "rotateX", nowDeg.y);
+// css(panoBg, "rotateY", nowDeg.x);
+// css(pano, "rotateX", nowDeg2.y); //pano为浮动层，rotateX为上下，改动的是y
+// css(pano, "rotateY", nowDeg2.x);//nowDeg2.x这个值是错误的。
+// var disZ = Math.max(Math.abs(dis.x), Math.abs(dis.y))
+// if (disZ > 300) {
+//   disZ = 300
+// }
+// css(tZ, 'translateZ', startZ - disZ);
+
+// doAnimationAboutPostion(nowDeg.x);
+
+// ev.stopPropagation();
+// ev.cancelBubble = true;
+// return false;
+
+
+
+// } else {
+//     ev.preventDefault();
+// }
+// };
 
 
 
