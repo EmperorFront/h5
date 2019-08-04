@@ -1099,8 +1099,8 @@ function mbuttonAnimit() {
         $('.machinebutton1').removeClass('opacity1');
         $('.machinebutton1').addClass('opacity0');
         mbuttonAnimit();
-      },1000);
-    },1000);
+      },700);
+    },700);
 
 }
 var xiayu = 1;
@@ -1398,6 +1398,59 @@ function createBigClick(){
     {id:"yanglei",name:"杨蕾",width:"111px",height:"306px",startDeg:-114,marginTop:"47px","point":"1111","link":"2222"},
     {id:"ashi",name:"阿狮",width:"237px",height:"411px",startDeg:-145,translateZ:'-360px',marginTop:"-87px","point":"1111","link":"2222"},
     ]
+
+
+    var tipData = [
+      {id:"jiahangjia",name:"贾行家",width:"146px",height:"310px",startDeg:135,translateZ:"-411px",marginTop:"0px","point":"1111","link":"2222"},
+      {id:"lijun",name:"李筠",width:"174px",height:"371px",startDeg:125,marginTop:"-169px","point":"1111","link":"2222"},
+      {id:"liuwei",name:"刘玮",width:"157px",height:"304px",startDeg:79,translateZ:"-463px",marginTop:"-107px","point":"1111","link":"2222"},
+      {id:"huanglining1",name:"黄昱宁-1",width:"181px",height:"289px",startDeg:103,marginTop:"-151px","point":"1111","link":"2222"},
+      // {id:"haunglining2",name:"黄昱宁-2",width:"0px",height:"0px",startDeg:99,marginTop:"-126px","point":"1111","link":"2222"},
+      // {id:"haungliningmingpai",name:"黄昱宁名牌",width:"0px",height:"0px",startDeg:94,marginTop:"-154px","point":"1111","link":"2222"},
+      // {id:"liuweimingpai",name:"刘玮名牌",width:"0px",height:"0px",startDeg:83,marginTop:"-113px","point":"1111","link":"2222"},
+      {id:"zhuwei1",name:"朱伟-1",width:"330px",height:"311px",startDeg:100,translateZ:'-540px',marginTop:"56px","point":"1111","link":"2222"},
+      // {id:"zhuwei2",name:"朱伟-2",width:"0px",height:"0px",startDeg:84,marginTop:"48px","point":"1111","link":"2222"},
+      {id:"caoxingyuan1",name:"曹星原-1",width:"286px",height:"345px",startDeg:65,translateZ:'-430px',marginTop:"20px","point":"1111","link":"2222"},
+      // {id:"caoxingyuan2",name:"曹星原-2",width:"0px",height:"0px",startDeg:56,marginTop:"20px","point":"1111","link":"2222"},
+      {id:"linannan",name:"李南南",width:"102px",height:"315px",startDeg:33,translateZ:'-448px',marginTop:"-40px","point":"1111","link":"2222"},
+      // {id:"hongbaohe1-1",name:"红包盒1-1",width:"0px",height:"0px",startDeg:26,marginTop:"134px","point":"1111","link":"2222"},
+      {classList:"slideout",id:"hongbaohe1-2",name:"红包盒1-2",width:"80px",height:"55px",startDeg:24,marginTop:"134px","point":"1111","link":"2222"},
+      {classList:"blink",id:"shehuiyujingji",name:"社会与经济",width:"93px",height:"117px",startDeg:35,marginTop:"-135px","point":"1111","link":"2222"},
+      // {classList:"blink",id:"anzhishi2",name:"暗知识-1",width:"23px",height:"115px",startDeg:26,marginTop:"-135px","point":"1111","link":"2222"},
+      {classList:"blink",id:"anzhishi2",name:"暗知识-2",width:"79px",height:"115px",startDeg:22,marginTop:"-135px","point":"1111","link":"2222"},
+      {classList:"blink",id:"chengshi1",name:"成事-1",width:"89px",height:"116px",startDeg:11,marginTop:"-135px","point":"1111","link":"2222"},
+      // {classList:"blink",id:"chengshi2",name:"成事-2 无",width:"38px",height:"116px",startDeg:9,marginTop:"-135px","point":"1111","link":"2222"},
+      {classList:"blink",id:"shiwenhuojinchensilu",name:"十问：霍金沉思录",width:"90px",height:"120px",startDeg:33,marginTop:"-245px","point":"1111","link":"2222"},
+      {classList:"blink",id:"meiguoxianjing1",name:"美国陷阱-1",width:"90px",height:"118px",startDeg:14,marginTop:"-243px","point":"1111","link":"2222"},
+      // {classList:"blink",id:"meiguoxianjing2",name:"美国陷阱-2 无",width:"0px",height:"0px",startDeg:9,marginTop:"-259px","point":"1111","link":"2222"},
+      {id:"bianhengqin",name:"卞恒沁",width:"104px",height:"301px",startDeg:4,marginTop:"-108px","point":"1111","link":"2222"},
+      {id:"dasheji",name:"大设计",width:"99px",height:"124px",startDeg:-14,marginTop:"-238px","point":"1111","link":"2222"},
+      {id:"zhaizizhongguo",name:"宅兹中国",width:"99px",height:"123px",startDeg:-28,marginTop:"-238px","point":"1111","link":"2222"},
+      {id:"jinhuidui",name:"锦灰堆",width:"89px",height:"122px",startDeg:-9,marginTop:"-118px","point":"1111","link":"2222"},
+      {id:"xugoudeyoutaiminzu1",name:"虚构的犹太民族-1",width:"86px",height:"119px",startDeg:-21,marginTop:"-118px","point":"1111","link":"2222"},
+      // {id:"xugoudeyoutaiminzu2",name:"虚构的犹太民族-2 无",width:"0px",height:"0px",startDeg:-21,marginTop:"-128px","point":"1111","link":"2222"},
+      {id:"xiaoshuodeyishu1",name:"小说的艺术-1",width:"92px",height:"121px",startDeg:-33,marginTop:"-118px","point":"1111","link":"2222"},
+      // {id:"xiaoshuodeyishu2",name:"小说的艺术-2 无",width:"29px",height:"121px",startDeg:-36,marginTop:"-126px","point":"1111","link":"2222"},
+      {id:"liuxuan",name:"刘玄",width:"110px",height:"285px",startDeg:-38,marginTop:"-51px","point":"1111","link":"2222"},
+      {id:"tingshutieshi1",name:"听书帖士-1",width:"44px",height:"220px",startDeg:-45,translateZ:'-700px',marginTop:"-287px","point":"1111","link":"2222"},
+      {id:"tingshutieshi1",name:"听书帖士-2",width:"59px",height:"220px",startDeg:-51,marginTop:"-287px","point":"1111","link":"2222"},
+      {id:"shujialidehongbao",name:"书架里的红包",width:"73px",height:"66px",startDeg:-51,marginTop:"-83px","point":"1111","link":"2222"},
+      {id:"yonghu1",name:"用户1",width:"78px",height:"118px",startDeg:-54,marginTop:"-12px","point":"1111","link":"2222"},
+      {id:"yonghu3",name:"用户2",width:"175px",height:"307px",startDeg:-66,translateZ:'-400px',marginTop:"50px","point":"1111","link":"2222"},
+      {id:"hongbaohe1-2",name:"红包盒2",width:"79px",height:"56px",startDeg:-75,marginTop:"156px","point":"1111","link":"2222"},
+      {id:"yonghu2",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-90px","point":"1111","link":"2222"},
+      {id:"tingshushujubang1",name:"听书数据榜-1",width:"153px",height:"235px",startDeg:-65,marginTop:"-294px","point":"1111","link":"2222"},
+      // {id:"tingshushujubang2",name:"听书数据榜-2",width:"0px",height:"0px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
+      {classList:"slideout",id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-87,marginTop:"-133px","point":"1111","link":"2222"},
+      {classList:"slideout",id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-186px","point":"1111","link":"2222"},
+      {classList:"slideout",id:"ditu3",name:"地图3",width:"45px",height:"58px",startDeg:-105,marginTop:"-170px","point":"1111","link":"2222"},
+      {id:"saodiseng",name:"扫地僧",width:"89px",height:"156px",startDeg:-96,marginTop:"-63px","point":"1111","link":"2222"},
+      {id:"beisu",name:"倍速",width:"66px",height:"74px",startDeg:-85,marginTop:"9px","point":"1111","link":"2222"},
+      {id:"yonghu4",name:"用户4",width:"90px",height:"213px",startDeg:-96,marginTop:"78px","point":"1111","link":"2222"},
+      {classList:"slideout",id:"hongbaohe1-2",name:"红包盒3",width:"82px",height:"52px",startDeg:-126,translateZ:'-399px',marginTop:"113px","point":"1111","link":"2222"},
+      {id:"yanglei",name:"杨蕾",width:"111px",height:"306px",startDeg:-110,marginTop:"-13px","point":"1111","link":"2222"},
+      {id:"ashi",name:"阿狮",width:"237px",height:"411px",startDeg:-154,translateZ:'-360px',marginTop:"-123px","point":"1111","link":"2222"},
+      ]
   var pano = document.querySelector('#pano');
   for(var i = 0; i < bigClickData.length; i++) {
     var outDiv = document.createElement('div');
@@ -1420,19 +1473,19 @@ function createBigClick(){
     pano.appendChild(outDiv);
 
     //添加闪光点
-    if(parseInt(bigClickData[i].width) > 0&&parseInt(bigClickData[i].height) > 0 ) {
-      var eltop = parseInt(bigClickData[i].marginTop) + (parseInt(bigClickData[i].height)*0.4)
-      var eltranslateZ =  parseInt(bigClickData[i].translateZ === undefined ? "-429px": bigClickData[i].translateZ)*0.85
+    if(parseInt(tipData[i].width) > 0&&parseInt(tipData[i].height) > 0 ) {
+      var eltop = parseInt(tipData[i].marginTop) + (parseInt(tipData[i].height)*0.4)
+      var eltranslateZ =  parseInt(tipData[i].translateZ === undefined ? "-429px": tipData[i].translateZ)*0.85
       var blink1 = document.createElement('div');
       var blink11 = document.createElement('div');
       var blink11str = "opacity: 0;top:"+eltop+
       "px;height:25px"+
-      ";width: 25px;left: "+( (80<parseInt(bigClickData[i].startDeg) || -140>parseInt(bigClickData[i].startDeg) )?parseInt(bigClickData[i].width)/2:0) +
-      "px;transform: translateY(0px) rotateY("+bigClickData[i].startDeg+
+      ";width: 25px;left: "+( (80<parseInt(tipData[i].startDeg) || -140>parseInt(tipData[i].startDeg) )?parseInt(tipData[i].width)/2:0) +
+      "px;transform: translateY(0px) rotateY("+tipData[i].startDeg+
       "deg) translateZ("+eltranslateZ+
       "px);float: left;position: absolute;background: url('https://piccdn.luojilab.com/fe-oss/default/window_blinkcoin.png');display: block;background-size: cover;"
       blink11.style.cssText = blink11str;
-      blink11.classList = bigClickData[i].id +' showWindow clicktip';
+      blink11.classList = tipData[i].id +' showWindow clicktip';
       blink1.appendChild(blink11);
       pano.appendChild(blink1);
     }
