@@ -1595,7 +1595,9 @@ function getMoney() {
           var windowDiv = $('#window');
           var windowImg = $('#windowImg');
           windowImg[0].src = 'https://piccdn.luojilab.com/fe-oss/default/window_tanchuang8.png'
-
+          
+          //点击后要马上把背景弹出来，否则再点击别的地方可能就显示重复了。
+          windowDiv.show();
           //先判断是否登录
           Asio.send('agent.info').then(function(res){
             var info = res.data;
@@ -1665,7 +1667,6 @@ function getMoney() {
                     $('#moneypic')[0].src = ('https://piccdn.luojilab.com/fe-oss/default/window_tanchuang'+numcount+'.png');
                     //展示出来
                     $('#info').show();
-                    windowDiv.show();
                     canTouch = false;
                   });
                 });
