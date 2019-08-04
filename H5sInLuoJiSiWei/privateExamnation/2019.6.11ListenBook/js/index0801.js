@@ -1805,9 +1805,15 @@ $(function(){
       };
       //app内，展示规则点击跳登录
       if($("#windowImg")[0].src.indexOf('guiding') > 0){
-        $('#close').click();
+        $('#info').hide();
+        $('#rules').hide();
+        $('#window').hide();  
+        canTouch = true;
+
         //点击则跳转至cms奖金领取页。
-        Asio.send('ui.login');
+        setTimeout(function(){
+          Asio.send('ui.login');
+        },200);
       };
     });
   } else {
