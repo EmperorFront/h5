@@ -580,6 +580,33 @@ function anmt7() {
     callBack: function() {//结束删除
       cloud.parentNode.removeChild(cloud)
       bgShow();
+
+
+      // var _panoBgrotateY = document.querySelector('#panoBg').transform.rotateY;
+      // var _panorotateY = document.querySelector('#pano').transform.rotateY;
+      // //正位
+      // MTween({
+      //   el: panoBg,
+      //   target: {
+      //     rotateY: _panoBgrotateY+10 // 缓冲
+      //   },
+      //   time: 800,
+      //   type: "easeOut"
+      // })
+      // MTween({
+      //   el: pano,
+      //   target: {
+      //     rotateY: _panorotateY+10 // 缓冲
+      //   },
+      //   time: 800,
+      //   type: "easeOut",
+      //   callBack: function() {
+      //     window.isTouch = true
+      //     window.isStart = true   
+      //   }
+      // })
+
+      //正常逻辑
       machineAnimit();//弹出领取机器
       initcloud();
       addBigClickEvent();//绑定弹层点击事件
@@ -1321,6 +1348,11 @@ function hongbaoyu(nowDegx) {
       imgDiv.style.cssText = str;
       outDiv.appendChild(imgDiv);
       imgDiv.onclick = function(){
+        //先关了
+        $('#info').hide();
+        $('#rules').hide();
+        $('#window').hide();  
+
         $('.hongbaohe1-2').click();
       }
       $('body')[0].appendChild(outDiv);
@@ -1720,6 +1752,12 @@ function getMoney() {
                     $('#moneypic')[0].src = ('https://piccdn.luojilab.com/fe-oss/default/window_tanchuang'+numcount+'.png');
                     //展示出来
                     $('#info').show();
+                    //走血条
+                    var bludwidth = listened_count/365 *100;
+                    if(listened_count > 365){
+                      bludwidth = 100
+                    }
+                    $('#blud').animate({width: bludwidth + '%'}, 2000);
                     canTouch = false;
                   });
                 });

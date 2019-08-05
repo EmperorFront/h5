@@ -94,9 +94,11 @@ body {
 #blud {
 	position: absolute;
 	left: 50%;
-	width: 47%;
+	width: 0%;
 	top: 57.4%;
 	margin-left: -23.5%;
+	border-radius: 0.5rem;
+	height: 2%;
 }
 #hadfinish {
 	position: absolute;
@@ -120,7 +122,7 @@ body {
     height: 16%;
     opacity: 0.2;
     left: 50%;
-    background-color: rebeccapurple;
+    /* background-color: rebeccapurple; */
     margin-left: -30%;
     top: 83%;
 }
@@ -130,7 +132,7 @@ body {
     height: 16%;
     opacity: 0.2;
     left: 50%;
-    background-color: rebeccapurple;
+    /* background-color: rebeccapurple; */
     margin-left: -30%;
     top: 79%;
 }
