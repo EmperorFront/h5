@@ -1422,7 +1422,7 @@ function createBigClick(){
     // {id:"tingshushujubang2",name:"听书数据榜-2",width:"0px",height:"0px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
     {classList:"slideout",id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-87,marginTop:"-170px","point":"1111","link":"2222"},
     {classList:"slideout",id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-236px","point":"1111","link":"2222"},
-    {classList:"slideout",id:"ditu3",name:"地图3",width:"45px",height:"58px",startDeg:-105,marginTop:"-202px","point":"1111","link":"2222"},
+    {classList:"slideout",id:"ditu3",name:"地图3",width:"45px",height:"58px",startDeg:-103,marginTop:"-202px","point":"1111","link":"2222"},
     {id:"saodiseng",name:"扫地僧",width:"89px",height:"156px",startDeg:-96,marginTop:"-63px","point":"1111","link":"2222"},
     {id:"beisu",name:"倍速",width:"66px",height:"74px",startDeg:-85,marginTop:"9px","point":"1111","link":"2222"},
     {id:"yonghu4",name:"用户4",width:"90px",height:"213px",startDeg:-96,marginTop:"78px","point":"1111","link":"2222"},
@@ -1470,12 +1470,12 @@ function createBigClick(){
       {id:"yonghu1",name:"用户1",width:"78px",height:"118px",startDeg:-54,marginTop:"-12px","point":"1111","link":"2222"},
       {id:"yonghu3",name:"用户2",width:"175px",height:"307px",startDeg:-66,translateZ:'-400px',marginTop:"50px","point":"1111","link":"2222"},
       {id:"hongbaohe1-2",name:"红包盒2",width:"79px",height:"56px",startDeg:-75,marginTop:"156px","point":"1111","link":"2222"},
-      {id:"yonghu2",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-90px","point":"1111","link":"2222"},
+      {id:"yonghu2",name:"用户3",width:"64px",height:"100px",startDeg:-73,marginTop:"-10px","point":"1111","link":"2222"},
       {id:"tingshushujubang1",name:"听书数据榜-1",width:"153px",height:"235px",startDeg:-65,marginTop:"-294px","point":"1111","link":"2222"},
       // {id:"tingshushujubang2",name:"听书数据榜-2",width:"0px",height:"0px",startDeg:-66,marginTop:"-294px","point":"1111","link":"2222"},
       {classList:"slideout",id:"ditu1",name:"地图1",width:"64px",height:"75px",startDeg:-87,marginTop:"-133px","point":"1111","link":"2222"},
       {classList:"slideout",id:"ditu2",name:"地图2",width:"70px",height:"69px",startDeg:-96,marginTop:"-186px","point":"1111","link":"2222"},
-      {classList:"slideout",id:"ditu3",name:"地图3",width:"45px",height:"58px",startDeg:-105,marginTop:"-170px","point":"1111","link":"2222"},
+      {classList:"slideout",id:"ditu3",name:"地图3",width:"45px",height:"58px",startDeg:-102,marginTop:"-170px","point":"1111","link":"2222"},
       {id:"saodiseng",name:"扫地僧",width:"89px",height:"156px",startDeg:-96,marginTop:"-63px","point":"1111","link":"2222"},
       {id:"beisu",name:"倍速",width:"66px",height:"74px",startDeg:-85,marginTop:"9px","point":"1111","link":"2222"},
       {id:"yonghu4",name:"用户4",width:"90px",height:"213px",startDeg:-96,marginTop:"78px","point":"1111","link":"2222"},
@@ -1753,9 +1753,9 @@ function getMoney() {
                     //展示出来
                     $('#info').show();
                     //走血条
-                    var bludwidth = listened_count/365 *100;
+                    var bludwidth = listened_count/365 *100 * 0.47;
                     if(listened_count > 365){
-                      bludwidth = 100
+                      bludwidth = 100 * 0.47;
                     }
                     $('#blud').animate({width: bludwidth + '%'}, 2000);
                     canTouch = false;
@@ -1817,6 +1817,11 @@ function getMoney() {
     goapp.click(function(){
       if(ua.indexOf('igetapp')>0){
         //app内为登录
+        $('#info').hide();
+        $('#rules').hide();
+        $('#window').hide(); 
+        canTouch = true;
+
         Asio.send('ui.login');
       }else{
         //app外引流回来
