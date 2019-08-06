@@ -1542,6 +1542,10 @@ function addBigClickEvent(){
       time: 500,
       type: 'linear',
       callBack: function() {
+
+          //这里可以发打点
+          sendPoint(windowName);
+
       }
     })
     canTouch = false;
@@ -1799,6 +1803,10 @@ function getMoney() {
               // windowDiv.show();
           }
         }
+
+        //这里可以发打点
+        sendPoint('pano_machine');
+
     });
     if(ua.indexOf('igetapp')>0) {
       //弹出领取
@@ -2011,4 +2019,15 @@ setInterval(() => {
   }
 }, 1);
 
+
+
+//打点
+function sendPoint(str){
+  //cms页面
+  if(!(Asio.send('') === false)){
+    const asio = new Asio(window.___datasourse___.container);
+    var content = { 'name' : str }
+    asio.nlog('s_ storytell_h5_goods', content);
+  }
+}
 
