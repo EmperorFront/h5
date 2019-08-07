@@ -317,7 +317,7 @@ var dom = `
         </div>
         <img id="windowImg" src="" style="height: 100%;margin: auto;border-radius: 20px;"/>
     </div>
-    <img id="close" src="" style="width: 50px;margin: auto;height: 50px;bottom: 3%;position: absolute;margin-left: -25px;"/>
+    <img id="close" src="" style="width: 140px;margin: auto;height: 35px;bottom: 3%;position: absolute;margin-left: -70px;"/>
 </div>`;
 
 $('#root').html(dom);
@@ -469,7 +469,7 @@ function anmt() {//百分比和首屏logo动画
           img.src = data[i];//预加载图片
           img.onload = function() {
             nub++;
-            console.log(nub);
+            // console.log(nub);
           };
         }
       });
@@ -1833,7 +1833,7 @@ function getMoney() {
         Asio.send('ui.login');
       }else{
         //app外引流回来
-        var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/picYwqw01NZE8HlzAnkNVvJ.html');
+        var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/pic2PDLxDBgPDI1WBvWMYnr.html');
         var url = 'igetapp://activity/detail?url='+link;
         Asio.weLaunch(url);
       }
