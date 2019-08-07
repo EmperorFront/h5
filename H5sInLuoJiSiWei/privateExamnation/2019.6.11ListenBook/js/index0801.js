@@ -329,6 +329,7 @@ let canTouch = true;
   setPerc()//初始化图像动画
 })()
 
+
 /*
   根据当前屏幕的大小，来计算景深
   1.固定视野的角度大小，根据这个角度的大小，计算出景深
@@ -540,11 +541,12 @@ function anmt6() {//卷轴动画
 
 function anmt7() {
   var cloud = document.querySelector('#cloud');//云朵容器
-  var cloudcount = 9;//云朵数量
+  var cloudcount = 18;//云朵数量
   css(cloud, 'translateZ', -400)//初始远处
   for (var i = 0; i < cloudcount; i++) {//添加进去
     var span = document.createElement("span");
     span.style.backgroundImage = 'url(' + imgData.cloud[i % 3] + ')';
+    span.style.backgroundSize = 'contain';
     var R = 200 + (Math.random() * 150)
     var deg = (360 / cloudcount) * i
     var x = Math.sin(deg * Math.PI / 180) * R
@@ -580,7 +582,6 @@ function anmt7() {
     callBack: function() {//结束删除
       cloud.parentNode.removeChild(cloud)
       bgShow();
-
 
       // var _panoBgrotateY = document.querySelector('#panoBg').transform.rotateY;
       // var _panorotateY = document.querySelector('#pano').transform.rotateY;
@@ -1833,7 +1834,7 @@ function getMoney() {
         Asio.send('ui.login');
       }else{
         //app外引流回来
-        var link = encodeURIComponent('http://pic1cdn.luojilab.com/html/postertest/pic2PDLxDBgPDI1WBvWMYnr.html');
+        var link = encodeURIComponent('https://pic1cdn.luojilab.com/html/poster/pickkX3m7qDzzhGqlAlPAgY.html');
         var url = 'igetapp://activity/detail?url='+link;
         Asio.weLaunch(url);
       }
