@@ -17,30 +17,30 @@ var imgData={
 	"https://piccdn.luojilab.com/fe-oss/default/bg_cloud02.png",
 	],
 	bg:[
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_01.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_02.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_03.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_04.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_05.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_06.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_07.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_08.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_09.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_10.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_11.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_12.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_13.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_14.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_15.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_16.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_17.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_18.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_19.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_20.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_21.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_22.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_23.png",
-	"https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_24.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_01.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_02.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_03.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_04.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_05.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_06.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_07.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_08.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_09.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_10.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_11.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_12.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_jxsd13bl.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_jxsd14bl.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_jxsd15bl.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_jxsd16bl.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_17.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_18.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_19.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_20.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_21.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_22.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_23.png",
+    "https://piccdn.luojilab.com/fe-oss/default/bg_beijing0801_24.png",
 	],
 	big:[
 	"https://piccdn.luojilab.com/fe-oss/default/pano_machine.png",
@@ -73,12 +73,12 @@ var imgData={
 	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
 	// "https://piccdn.luojilab.com/fe-oss/default/pano_meiguoxianjing2.png",
 	"https://piccdn.luojilab.com/fe-oss/default/pano_bianhengqin.png",
-	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
-	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
-	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
+	// "https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
+	// "https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
+	// "https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
 	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
 	// "https://piccdn.luojilab.com/fe-oss/default/pano_xugoudeyoutaiminzu2.png",
-	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
+	// "https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
 	// "https://piccdn.luojilab.com/fe-oss/default/pano_xiaoshuodeyishu2.png",
 	"https://piccdn.luojilab.com/fe-oss/default/pano_liuxuan.png",
 	"https://piccdn.luojilab.com/fe-oss/default/pano_empety.png",
@@ -132,16 +132,17 @@ var others = {
 		"https://piccdn.luojilab.com/fe-oss/default/window_anzhishi2.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_chengshi1.png",
 		// "https://piccdn.luojilab.com/fe-oss/default/window_chengshi2.png",
-		"https://piccdn.luojilab.com/fe-oss/default/window_shiwenhuojinchensilu.png",
+  
+    "https://piccdn.luojilab.com/fe-oss/default/window_shiwenhuojinchensilu.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_meiguoxianjing1.png",
 		// "https://piccdn.luojilab.com/fe-oss/default/window_meiguoxianjing2.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_bianhengqin.png",
-		"https://piccdn.luojilab.com/fe-oss/default/window_dasheji.png",
-		"https://piccdn.luojilab.com/fe-oss/default/window_zhaizizhongguo.png",
-		"https://piccdn.luojilab.com/fe-oss/default/window_jinhuidui.png",
-		"https://piccdn.luojilab.com/fe-oss/default/window_xugoudeyoutaiminzu1.png",
+		// "https://piccdn.luojilab.com/fe-oss/default/window_dasheji.png",
+		// "https://piccdn.luojilab.com/fe-oss/default/window_zhaizizhongguo.png",
+		// "https://piccdn.luojilab.com/fe-oss/default/window_jinhuidui.png",
+		"https://piccdn.luojilab.com/fe-oss/default/window_list.png",
 		// "https://piccdn.luojilab.com/fe-oss/default/window_xugoudeyoutaiminzu2.png",
-		"https://piccdn.luojilab.com/fe-oss/default/window_xiaoshuodeyishu1.png",
+		// "https://piccdn.luojilab.com/fe-oss/default/window_xiaoshuodeyishu1.png",
 		// "https://piccdn.luojilab.com/fe-oss/default/window_xiaoshuodeyishu2.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_liuxuan.png",
 		"https://piccdn.luojilab.com/fe-oss/default/window_tingshutieshi1.png",
@@ -301,7 +302,7 @@ var dom = `
 	<img id="goImg" class= "mcclick" src="" style="height: 100%;margin: auto;"/>
 </div>
 <div id="window" class="hidden"style="width: 100%;position: absolute;top: 0;left: 0;text-align: center;height: 100%;background-color: rgba(0,0,0,0.7);">
-    <div style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 80%;"> 
+    <div style="width: 90%;min-height: 100px;position: absolute;top: 5%;left: 5%;text-align: center;height: 80%; display: flex;justify-content: center;"> 
         <div class="hidden" id="info">
             <img id="avatar"></img>
             <div id="nick"></div>
@@ -314,6 +315,224 @@ var dom = `
         </div>
         <div class="hidden" id="rules">
             <div class="goapp"></div>
+        </div>
+        <div class="hidden" id="listinfo">
+          <div id="listTitle">
+            <div id="listTitleTop">
+              超过1800本听书，你能怎么听？
+            </div>
+            <div id="listTitleContent">
+              每天一份书单更新，帮你把各种书目排列组合，找到听书新姿势。
+            </div>
+          </div>
+          <div id="listContent">
+          <div id="0" class="listContentTitle">
+          1.怎样用好OKR提高业务能力？
+          </div>
+          <div id="1" class="listContentinfo">
+          《这就是OKR》| 唐帅解读
+          </div>
+          <div id="2" class="listContentinfo">
+          《团队协作的五大障碍》| 广行解读
+          </div>
+          <div id="3" class="listContentinfo">
+          《德鲁克管理思想精要》| 伟萍解读
+          </div>
+          <div id="4" class="listContentTitle">
+          2.50本商业公司精读书单
+          </div>
+          <div class="listContentinfo" id="5">
+          《IBM帝国缔造者》| 徐玲解读
+
+          </div>
+          <div class="listContentinfo" id="6">
+          《成为乔布斯》| 安洋洋解读
+          </div>
+          <div class="listContentinfo" id="7">
+  
+《下一个倒下的会不会是华为》| 管理百年工作室解读
+          </div>
+          <div class="listContentinfo" id="8">
+          
+《穿布鞋的马云》| 管理百年工作室解读
+          </div>
+          <div class="listContentinfo" id="9">
+          ......
+          </div>
+
+          <div class="listContentTitle" id="10">
+         
+3.30本西方文学经典，串起西方文明史
+          </div>
+          <div class="listContentinfo" id="11">
+          《鲁滨孙历险记》| 黄昱宁工作室解读
+          </div>
+          <div class="listContentinfo" id="12">
+
+《包法利夫人》| 黄昱宁工作室解读
+          </div>
+          <div class="listContentinfo" id="13">
+          《红与黑》| 黄昱宁工作室解读
+          </div>
+         
+          <div class="listContentinfo" id="14">
+     《鲁滨孙历险记》| 黄昱宁工作室解读
+          </div>
+          <div class="listContentinfo" id="15">
+        
+......
+          </div>
+         
+          <div class="listContentTitle" id="16">
+          4.脱不花的育儿必读书
+          </div>
+          <div class="listContentinfo" id="17">
+          《0-2岁宝宝想表达什么？》| 刘玄解读
+          </div>
+          <div class="listContentinfo" id="18">
+          《3-5岁幼儿为什么问个不停？》| 广行解读
+          </div>
+          <div class="listContentinfo" id="19">
+          《6-9岁孩子为何喜欢装大人？》| 良舟工作室解读
+          </div>
+          <div class="listContentinfo" id="20">
+          《10-14岁青少年，你在想什么？》| 闫冠男解读            
+          </div>
+          <div class="listContentTitle" id="21">
+  
+5.中年危机很焦虑，心理学书单来帮你
+          </div>
+          <div class="listContentinfo" id="22">
+          《优秀到不能被忽视》| 张凯解读
+          </div>
+          <div class="listContentinfo" id="23">
+          《积极的力量》| 张玥解读
+          </div>
+          <div class="listContentinfo" id="24">
+          《深度工作》| 张爽解读
+          </div>
+          <div class="listContentinfo" id="25">
+          更多书单，欢迎在得到听书首页查看。
+          </div>
+          
+
+
+
+          <div id="26" class="listContentTitle">
+          1.怎样用好OKR提高业务能力？
+          </div>
+          <div id="27" class="listContentinfo">
+          《这就是OKR》| 唐帅解读
+          </div>
+          <div id="28" class="listContentinfo">
+          《团队协作的五大障碍》| 广行解读
+          </div>
+          <div id="29" class="listContentinfo">
+          《德鲁克管理思想精要》| 伟萍解读
+          </div>
+          <div id="30" class="listContentTitle">
+          2.50本商业公司精读书单
+          </div>
+          <div class="listContentinfo" id="31">
+          《IBM帝国缔造者》| 徐玲解读
+
+          </div>
+          <div class="listContentinfo" id="32">
+          《成为乔布斯》| 安洋洋解读
+          </div>
+          <div class="listContentinfo" id="33">
+  
+《下一个倒下的会不会是华为》| 管理百年工作室解读
+          </div>
+          <div class="listContentinfo" id="34">
+          
+《穿布鞋的马云》| 管理百年工作室解读
+          </div>
+          <div class="listContentinfo" id="35">
+          ......
+          </div>
+
+          <div class="listContentTitle" id="36">
+         
+3.30本西方文学经典，串起西方文明史
+          </div>
+          <div class="listContentinfo" id="37">
+          《鲁滨孙历险记》| 黄昱宁工作室解读
+          </div>
+          <div class="listContentinfo" id="38">
+
+《包法利夫人》| 黄昱宁工作室解读
+          </div>
+          <div class="listContentinfo" id="39">
+          《红与黑》| 黄昱宁工作室解读
+          </div>
+         
+          <div class="listContentinfo" id="40">
+     《鲁滨孙历险记》| 黄昱宁工作室解读
+          </div>
+          <div class="listContentinfo" id="41">
+        
+......
+          </div>
+         
+          <div class="listContentTitle" id="42">
+          4.脱不花的育儿必读书
+          </div>
+          <div class="listContentinfo" id="43">
+          《0-2岁宝宝想表达什么？》| 刘玄解读
+          </div>
+          <div class="listContentinfo" id="44">
+          《3-5岁幼儿为什么问个不停？》| 广行解读
+          </div>
+          <div class="listContentinfo" id="45">
+          《6-9岁孩子为何喜欢装大人？》| 良舟工作室解读
+          </div>
+          <div class="listContentinfo" id="46">
+          《10-14岁青少年，你在想什么？》| 闫冠男解读            
+          </div>
+          <div class="listContentTitle" id="47">
+  
+5.中年危机很焦虑，心理学书单来帮你
+          </div>
+          <div class="listContentinfo" id="48">
+          《优秀到不能被忽视》| 张凯解读
+          </div>
+          <div class="listContentinfo" id="49">
+          《积极的力量》| 张玥解读
+          </div>
+          <div class="listContentinfo" id="50">
+          《深度工作》| 张爽解读
+          </div>
+          <div class="listContentinfo" id="51">
+          更多书单，欢迎在得到听书首页查看。
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+          </div>
         </div>
         <img id="windowImg" src="" style="height: 100%;margin: auto;border-radius: 20px;"/>
     </div>
@@ -1404,12 +1623,12 @@ function createBigClick(){
     {classList:"blink",id:"meiguoxianjing1",name:"美国陷阱-1",width:"90px",height:"118px",startDeg:17,marginTop:"-259px","point":"1111","link":"2222"},
     // {classList:"blink",id:"meiguoxianjing2",name:"美国陷阱-2 无",width:"0px",height:"0px",startDeg:9,marginTop:"-259px","point":"1111","link":"2222"},
     {id:"bianhengqin",name:"卞恒沁",width:"104px",height:"301px",startDeg:6,marginTop:"-89px","point":"1111","link":"2222"},
-    {id:"dasheji",name:"大设计",width:"99px",height:"124px",startDeg:-11,marginTop:"-254px","point":"1111","link":"2222"},
-    {id:"zhaizizhongguo",name:"宅兹中国",width:"99px",height:"123px",startDeg:-25,marginTop:"-258px","point":"1111","link":"2222"},
-    {id:"jinhuidui",name:"锦灰堆",width:"89px",height:"122px",startDeg:-6,marginTop:"-128px","point":"1111","link":"2222"},
-    {id:"xugoudeyoutaiminzu1",name:"虚构的犹太民族-1",width:"86px",height:"119px",startDeg:-18,marginTop:"-128px","point":"1111","link":"2222"},
+    // {id:"dasheji",name:"大设计",width:"99px",height:"124px",startDeg:-11,marginTop:"-254px","point":"1111","link":"2222"},
+    // {id:"zhaizizhongguo",name:"宅兹中国",width:"99px",height:"123px",startDeg:-25,marginTop:"-258px","point":"1111","link":"2222"},
+    // {id:"jinhuidui",name:"锦灰堆",width:"89px",height:"122px",startDeg:-6,marginTop:"-128px","point":"1111","link":"2222"},
+    {id:"list",name:"虚构的犹太民族-1",width:"250px",height:"188px",startDeg:-8,marginTop:"-234px",translateZ:'-390px',"point":"1111","link":"2222"},
     // {id:"xugoudeyoutaiminzu2",name:"虚构的犹太民族-2 无",width:"0px",height:"0px",startDeg:-21,marginTop:"-128px","point":"1111","link":"2222"},
-    {id:"xiaoshuodeyishu1",name:"小说的艺术-1",width:"92px",height:"121px",startDeg:-30,marginTop:"-126px","point":"1111","link":"2222"},
+    // {id:"xiaoshuodeyishu1",name:"小说的艺术-1",width:"92px",height:"121px",startDeg:-30,marginTop:"-126px","point":"1111","link":"2222"},
     // {id:"xiaoshuodeyishu2",name:"小说的艺术-2 无",width:"29px",height:"121px",startDeg:-36,marginTop:"-126px","point":"1111","link":"2222"},
     {id:"liuxuan",name:"刘玄",width:"110px",height:"285px",startDeg:-36,marginTop:"-16px","point":"1111","link":"2222"},
     {id:"tingshutieshi1",name:"听书帖士-1",width:"44px",height:"220px",startDeg:-45,marginTop:"-287px","point":"1111","link":"2222"},
@@ -1457,12 +1676,12 @@ function createBigClick(){
       {classList:"blink",id:"meiguoxianjing1",name:"美国陷阱-1",width:"90px",height:"118px",startDeg:14,marginTop:"-243px","point":"1111","link":"2222"},
       // {classList:"blink",id:"meiguoxianjing2",name:"美国陷阱-2 无",width:"0px",height:"0px",startDeg:9,marginTop:"-259px","point":"1111","link":"2222"},
       {id:"bianhengqin",name:"卞恒沁",width:"104px",height:"301px",startDeg:4,marginTop:"-108px","point":"1111","link":"2222"},
-      {id:"dasheji",name:"大设计",width:"99px",height:"124px",startDeg:-14,marginTop:"-238px","point":"1111","link":"2222"},
-      {id:"zhaizizhongguo",name:"宅兹中国",width:"99px",height:"123px",startDeg:-28,marginTop:"-238px","point":"1111","link":"2222"},
-      {id:"jinhuidui",name:"锦灰堆",width:"89px",height:"122px",startDeg:-9,marginTop:"-118px","point":"1111","link":"2222"},
-      {id:"xugoudeyoutaiminzu1",name:"虚构的犹太民族-1",width:"86px",height:"119px",startDeg:-21,marginTop:"-118px","point":"1111","link":"2222"},
+      // {id:"dasheji",name:"大设计",width:"99px",height:"124px",startDeg:-14,marginTop:"-238px","point":"1111","link":"2222"},
+      // {id:"zhaizizhongguo",name:"宅兹中国",width:"99px",height:"123px",startDeg:-28,marginTop:"-238px","point":"1111","link":"2222"},
+      // {id:"jinhuidui",name:"锦灰堆",width:"89px",height:"122px",startDeg:-9,marginTop:"-118px","point":"1111","link":"2222"},
+      {id:"list",name:"虚构的犹太民族-1",width:"250px",height:"188px",startDeg:-21,marginTop:"-218px","point":"1111","link":"2222"},
       // {id:"xugoudeyoutaiminzu2",name:"虚构的犹太民族-2 无",width:"0px",height:"0px",startDeg:-21,marginTop:"-128px","point":"1111","link":"2222"},
-      {id:"xiaoshuodeyishu1",name:"小说的艺术-1",width:"92px",height:"121px",startDeg:-33,marginTop:"-118px","point":"1111","link":"2222"},
+      // {id:"xiaoshuodeyishu1",name:"小说的艺术-1",width:"92px",height:"121px",startDeg:-33,marginTop:"-118px","point":"1111","link":"2222"},
       // {id:"xiaoshuodeyishu2",name:"小说的艺术-2 无",width:"29px",height:"121px",startDeg:-36,marginTop:"-126px","point":"1111","link":"2222"},
       {id:"liuxuan",name:"刘玄",width:"110px",height:"285px",startDeg:-38,marginTop:"-51px","point":"1111","link":"2222"},
       {id:"tingshutieshi1",name:"听书帖士-1",width:"44px",height:"220px",startDeg:-45,translateZ:'-700px',marginTop:"-287px","point":"1111","link":"2222"},
@@ -1555,8 +1774,48 @@ function addBigClickEvent(){
   $('#close').click(function () {
     $('#info').hide();
     $('#rules').hide();
+    $('#listinfo').hide();
     thewindow.hide();  
     canTouch = true;
+  });
+
+  //滚动列表
+  $('.list').click(function() {
+    $('#listinfo').show();
+    var i = 0;
+    setInterval(function(){
+    var thediv =$('#'+i);
+
+      MTween({
+        el: thediv[0],//
+        target: {
+          opacity: -100,//
+          marginTop: -1*thediv.height()
+        },
+        time: 800,
+        type: 'linear',
+        callBack: function() {
+          thediv.hide()
+
+
+
+          
+          i++;
+          if(i == 26){
+            $('#listContent').children().forEach(e => {
+              $(e).show();
+              $(e)[0].style = '';
+            });
+            i =0;
+          }
+
+
+        }
+      })
+
+
+
+    },1300);
   });
 }
 function initcloud(){
@@ -1815,6 +2074,10 @@ function getMoney() {
         //点击则跳转至cms奖金领取页。
         var link = encodeURIComponent(userInfo.activity_coupon_list[0].coupon_url);
         var url = 'igetapp://activity/detail?url='+link;
+        
+        //打点
+        sendPoint('jiangxuejin');
+
         Asio.send('jump.ddURL', {
           ddURL: url,
           ddURLMinVer: '5.1.0'
@@ -1861,6 +2124,10 @@ $(function(){
         $('#rules').hide();
         $('#window').hide();  
         canTouch = true;
+        
+
+        //打点
+        sendPoint('honghaobe10');
 
         //点击则跳转至cms奖金领取页。
         setTimeout(function(){
@@ -2032,7 +2299,7 @@ function sendPoint(str){
   if(!(Asio.send('') === false)){
     const asio = new Asio(window.___datasourse___.container);
     var content = { 'name' : str }
-    asio.nlog('s_ storytell_h5_goods', content);
+    asio.nlog('s_storytell_h5_goods', content);
   }
 }
 

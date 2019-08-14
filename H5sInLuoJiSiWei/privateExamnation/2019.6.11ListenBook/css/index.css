@@ -321,4 +321,43 @@ body {
 	background: #ffce48;
 	height: 100%;
 	border-radius: 0.5rem;
-  }
+}
+
+
+#listinfo {
+	position: absolute;
+	text-align: left;
+	height: 95%;
+	overflow: hidden;
+}
+#listTitleTop {
+	width: 70%;
+    margin: 40px auto 18px;
+    font-size: 1.4rem;
+	color: white;
+	font-weight:bold;
+}
+#listTitleContent {
+    width: 70%;
+    margin: 0px auto;
+    font-size: 1rem;
+    color: white;
+}
+#listContent {
+	position: relative;
+}
+
+#listContent .listContentTitle {
+    width: 70%;
+    margin: auto;
+    font-size: 1.125rem;
+    color: yellow;
+    font-weight: bold;
+    padding: 1.8rem 0rem 0.3rem 0rem;    
+}
+#listContent .listContentinfo {
+	width: 70%;
+    margin: 5px auto;
+    font-size: 0.9rem;
+	color: white;
+}
