@@ -1777,13 +1777,15 @@ function addBigClickEvent(){
     $('#listinfo').hide();
     thewindow.hide();  
     canTouch = true;
-  });
 
+    clearInterval(si);//停止
+  });
+  var si;
   //滚动列表
   $('.list').click(function() {
     $('#listinfo').show();
     var i = 0;
-    setInterval(function(){
+    si = setInterval(function(){
     var thediv =$('#'+i);
 
       MTween({
