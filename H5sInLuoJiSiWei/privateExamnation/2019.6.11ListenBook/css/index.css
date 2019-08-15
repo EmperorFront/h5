@@ -331,16 +331,16 @@ body {
 	overflow: hidden;
 }
 #listTitleTop {
-	width: 70%;
+	width: 65%;
     margin: 40px auto 18px;
-    font-size: 1.4rem;
+    font-size: 22px;
 	color: white;
 	font-weight:bold;
 }
-#listTitleContent {
-    width: 70%;
+#listTitleContent {3
+    width: 65%;
     margin: 0px auto;
-    font-size: 1rem;
+    font-size: 16px;
     color: white;
 }
 #listContent {
@@ -348,16 +348,16 @@ body {
 }
 
 #listContent .listContentTitle {
-    width: 70%;
+    width: 65%;
     margin: auto;
-    font-size: 1.125rem;
+    font-size: 18px;
     color: yellow;
     font-weight: bold;
-    padding: 1.8rem 0rem 0.3rem 0rem;    
+    padding: 28px 0px 4px 0px;    
 }
 #listContent .listContentinfo {
-	width: 70%;
+	width: 65%;
     margin: 5px auto;
-    font-size: 0.9rem;
+    font-size: 14px;
 	color: white;
 }

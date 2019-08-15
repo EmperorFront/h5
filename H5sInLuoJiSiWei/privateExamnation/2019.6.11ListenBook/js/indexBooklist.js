@@ -2097,7 +2097,7 @@ function getMoney() {
         Asio.send('ui.login');
       }else{
         //app外引流回来
-        var link = encodeURIComponent('https://pic1cdn.luojilab.com/html/poster/pickkX3m7qDzzhGqlAlPAgY.html');
+        var link = encodeURIComponent('https://pic1cdn.luojilab.com/html/poster/picvyLKPPjLjNf5W5N47mky.html');
         var url = 'igetapp://activity/detail?url='+link;
         Asio.weLaunch(url);
       }
@@ -2113,6 +2113,10 @@ $(function(){
         //点击则跳转至cms奖金领取页。
         var link = encodeURIComponent('https://pic1cdn.luojilab.com/html/poster/picqqL8W9PRlXcgGo6AXrGW.html');
         var url = 'igetapp://activity/detail?url='+link;
+
+        //打点
+        sendPoint('honghaobe10');
+
         Asio.send('jump.ddURL', {
           ddURL: url,
           ddURLMinVer: '5.1.0'
@@ -2126,8 +2130,7 @@ $(function(){
         canTouch = true;
         
 
-        //打点
-        sendPoint('honghaobe10');
+
 
         //点击则跳转至cms奖金领取页。
         setTimeout(function(){
