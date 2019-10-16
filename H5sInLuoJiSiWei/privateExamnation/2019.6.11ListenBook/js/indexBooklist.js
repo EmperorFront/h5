@@ -1777,8 +1777,14 @@ function addBigClickEvent(){
     $('#listinfo').hide();
     thewindow.hide();  
     canTouch = true;
-
+    
+    //滚动
     clearInterval(si);//停止
+    $('#listContent').children().forEach(e => {
+      $(e).show();
+      $(e)[0].style = '';
+    });
+    
   });
   var si;
   //滚动列表
