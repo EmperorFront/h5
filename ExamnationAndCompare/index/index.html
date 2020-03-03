@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div {
+            display: inline-block;
+            position: absolute;
+            /*transform:translateZ(0);*/
+        }
+        body {
+            padding:0;
+            margin:0;
+            overflow: hidden;
+        }
+        #box {
+            display: block;
+            width: 100px;
+            height: 100px;
+            background-color:rgba(0,0,0,0);
+            margin:auto;
+            border:1px solid;
+        }
+        @keyframes theMove
+        {
+            35%   {left:380px; top:580px;}
+            50%  {left:0px; top:0px;}
+            75%  {left:780px; top:0px;}
+            80% {left:0px; top:580px;}
+        }
+        a {
+            font-size: 50px;
+        }
+    </style>
+    <title>拖动测试</title>
+</head>
+<body>
+<div >
+    <p> <a href="http://www.baidu.com">组合式离屏缓存Canvas</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/canvasWayComplaxWithCache.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">组合式无缓存Canvas</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/canvasWayComplaxWithoutCache.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">单图式离屏缓存Canvas</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/canvasWayPicWithCache.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">单图式无缓存Canvas</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/canvasWayPicWithoutCache.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">单块式离屏缓存Canvas</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/canvasWaySimpleWithCache.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">单块式无缓存Canvas</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/canvasWaySimpleWithoutCache.html">点这里本地地址</a> </p>
+
+    <p> <a href="http://www.baidu.com">组合式dom硬件加速</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/DomWayComplaxWithHardWareSpeedup.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">组合式dom无硬件加速</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/DomWayComplaxWithoutHardWareSpeedup.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">单图式dom硬件加速</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/DomWayPicWithHardWareSpeedup.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">单图式dom无硬件加速</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/DomWayPicWithoutHardWareSpeedup.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">单块式dom硬件加速</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/DomWaySimpleWithHardWareSpeedup.html">点这里本地地址</a> </p>
+    <p> <a href="http://www.baidu.com">单块式dom无硬件加速</a>  <a href="file:///Users/liuxicheng/Desktop/mydoc/IT/h5/ExamnationAndCompare/CSS3-CanvasCompare/DomWaySimpleWithoutHardWareSpeedup.html">点这里本地地址</a> </p>
+   
+</div>
+</script>
+</body>
+</html>

@@ -43,6 +43,12 @@
     divLeft = getCss(div, "left"),
     divRight = getCss(div, "top");
     var currentms = new Date().getTime();
+    var currentmsRAF = new Date().getTime();
+
+    //全局配置当前位置
+    var positionLeft;
+    var positionTop;
+    
     function getCss(ele, prop) {
         return parseInt(window.getComputedStyle(ele)[prop]);
     }
@@ -51,17 +57,31 @@
         initY = e.changedTouches[0].clientY;
     }; 
     div.ontouchmove = function(e){
-        console.log(new Date().getTime() - currentms);
-        currentms = new Date().getTime();
-        setTimeout(function(){
-            var nowX = e.changedTouches[0].clientX,
-            nowY = e.changedTouches[0].clientY,
-            disX = nowX - initX,
-            disY = nowY - initY;
-            div.style.left = divLeft + disX + "px";
-            div.style.top = divRight + disY + "px";
-        },10);
+        // console.log(new Date().getTime() - currentms);//监控触发时间
+        // currentms = new Date().getTime();
+        var nowX = e.changedTouches[0].clientX,//挪位置
+        nowY = e.changedTouches[0].clientY,
+        disX = nowX - initX,
+        disY = nowY - initY;
+        positionLeft = divLeft + disX + "px";
+        positionTop = divRight + disY + "px";
     }
+
+    function raf (){
+        window.requestAnimationFrame(function(){
+            console.log('currentmsRAF',new Date().getTime() - currentmsRAF);//监控触发时间
+            currentmsRAF = new Date().getTime();
+
+            div.style.left = positionLeft
+            div.style.top = positionTop;
+
+            raf();
+        });
+    }
+
+    $(function(){
+        raf();
+    });
 </script>
 </body>
 </html>

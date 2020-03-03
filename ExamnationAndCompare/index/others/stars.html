@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+ * {
+ padding: 0;
+ margin: 0;
+}
+
+html,
+body {
+ overflow: hidden;
+ height: 100%;
+ width: 100%;
+ background-color: #111;
+}
+
+.bagua,
+.position {
+ position: absolute;
+ display: inline-block;
+ color: #fff;
+ text-align: center;
+ font-size: 50px;
+}
+
+.bagua {
+ width: 20vw;
+ height: 20vw;
+ background-color: red;
+}
+
+.position {
+ width: 10vw;
+ height: 10vw;
+ background-color: red;
+ line-height: 10vw;
+ text-align: center;
+}
+
+.transition {
+ transition: .2s all linear;
+}
+    </style>
+    <title>旋转缓存测试(有缓存)</title>
+</head>
+<body>
+<div >
+    <div class="bagua">八卦</div>
+    <div class="position" id='position1'>乾</div>
+    <div class="position" id='position2'>坎</div>
+    <div class="position" id='position3'>艮</div>
+    <div class="position" id='position4'>震</div>
+    <div class="position" id='position5'>巽</div>
+    <div class="position" id='position6'>离</div>
+    <div class="position" id='position7'>坤</div>
+</div>
+
+<script src="jquery.min.js"></script>
+<script>
+var windowHeight = window.innerHeight;
+
+var windowWidth = window.innerWidth;
+
+function yinyangMove(option) {
+    this.$position = $(option.selector || ".position#position1");
+    this.radian = option.radian || 0;
+    this.rotate = option.rotate || 0;
+    this.step = option.step || .15;
+    this.a = option.a || 1.1 * window.innerWidth / 2;
+    this.b = option.b || .7 * window.innerWidth / 2;
+    this.x = option.x || 0;
+    this.y = option.y || 0;
+    this.coord = {};
+    this.start = function() {
+        this.$position.addClass("transition");
+        this.timer = setInterval(function() {
+            this.setOnOval(this.radian += this.step);
+        }.bind(this), 200);
+    };
+    this.setOnOval = function(α) {
+        var cos = Math.cos(this.rotate * Math.PI / 180);
+        var sin = Math.sin(this.rotate * Math.PI / 180);
+        this.coord = {
+            x:this.a * sin * Math.cos(α) + this.b * cos * Math.sin(α) + this.x,
+            y:this.a * cos * Math.cos(α) - this.b * sin * Math.sin(α) + this.y
+        };
+        this.$position.css("transform", "translate(" + (windowWidth / 2 + this.coord.x - 20) + "px," + (windowHeight / 2 + this.coord.y - 20) + "px)");
+    };
+    return this;
+}
+
+$(function() {
+    $(".bagua").css("transform", "translate(" + (windowWidth / 2 - 37) + "px," + (windowHeight / 2 - 37) + "px)");
+    new yinyangMove({
+        selector:"#position1"
+    }).start();
+    new yinyangMove({
+        selector:"#position2",
+        radian:1,
+        rotate:-15
+    }).start();
+    new yinyangMove({
+        selector:"#position3",
+        radian:1.8,
+        rotate:-15
+    }).start();
+    new yinyangMove({
+        selector:"#position4",
+        radian:2.7,
+        rotate:-15
+    }).start();
+    new yinyangMove({
+        selector:"#position5",
+        radian:3.7,
+        rotate:-15
+    }).start();
+    new yinyangMove({
+        selector:"#position6",
+        radian:4.7,
+        rotate:-15
+    }).start();
+    new yinyangMove({
+        selector:"#position7",
+        radian:5.7,
+        rotate:-15
+    }).start();
+});
+</script>
+</body>
+</html>
