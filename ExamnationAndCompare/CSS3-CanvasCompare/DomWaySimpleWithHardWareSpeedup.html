@@ -27,12 +27,12 @@
             80% {left:0px; top:580px;}
         }
     </style>
-    <title>缓存测试(无缓存)</title>
+    <title>缓存测试(缓存)</title>
 </head>
 <body>
 <div >
     <div id='screen' width="800" height="600" style="width:800px; height: 600px; margin: 0 ; overflow: hidden"></div>
-    <p style="text-align:center; display: inline-block; top: 650px; position: absolute; width: 600px;">在简单图形的情况下，css3动画，即使缓存也并没有太大的优化效果，依旧是2000，由于消耗了更多资源，稳定在26-27fps</p>
+    <p style="text-align:center; display: inline-block; top: 650px; position: absolute; width: 600px;">在简单图形的情况下，css3动画，即使缓存也并没有太大的优化效果，是2000，由于消耗了更多资源，一会就开始卡了，GC大量触发 稳定在20fps</p>
 </div>
 <script src="../js/jquery-3.0.0.js"></script>
 <script>
