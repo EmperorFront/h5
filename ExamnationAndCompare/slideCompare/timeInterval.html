@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div {
+            display: inline-block;
+            position: absolute;
+            /*transform:translateZ(0);*/
+        }
+        body {
+            padding:0;
+            margin:0;
+            overflow: hidden;
+        }
+        #box {
+            display: block;
+            width: 100px;
+            height: 100px;
+            background-color:rgba(0,0,0,0);
+            margin:auto;
+            border:1px solid;
+        }
+        @keyframes theMove
+        {
+            35%   {left:380px; top:580px;}
+            50%  {left:0px; top:0px;}
+            75%  {left:780px; top:0px;}
+            80% {left:0px; top:580px;}
+        }
+    </style>
+    <title>拖动测试</title>
+</head>
+<body>
+<div >
+    <div id='screen' width="800" height="600" style="width:800px; height: 600px; margin: 0 ; overflow: hidden">
+        <div id="box"></div>
+    </div>
+</div>
+<script src="others/jquery.min.js"></script>
+<script>
+    var div = document.getElementById('box');
+    divLeft = getCss(div, "left"),
+    divRight = getCss(div, "top");
+    var currentms = new Date().getTime();
+    var currentmsRAF = new Date().getTime();
+
+    //全局配置当前位置
+    var positionLeft;
+    var positionTop;
+    
+    function getCss(ele, prop) {
+        return parseInt(window.getComputedStyle(ele)[prop]);
+    }
+    div.ontouchstart = function (e) {
+        initX = e.changedTouches[0].clientX;
+        initY = e.changedTouches[0].clientY;
+    }; 
+    div.ontouchmove = function(e){
+        // console.log(new Date().getTime() - currentms);//监控触发时间
+        // currentms = new Date().getTime();
+        var nowX = e.changedTouches[0].clientX,//挪位置
+        nowY = e.changedTouches[0].clientY,
+        disX = nowX - initX,
+        disY = nowY - initY;
+        positionLeft = divLeft + disX + "px";
+        positionTop = divRight + disY + "px";
+    }
+
+    function timeInterval (){
+        setInterval(function(){
+            // console.log('interval',new Date().getTime() - currentmsRAF);//监控触发时间
+            // currentmsRAF = new Date().getTime();
+
+            var left = $('#box')[0].offsetLeft;
+            $('#box').css('left',left+1);
+            left = $('#box')[0].clientLeft;
+            // div.style.top = positionTop;
+        },5);        
+    }
+
+
+    function raf (){
+        window.requestAnimationFrame(function(){
+            console.log('currentmsRAF',new Date().getTime() - currentmsRAF);//监控触发时间
+            currentmsRAF = new Date().getTime();
+
+            div.style.left = positionLeft
+            div.style.top = positionTop;
+
+            raf();
+        });
+    }
+
+    $(function(){
+        // raf();
+        timeInterval();
+    });
+</script>
+</body>
+</html>
