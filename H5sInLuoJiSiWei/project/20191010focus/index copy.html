@@ -1,67 +1,13 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>主页面</title>
     <style>
     
-.hidden {
-  display: none;
-}
-#clickFile {
-    position: absolute;
-    width: 57%;
-    height: 53vw;
-    top: 38vw;
-    left: 22%;
-}
-#word {
-    height: 18vw;
-    width: 55vw;
-    position: absolute;
-    background-size: cover;
-    top: 97vw;
-    border: 0px;
-    left: 22vw;
-    font-size: 3vw;
-    line-height: 6.5vw;
-    color: gray;
-}
-#submit {
-    width: 74vw;
-    height: 17vw;
-    background-image: url(https://piccdn.luojilab.com/fe-oss/default/MTU2ODg3NjM2OTY3.jpeg);
-    bottom: 5vw;
-    position: absolute;
-    left: 15vw;
-    background-size: cover;
-}
-#cutImgObj {
-  display: none;
-}
-.pg2 {
-    width: 100vw;
-    height: 100vh;
-    background-image: url(https://piccdn.luojilab.com/fe-oss/default/MTU2ODk3MDE2ODY5.jpeg);
-    top: 0;
-    position: absolute;
-    left: 0;
-    background-size: cover;
-}
-.shareimg {
-    width: 67vw;
-    top: 13vw;
-    position: absolute;
-    left: 18vw;
-    background-size: cover;
-}
-.sharebtn {
-    width: 68vw;
-    position: absolute;
-    bottom: 10vw;
-    left: 17vw;
-}   
     html, body, div, h1, h2, h3, h4, h5, h6, p, span, img, input, ul, li {
 	margin: 0;
 	padding: 0;
@@ -144,7 +90,7 @@ p {
 	box-shadow: 0 0 10px 2px rgba(255,255,255,0.6);
 }
     </style>
-  <link href="/app.js" rel="preload" as="script"></head>
+  </head>
   <body>
       <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk.min.js"></script>
       
@@ -152,26 +98,9 @@ p {
     1.上传
     2.输入
     3.压海报
-    <div id="root" style="background-image: url(&quot;https://piccdn.luojilab.com/fe-oss/default/MTU2ODg4MDcwOTM5.jpeg&quot;); width: 100%; height: 100%; position: absolute; background-size: cover; top: 0px;">
-      <input type="file" id="file" class="hidden">
-      <div id="clickFile"></div>
-      <textarea id="word" rows="3" cols="30" value="我是得到， 
-我每天在拥挤地铁上，好多好 
-听「每天听本书」好多豪赌。" style="background-image: url(&quot;https://piccdn.luojilab.com/fe-oss/default/MTU2ODg2NTc1OTM3.png&quot;);"></textarea>
-      <div id="submit"></div>
+    <div id="root">
 
-      <div class="container hidden">
-        <div class="page crop-box" style="display: block;"></div>
-        <div class="page page-choose" style="display: none;">
-          
-          <div class="pic-area" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
-
-          </div>
-        <div class="page page-result" style="display: block;"></div>
-      </div>
-      
-
-</div>
+    </div>
     <!-- built files will be auto injected -->
     <script>
 
@@ -190,7 +119,6 @@ p {
   //# sourceMappingURL=hammer.min.js.map
 
 
-  
   ;(function(window, document, undefined) {
 	'use strict';
 
@@ -997,7 +925,7 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
                         self.img.translateX += evt.deltaX;  
                     }
                     evt.preventDefault();
-                }
+                } 
             }));
 
             this.alloyFingerList.push(new AlloyFinger(this.cancel_btn, {
@@ -1128,8 +1056,8 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
         },
         crop: function () {
             this.calculateRect();
-            this.ctx.drawImage(this.img, this.crop_rect[0], this.crop_rect[1], this.crop_rect[2], this.crop_rect[3], 0, 0, this.canvas.width, this.canvas.height);
-            // this.ctx.drawImage(this.img, this.crop_rect[0], this.crop_rect[1], this.crop_rect[2], this.crop_rect[3], 0, 0, this.crop_rect[2]*this.img.scaleX, this.crop_rect[3]*this.img.scaleY);
+            //this.ctx.drawImage(this.img, this.crop_rect[0], this.crop_rect[1], this.crop_rect[2], this.crop_rect[3], 0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.drawImage(this.img, this.crop_rect[0], this.crop_rect[1], this.crop_rect[2], this.crop_rect[3], 0, 0, this.crop_rect[2]*this.img.scaleX, this.crop_rect[3]*this.img.scaleY);
 
         },
         calculateRect: function () {
@@ -1205,12 +1133,12 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
 
 
       var dom = `
-      <input type="file" id="file" class="hidden"/>
-      <div id="clickFile"></div>
-      <textarea id="word" rows="3" cols="30"/>
-      <div id="submit"></div>
+      <input type="file" id="file" />
+      <input id="word" />
+      <button id="cut"> 裁剪图片 </button>
+      <button id="submit"> 生成海报 </button>
 
-      <div class="container hidden">
+      <div class="container">
         <div class="page crop-box" style="display: block;"></div>
         <div class="page page-choose" style="display: none;">
           
@@ -1225,41 +1153,6 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
 
       $('#root').html(dom);
 
-      $('#root').css({
-        "background-image":"url(https://piccdn.luojilab.com/fe-oss/default/MTU2ODg4MDcwOTM5.jpeg)",
-        "width":"100%",
-        "height":"100%",
-        "position": "absolute",
-
-        "background-size": "cover",
-        "top":"0"
-      });
-
-      $('#clickFile').click(function() {
-        $('#file').click();
-      });
-      var word = $('#word');
-      word.css({'background-image':'url(https://piccdn.luojilab.com/fe-oss/default/MTU2ODg2NTc1OTM3.png)'});
-      var placeholder = '我是得到， \n我每天在拥挤地铁上，好多好 \n听「每天听本书」好多豪赌。';
-      word.attr('value', placeholder);
-      word.val(placeholder);
-
-
-      word.focus(function(){
-          if($(this).val() === placeholder){
-              $(this).val('');
-              word.css({'background-image':''});
-          }
-      });
-
-      word.blur(function(){
-          if($(this).val() ===''){
-              $(this).val(placeholder);
-              word.css({'background-image':'url(https://piccdn.luojilab.com/fe-oss/default/MTU2ODg2NTc1OTM3.png)'});
-          }    
-      });
-
-      //上传文件
       document.getElementById('file').addEventListener('change', function (e) {
           let file = e.target.files[0];
           let storeAs = 'upload-file';
@@ -1297,27 +1190,6 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
                           window.pageImageHref = href;
                           console.log('上传的图片地址是：'+href);
 
-                          //唤醒裁剪
-                          new AlloyCrop({
-                              image_src: window.pageImageHref,
-                              className: 'crop-box',
-                              circle: false, // 是否裁剪圆形
-                              width:199, // crop width 裁剪框宽度
-                              height: 357, // crop height 裁剪框高度
-                              output: 2, // output resolution --> 400*200
-                              ok: function (base64, canvas) { 
-                                $('#cutImgObj').attr('src',base64);
-
-
-                                $('.crop-box').remove();
-                              },
-                              cancel: function(){
-                                  console.log("你点击了取消");
-                                },
-                              ok_text: "裁剪", // optional parameters , the default value is ok
-                              cancel_text: "取消" // optional parameters , the default value is cancel
-                          });
-
 
                           //展示出来
                           let dom = `
@@ -1343,17 +1215,12 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
 
       $('#submit').click(function(){
         let word = $('#word').val();
-        let sentens =word.split(/\n/);
         //生成海报
-        let sentenst = 985;
-        let sentensl = 140;
-        let sentensmt = 47;
-        let ftonsize =34;
-        let ftcolor = '#ff6b00';
+
         imagen({
           canvas: {
             width: 750,
-            height: 1333,
+            height: 1410,
             background: '#FF7E37',
             // linearGradient:[{
             //   color: '#FF596D',
@@ -1364,92 +1231,135 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
             // }]
           },
           layers: [
-          //外框和装饰物
           {
             type: 'image',
-            image: 'https://piccdn.luojilab.com/fe-oss/default/MTU2ODg4NTUxNjcw.jpeg',
+            image: window.pageImageHref,
             left: 0,
             top: 0,
             width: 750,
-            height: 1333
+            height: 1440
           }, 
+          //外框和装饰物
           {
-            type: 'image',
-            image: $('#cutImgObj').attr('src'),
-            left: 78,
-            top: 70,
-            width: 596,
-            height: 1070
-          }, 
-          {
-            type: 'image',
-            image: 'https://piccdn.luojilab.com/fe-oss/default/MTU2ODk2MTg1NDk4.png',
-            left: 112,
-            top: 858,
-            width: 624,
-            height: 285
-          }, 
-          //第一行
-          {
-            type: 'text',
-            text: sentens[0],
-            left: sentensl,
-            top: sentenst,
-            width: 530,
-            fontSize: ftonsize,
-            height: 60,
-            lineHeight: 54,
-            color: ftcolor,
-            textAlign: 'left'
-          }, 
-          {
-            type: 'text',
-            text: sentens[1],
-            left: sentensl,
-            top: sentenst+sentensmt,
-            width: 530,
-            fontSize: ftonsize,
-            height: 60,
-            lineHeight: 54,
-            color: ftcolor,
-            textAlign: 'left'
-          }, 
-          {
-            type: 'text',
-            text: sentens[2],
-            left: sentensl,
-            top: sentenst+sentensmt*2,
-            width: 530,
-            fontSize: ftonsize,
-            height: 60,
-            lineHeight: 54,
-            color: ftcolor,
-            textAlign: 'left'
-          }, 
-          //二维码
-          {
-            type: 'qrcode',
-            text: "得到出品",
-            left: 613,
-            top: 992,
-            width: 110,
-            height: 110
-          }, 
+            type: 'div',
+            left: 40,
+            top: 183,
+            width: 670,
+            height: 925 ,
+            borderRadius: 37,
+            background: '#FFE4C2 '
+          }
           ]
         }).then((base64) => {
           this.shareImg = base64;
+          debugger;
 
           let dom = `
-                <div class="pg2">
-                    <img class="shareimg" src="` + this.shareImg + `"/>
-                    <img class="sharebtn" src="https://piccdn.luojilab.com/fe-oss/default/MTU2ODk3MDk3NTE5.jpeg"/>
-                </div>
+                    <img src="` + this.shareImg +
+                              `"/>
               `;
                           $('#root').append(dom);
         })
       });
 
-    </script>
-  <script type="text/javascript" src="/app.js"></script>
+      $('#cut').click(function(){
 
-<div id="cli_dialog_div"></div></body></html>
+
+
+
+  function SubType() {
+		var doc = document;
+		this.containerDom = document.querySelector('.container');
+		this.pageListDom = Array.prototype.slice.apply(document.querySelectorAll('.page'));
+		this.fileDom = document.querySelector('#files');
+		this.picAreaDom = document.querySelector('.pic-area');
+		this.submitBtnDom = document.querySelector('.submit-btn');
+		this.showAreaDom = document.querySelector('.show-area');
+	}
+
+	SubType.prototype = {
+		init: function() {
+			this.turnPage(0);//操作上传框
+		},
+
+		handleUpload: function() {
+			var reader = new FileReader(),
+				_this = this;
+			// reader.readAsDataURL(files);
+				_this.chooseComplete(window.pageImageHref);
+		},
+
+		chooseComplete: function(url) {
+			var _this = this;
+			this.cutter = new Cutter(this.picAreaDom, {
+				imgUrl: url,
+				conWidth: this.containerDom.offsetWidth,
+				conHeight: this.containerDom.offsetWidth * 1.2,
+				speed: 2,
+				callback: function() {
+					_this.turnPage(1);//操作拖拽框
+				}
+			});
+		},
+
+		cutImage: function() {
+			var result = this.cutter.cut();
+			this.showAreaDom.style.backgroundImage = 'url('+result+')';
+			this.turnPage(2);//操作结果框
+		},
+
+		turnPage: function(pageIndex) {
+			this.pageListDom.forEach(function(item, index) {
+				item.style.display = 'none';
+			});
+			this.pageListDom[pageIndex].style.display = 'block';
+		}
+	}
+
+
+
+
+	// var a = new SubType();
+	// a.init();
+
+  $('#cut').click(function(){
+    // a.handleUpload();
+    // a.cutImage();
+
+
+
+    new AlloyCrop({
+        image_src: window.pageImageHref,
+        className: 'crop-box',
+        circle: false, // 是否裁剪圆形
+        width: 200, // crop width 裁剪框宽度
+        height: 200, // crop height 裁剪框高度
+        output: 2, // output resolution --> 400*200
+        ok: function (base64, canvas) { 
+          $('#cutImgObj').attr('src',base64);
+
+
+          $('.crop-box').remove();
+        },
+        cancel: function () { },
+        ok_text: "yes", // optional parameters , the default value is ok
+        cancel_text: "no" // optional parameters , the default value is cancel
+    });
+
+
+
+  });
+	// a.fileDom.onchange = function(e) {
+	// 	a.handleUpload(e.target.files[0]);
+	// };
+
+	// a.submitBtnDom.onclick = function() {
+	// 	
+	// };
+
+
+      });
+
+    </script>
+  </body>
+</html>
